@@ -457,9 +457,9 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
               enterTo="translate-x-0"
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
-              className="fixed right-0 top-0 flex h-screen w-screen max-w-[22rem] flex-col bg-background-primary transition-transform duration-400">
+              className="fixed right-0 top-0 flex h-screen w-screen max-w-[22rem] flex-col bg-background-black transition-transform duration-400">
               <div className="flex flex-1 flex-col overflow-auto px-6 pb-6">
-                <div className="flex items-center justify-between py-4 text-primary">
+                <div className="flex items-center justify-between py-4 text-black">
                   <div className="flex gap-4">
                     <span className="text-md font-semibold uppercase">
                       Filters
@@ -515,7 +515,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                       ).has('price')}
                       name="Price">
                       <div>
-                        <div className="flex w-full justify-between text-primary">
+                        <div className="flex w-full justify-between text-black">
                           <span>
                             {formatPrice(
                               Math.max(
@@ -546,7 +546,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                 </ul>
               </div>
 
-              <div className="sticky bottom-0 flex flex-col gap-6 bg-background-primary p-6 shadow-3xl">
+              <div className="sticky bottom-0 flex flex-col gap-6 bg-background-black p-6 shadow-3xl">
                 <ul className="flex flex-wrap items-center gap-2">
                   {activeFilters?.map((filter) =>
                     Array.from(filter.values).map((value) => (
@@ -572,7 +572,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                   <li>
                     {!!activeFilters?.length && (
                       <button
-                        className="text-xs font-semibold text-primary"
+                        className="text-xs font-semibold text-black"
                         onClick={() => onFiltersChange([])}>
                         {/* TODO: i8n */}
                         Remove all
@@ -601,7 +601,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
               <Link href="/products" scroll={false}>
                 {/* If the current route is /products, show it as bold */}
                 <a
-                  className={`text-primary ${
+                  className={`text-black ${
                     router.pathname === '/products' ? 'font-semibold' : ''
                   }`}>
                   All products
@@ -616,7 +616,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                       setLoading(true);
                       setPriceRangeValue(undefined);
                     }}
-                    className={`text-primary ${
+                    className={`text-black ${
                       // If the category is active, show it as bold
                       category.slug === router.query.slug ? 'font-semibold' : ''
                     }`}>
@@ -671,7 +671,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                 ).has('price')}
                 name="Price">
                 <div>
-                  <div className="flex w-full justify-between text-primary">
+                  <div className="flex w-full justify-between text-black">
                     <span>
                       {formatPrice(
                         Math.max(

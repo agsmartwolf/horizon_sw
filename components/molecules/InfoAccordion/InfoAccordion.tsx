@@ -33,13 +33,13 @@ const InfoAccordion: React.FC<InfoAccordionProps> = ({
         {({ open }) => (
           <div className={classNames}>
             <Disclosure.Button className="flex w-full items-center justify-between py-4">
-              <span className="text-sm font-semibold text-primary">
+              <span className="text-sm font-semibold text-black">
                 {label}
               </span>
               {open ? (
-                <Minus width={12} height={12} className="text-primary" />
+                <Minus width={12} height={12} className="text-black" />
               ) : (
-                <Plus width={12} height={12} className="text-primary" />
+                <Plus width={12} height={12} className="text-black" />
               )}
             </Disclosure.Button>
 

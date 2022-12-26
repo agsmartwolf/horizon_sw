@@ -284,7 +284,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
             )}
             {liveSettings.calloutTitle || liveSettings.calloutDescription ? (
               <div className="mt-10">
-                <div className="rounded-md bg-background-secondary py-4 px-8 text-center text-primary">
+                <div className="rounded-md bg-background-secondary py-4 px-8 text-center text-black">
                   {liveSettings.calloutTitle ? (
                     <p
                       className="text-lg font-semibold"
@@ -407,7 +407,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
       </article>
       {!!upSells?.length && (
         <div className="py-10 lg:pl-14">
-          <h4 className="py-6 pl-6 font-headings text-2xl font-semibold text-primary lg:pl-0">
+          <h4 className="py-6 pl-6 font-headings text-2xl font-semibold text-black lg:pl-0">
             You may also like
           </h4>
 

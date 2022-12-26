@@ -14,7 +14,7 @@ const CartHeader = React.forwardRef<HTMLDivElement, CartHeaderProps>(
       {...props}
       ref={ref}
       className={[
-        'flex items-center justify-between text-primary',
+        'flex items-center justify-between text-black',
         props.className,
       ].join(' ')}>
       <div className="flex gap-4">

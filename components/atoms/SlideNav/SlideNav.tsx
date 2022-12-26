@@ -42,7 +42,7 @@ const SlideNav = React.forwardRef<HTMLDivElement, SlideNavProps>(
               }}
               className={`rounded-[50%] ${
                 value === i
-                  ? 'h-2 w-2 bg-primary'
+                  ? 'h-2 w-2 bg-white'
                   : 'h-1.5 w-1.5 bg-input-standard'
               }`}
             />

@@ -51,9 +51,9 @@ const QuizNavbar: React.FC<QuizNavbarProps> = ({
         'lg:h-30',
         containerClassName,
         {
-          'border-dividers bg-background-primary': !transparent,
+          'border-dividers bg-background-black': !transparent,
           [joinClasses(
-            'border-dividers bg-background-primary',
+            'border-dividers bg-background-black',
             'lg:border-transparent lg:bg-transparent',
           )]: transparent,
         },
@@ -75,7 +75,7 @@ const QuizNavbar: React.FC<QuizNavbarProps> = ({
 
         <Link href="/">
           <a className="ml-auto">
-            <Close className="h-5 w-5 text-primary" />
+            <Close className="h-5 w-5 text-black" />
           </a>
         </Link>
       </div>

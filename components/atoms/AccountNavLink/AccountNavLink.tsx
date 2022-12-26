@@ -16,7 +16,7 @@ const AccountNavLink: React.FC<AccountNavLinkProps> = ({
   <Link href={link}>
     <a
       className={useClassNames(
-        'decoration-skip-ink-none text-md text-body hover:underline md:font-bold md:text-primary',
+        'decoration-skip-ink-none text-md text-body hover:underline md:font-bold md:text-black',
         {
           underline: !!active,
         },

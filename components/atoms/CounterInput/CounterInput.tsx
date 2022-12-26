@@ -51,12 +51,12 @@ const CounterInput = React.forwardRef<HTMLDivElement, CounterInputProps>(
         ref={ref}
         onBlur={() => onBlur?.(value)}
         className={[
-          'inline-flex items-center rounded-lg border border-input-standard text-lg text-primary focus:outline-none focus-visible:ring focus-visible:ring-accent',
+          'inline-flex items-center rounded-lg border border-input-standard text-lg text-black focus:outline-none focus-visible:ring focus-visible:ring-accent',
           props.className,
         ].join(' ')}>
         <button
           type="button"
-          className="inline-flex items-center py-2 pl-3 pr-1 text-sm text-primary disabled:text-disabled"
+          className="inline-flex items-center py-2 pl-3 pr-1 text-sm text-black disabled:text-disabled"
           tabIndex={-1}
           disabled={props.min !== undefined && value <= Number(props.min)}
           onClick={decrement}>
@@ -69,7 +69,7 @@ const CounterInput = React.forwardRef<HTMLDivElement, CounterInputProps>(
           value={value.toString()}
           onChange={handleChange}
           onBlur={handleBlur}
-          className={`min-w-[2ch] appearance-none bg-background-primary py-2 text-center focus:outline-none ${styles.input}`}
+          className={`min-w-[2ch] appearance-none bg-background-black py-2 text-center focus:outline-none ${styles.input}`}
           style={{
             width: `${(value || props.min || 0).toString().length}ch`,
             ...props.style,
@@ -79,7 +79,7 @@ const CounterInput = React.forwardRef<HTMLDivElement, CounterInputProps>(
 
         <button
           type="button"
-          className="inline-flex items-center py-2 pr-3 pl-1 text-sm text-primary disabled:text-disabled"
+          className="inline-flex items-center py-2 pr-3 pl-1 text-sm text-black disabled:text-disabled"
           tabIndex={-1}
           disabled={props.max !== undefined && value >= Number(props.max)}
           onClick={increment}>

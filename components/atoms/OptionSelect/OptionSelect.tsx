@@ -23,7 +23,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   if (!active) return null;
   return (
     <div className={className ?? ''}>
-      <h3 className="font-headings text-sm font-semibold uppercase text-primary">
+      <h3 className="font-headings text-sm font-semibold uppercase text-black">
         {name}
       </h3>
       <div className="mt-2 flex items-center justify-start gap-2">

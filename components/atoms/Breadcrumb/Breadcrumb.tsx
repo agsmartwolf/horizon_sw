@@ -48,7 +48,7 @@ const Breadcrumb: React.FC<BreadcumbProps> = ({ className, customText }) => {
     <nav
       aria-label="breadcrumbs"
       className={[
-        'text-sm font-semibold capitalize tracking-wide text-primary',
+        'text-sm font-semibold capitalize tracking-wide text-black',
         className,
       ].join(' ')}>
       <ol className="flex">

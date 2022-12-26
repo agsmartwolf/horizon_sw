@@ -144,14 +144,14 @@ const BlogPreviewCard: React.FC<BlogPreviewCardProps> = ({
         </p>
         <h3
           className={[
-            'font-headings font-semibold text-primary',
+            'font-headings font-semibold text-black',
             titleClasses[size],
           ].join(' ')}>
           {title}
         </h3>
         <RichText
           content={description}
-          className={['text-primary', descriptionClasses[size]].join(' ')}
+          className={['text-black', descriptionClasses[size]].join(' ')}
         />
         <Tag
           className={['w-fit', tagClasses[size]].join(' ')}

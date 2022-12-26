@@ -74,7 +74,7 @@ const PlanSelect: React.FC<PlanSelectProps> = ({
       {({ open }) => (
         <>
           <Listbox.Button
-            className={`flex w-full items-center justify-between border border-primary px-6 py-4 text-sm text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 ${
+            className={`flex w-full items-center justify-between border border-primary px-6 py-4 text-sm text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 ${
               open ? 'rounded-t-lg border-b-transparent' : 'rounded-lg'
             }`}>
             <span className="flex items-center gap-2">
@@ -102,14 +102,14 @@ const PlanSelect: React.FC<PlanSelectProps> = ({
             </span>
           </Listbox.Button>
 
-          <Listbox.Options className="w-full rounded-b-lg border border-t-0 border-primary bg-background-primary px-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1">
+          <Listbox.Options className="w-full rounded-b-lg border border-t-0 border-primary bg-background-black px-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1">
             <hr className="border-t border-dividers" />
             <div className="pt-3 pb-4">
               {plans.map((plan) => (
                 <Listbox.Option key={plan?.id} value={plan}>
                   {({ active }) => (
                     <div
-                      className={`flex cursor-pointer justify-between rounded-lg px-2 py-3 text-sm text-primary ${
+                      className={`flex cursor-pointer justify-between rounded-lg px-2 py-3 text-sm text-black ${
                         active ? 'bg-background-secondary' : ''
                       }`}>
                       <span className="flex gap-2">

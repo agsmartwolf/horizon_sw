@@ -26,7 +26,7 @@ const QuizCrossSell: React.FC<QuizCrossSellProps> = ({
         'flex w-full flex-col items-center justify-center gap-y-10 bg-background-secondary py-14 lg:gap-y-14 lg:py-[72px]',
         props.className ?? '',
       ].join(' ')}>
-      <h2 className="text-center font-headings text-2xl font-semibold leading-[1.5] text-primary lg:text-5xl">
+      <h2 className="text-center font-headings text-2xl font-semibold leading-[1.5] text-black lg:text-5xl">
         {title}
       </h2>
       <div className="flex max-w-[342px] flex-col justify-center gap-y-10 lg:max-w-[calc(556px*2+56px)] lg:flex-row lg:flex-wrap lg:gap-14">

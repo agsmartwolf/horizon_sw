@@ -39,7 +39,7 @@ const Feature: React.FC<FeatureProps> = ({
     <div className={['relative', FEATURE_IMAGE_CLASS_MAP[imageSize]].join(' ')}>
       <Image {...image} {...layoutFillConfig} alt={image.alt} />
     </div>
-    <div className="mt-8 w-full font-headings text-xl text-primary lg:text-2xl">
+    <div className="mt-8 w-full font-headings text-xl text-black lg:text-2xl">
       <RichText content={title} />
     </div>
     {description && (

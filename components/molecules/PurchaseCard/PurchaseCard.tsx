@@ -59,11 +59,11 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
 }) => {
   const formatPrice = useCurrencyStore((state) => state.formatPrice);
   return (
-    <div className="border-outline rounded-xl border bg-background-primary p-6">
+    <div className="border-outline rounded-xl border bg-background-black p-6">
       <div className="md:flex md:justify-between">
         <div className="md:flex-1">
           <StatusIndicator status={status} />
-          <h3 className="mt-2 font-headings text-xl font-semibold text-primary">
+          <h3 className="mt-2 font-headings text-xl font-semibold text-black">
             {title}
           </h3>
 
@@ -78,7 +78,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
                   ]
                 }
               </span>
-              <span className="font-semibold text-primary">
+              <span className="font-semibold text-black">
                 {formatDateToLocale(date)}
               </span>
             </div>
@@ -86,7 +86,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
             {props.type === PURCHASE_TYPE.ORDER && (
               <div className="mt-1 flex justify-start gap-2 text-sm">
                 <span className="text-body">{LABELS['items']}</span>
-                <span className="font-semibold text-primary">
+                <span className="font-semibold text-black">
                   {props.itemsCount}
                 </span>
               </div>
@@ -120,7 +120,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
         {props.type === 'subscription' ? (
           <div className="flex flex-col space-y-2">
             {props?.billingSchedule && (
-              <div className="inline-flex items-center justify-start space-x-2 text-sm text-primary">
+              <div className="inline-flex items-center justify-start space-x-2 text-sm text-black">
                 <ScheduleLabel
                   type="billing"
                   base="Every"
@@ -137,7 +137,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
               </div>
             )}
             {props?.orderSchedule && (
-              <div className="inline-flex items-center justify-start gap-2 text-sm text-primary">
+              <div className="inline-flex items-center justify-start gap-2 text-sm text-black">
                 <ScheduleLabel
                   type="order"
                   base="Every"
@@ -155,7 +155,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
             )}
           </div>
         ) : (
-          <div className="inline-flex items-center justify-start gap-2 text-sm text-primary">
+          <div className="inline-flex items-center justify-start gap-2 text-sm text-black">
             {/* TODO: Make dyunamic */}
             <span className="text-body">Total</span>
             {/*formatPrice()*/}

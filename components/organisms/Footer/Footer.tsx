@@ -111,7 +111,7 @@ const Footer: React.FC<FooterProps> = ({
     <footer
       className={`${
         SECTION_MARGIN_MAP[horizontalPadding ?? SPACING.MEDIUM]
-      } bg-background-primary pb-6 pt-14`}>
+      } bg-background-black pb-6 pt-14`}>
       {/* Footer main content */}
       {(!!menu?.length || showNewsletter) && (
         <div className="lg:flex lg:justify-between">
@@ -122,9 +122,10 @@ const Footer: React.FC<FooterProps> = ({
           {showNewsletter && (
             <div className="mt-8 lg:mt-0 lg:max-w-lg">
               <h3
-                className="font-headings text-5xl font-semibold text-primary"
+                className="font-headings text-5xl font-semibold text-white"
                 dangerouslySetInnerHTML={{
-                  __html: newsletterTitle ?? "Let's keep in touch",
+                  __html: newsletterTitle ?? "Subscribe to the newsletter. \n" +
+                      "Find out about the promotions first",
                 }}></h3>
 
               <div className="mt-4">
@@ -169,7 +170,7 @@ const Footer: React.FC<FooterProps> = ({
                 value.show &&
                 !!value.url && (
                   <Link key={key} href={value.url}>
-                    <a className="leading-none text-primary">
+                    <a className="leading-none text-black">
                       {SOCIAL_ICONS_MAP[key as SOCIALS]}
                     </a>
                   </Link>
@@ -185,7 +186,7 @@ const Footer: React.FC<FooterProps> = ({
           <div className="flex justify-between lg:justify-start lg:gap-8">
             {secondaryMenu.map((item) => (
               <Link key={item.id} href={item.link}>
-                <a className="whitespace-nowrap text-center text-2xs text-primary lg:text-sm">
+                <a className="whitespace-nowrap text-center text-2xs text-black lg:text-sm">
                   {item.label}
                 </a>
               </Link>
@@ -195,7 +196,7 @@ const Footer: React.FC<FooterProps> = ({
 
         {!!copyrightText && (
           <div
-            className="mt-6 text-center text-2xs text-primary lg:mt-0 lg:text-sm"
+            className="mt-6 text-center text-2xs text-black lg:mt-0 lg:text-sm"
             dangerouslySetInnerHTML={{
               __html: `${copyrightText} ${PROMO_TEXT}`,
             }}></div>
@@ -210,7 +211,7 @@ const MobileColumns: React.FC<{ columns?: Column[] }> = ({ columns }) => (
     {columns?.map((column, i) => (
       <LinksAccordion
         key={column.heading ?? `column-${i}`}
-        title={column.heading ?? `Column ${i + 1}`}
+        title={column.heading ?? ``}
         items={column.items.map((item) => ({
           href: item.link,
           title: item.label,
@@ -228,14 +229,14 @@ const DesktopColumns: React.FC<{ columns?: Column[] }> = ({ columns }) =>
         <div
           key={column.heading ?? `column-${i}`}
           className="flex flex-col border-b border-dividers pb-4 lg:border-b-0 lg:p-0">
-          <h3 className="font-headings text-sm font-semibold uppercase text-primary">
+          <h3 className="font-headings text-sm font-semibold uppercase text-white">
             {column.heading}
           </h3>
           <ul className="mt-6 flex flex-col gap-2">
             {column.items.map((item) => (
               <li key={item.label}>
                 <Link href={item.link}>
-                  <a className="text-sm text-primary">{item.label}</a>
+                  <a className="text-sm text-white">{item.label}</a>
                 </Link>
               </li>
             ))}

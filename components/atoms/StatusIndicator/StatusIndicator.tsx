@@ -61,7 +61,7 @@ const StatusIndicator: React.FC<StatusIndicatorProps> = ({
       <div
         className="h-2 w-2 rounded-full"
         style={{ backgroundColor: template?.color }}></div>
-      <span className="text-2xs font-medium text-primary">
+      <span className="text-2xs font-medium text-black">
         {template?.label}
         {!!template?.details && (
           <>

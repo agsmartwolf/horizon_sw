@@ -59,7 +59,7 @@ const MultipleFeatures: ContentBlockComponent<MultipleFeaturesProps> = ({
     style={
       background_color ? { backgroundColor: background_color } : undefined
     }>
-    <h2 className="w-full font-headings text-5xl font-semibold text-primary">
+    <h2 className="w-full font-headings text-5xl font-semibold text-black">
       <RichText content={title} />
     </h2>
 

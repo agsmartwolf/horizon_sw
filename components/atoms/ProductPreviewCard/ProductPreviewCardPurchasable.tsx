@@ -53,7 +53,7 @@ const ProductPreviewCardPurchasable: React.FC<
   }, [activeVariation, origPrice, price]);
 
   const containerClassNames =
-    'relative flex flex-col gap-4 overflow-visible text-primary lg:min-w-0';
+    'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0';
 
   return (
     <div

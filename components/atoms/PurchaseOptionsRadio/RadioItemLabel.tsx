@@ -11,7 +11,7 @@ const RadioItemLabel: React.FC<RadioItemLabelProps> = ({
   children,
 }) => {
   return (
-    <span className="ml-1 flex w-full items-center justify-between gap-2 text-sm text-primary">
+    <span className="ml-1 flex w-full items-center justify-between gap-2 text-sm text-black">
       <span className="flex flex-col">
         <span className="uppercase">{name}</span>
         <span>{trial}</span>

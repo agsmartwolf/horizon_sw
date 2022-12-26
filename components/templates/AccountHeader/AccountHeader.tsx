@@ -36,7 +36,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
   const router = useRouter();
 
   const classNames = useClassNames(
-    'sticky top-0 left-0 z-header w-full font-headings bg-background-primary transform transition-transform duration-500 ease-in-out',
+    'sticky top-0 left-0 z-header w-full font-headings bg-background-black transform transition-transform duration-500 ease-in-out',
     {
       '-translate-y-full': shouldHide && !showMobileMenu,
       'shadow-3xl md:shadow-none': !!(pageTitle && mobileMenuLinks),
@@ -85,8 +85,8 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
           <div className="md:ml-6 lg:ml-14">
             <Link href={storeUrl}>
               <a className="hidden items-center gap-2 md:flex">
-                <ArrowLeft width={16} height={16} className="text-primary" />
-                <span className="text-sm font-semibold text-primary">
+                <ArrowLeft width={16} height={16} className="text-black" />
+                <span className="text-sm font-semibold text-black">
                   {backToShopLabel}
                 </span>
               </a>

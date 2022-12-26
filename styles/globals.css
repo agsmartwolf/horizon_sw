@@ -3,43 +3,35 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Poppins';
+  font-family: 'Sora';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../public/fonts/Poppins-Regular.ttf') format('TrueType');
+  src: url('../public/fonts/Sora-Regular.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Poppins';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url('../public/fonts/Poppins-Italic.ttf') format('TrueType');
-}
-
-@font-face {
-  font-family: 'Poppins';
+  font-family: 'Sora';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('../public/fonts/Poppins-Medium.ttf') format('TrueType');
+  src: url('../public/fonts/Sora-Medium.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Poppins';
+  font-family: 'Sora';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('../public/fonts/Poppins-SemiBold.ttf') format('TrueType');
+  src: url('../public/fonts/Sora-SemiBold.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Poppins';
-  font-style: italic;
-  font-weight: 600;
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 700;
   font-display: swap;
-  src: url('../public/fonts/Poppins-SemiBoldItalic.ttf') format('TrueType');
+  src: url('../public/fonts/Sora-Bold.woff2') format('woff2');
 }
 
 html,
@@ -77,12 +69,12 @@ body {
     @apply mb-0;
   }
 
-  .path-fill-primary path {
-    @apply fill-primary;
+  .path-fill-black-100 path {
+    @apply fill-black-100;
   }
 
-  .path-fill-background-primary path {
-    @apply fill-background-primary;
+  .path-fill-background-black path {
+    @apply fill-background-black;
   }
 
   .straight-quotation {

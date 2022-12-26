@@ -116,7 +116,7 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
                 className="rounded-lg"
               />
             </div>
-            <div className="text-primary">
+            <div className="text-black">
               <h4 className="font-headings text-lg lg:text-xl">{title}</h4>
               <p className="mt-1 text-sm">
                 {activeVariation?.standardPrice?.price && (
@@ -200,7 +200,7 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
             max={99}
           />
           <Button
-            className="path-fill-primary hover:path-fill-background-primary"
+            className="path-fill-black-100 hover:path-fill-background-black"
             fullWidth
             elType={BUTTON_TYPE.BUTTON}
             type="submit">

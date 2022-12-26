@@ -89,7 +89,7 @@ const SearchMenu: React.FC<SearchMenuProps> = ({
     <div className="relative z-[-1]">
       <Transition
         show={show}
-        className="shadow-md absolute w-full bg-background-primary transition-transform"
+        className="shadow-md absolute w-full bg-background-black transition-transform"
         enter={`ease-out duration-[600ms] ${
           openDelay ? 'delay-[1000ms] lg:delay-[300ms]' : 'delay-[300ms]'
         }`}
@@ -111,7 +111,7 @@ const SearchMenu: React.FC<SearchMenuProps> = ({
               className="ml-6 hidden lg:inline-block"
               type="button"
               onClick={closeMenu}>
-              <CloseIcon className="h-5 w-5 text-primary" />
+              <CloseIcon className="h-5 w-5 text-black" />
             </button>
           </form>
           <ProductCount

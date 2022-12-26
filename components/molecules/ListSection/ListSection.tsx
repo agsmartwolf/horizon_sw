@@ -18,7 +18,7 @@ const TextSection: React.FC<TextSectionProps> = ({
   horizontal_spacing: horizontalSpacing,
 }) => (
   <section
-    className={`${SECTION_MARGIN_MAP[horizontalSpacing]} flex flex-col gap-8 text-md text-primary lg:text-lg`}>
+    className={`${SECTION_MARGIN_MAP[horizontalSpacing]} flex flex-col gap-8 text-md text-black lg:text-lg`}>
     {title && (
       <RichText
         className="text-center font-headings text-5xl"

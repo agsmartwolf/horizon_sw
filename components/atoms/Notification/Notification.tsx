@@ -17,7 +17,7 @@ const Notification: React.FC<NotificationProps> = ({
       'text-success-dark bg-success-light': type === NOTIFICATION_TYPE.SUCCESS,
       'text-warning-dark bg-warning-light': type === NOTIFICATION_TYPE.WARNING,
       'text-error-dark bg-error-light': type === NOTIFICATION_TYPE.ERROR,
-      'text-primary bg-background-primary': type === NOTIFICATION_TYPE.INFO,
+      'text-black bg-background-black': type === NOTIFICATION_TYPE.INFO,
     },
     styles.toast,
   );

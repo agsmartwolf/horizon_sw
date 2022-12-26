@@ -35,7 +35,7 @@ const ReviewsSection: ContentBlockComponent<ReviewsSectionProps> = ({
       ${SECTION_PADDING_MAP[horizontal_spacing]} 
       ${SECTION_VERTICAL_PADDING_MAP[vertical_spacing]}
     `}>
-      <h2 className="text-center font-headings text-5xl font-semibold text-primary lg:text-7xl">
+      <h2 className="text-center font-headings text-5xl font-semibold text-black lg:text-7xl">
         {title}
       </h2>
 

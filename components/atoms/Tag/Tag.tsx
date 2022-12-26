@@ -13,8 +13,8 @@ const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
       'lg:text-3xs',
       {
         'py-2 lg:py-1.5': !paddingYClasses,
-        'bg-accent text-primary': !secondary,
-        'bg-input-standard text-background-primary': !!secondary,
+        'bg-accent text-black': !secondary,
+        'bg-input-standard text-background-white': !!secondary,
       },
       paddingYClasses,
       props.className,

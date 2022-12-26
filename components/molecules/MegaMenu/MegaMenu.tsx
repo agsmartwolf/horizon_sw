@@ -5,7 +5,7 @@ import ProductDisplay from 'components/molecules/ProductDisplay';
 import { getHref, getTarget } from 'lib/utils/nav';
 import { NavItem, NAV_ITEM_TYPE, RootNavItem } from 'types/nav';
 
-const defaultLinkClasses = 'font-medium uppercase text-primary';
+const defaultLinkClasses = 'font-medium uppercase text-white';
 
 export interface MegaMenuProps extends NavigationMenu.NavigationMenuListProps {
   items: RootNavItem[];
@@ -27,7 +27,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
   const getExpandedMenuItem = useCallback((item: NavItem, index: number) => {
     const defaultLink = (
       <li key={index}>
-        <MenuLink item={item} className="text-md font-normal text-primary" />
+        <MenuLink item={item} className="text-md font-normal text-white" />
       </li>
     );
 
@@ -78,7 +78,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
         return (
           <li
             key={index}
-            className="font-headings text-md font-semibold uppercase text-primary">
+            className="font-headings text-md font-semibold uppercase text-black">
             {item.name}
           </li>
         );
@@ -91,7 +91,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
   return (
     <NavigationMenu.List
       {...props}
-      className={`hidden flex-wrap items-center gap-x-10 gap-y-4 justify-self-start bg-background-primary text-md text-primary lg:flex ${
+      className={`hidden flex-wrap items-center gap-x-10 gap-y-4 justify-self-start bg-background-black text-md text-black lg:flex ${
         props.className ?? ''
       }`}>
       {items.map((item, index) => (
@@ -101,7 +101,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
           {/* Popup content if the nav item is of type trigger */}
           <NavigationMenu.Content
             className={`
-                  bg-background-primary py-8 px-14
+                  bg-background-black py-8 px-14
                   radix-motion-from-end:animate-enter-from-right
                   radix-motion-from-start:animate-enter-from-left
                   radix-motion-to-end:animate-exit-to-right

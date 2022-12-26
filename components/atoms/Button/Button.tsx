@@ -75,19 +75,19 @@ const Button = React.forwardRef<
       'disabled:pointer-events-none disabled:select-none',
       {
         [joinClasses(
-          'text-button-secondary bg-button-primary',
-          'hover:bg-button-secondary hover:text-button-primary',
-          'active:bg-button-secondary active:text-button-secondary',
+          'text-button-white bg-button-black',
+          'hover:bg-green-200 hover:text-button-black hover:border-green-200',
+          'active:bg-button-green-300 active:text-button-black',
           'disabled:bg-disabled disabled:border-disabled',
         )]: buttonStyle === BUTTON_STYLE.PRIMARY,
         [joinClasses(
-          'text-button-primary bg-button-secondary',
-          'hover:bg-button-primary hover:text-button-secondary',
-          'active:bg-button-secondary active:text-button-secondary',
-          'disabled:bg-button-secondary disabled:border-disabled disabled:text-disabled',
+          'text-button-black bg-button-green border-green-100',
+          'hover:bg-green-200 hover:border-green-200',
+          'active:bg-button-white active:text-button-white',
+          'disabled:bg-button-white disabled:border-disabled disabled:text-disabled',
         )]: buttonStyle === BUTTON_STYLE.SECONDARY,
         [joinClasses(
-          'text-button-secondary bg-error-dark',
+          'text-button-white bg-error-dark',
           'hover:bg-transparent hover:text-error-dark',
           'active:bg-error-light hover:text-error-dark',
           'disabled:bg-disabled disabled:border-disabled',
@@ -95,7 +95,7 @@ const Button = React.forwardRef<
         'py-4 px-16': !small,
         'py-2 px-10': small,
         'py-4 px-2 w-full': fullWidth,
-        'border-button-primary':
+        'border-button-white':
           hasBorder &&
           (buttonStyle === BUTTON_STYLE.PRIMARY ||
             buttonStyle === BUTTON_STYLE.SECONDARY),

@@ -70,7 +70,7 @@ const QuizCheckout = React.forwardRef<HTMLDivElement, QuizCheckoutProps>(
     );
 
     const headingClasses = useClassNames(
-      'inline-flex w-full justify-between text-xl font-headings font-semibold text-primary',
+      'inline-flex w-full justify-between text-xl font-headings font-semibold text-black',
       'lg:mb-4 lg:text-2xl',
       {
         'mb-6 items-center': showTag,
@@ -81,7 +81,7 @@ const QuizCheckout = React.forwardRef<HTMLDivElement, QuizCheckoutProps>(
     return (
       <aside
         className={joinClasses(
-          'flex flex-col gap-y-8 bg-background-primary p-6',
+          'flex flex-col gap-y-8 bg-background-black p-6',
           'lg:max-w-[528px] lg:gap-y-10 lg:bg-transparent lg:px-12 lg:py-0',
           props.className ?? '',
         )}
@@ -95,7 +95,7 @@ const QuizCheckout = React.forwardRef<HTMLDivElement, QuizCheckoutProps>(
           </h3>
           <p className="text-md text-body">{description}</p>
         </header>
-        <div className="flex flex-col gap-y-6 text-lg font-semibold text-primary">
+        <div className="flex flex-col gap-y-6 text-lg font-semibold text-black">
           {rows.map(row)}
         </div>
         <div className="flex flex-col gap-y-4">
@@ -105,7 +105,7 @@ const QuizCheckout = React.forwardRef<HTMLDivElement, QuizCheckoutProps>(
             onClick={() => console.log('checkout')}>
             {checkoutLabel}
           </Button>
-          <p className="px-8 text-center text-sm font-medium text-primary">
+          <p className="px-8 text-center text-sm font-medium text-black">
             {paymentText}
           </p>
         </div>

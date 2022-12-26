@@ -49,7 +49,7 @@ const GhostButton = React.forwardRef<
     ref,
   ) => {
     const classNames = useClassNames(
-      'text-primary flex items-center font-semibold',
+      'text-black flex items-center font-semibold',
       props.className,
       {
         'text-xs': small,

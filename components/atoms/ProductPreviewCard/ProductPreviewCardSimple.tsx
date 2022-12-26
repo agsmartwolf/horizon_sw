@@ -23,7 +23,7 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
   const { description, image, price, origPrice, title, href } = product;
 
   const containerClassNames =
-    'relative flex flex-col gap-4 overflow-visible text-primary lg:min-w-0';
+    'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0';
 
   return (
     <div

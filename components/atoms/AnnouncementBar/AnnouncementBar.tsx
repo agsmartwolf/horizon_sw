@@ -8,11 +8,11 @@ export interface AnnouncementBarProps
 }
 
 const AnnouncementBar: React.FC<AnnouncementBarProps> = ({ content }) => (
-  <div className="bg-primary p-2 text-center">
+  <div className="bg-white p-2 text-center">
     <RichText
       content={content}
       rootEl="p"
-      className="text-sm font-medium text-background-primary"
+      className="text-sm font-medium text-background-white"
     />
   </div>
 );

@@ -71,7 +71,7 @@ const Memberships: ContentBlockComponent<MembershipsProps> = ({
         />
       )}
       <div className="relative flex flex-col gap-4">
-        <p className="text-center font-headings text-5xl font-semibold text-primary">
+        <p className="text-center font-headings text-5xl font-semibold text-black">
           {title}
         </p>
         <p className="text-center text-2xl text-body">{description}</p>

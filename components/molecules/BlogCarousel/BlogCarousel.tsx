@@ -46,7 +46,7 @@ const BlogCarousel: React.FC<BlogCarouselProps> = ({
         'flex flex-col lg:mx-auto lg:items-center',
         verticalPaddingClass,
       ].join(' ')}>
-      <h2 className="px-6 text-center font-headings text-5xl font-semibold text-primary lg:px-0">
+      <h2 className="px-6 text-center font-headings text-5xl font-semibold text-black lg:px-0">
         {title}
       </h2>
       <div

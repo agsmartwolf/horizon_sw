@@ -18,7 +18,7 @@ const Star: React.FC<StarProps> = ({
   updateRating,
 }) => {
   const id = `star${value}`;
-  const fillColor = filled ? 'text-primary' : 'text-disabled';
+  const fillColor = filled ? 'text-black' : 'text-disabled';
 
   return (
     <div className="relative">

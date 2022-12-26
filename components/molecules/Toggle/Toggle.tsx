@@ -39,7 +39,7 @@ const Toggle: React.FC<ToggleProps> = ({
         }
       }}
       aria-checked={checked}
-      className="flex w-full cursor-pointer items-center justify-between gap-6 rounded-sm text-md text-primary outline-offset-1 outline-accent focus-visible:outline">
+      className="flex w-full cursor-pointer items-center justify-between gap-6 rounded-sm text-md text-black outline-offset-1 outline-accent focus-visible:outline">
       <div className="flex w-full items-center gap-1 text-left">
         <span className="text-sm font-semibold uppercase">{name}</span>
         {!!priceDifference && (

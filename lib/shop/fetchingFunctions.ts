@@ -20,6 +20,7 @@ import type { QuizResultsProducts } from 'components/molecules/QuizResults';
 import { hasQuickAdd, mapProducts } from 'lib/utils/products';
 import { formatStoreSettings } from 'utils/settings';
 import { formatProductImages } from 'lib/utils/products';
+import { ProductTag, ProductType } from 'types/shared/products';
 
 const client = getGQLClient();
 
@@ -396,4 +397,31 @@ export const getStoreSettings = async () => {
     storeData.data.storeSettings?.values,
     menusData.data.menuSettings,
   );
+};
+
+export const getBundles = async () => {
+  const { products } = await client
+    .getFilteredProducts({
+      filter: {
+        type: { $eq: ProductType.bundle },
+      },
+    })
+    .then((response) => response.data);
+
+  const productResults = denullifyArray(products?.results);
+
+  return productResults;
+};
+export const getBestsellers = async () => {
+  const { products } = await client
+    .getFilteredProducts({
+      filter: {
+        tags: { $in: [ProductTag.bestseller] },
+      },
+    })
+    .then((response) => response.data);
+
+  const productResults = denullifyArray(products?.results);
+
+  return productResults;
 };

@@ -197,14 +197,14 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
         <fieldset className="flex h-full w-full flex-1 flex-col justify-between">
           <div>
             <legend className="w-full text-center">
-              <h1 className="font-headings text-2xl font-semibold text-primary md:text-5xl">
+              <h1 className="font-headings text-2xl font-semibold text-black md:text-5xl">
                 {text.logInTitle}
               </h1>
             </legend>
             <div className="mt-8">
               <p>
                 <label
-                  className="text-xs font-semibold uppercase text-primary"
+                  className="text-xs font-semibold uppercase text-black"
                   htmlFor="email">
                   {text.emailLabel}
                 </label>
@@ -231,7 +231,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
               </p>
               <p className="mt-4">
                 <label
-                  className="text-xs font-semibold uppercase text-primary"
+                  className="text-xs font-semibold uppercase text-black"
                   htmlFor="password">
                   {text.passwordLabel}
                 </label>
@@ -275,7 +275,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                 {text.logInButton}
               </Button>
 
-              <p className="mt-4 text-center text-sm text-primary md:mt-6">
+              <p className="mt-4 text-center text-sm text-black md:mt-6">
                 {text.noAccount}&nbsp;
                 <Link href="/account/sign-up">
                   <a className="font-bold hover:underline">{text.signUp}</a>

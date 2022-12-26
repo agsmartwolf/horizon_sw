@@ -30,7 +30,7 @@ Default.args = {
     trialDays: 30,
   },
   icon: true,
-  textClasses: 'text-sm text-primary',
+  textClasses: 'text-sm text-black',
   iconClasses: 'w-4',
 };
 
@@ -44,7 +44,7 @@ Order.args = {
     trialDays: 30,
   },
   icon: true,
-  textClasses: 'text-sm text-primary',
+  textClasses: 'text-sm text-black',
   iconClasses: 'w-4',
 };
 
@@ -57,5 +57,5 @@ NoIcon.args = {
     intervalCount: 1,
     trialDays: 30,
   },
-  textClasses: 'text-sm text-primary',
+  textClasses: 'text-sm text-black',
 };

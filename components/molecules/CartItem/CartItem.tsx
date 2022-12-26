@@ -126,12 +126,12 @@ const CartItem: React.FC<CartItemProps> = ({
           <div className="flex justify-between">
             <Link href={href}>
               <a>
-                <h5 className="font-headings text-sm font-semibold text-primary">
+                <h5 className="font-headings text-sm font-semibold text-black">
                   {title}
                 </h5>
               </a>
             </Link>
-            <button className="text-primary" onClick={() => removeItem(id)}>
+            <button className="text-black" onClick={() => removeItem(id)}>
               <Close className="mr-0.5 h-3 w-3" />
             </button>
           </div>
@@ -170,7 +170,7 @@ const CartItem: React.FC<CartItemProps> = ({
           <span className="flex flex-col">
             {hasTrial ? (
               <>
-                <span className="text-sm font-semibold text-primary">
+                <span className="text-sm font-semibold text-black">
                   <Price price={0} origPrice={afterTrialPrice} />
                 </span>
                 <TrialLabel
@@ -179,7 +179,7 @@ const CartItem: React.FC<CartItemProps> = ({
                 />
               </>
             ) : (
-              <span className="text-sm font-semibold text-primary">
+              <span className="text-sm font-semibold text-black">
                 <Price price={priceTotal} />
               </span>
             )}

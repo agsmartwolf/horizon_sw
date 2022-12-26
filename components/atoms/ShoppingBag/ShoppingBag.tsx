@@ -14,7 +14,7 @@ const ShoppingBag = React.forwardRef<HTMLButtonElement, ShoppingBagProps>(
       className={['relative', props.className].join(' ')}>
       {!!itemQuantity && (
         <div
-          className="absolute -right-1 -top-1 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-primary text-2xs text-background-primary"
+          className="absolute -right-1 -top-1 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-white text-2xs text-background-white"
           style={{
             width: `calc(min(${
               itemQuantity.toString().length
@@ -23,7 +23,7 @@ const ShoppingBag = React.forwardRef<HTMLButtonElement, ShoppingBagProps>(
           {itemQuantity < 1000 ? itemQuantity : '999+'}
         </div>
       )}
-      <BagEmptyIcon className="h-5 w-5 text-primary" />
+      <BagEmptyIcon className="h-5 w-5 text-white" />
     </button>
   ),
 );

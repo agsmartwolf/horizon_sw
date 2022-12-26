@@ -16,7 +16,7 @@ const BlockQuote: React.FC<QuoteProps> = ({
 
   return (
     <section
-      className={`${SECTION_MARGIN_MAP[horizontalSpacing]} flex flex-col border-l-4 border-primary bg-background-primary pl-6 font-semibold text-primary lg:pl-10`}>
+      className={`${SECTION_MARGIN_MAP[horizontalSpacing]} flex flex-col border-l-4 border-primary bg-background-black pl-6 font-semibold text-black lg:pl-10`}>
       <blockquote
         cite={citeURL}
         className="relative ml-1 pb-6 text-xl lg:ml-2 lg:pt-1.5">

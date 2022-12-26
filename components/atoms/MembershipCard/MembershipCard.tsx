@@ -71,8 +71,8 @@ const MembershipCard: React.FC<MembershipCardProps> = ({
     'flex max-w-[342px] flex-col rounded-2xl',
     'lg:max-w-[368px]',
     {
-      'border-primary border-2 bg-primary': !!highlight,
-      'bg-background-primary shadow-3xl': !highlight,
+      'border-primary border-2 bg-white': !!highlight,
+      'bg-background-black shadow-3xl': !highlight,
     },
     props.className,
   );
@@ -80,16 +80,16 @@ const MembershipCard: React.FC<MembershipCardProps> = ({
   return (
     <form className={className} onSubmit={handleSubmit}>
       {!!highlight && (
-        <p className="w-full py-2 text-center text-sm font-semibold uppercase text-background-primary lg:text-md lg:tracking-wide">
+        <p className="w-full py-2 text-center text-sm font-semibold uppercase text-background-white lg:text-md lg:tracking-wide">
           {highlight}
         </p>
       )}
-      <div className="z-10 flex grow flex-col items-center rounded-2xl bg-background-primary px-6 pt-14 pb-6">
+      <div className="z-10 flex grow flex-col items-center rounded-2xl bg-background-black px-6 pt-14 pb-6">
         <header className="mb-4 flex flex-col items-center lg:mb-6">
           <div className="relative mb-8 h-20 w-20 lg:h-[100px] lg:w-[100px]">
             <Image {...image} {...layoutFillConfig} alt={image.alt} />
           </div>
-          <h3 className="mb-1 text-center font-headings text-xl font-semibold text-primary lg:text-2xl">
+          <h3 className="mb-1 text-center font-headings text-xl font-semibold text-black lg:text-2xl">
             <RichText content={title} />
           </h3>
           <p className="text-center text-sm font-medium text-body lg:font-normal">
@@ -98,7 +98,7 @@ const MembershipCard: React.FC<MembershipCardProps> = ({
         </header>
         <main className="flex w-full grow flex-col">
           {subscriptionPlan && (
-            <p className="mb-4 flex w-full items-start justify-center gap-x-0.5 text-primary">
+            <p className="mb-4 flex w-full items-start justify-center gap-x-0.5 text-black">
               <span className="text-2xl leading-[2.167]">{currencySymbol}</span>
               <span className="text-7xl leading-[1.65] tracking-wide">
                 {subscriptionPlan.price}

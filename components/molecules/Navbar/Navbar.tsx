@@ -40,7 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({
   );
 
   const logoClassNames = useClassNames(
-    'absolute lg:static lg:translate-x-0 lg:justify-self-center transition-all duration-[400ms] ease-in-out',
+    'absolute lg:static lg:translate-x-0 lg:justify-self-center transition-all duration-[400ms] ease-in-out left-0',
     {
       'left-5': openMenu === MENU_TYPE.MOBILE,
       'left-1/2 -translate-x-1/2': openMenu !== MENU_TYPE.MOBILE,
@@ -48,19 +48,16 @@ const Navbar: React.FC<NavbarProps> = ({
   );
 
   return (
-    <div className="bg-background-primary">
-      <div className="relative mx-auto grid max-w-screen-3xl grid-cols-3 items-center py-5 px-4 text-primary lg:px-10 lg:py-6">
+    <div className="bg-background-black">
+      <div className="relative mx-auto grid max-w-screen-3xl grid-cols-3 items-center py-5 px-4 text-white lg:px-10 lg:py-6">
         {/* Mobile burger icon */}
         <button
           className={`justify-self-start transition-opacity duration-300 ease-in-out lg:hidden ${
             openMenu === MENU_TYPE.MOBILE ? 'opacity-0' : 'opacity-100'
           }`}
           onClick={() => setOpenMenu(MENU_TYPE.MOBILE)}>
-          <BurgerIcon className="h-4 w-5" />
+          <BurgerIcon className="h-4 w-5 fill-background-white" />
         </button>
-
-        {/* Desktop nav links */}
-        <MegaMenu className="z-10" items={menu ?? []} />
 
         <Link href="/" passHref>
           <a className={logoClassNames}>
@@ -68,13 +65,16 @@ const Navbar: React.FC<NavbarProps> = ({
           </a>
         </Link>
 
+        {/* Desktop nav links */}
+        <MegaMenu className="z-10" items={menu ?? []} />
+
         {/* right-side icons */}
         <div
           className={`col-start-3 flex items-center justify-end gap-5 justify-self-end transition-transform duration-300 ease-in-out ${
             openMenu ? '-translate-x-10 lg:translate-x-0' : ''
           }`}>
           <LocaleSelect className="hidden lg:inline-block" />
-          <CurrencySelect className="hidden lg:inline-block" />
+          {/*<CurrencySelect className="hidden lg:inline-block" />*/}
           <Link href="/account/orders">
             <a className="hidden lg:inline-block">
               <AccountIcon className="w-5" />
@@ -109,7 +109,7 @@ const Navbar: React.FC<NavbarProps> = ({
               : 'pointer-events-none opacity-0'
           }`}
           onClick={() => setOpenMenu(undefined)}>
-          <CloseIcon className="h-5 w-5 text-primary" />
+          <CloseIcon className="h-5 w-5 text-white" />
         </button>
       </div>
     </div>

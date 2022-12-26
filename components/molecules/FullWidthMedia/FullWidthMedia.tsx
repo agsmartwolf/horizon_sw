@@ -150,14 +150,14 @@ const FullWidthMedia: ContentBlockComponent<FullWidthMediaProps> = ({
       <div className="relative w-full">
         {title && (
           <RichText
-            className="w-full font-headings text-5xl font-semibold text-background-primary lg:text-7xl"
+            className="w-full font-headings text-5xl font-semibold text-background-white lg:text-7xl"
             style={text_color ? { color: text_color } : undefined}
             content={title}
           />
         )}
         {description && (
           <RichText
-            className="mt-4 text-xl text-background-primary lg:text-2xl"
+            className="mt-4 text-xl text-background-white lg:text-2xl"
             style={text_color ? { color: text_color } : undefined}
             content={description}
           />

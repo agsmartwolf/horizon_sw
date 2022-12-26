@@ -30,7 +30,7 @@ const PurchaseList: React.FC<PurchaseListProps> = ({
   const emptyStateLabel = useMemo(() => EMPTY_STATE_LABEL_MAP[type], [type]);
   return (
     <article className="">
-      <h1 className="hidden font-headings text-2xl font-semibold text-primary lg:block">
+      <h1 className="hidden font-headings text-2xl font-semibold text-black lg:block">
         {title}
       </h1>
       {hasPurchases ? (
@@ -47,7 +47,7 @@ const PurchaseList: React.FC<PurchaseListProps> = ({
         <div>
           <p className="text-sm text-body md:mt-4">{emptyStateLabel}</p>
           <Link href="/products">
-            <a className="mt-4 flex items-center space-x-2 text-primary">
+            <a className="mt-4 flex items-center space-x-2 text-black">
               <Plus className="h-4 w-4" />
               {/* TODO: i18n */}
               <span className="text-sm font-semibold">Start shopping</span>

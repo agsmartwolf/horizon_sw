@@ -28,7 +28,7 @@ const ErrorLayout: React.FC<ErrorLayoutProps> = ({
     className={`mt-48 flex flex-row items-center justify-between gap-36 lg:mt-24 ${
       SECTION_MARGIN_MAP[SPACING.MEDIUM]
     }`}>
-    <div className="flex-1 text-primary">
+    <div className="flex-1 text-black">
       <span className="text-xs font-semibold uppercase">Error {code}</span>
       <h1 className="mt-1 font-headings text-5xl font-semibold">{title}</h1>
 

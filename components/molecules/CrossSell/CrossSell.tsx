@@ -59,7 +59,7 @@ const CrossSell: React.FC<CrossSellProps> = ({
       </Link>
       <div className="flex h-full flex-col gap-4 lg:gap-6">
         <Link href={item.href}>
-          <a className="text-md font-semibold uppercase text-primary">
+          <a className="text-md font-semibold uppercase text-black">
             {item.title}
           </a>
         </Link>

@@ -96,14 +96,14 @@ const QuizTransitionQuestion: React.FC<QuizTransitionQuestionProps> = ({
         )}>
         <div className="my-auto flex flex-col items-center">
           {title && (
-            <h2 className="mx-0 mb-4 mt-0 text-center font-headings text-5xl font-semibold text-primary lg:mb-11">
+            <h2 className="mx-0 mb-4 mt-0 text-center font-headings text-5xl font-semibold text-black lg:mb-11">
               {title}
             </h2>
           )}
           {bodyText && (
             <RichText
               content={bodyText}
-              className="rich-text-p-spacing-sm mb-6 text-center text-sm text-primary"
+              className="rich-text-p-spacing-sm mb-6 text-center text-sm text-black"
             />
           )}
         </div>

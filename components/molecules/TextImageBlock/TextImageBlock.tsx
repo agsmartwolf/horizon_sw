@@ -48,7 +48,7 @@ const TextImageBlock: ContentBlockComponent<TextImageBlockProps> = ({
       </div>
       <RichText
         content={text}
-        className="w-full text-5xl font-semibold text-primary lg:w-1/2 lg:max-w-[460px]"
+        className="w-full text-5xl font-semibold text-black lg:w-1/2 lg:max-w-[460px]"
       />
     </section>
   );

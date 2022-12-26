@@ -196,7 +196,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
         <fieldset className="flex h-full w-full flex-1 flex-col justify-between">
           <div>
             <legend className="w-full text-center">
-              <h1 className="font-headings text-2xl font-semibold text-primary md:text-5xl">
+              <h1 className="font-headings text-2xl font-semibold text-black md:text-5xl">
                 {text.title}
               </h1>
               {text.subtitle && (
@@ -208,7 +208,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
             <div className="mt-8">
               <p>
                 <label
-                  className="text-xs font-semibold uppercase text-primary"
+                  className="text-xs font-semibold uppercase text-black"
                   htmlFor="password">
                   {text.passwordLabel}
                 </label>
@@ -236,7 +236,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
               </p>
               <p className="mt-4">
                 <label
-                  className="text-xs font-semibold uppercase text-primary"
+                  className="text-xs font-semibold uppercase text-black"
                   htmlFor="confirm-password">
                   {text.confirmPasswordLabel}
                 </label>

@@ -35,7 +35,7 @@ const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
             <Image alt="Logo" src={logo.src} layout="fill" />
           </span>
         ) : (
-          <span className="text-3xl font-medium uppercase text-primary lg:text-5xl">
+          <span className="text-3xl font-medium lowercase text-white lg:text-5xl">
             {storeName}
           </span>
         )}

@@ -70,7 +70,7 @@ const CategoryPreviewCard: React.FC<CategoryPreviewCardProps> = ({
       <div className="flex flex-col lg:space-y-2">
         <Link href={href}>
           <a>
-            <h4 className="font-headings text-lg font-semibold text-primary">
+            <h4 className="font-headings text-lg font-semibold text-black">
               {title}
             </h4>
           </a>

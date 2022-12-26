@@ -89,7 +89,7 @@ const TextPanel: React.FC<PanelTextProps> = ({
      `}>
       {title && (
         <RichText
-          className="font-headings text-5xl text-primary"
+          className="font-headings text-5xl text-black"
           content={title}
         />
       )}

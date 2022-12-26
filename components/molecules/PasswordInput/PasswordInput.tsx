@@ -33,7 +33,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           width={16}
           height={16}
           icon={value ? openIcon : closedIcon}
-          className="text-primary"
+          className="text-black"
         />
       </button>
     </span>

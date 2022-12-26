@@ -289,14 +289,14 @@ const LevelSlider: React.FC<LevelSliderProps> = ({
   }, [onMouseMove, onMouseUp]);
 
   const trackFillClasses = useClassNames(
-    'absolute top-0 left-0 h-full rounded-l-[0.75rem] bg-primary',
+    'absolute top-0 left-0 h-full rounded-l-[0.75rem] bg-white',
     {
       'transition-[width] duration-700': !isDragging,
       'transition-none': isDragging,
     },
   );
   const thumbClasses = useClassNames(
-    'absolute top-1/2 flex h-8 w-8 items-center justify-center rounded-full border-4 border-background-primary bg-primary shadow-[0_0_0_1px] shadow-primary',
+    'absolute top-1/2 flex h-8 w-8 items-center justify-center rounded-full border-4 border-background-primary bg-white shadow-[0_0_0_1px] shadow-primary',
     {
       'cursor-grabbing transition-none': isDragging,
       'cursor-grab transition-transform duration-700': !isDragging,
@@ -350,7 +350,7 @@ const LevelSlider: React.FC<LevelSliderProps> = ({
           <input
             type="radio"
             className={joinClasses(
-              'relative h-[10px] w-[10px] cursor-pointer appearance-none rounded-full bg-background-primary opacity-30',
+              'relative h-[10px] w-[10px] cursor-pointer appearance-none rounded-full bg-background-black opacity-30',
               'after:absolute after:-inset-2 after:h-6 after:content-[""]', // Increased touch/click area
             )}
             key={id}

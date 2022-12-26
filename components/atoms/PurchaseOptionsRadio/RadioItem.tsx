@@ -27,7 +27,7 @@ const RadioItem: React.FC<RadioItemProps> = ({
   }
 
   const labelClassNames = useClassNames(
-    'flex items-center cursor-pointer gap-2 rounded-lg border py-[10px] pl-4 pr-6 text-sm text-primary transition duration-[250ms]',
+    'flex items-center cursor-pointer gap-2 rounded-lg border py-[10px] pl-4 pr-6 text-sm text-black transition duration-[250ms]',
     'peer-focus-visible:border-primary',
     {
       'border-primary': activeValue === value,
@@ -38,8 +38,8 @@ const RadioItem: React.FC<RadioItemProps> = ({
   const iconClassNames = useClassNames(
     'w-4 h-4 transition-all duration-[250ms]',
     {
-      'fill-background-primary stroke-input-standard': value !== activeValue,
-      'fill-primary stroke-primary': value === activeValue,
+      'fill-background-black stroke-input-standard': value !== activeValue,
+      'fill-black-100 stroke-primary': value === activeValue,
     },
   );
 

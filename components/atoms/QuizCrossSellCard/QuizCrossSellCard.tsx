@@ -63,7 +63,7 @@ const QuizCrossSellCard: React.FC<QuizCrossSellCardProps> = ({
   return (
     <article className={['lg:max-w-[556px]', props.className ?? ''].join(' ')}>
       <form
-        className="grid h-full grid-cols-[89px_auto] grid-rows-[89px_63px_56px] gap-x-4 gap-y-6 rounded-2xl bg-background-primary p-6 shadow-3xl lg:grid-cols-[200px_auto] lg:grid-rows-[auto_68px_auto_56px] lg:gap-x-6 lg:gap-y-0"
+        className="grid h-full grid-cols-[89px_auto] grid-rows-[89px_63px_56px] gap-x-4 gap-y-6 rounded-2xl bg-background-black p-6 shadow-3xl lg:grid-cols-[200px_auto] lg:grid-rows-[auto_68px_auto_56px] lg:gap-x-6 lg:gap-y-0"
         onSubmit={handleSubmit}>
         <Link href={href}>
           <a className="relative col-span-1 row-span-1 lg:row-span-4">
@@ -78,13 +78,13 @@ const QuizCrossSellCard: React.FC<QuizCrossSellCardProps> = ({
         <header className="col-span-1 row-span-1 flex flex-col font-semibold lg:mb-[6px]">
           <Link href={href}>
             <a>
-              <h4 className="mb-1 font-headings text-lg text-primary lg:mb-2 lg:text-xl">
+              <h4 className="mb-1 font-headings text-lg text-black lg:mb-2 lg:text-xl">
                 {title}
               </h4>
             </a>
           </Link>
           <p className="text-sm text-body lg:text-md">{catchphrase}</p>
-          <div className="mt-auto text-sm tracking-wide text-primary lg:hidden">
+          <div className="mt-auto text-sm tracking-wide text-black lg:hidden">
             <Link href={href}>
               <a className="flex items-center gap-x-2">
                 <span>{hrefCta}</span>
@@ -97,7 +97,7 @@ const QuizCrossSellCard: React.FC<QuizCrossSellCardProps> = ({
           content={description}
           className="col-span-2 text-2xs text-body line-clamp-3 lg:col-[2/3] lg:line-clamp-4"
         />
-        <div className="hidden text-sm font-semibold tracking-wide text-primary lg:col-[2/3] lg:my-[19px] lg:block">
+        <div className="hidden text-sm font-semibold tracking-wide text-black lg:col-[2/3] lg:my-[19px] lg:block">
           <Link href={href}>
             <a className="flex h-fit items-center gap-x-2">
               <span>{hrefCta}</span>

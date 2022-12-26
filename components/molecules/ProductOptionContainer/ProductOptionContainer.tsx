@@ -11,7 +11,7 @@ const ProductOptionContainer: React.FC<ProductOptionContainerProps> = ({
   description,
   children,
 }) => (
-  <div className="text-primary">
+  <div className="text-black">
     <div className="flex gap-2">
       <h3 className="font-headings text-sm font-semibold uppercase">{name}</h3>
       {description && <InfoTooltip text={description} />}

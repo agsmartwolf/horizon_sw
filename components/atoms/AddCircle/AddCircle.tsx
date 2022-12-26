@@ -8,7 +8,7 @@ const AddCircle = React.forwardRef<HTMLDivElement, AddCircleProps>(
     <div
       {...props}
       className={[
-        'flex h-8 w-8 shrink-0 flex-grow-0 items-center justify-center rounded-[50%] bg-accent text-primary',
+        'flex h-8 w-8 shrink-0 flex-grow-0 items-center justify-center rounded-[50%] bg-accent text-black',
         props.className,
       ].join(' ')}
       ref={ref}>

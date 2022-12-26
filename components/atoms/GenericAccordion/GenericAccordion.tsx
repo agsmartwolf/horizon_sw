@@ -19,11 +19,11 @@ const GenericAccordion: React.FC<GenericAccordionProps> = ({
         {({ open }) => (
           <div className="flex flex-col overflow-hidden">
             <Disclosure.Button className="flex w-full items-center justify-between py-4">
-              <span className="text-primary">{name}</span>
+              <span className="text-black">{name}</span>
               <ChevronDown
                 width={16}
                 height={16}
-                className={`text-primary transition-transform duration-400 ${
+                className={`text-black transition-transform duration-400 ${
                   open ? 'rotate-180' : 'rotate-0'
                 }`}
               />

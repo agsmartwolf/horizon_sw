@@ -246,14 +246,14 @@ const SignUpPage: NextPageWithLayout<
         <fieldset className="flex h-full w-full flex-1 flex-col justify-between">
           <div>
             <legend className="w-full text-center">
-              <h1 className="font-headings text-2xl font-semibold text-primary md:text-5xl">
+              <h1 className="font-headings text-2xl font-semibold text-black md:text-5xl">
                 {text.signUpTitle}
               </h1>
             </legend>
             <div className="mt-8">
               <p>
                 <label
-                  className="text-xs font-semibold uppercase text-primary"
+                  className="text-xs font-semibold uppercase text-black"
                   htmlFor="first-name">
                   {text.firstNameLabel}
                 </label>
@@ -279,7 +279,7 @@ const SignUpPage: NextPageWithLayout<
               </p>
               <p className="mt-4">
                 <label
-                  className="text-xs font-semibold uppercase text-primary"
+                  className="text-xs font-semibold uppercase text-black"
                   htmlFor="last-name">
                   {text.lastNameLabel}
                 </label>
@@ -305,7 +305,7 @@ const SignUpPage: NextPageWithLayout<
               </p>
               <p className="mt-4">
                 <label
-                  className="text-xs font-semibold uppercase text-primary"
+                  className="text-xs font-semibold uppercase text-black"
                   htmlFor="email">
                   {text.emailLabel}
                 </label>
@@ -332,7 +332,7 @@ const SignUpPage: NextPageWithLayout<
               </p>
               <p className="mt-4">
                 <label
-                  className="text-xs font-semibold uppercase text-primary"
+                  className="text-xs font-semibold uppercase text-black"
                   htmlFor="password">
                   {text.passwordLabel}
                 </label>
@@ -354,7 +354,7 @@ const SignUpPage: NextPageWithLayout<
                   <ValidationErrorText>{error.message}</ValidationErrorText>
                 )}
                 {text.passwordRequirementsText && (
-                  <p className="mt-2 text-2xs text-primary">
+                  <p className="mt-2 text-2xs text-black">
                     {text.passwordRequirementsText}
                   </p>
                 )}
@@ -375,7 +375,7 @@ const SignUpPage: NextPageWithLayout<
                 {text.signUpButton}
               </Button>
             </div>
-            <div className="mt-4 text-center text-sm text-primary">
+            <div className="mt-4 text-center text-sm text-black">
               {text.registeredUser && <span>{text.registeredUser}&nbsp;</span>}
 
               <Link href="/account/login">

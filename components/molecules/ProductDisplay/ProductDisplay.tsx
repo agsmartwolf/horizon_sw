@@ -18,7 +18,7 @@ const ProductDisplay: React.FC<ProductDisplayProps> = ({
   const { title, description, href, price, image } = product;
 
   const containerClassNames =
-    'flex flex-col gap-4 overflow-visible text-primary';
+    'flex flex-col gap-4 overflow-visible text-black';
 
   return (
     <div
@@ -38,7 +38,7 @@ const ProductDisplay: React.FC<ProductDisplayProps> = ({
       <div className="flex flex-col space-y-1">
         <Link href={href}>
           <a>
-            <h4 className="font-headings text-md font-semibold text-primary line-clamp-2">
+            <h4 className="font-headings text-md font-semibold text-black line-clamp-2">
               {title}
             </h4>
           </a>
@@ -51,7 +51,7 @@ const ProductDisplay: React.FC<ProductDisplayProps> = ({
         )}
       </div>
       {!!price && (
-        <div className="text-sm font-semibold text-primary">
+        <div className="text-sm font-semibold text-black">
           <Price price={price} />
         </div>
       )}

@@ -49,13 +49,13 @@ const CheckEmailPage: NextPageWithLayout<CheckEmailProps> = ({
 
       <div className="flex h-full w-full flex-col items-center justify-center">
         <div className="w-full text-center md:max-w-[400px]">
-          <h1 className="font-headings text-2xl font-semibold text-primary md:text-5xl">
+          <h1 className="font-headings text-2xl font-semibold text-black md:text-5xl">
             {text.title}
           </h1>
           {text.message && (
             <p className="mt-6 text-center text-sm text-body">{text.message}</p>
           )}
-          <p className="mt-6 text-center text-sm text-primary md:mt-6">
+          <p className="mt-6 text-center text-sm text-black md:mt-6">
             {text.backToLoginText && <>{text.backToLoginText}&nbsp;</>}
             <Link href="/account/login">
               <a className="font-bold hover:underline">

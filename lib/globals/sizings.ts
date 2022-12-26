@@ -22,7 +22,7 @@ export const SECTION_MARGIN_MAP = {
   [SPACING.NONE]: 'mx-0 lg:mx-0',
   [SPACING.SMALL]: 'mx-6 lg:mx-14',
   [SPACING.MEDIUM]: 'mx-6 lg:mx-36',
-  [SPACING.LARGE]: 'mx-6 lg:mx-46',
+  [SPACING.LARGE]: 'px-6 lg:px-46',
   [SPACING.EXTRA_LARGE]: 'mx-6 lg:mx-70',
 };
 

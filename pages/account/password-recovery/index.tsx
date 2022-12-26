@@ -172,7 +172,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
         <fieldset className="flex h-full w-full flex-1 flex-col justify-between">
           <div>
             <legend className="w-full text-center">
-              <h1 className="font-headings text-2xl font-semibold text-primary md:text-5xl">
+              <h1 className="font-headings text-2xl font-semibold text-black md:text-5xl">
                 {text.title}
               </h1>
               {text.subtitle && (
@@ -184,7 +184,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
             <div className="mt-8">
               <p>
                 <label
-                  className="text-xs font-semibold uppercase text-primary"
+                  className="text-xs font-semibold uppercase text-black"
                   htmlFor="email">
                   {text.emailLabel}
                 </label>
@@ -225,7 +225,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
                 {text.submitButtonLabel}
               </Button>
 
-              <p className="mt-4 text-center text-sm text-primary md:mt-6">
+              <p className="mt-4 text-center text-sm text-black md:mt-6">
                 {text.backToLoginText && <>{text.backToLoginText}&nbsp;</>}
                 <Link href="/account/login">
                   <a className="font-bold hover:underline">

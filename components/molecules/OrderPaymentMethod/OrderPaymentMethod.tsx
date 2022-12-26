@@ -86,7 +86,7 @@ const OrderPaymentMethod: React.FC<OrderPaymentMethodProps> = ({
         <Logo className="w-6" />
         {card && (
           <>
-            <span className="font-semibold text-primary">
+            <span className="font-semibold text-black">
               {card.label} · {card.last4}
             </span>
             <span className="text-body">{card.expiredDate}</span>

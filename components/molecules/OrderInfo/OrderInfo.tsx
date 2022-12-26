@@ -19,7 +19,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({
         'flex flex-col space-y-10 pb-8 md:pb-10',
         className ?? '',
       ].join(' ')}>
-      <h2 className="font-headings text-xl font-semibold text-primary">
+      <h2 className="font-headings text-xl font-semibold text-black">
         {title}
       </h2>
       <div className="flex flex-col space-y-6 md:grid md:grid-cols-[repeat(auto-fit,minmax(auto,230px))] md:gap-x-20 md:gap-y-10 md:space-y-0">

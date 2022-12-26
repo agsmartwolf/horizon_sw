@@ -30,7 +30,7 @@ const QuizResults: React.FC<QuizResultsProps> = ({
     <section className="flex flex-col gap-y-10">
       {resultsGroups.map(({ title, products }) => (
         <div key={title}>
-          <h3 className="font-headings text-2xl font-semibold text-primary lg:text-5xl">
+          <h3 className="font-headings text-2xl font-semibold text-black lg:text-5xl">
             {title}
           </h3>
           <div className="mt-8 flex flex-col gap-y-8 lg:mt-10">

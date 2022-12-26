@@ -40,7 +40,7 @@ const OrderHeader: React.FC<OrderHeaderProps> = ({
     <header className={['flex flex-col space-y-4', className ?? ''].join(' ')}>
       <div className="flex flex-col items-center md:flex-row md:justify-between">
         <div className="flex w-full items-center justify-between md:justify-start">
-          <h1 className="font-headings text-2xl font-semibold text-primary md:mr-4">
+          <h1 className="font-headings text-2xl font-semibold text-black md:mr-4">
             {title}
           </h1>
           <StatusIndicator status={status} />
@@ -69,14 +69,14 @@ const OrderHeader: React.FC<OrderHeaderProps> = ({
           {leftColumn.map(([text, value]) => (
             <li key={`${text}${value}`} className="text-sm">
               <span className="text-body">{text}</span>
-              <strong className="ml-2 text-primary">{value}</strong>
+              <strong className="ml-2 text-black">{value}</strong>
             </li>
           ))}
         </ul>
         <p className="mt-1 flex items-center space-x-2 text-sm md:mt-0">
           {isSubscription && <Sync className="w-[22px]" />}
           <span className="text-body">{totalText}</span>
-          <strong className="text-primary">{total}</strong>
+          <strong className="text-black">{total}</strong>
         </p>
       </div>
     </header>

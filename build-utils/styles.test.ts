@@ -47,8 +47,8 @@ describe('styles build utils', () => {
         '--colors-error-dark: #FF766D;',
         '--colors-button-primary: #1D0A43;',
         '--colors-button-secondary: #FFFFFF;',
-        '--colors-background-primary: #FFFFFF;',
-        '--colors-background-secondary: #F6F4EF;',
+        '--colors-background-black: #FFFFFF;',
+        '--colors-background-white: #F6F4EF;',
         '--colors-input-standard: #BDB9C6;',
       ];
       expect(getVarsFromObject(properties, label)).toEqual(expectedVars);
@@ -127,8 +127,8 @@ describe('styles build utils', () => {
         '--colors-error-dark: #FF766D;',
         '--colors-button-primary: #1D0A43;',
         '--colors-button-secondary: #FFFFFF;',
-        '--colors-background-primary: #FFFFFF;',
-        '--colors-background-secondary: #F6F4EF;',
+        '--colors-background-black: #FFFFFF;',
+        '--colors-background-white: #F6F4EF;',
         '--colors-input-standard: #BDB9C6;',
         '--colors-dividers: #ECEAF0;',
         '--borders-image-radius: 20px;',

@@ -336,12 +336,12 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
         <p
           role="status"
           title={`Question ${currentQuestion} out of ${totalQuestions}`}
-          className="mb-6 text-xs font-semibold text-primary lg:mb-10 lg:text-sm">
+          className="mb-6 text-xs font-semibold text-black lg:mb-10 lg:text-sm">
           {currentQuestion} of {totalQuestions}
         </p>
         {question && (
           <legend
-            className="text-center text-2xl font-semibold text-primary lg:max-w-[674px] lg:text-5xl"
+            className="text-center text-2xl font-semibold text-black lg:max-w-[674px] lg:text-5xl"
             id={`question-text-${currentQuestion}`}>
             {question}
           </legend>

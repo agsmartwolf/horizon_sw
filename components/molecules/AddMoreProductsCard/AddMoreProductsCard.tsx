@@ -23,7 +23,7 @@ const AddMoreProductsCard: React.FC<AddMoreProductsCardProps> = ({
         <div className="flex items-center gap-10">
           <AddCircle className="my-4" />
           <div className="flex flex-col gap-2">
-            <div className="font-headings text-sm font-semibold text-primary">
+            <div className="font-headings text-sm font-semibold text-black">
               {empty ? emptyTitle ?? title : title}
             </div>
             {subtitle && <div className="text-2xs text-body">{subtitle}</div>}

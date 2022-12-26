@@ -12,8 +12,8 @@ export interface InputProps
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ small, icon, error, ...props }, ref) => {
     const classNames = useClassNames(
-      'peer w-full rounded-lg border px-4 text-md text-primary transition duration-300',
-      'focus:text-primary focus:outline-none',
+      'peer w-full rounded-lg border px-4 text-md text-black transition duration-300',
+      'focus:text-black focus:outline-none',
       'placeholder:text-input-standard',
       'disabled:border-disabled disabled:text-disabled',
       {
@@ -27,7 +27,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
 
     const iconClassNames = useClassNames(
-      'absolute top-1/2 left-4 -translate-y-1/2 text-primary transition duration-300 peer-focus:text-primary',
+      'absolute top-1/2 left-4 -translate-y-1/2 text-black transition duration-300 peer-focus:text-black',
     );
 
     return (

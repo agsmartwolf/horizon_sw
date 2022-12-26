@@ -30,7 +30,7 @@ const OrderItemsTable: React.FC<OrderItemsTableProps> = ({
 
   return (
     <table className={['w-full', className ?? ''].join(' ')}>
-      <thead className="border-outline hidden border-b text-sm font-semibold uppercase text-primary md:table-header-group">
+      <thead className="border-outline hidden border-b text-sm font-semibold uppercase text-black md:table-header-group">
         <tr>
           {tableHead.map((item, i) => (
             <th
@@ -59,7 +59,7 @@ const OrderItemsTable: React.FC<OrderItemsTableProps> = ({
             {[order.quantity, order.price].map((item, i) => (
               <td
                 key={`${item}${i}`}
-                className="hidden py-4 text-right text-md font-semibold text-primary md:table-cell">
+                className="hidden py-4 text-right text-md font-semibold text-black md:table-cell">
                 {item}
               </td>
             ))}

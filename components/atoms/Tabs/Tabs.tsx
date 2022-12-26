@@ -36,7 +36,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, value, onChange }) => {
           <Trigger
             key={tab.value}
             value={tab.value}
-            className={`rounded-lg border py-4 text-sm uppercase text-primary transition-[border] duration-[300ms] focus:outline-none focus-visible:border focus-visible:border-primary ${
+            className={`rounded-lg border py-4 text-sm uppercase text-black transition-[border] duration-[300ms] focus:outline-none focus-visible:border focus-visible:border-primary ${
               selectedTab === tab.value ? 'border-primary' : 'border-grey-300'
             }`}>
             {tab.label}

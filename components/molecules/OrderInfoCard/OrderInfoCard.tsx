@@ -16,7 +16,7 @@ const OrderInfoCard: React.FC<OrderInfoCardProps> = ({
 }) => {
   return (
     <article className="flex flex-col space-y-4">
-      <h3 className="font-headings text-md font-semibold text-primary">
+      <h3 className="font-headings text-md font-semibold text-black">
         {title}
       </h3>
       {payment && <OrderPaymentMethod {...payment} />}

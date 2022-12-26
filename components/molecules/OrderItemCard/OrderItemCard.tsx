@@ -45,7 +45,7 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
         </a>
       </Link>
       <div className="flex flex-col text-sm">
-        <h3 className="font-headings text-lg font-semibold text-primary">
+        <h3 className="font-headings text-lg font-semibold text-black">
           <Link href={href}>
             <a>{title}</a>
           </Link>
@@ -61,7 +61,7 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
           {orderDetails.map(([text, value]) => (
             <li key={`${text}${value}`}>
               <span className="text-body">{text}</span>
-              <strong className="ml-2 font-semibold text-primary">
+              <strong className="ml-2 font-semibold text-black">
                 {value}
               </strong>
             </li>

@@ -4,22 +4,24 @@
   "private": true,
   "engines": {
     "node": "^16.18.1",
-    "npm": ">=8"
+    "pnpm": ">=8"
   },
   "scripts": {
     "dev": "next dev",
-    "generate": "npm run build",
-    "build": "npm run setup && next build",
+    "generate": "pnpm run build",
+    "build": "pnpm run setup && next build",
     "start": "next start",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --ci --collectCoverage --watchAll=false",
     "lint:prettier": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
-    "lint": "tsc --noEmit && eslint . && npm run lint:prettier",
+    "lint": "tsc --noEmit && eslint . && pnpm run lint:prettier",
     "lintfix:prettier": "prettier --ignore-path .gitignore --write --plugin-search-dir=. --list-different .",
-    "lintfix": "tsc --noEmit && npm run lintfix:prettier && eslint --fix .",
-    "prepare": "husky install && if [ -f codegen.yml ] && [ -f build-utils/generate-theme.mjs ]; then npm run setup; fi",
-    "setup": "npm run sync && npm run graphql:generate && npm run theme:generate",
+    "lintfix": "tsc --noEmit && pnpm run lintfix:prettier && eslint --fix .",
+    "prepare:old": "husky install && if [ -f codegen.yml ] && [ -f build-utils/generate-theme.mjs ]; then pnpm run setup; fi",
+    "prepare": "husky install && if [ -f codegen.yml ]; then pnpm run setup; fi",
+    "setup": "pnpm run graphql:generate",
+    "setup:old": "pnpm run sync && pnpm run graphql:generate",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "graphql:generate": "graphql-codegen --config codegen.yml -r dotenv/config",
@@ -28,7 +30,7 @@
     "sync:defaults": "swell storefront settings push settings -f ./config/defaults.json --strategy \"defaults\" --store $SWELL_STORE_ID --secret-key $SWELL_SECRET_KEY",
     "sync:content-blocks": "ls ./config/content/*.json | xargs -L 1 swell model push --store $SWELL_STORE_ID --secret-key $SWELL_SECRET_KEY --strategy \"merge\" --content -f",
     "sync:editor": "swell storefront settings push editor -f config/editor.json --strategy \"merge\" --store $SWELL_STORE_ID --secret-key $SWELL_SECRET_KEY",
-    "sync": "set -a && if [ -f .env ]; then source .env; fi && npm run sync:defaults && npm run sync:content-blocks && npm run sync:editor"
+    "sync": "set -a && if [ -f .env ]; then source .env; fi && pnpm run sync:defaults && pnpm run sync:content-blocks && pnpm run sync:editor"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.4",
@@ -38,6 +40,7 @@
     "@radix-ui/react-tabs": "^0.1.5",
     "@radix-ui/react-toast": "^0.1.1",
     "@radix-ui/react-tooltip": "^0.1.7",
+    "@react-hook/media-query": "^1.1.1",
     "click-to-react-component": "^1.0.7",
     "cookie": "^0.4.2",
     "framer-motion": "^6.3.4",

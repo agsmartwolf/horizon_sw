@@ -23,20 +23,21 @@ const LinksAccordion: React.FC<LinksAccordionProps> = ({
   ...props
 }) => (
   <div {...props}>
-    <Disclosure>
+    <Disclosure defaultOpen>
       {({ open }) => (
-        <div className="flex flex-col overflow-hidden">
-          <Disclosure.Button className="flex w-full items-center justify-between">
+        <div className="flex flex-col overflow-hidden text-white">
+          {title}
+          {/*<Disclosure.Button className="flex w-full items-center justify-between">
             <span
-              className={`font-headings text-sm font-semibold uppercase text-primary ${titleClassName}`}>
+              className={`font-headings text-sm font-semibold uppercase text-black ${titleClassName}`}>
               {title}
             </span>
             {open ? (
-              <Minus width={12} height={12} className="text-primary" />
+              <Minus width={12} height={12} className="text-black" />
             ) : (
-              <Plus width={12} height={12} className="text-primary" />
+              <Plus width={12} height={12} className="text-black" />
             )}
-          </Disclosure.Button>
+          </Disclosure.Button>*/}
           <Transition className="duration-400" unmount={false}>
             <Disclosure.Panel unmount={false}>
               <div
@@ -56,7 +57,7 @@ const LinksAccordion: React.FC<LinksAccordionProps> = ({
                   {items.map((item) => (
                     <li key={item.title}>
                       <Link href={item.href}>
-                        <a className={`text-md text-primary ${itemClassName}`}>
+                        <a className={`text-md text-white ${itemClassName}`}>
                           {item.title}
                         </a>
                       </Link>

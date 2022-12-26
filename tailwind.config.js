@@ -19,13 +19,13 @@ module.exports = {
     './hooks/**/*.{ts,tsx}',
   ],
   theme: {
-    colors: {
+/*    colors: {
       primary: 'var(--colors-primary)',
       accent: 'var(--colors-accent)',
       body: 'var(--colors-body)',
       background: {
-        primary: 'var(--colors-background-primary)',
-        secondary: 'var(--colors-background-secondary)',
+        primary: 'var(--colors-background-black)',
+        secondary: 'var(--colors-background-white)',
       },
       disabled: '#D6D6D6',
       dividers: 'var(--colors-dividers)',
@@ -49,7 +49,7 @@ module.exports = {
         primary: 'var(--colors-button-primary)',
         secondary: 'var(--colors-button-secondary)',
       },
-    },
+    },*/
     borderRadius: {
       none: '0',
       sm: '0.125rem',
@@ -185,6 +185,49 @@ module.exports = {
         'exit-to-left': 'left-slide 0.25s ease backwards',
         'scale-in-content': 'scale-in-content 0.2s ease',
         'scale-out-content': 'scale-out-content 0.2s ease',
+      },
+      colors: {
+        'green-100': 'var(--green-100)',
+        'green-200': 'var(--green-200)',
+        'green-300': 'var(--green-300)',
+        black: 'var(--black-100)',
+        'black-200': 'var(--black-200)',
+        'black-100': 'var(--black-100)',
+        white: 'var(--white)',
+        gray: 'var(--gray)',
+        'gray-100': 'var(--gray-100)',
+        'gray-200': 'var(--gray-200)',
+        'gray-300': 'var(--gray-300)',
+        'gray-400': 'var(--gray-400)',
+        body: 'var(--colors-body)',
+        background: {
+          black: 'var(--colors-background-black)',
+          white: 'var(--colors-background-white)',
+          green: 'var(--colors-background-green)',
+        },
+        disabled: 'var(--gray-300)',
+        dividers: 'var(--colors-dividers)',
+        input: {
+          standard: 'var(--colors-input-standard)',
+        },
+        transparent: 'transparent',
+        error: {
+          light: '#FAEDEC',
+          dark: 'var(--colors-error-dark)',
+        },
+        success: {
+          light: '#E3F2F0',
+          dark: 'var(--colors-success-dark)',
+        },
+        warning: {
+          light: '#FDF8EE',
+          dark: '#F4A732',
+        },
+        button: {
+          black: 'var(--colors-button-black)',
+          white: 'var(--colors-button-white)',
+          green: 'var(--colors-button-green)',
+        },
       },
     },
   },

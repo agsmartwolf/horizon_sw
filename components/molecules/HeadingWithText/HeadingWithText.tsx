@@ -80,7 +80,7 @@ const HeadingWithText: ContentBlockComponent<HeadingWithTextProps> = ({
   const hasMultipleElements = !!(label || title || description) && !!cta;
 
   const contentClassNames = useClassNames(
-    'relative flex flex-col text-5xl text-primary',
+    'relative flex flex-col text-5xl text-black',
     {
       // TODO: Handle this better when we have
       // all possible content variations: text,button,action input

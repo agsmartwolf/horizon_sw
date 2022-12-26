@@ -37,7 +37,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
     <div className="flex flex-col space-y-1">
       <Link href={href}>
         <a>
-          <h4 className="font-headings text-md font-semibold text-primary line-clamp-2">
+          <h4 className="font-headings text-md font-semibold text-black line-clamp-2">
             {title}
           </h4>
         </a>

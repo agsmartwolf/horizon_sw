@@ -19,7 +19,7 @@ const ProductBenefit: React.FC<ProductBenefitProps> = ({
   label,
   customIcon,
 }) => (
-  <div className="flex max-w-[4.5rem] flex-col items-center gap-[10px] text-primary">
+  <div className="flex max-w-[4.5rem] flex-col items-center gap-[10px] text-black">
     {customIcon?.url ? (
       <Image
         src={customIcon.url}
@@ -31,7 +31,7 @@ const ProductBenefit: React.FC<ProductBenefitProps> = ({
     ) : (
       icon && <Icon icon={icon} height={16} />
     )}
-    <span className="text-center text-2xs uppercase text-primary">{label}</span>
+    <span className="text-center text-2xs uppercase text-black">{label}</span>
   </div>
 );
 

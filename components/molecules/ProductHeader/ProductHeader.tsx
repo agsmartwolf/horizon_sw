@@ -19,7 +19,7 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
     <h5 className="font-headings text-md font-semibold uppercase text-body">
       {subtitle}
     </h5>
-    <h3 className="mt-2 font-headings text-5xl font-semibold text-primary">
+    <h3 className="mt-2 font-headings text-5xl font-semibold text-black">
       {title}
     </h3>
     {tag && <Tag className="my-4">{tag}</Tag>}

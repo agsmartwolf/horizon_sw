@@ -128,3 +128,12 @@ export interface SubscriptionPurchaseOption {
 export type PurchaseOption =
   | StandardPurchaseOption
   | SubscriptionPurchaseOption;
+
+export enum ProductType {
+  bundle = 'bundle',
+  physical = 'physical',
+}
+
+export enum ProductTag {
+  bestseller = 'bestseller',
+}

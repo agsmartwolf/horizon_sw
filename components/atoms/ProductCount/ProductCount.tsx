@@ -10,7 +10,7 @@ const ProductCount: React.FC<ProductCountProps> = ({
 }) => (
   <div
     {...props}
-    className={['w-full text-2xs uppercase text-primary', className ?? ''].join(
+    className={['w-full text-2xs uppercase text-black', className ?? ''].join(
       ' ',
     )}>
     {/* TODO: i8n */}
