@@ -5,7 +5,7 @@ import ProductDisplay from 'components/molecules/ProductDisplay';
 import { getHref, getTarget } from 'lib/utils/nav';
 import { NavItem, NAV_ITEM_TYPE, RootNavItem } from 'types/nav';
 
-const defaultLinkClasses = 'font-medium uppercase text-white';
+const defaultLinkClasses = 'font-medium capitalize text-white border-b-1 border-transparent hover:border-white';
 
 export interface MegaMenuProps extends NavigationMenu.NavigationMenuListProps {
   items: RootNavItem[];
@@ -27,7 +27,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
   const getExpandedMenuItem = useCallback((item: NavItem, index: number) => {
     const defaultLink = (
       <li key={index}>
-        <MenuLink item={item} className="text-md font-normal text-white" />
+        <MenuLink item={item} className="text-md font-normal text-white border-b-1 border-transparent hover:border-white" />
       </li>
     );
 
@@ -78,7 +78,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
         return (
           <li
             key={index}
-            className="font-headings text-md font-semibold uppercase text-black">
+            className="font-headings text-md font-semibold capitalize text-black">
             {item.name}
           </li>
         );
@@ -91,7 +91,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
   return (
     <NavigationMenu.List
       {...props}
-      className={`hidden flex-wrap items-center gap-x-10 gap-y-4 justify-self-start bg-background-black text-md text-black lg:flex ${
+      className={`hidden flex-wrap items-center gap-x-10 gap-y-4 justify-self-start lg:justify-center 2xl:justify-end bg-background-black text-md text-black lg:flex ${
         props.className ?? ''
       }`}>
       {items.map((item, index) => (

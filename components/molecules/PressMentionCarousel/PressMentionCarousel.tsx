@@ -21,7 +21,7 @@ const getCardClassName = (
   const nextIndex = currentSlide + 1 <= length - 1 ? currentSlide + 1 : 0;
 
   if (index === currentSlide)
-    return 'left-0 z-10 opacity-100 bg-background-black';
+    return 'left-0 z-10 opacity-100 bg-background-white';
   else if (index === prevIndex) return '-left-full opacity-0';
   else if (index === nextIndex) return 'left-full opacity-0';
 };
@@ -79,7 +79,7 @@ const PressMentionCarousel: React.FC<PressMentionCarouselProps> = ({
 
   return (
     <section
-      className={`${SECTION_MARGIN_MAP[horizontal_spacing]} relative flex flex-col items-center gap-y-10 bg-background-black lg:gap-y-[76px] lg:py-18`}>
+      className={`${SECTION_MARGIN_MAP[horizontal_spacing]} relative flex flex-col items-center gap-y-10 bg-background-white lg:gap-y-[76px] lg:py-18`}>
       <h2 className="text-center font-headings text-5xl font-semibold text-black">
         {title}
       </h2>

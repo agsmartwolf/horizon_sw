@@ -49,5 +49,14 @@ Default.args = {
       },
       quote: 'Simple, affordable, reliable. What else do you need?',
     },
+    {
+      image: {
+        src: '/images/refinery-29-logo.svg',
+        alt: 'Refinery 29 brand logo',
+        width: 220,
+        height: 43,
+      },
+      quote: 'Simple, affordable, reliable. What else do you need?',
+    },
   ],
 };

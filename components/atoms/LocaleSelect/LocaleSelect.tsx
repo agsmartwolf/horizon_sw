@@ -30,7 +30,7 @@ const LocaleSelect: React.FC<LocaleSelectProps> = ({ className }) => {
     <span className={`inline-flex items-center gap-2 ${className ?? ''}`}>
       <Listbox value={activeLocale} onChange={changeLocale}>
         {({ open }) => (
-          <div className="relative inline-block text-black">
+          <div className="relative inline-block text-white">
             <Listbox.Button
               className={`inline-flex items-center gap-2 rounded-lg border border-dividers px-4 py-2 text-md font-semibold uppercase focus:outline-none focus-visible:ring-2 focus-visible:ring-accent lg:border-transparent lg:font-medium ${
                 open

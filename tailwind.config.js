@@ -86,6 +86,9 @@ module.exports = {
       body: ['var(--typography-font-family-body)'],
     },
     fontSize: {
+      '14xl': ['var(--typography-font-size-14xl)', 1.1],
+      '10xl': ['var(--typography-font-size-10xl)', 1.1],
+      '9xl': ['var(--typography-font-size-9xl)', 1.1],
       '8xl': ['var(--typography-font-size-8xl)', 1.1],
       '7xl': ['var(--typography-font-size-7xl)', 1.1],
       '6xl': ['var(--typography-font-size-6xl)', 1.2],

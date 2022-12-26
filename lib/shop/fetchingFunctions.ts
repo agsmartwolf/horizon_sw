@@ -421,7 +421,7 @@ export const getBestsellers = async () => {
     })
     .then((response) => response.data);
 
-  const productResults = denullifyArray(products?.results);
+  const productResults = mapProducts(denullifyArray(products?.results));
 
   return productResults;
 };

@@ -29,7 +29,7 @@ export const SECTION_MARGIN_MAP = {
 export const SECTION_PADDING_MAP = {
   [SPACING.NONE]: 'px-0 lg:px-0',
   [SPACING.SMALL]: 'px-6 lg:px-14',
-  [SPACING.MEDIUM]: 'px-6 lg:px-36',
+  [SPACING.MEDIUM]: 'px-6 lg:px-20',
   [SPACING.LARGE]: 'px-6 lg:px-46',
   [SPACING.EXTRA_LARGE]: 'px-6 lg:px-70',
 };

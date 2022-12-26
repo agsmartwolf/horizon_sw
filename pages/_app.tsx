@@ -9,7 +9,6 @@ import useCurrencyStore from 'stores/currency';
 import useNotificationStore from 'stores/notification';
 import useLocaleStore from 'stores/locale';
 import useCartStore from 'stores/cart';
-import useSettingsStore from 'stores/settings';
 import { isNotNull } from 'lib/utils/denullify';
 import type { Currency } from 'types/shared/currency';
 import type { NextPageWithLayout } from 'types/shared/pages';
@@ -19,14 +18,6 @@ import '../styles/theme.css';
 import { getMainLayout } from 'lib/utils/layout_getters';
 import getGQLClient from 'lib/graphql/client';
 import Notification from 'components/atoms/Notification';
-import {
-  generateFontSizes,
-  generateFontFamilyVars,
-  generateFontWeightVars,
-  generateFontLinks,
-} from 'build-utils/fonts.mjs';
-import { EDITOR_MESSAGE_TYPE } from 'types/editor';
-import { getStoreSettings } from 'lib/shop/fetchingFunctions';
 import { setPreviewMode } from 'lib/utils/previewMode';
 
 type AppPropsWithLayout = AppProps & {
@@ -119,10 +110,13 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // Default to the main layout if the page doesn't specify one
   const getLayout = Component.getLayout ?? getMainLayout;
 
+  const C = Component as any;
+  const comp = <C {...pageProps} />
+
   return (
     <>
       <ToastProvider>
-        {getLayout(<Component {...pageProps} />)}
+        {getLayout(comp)}
         {notifications.map((notification) => (
           <Notification
             id={notification.id}

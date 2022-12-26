@@ -20,22 +20,22 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
   show_product_description = true,
   ...props
 }) => {
-  const { description, image, price, origPrice, title, href } = product;
+  const { description, image, price, origPrice, title, href = "#" } = product;
 
   const containerClassNames =
-    'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0';
+    'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-gray-200';
 
   return (
     <div
       {...props}
       className={[containerClassNames, props.className].join(' ')}>
       <Link href={href}>
-        <a className="safe-aspect-square relative overflow-hidden lg:pb-[125%]">
+        <a className="safe-aspect-square relative overflow-hidden lg:pb-[125%] bg-gray-200">
           <Image
             {...image}
             {...layoutFillConfig}
-            alt={image.alt}
-            className={`rounded-image ${image.className}`}
+            alt={image?.alt}
+            className={`rounded-image ${image?.className ?? ""}`}
             objectFit="cover"
           />
         </a>
