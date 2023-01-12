@@ -11,7 +11,7 @@ const usePageSections = (sections: PageSection[]): ReactNode[] => {
 
   const pageSections = useMemo(
     () =>
-      liveSections.map((section) => {
+      liveSections.map(section => {
         const { type, id, ...props } = section;
 
         const SectionComponent = getComponentFromType(type);

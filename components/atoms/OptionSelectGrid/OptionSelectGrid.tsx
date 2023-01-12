@@ -24,9 +24,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
 
   return (
     <div className={className ?? ''}>
-      <h3 className="font-headings text-sm font-semibold text-black">
-        {name}
-      </h3>
+      <h3 className="font-headings text-sm font-semibold text-black">{name}</h3>
       <div className="mt-2 grid grid-cols-2 gap-2">
         {values.map(({ id: valueId, name: valueName }) => (
           <OptionSelectItem

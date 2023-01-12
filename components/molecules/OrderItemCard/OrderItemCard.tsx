@@ -31,28 +31,26 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
 
   return (
     <article className="flex space-x-4 text-left">
-      <Link href={href}>
-        <a className="relative w-full max-w-[93px] md:max-w-[123px]">
-          <Image
-            {...image}
-            layout="responsive"
-            width={1}
-            height={1}
-            objectFit="cover"
-            alt={image.alt}
-            className="rounded-lg"
-          />
-        </a>
+      <Link
+        href={href}
+        className="relative w-full max-w-[93px] md:max-w-[123px]">
+        <Image
+          {...image}
+          layout="responsive"
+          width={1}
+          height={1}
+          objectFit="cover"
+          alt={image.alt}
+          className="rounded-lg"
+        />
       </Link>
       <div className="flex flex-col text-sm">
         <h3 className="font-headings text-lg font-semibold text-black">
-          <Link href={href}>
-            <a>{title}</a>
-          </Link>
+          <Link href={href}>{title}</Link>
         </h3>
         {!!options?.length && (
           <ul className="mt-2 flex flex-col text-body">
-            {options.map((option) => (
+            {options.map(option => (
               <li key={option}>{option}</li>
             ))}
           </ul>
@@ -61,9 +59,7 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
           {orderDetails.map(([text, value]) => (
             <li key={`${text}${value}`}>
               <span className="text-body">{text}</span>
-              <strong className="ml-2 font-semibold text-black">
-                {value}
-              </strong>
+              <strong className="ml-2 font-semibold text-black">{value}</strong>
             </li>
           ))}
         </ul>

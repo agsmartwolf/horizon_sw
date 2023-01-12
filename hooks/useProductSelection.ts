@@ -99,7 +99,7 @@ const useProductSelection = ({
       const options = new Map<string, string>();
       // Provide a default value for options of type Select.
       if (shouldPreselectOption) {
-        productOptions.forEach((option) => {
+        productOptions.forEach(option => {
           if (
             (option.inputType === OPTION_INPUT_TYPE.SELECT || isGiftCard) &&
             option.values?.[0]?.id
@@ -246,7 +246,7 @@ const useProductSelection = ({
     [state.selectedProductOptions],
   );
 
-  const _addToCart = useCartStore((store) => store.addToCart);
+  const _addToCart = useCartStore(store => store.addToCart);
 
   const addToCart = useCallback(
     async (config: AddToCartConfig = { showCartAfter: true }) => {

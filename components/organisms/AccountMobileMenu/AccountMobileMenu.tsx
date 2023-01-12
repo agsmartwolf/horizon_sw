@@ -35,7 +35,7 @@ const AccountMobileMenu: React.FC<AccountMobileMenuProps> = ({
                 {({ close }) => (
                   <div
                     className="overflow-hidden rounded-b-lg transition-[max-height] duration-400"
-                    ref={(ref) => {
+                    ref={ref => {
                       setTimeout(() => {
                         if (!ref) return;
 
@@ -63,7 +63,7 @@ const AccountMobileMenu: React.FC<AccountMobileMenuProps> = ({
                         </ul>
                       </nav>
                       <form
-                        onSubmit={(e) => {
+                        onSubmit={e => {
                           e.preventDefault();
                           logout();
                         }}

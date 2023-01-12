@@ -32,7 +32,7 @@ const Review: React.FC<ReviewProps> = ({
     // Where should the form be located?
     // Trust that the parent will always include one?
     <div className="flex gap-2">
-      {[...Array(5).keys()].map((index) => {
+      {[...Array(5).keys()].map(index => {
         const value = (index + 1) as Rating;
         return (
           <Star

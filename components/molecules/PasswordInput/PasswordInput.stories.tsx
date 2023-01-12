@@ -8,7 +8,7 @@ export default {
   component: PasswordInput,
 } as ComponentMeta<typeof PasswordInput>;
 
-const Template: ComponentStory<typeof PasswordInput> = (args) => (
+const Template: ComponentStory<typeof PasswordInput> = args => (
   <PasswordInput {...args} />
 );
 

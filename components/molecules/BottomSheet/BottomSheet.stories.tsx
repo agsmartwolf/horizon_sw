@@ -10,7 +10,7 @@ export default {
     checkout: { control: 'object' },
   },
   decorators: [
-    (Story) => (
+    Story => (
       <div className="pt-6">
         <Story />
       </div>
@@ -18,7 +18,7 @@ export default {
   ],
 } as ComponentMeta<typeof BottomSheet>;
 
-const Template: ComponentStory<typeof BottomSheet> = (args) => (
+const Template: ComponentStory<typeof BottomSheet> = args => (
   <BottomSheet {...args} />
 );
 

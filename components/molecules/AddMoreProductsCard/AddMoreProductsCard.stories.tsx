@@ -13,7 +13,7 @@ export default {
   },
 } as ComponentMeta<typeof AddMoreProductsCard>;
 
-const Template: ComponentStory<typeof AddMoreProductsCard> = (args) => (
+const Template: ComponentStory<typeof AddMoreProductsCard> = args => (
   <AddMoreProductsCard {...args} />
 );
 

@@ -56,7 +56,7 @@ const useLiveEditorQuizNavigation = (
             });
 
             const productsSlugs = denullifyArray(
-              (data?.products?.results || []).map((product) => product?.slug),
+              (data?.products?.results || []).map(product => product?.slug),
             );
 
             router.push(

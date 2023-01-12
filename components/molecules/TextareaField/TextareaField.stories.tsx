@@ -16,7 +16,7 @@ export default {
   },
 } as ComponentMeta<typeof TextareaField>;
 
-const Template: ComponentStory<typeof TextareaField> = (args) => (
+const Template: ComponentStory<typeof TextareaField> = args => (
   <TextareaField {...args} />
 );
 

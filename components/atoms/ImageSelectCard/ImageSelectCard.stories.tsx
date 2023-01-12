@@ -14,7 +14,7 @@ export default {
   },
 } as ComponentMeta<typeof ImageSelectCard>;
 
-const Template: ComponentStory<typeof ImageSelectCard> = (args) => (
+const Template: ComponentStory<typeof ImageSelectCard> = args => (
   <ImageSelectCard {...args} />
 );
 

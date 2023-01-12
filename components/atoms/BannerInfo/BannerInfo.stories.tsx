@@ -20,7 +20,7 @@ export default {
   },
 } as ComponentMeta<typeof BannerInfo>;
 
-const Template: ComponentStory<typeof BannerInfo> = (args) => (
+const Template: ComponentStory<typeof BannerInfo> = args => (
   <BannerInfo {...args} />
 );
 

@@ -11,7 +11,7 @@ export default {
   component: PurchaseGroup,
 } as ComponentMeta<typeof PurchaseGroup>;
 
-const Template: ComponentStory<typeof PurchaseGroup> = (args) => (
+const Template: ComponentStory<typeof PurchaseGroup> = args => (
   <PurchaseGroup {...args} />
 );
 

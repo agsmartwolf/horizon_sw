@@ -30,7 +30,7 @@ const QuizCrossSell: React.FC<QuizCrossSellProps> = ({
         {title}
       </h2>
       <div className="flex max-w-[342px] flex-col justify-center gap-y-10 lg:max-w-[calc(556px*2+56px)] lg:flex-row lg:flex-wrap lg:gap-14">
-        {products.map((product) => (
+        {products.map(product => (
           <QuizCrossSellCard
             key={product.id}
             {...product}

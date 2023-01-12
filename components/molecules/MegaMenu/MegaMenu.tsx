@@ -5,7 +5,8 @@ import ProductDisplay from 'components/molecules/ProductDisplay';
 import { getHref, getTarget } from 'lib/utils/nav';
 import { NavItem, NAV_ITEM_TYPE, RootNavItem } from 'types/nav';
 
-const defaultLinkClasses = 'font-medium capitalize text-white border-b-1 border-transparent hover:border-white';
+const defaultLinkClasses =
+  'font-medium capitalize text-white border-b-1 border-transparent hover:border-white';
 
 export interface MegaMenuProps extends NavigationMenu.NavigationMenuListProps {
   items: RootNavItem[];
@@ -14,7 +15,13 @@ export interface MegaMenuProps extends NavigationMenu.NavigationMenuListProps {
 const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
   const getNavItem = useCallback((item: RootNavItem, index: number) => {
     if (!item.items?.length) {
-      return <MenuLink key={index} item={item} />;
+      return (
+        <MenuLink
+          key={index}
+          item={item}
+          className="text-md font-normal text-white pb-1 hover:border-b-2 border-white"
+        />
+      );
     }
 
     return (
@@ -27,7 +34,10 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
   const getExpandedMenuItem = useCallback((item: NavItem, index: number) => {
     const defaultLink = (
       <li key={index}>
-        <MenuLink item={item} className="text-md font-normal text-white border-b-1 border-transparent hover:border-white" />
+        <MenuLink
+          item={item}
+          className="text-md font-normal text-white pb-1 hover:border-b-2 border-white"
+        />
       </li>
     );
 
@@ -101,7 +111,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
           {/* Popup content if the nav item is of type trigger */}
           <NavigationMenu.Content
             className={`
-                  bg-background-black py-8 px-14
+                  bg-gray-100 py-8 px-14
                   radix-motion-from-end:animate-enter-from-right
                   radix-motion-from-start:animate-enter-from-left
                   radix-motion-to-end:animate-exit-to-right
@@ -119,7 +129,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
                   within the popup to both keep it and not break accessibility */}
               {getHref(item) !== '#' && (
                 <li className="col-span-full">
-                  <MenuLink item={item} />
+                  <MenuLink item={item} className={'color-black'} />
                 </li>
               )}
               {/* Column items */}

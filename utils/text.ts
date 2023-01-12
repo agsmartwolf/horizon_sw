@@ -6,7 +6,7 @@ export const parseTextWithVariables = (
 ) => {
   const variablesKeys = Object.keys(variables);
 
-  variablesKeys.forEach((key) => {
+  variablesKeys.forEach(key => {
     const variableText = wrapWithCurlyBraces(key);
     if (text.includes(variableText)) {
       text = text.replace(variableText, variables[key]);

@@ -43,7 +43,7 @@ const QuickAdd: React.FC<QuickAddProps> = ({
   addedToBagLabel,
   nextLabel,
 }) => {
-  const formatPrice = useCurrency((store) => store.formatPrice);
+  const formatPrice = useCurrency(store => store.formatPrice);
 
   const [quickAddOpen, setQuickAddOpen] = useState(false);
   const [added, setAdded] = useState(false);
@@ -57,8 +57,8 @@ const QuickAdd: React.FC<QuickAddProps> = ({
     () =>
       // '' inputType represents gift-cards
       [OPTION_INPUT_TYPE.SELECT, ''].includes(
-        productOptions.find((option) => option.id === currentOption)
-          ?.inputType ?? 'invalid-string',
+        productOptions.find(option => option.id === currentOption)?.inputType ??
+          'invalid-string',
       ) && !state.selectedProductOptions.get(currentOption),
     [state, currentOption, productOptions],
   );
@@ -77,7 +77,7 @@ const QuickAdd: React.FC<QuickAddProps> = ({
     [addLabel, addToBagLabel],
   );
   const currentOptionIndex = useMemo(
-    () => productOptions.map((option) => option.id).indexOf(currentOption),
+    () => productOptions.map(option => option.id).indexOf(currentOption),
     [currentOption, productOptions],
   );
 
@@ -133,7 +133,7 @@ const QuickAdd: React.FC<QuickAddProps> = ({
             active={productOption.active}
             values={productOption.values}
             value={state.selectedProductOptions.get(productOption.id) ?? ''}
-            onChange={(valueId) =>
+            onChange={valueId =>
               dispatch({
                 type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,
                 payload: {
@@ -155,7 +155,7 @@ const QuickAdd: React.FC<QuickAddProps> = ({
               active={productOption.active}
               values={productOption.values}
               value={state.selectedProductOptions.get(productOption.id) ?? ''}
-              onChange={(valueId) =>
+              onChange={valueId =>
                 dispatch({
                   type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,
                   payload: {
@@ -167,7 +167,7 @@ const QuickAdd: React.FC<QuickAddProps> = ({
             />
           );
         case OPTION_INPUT_TYPE.TOGGLE:
-          return productOption?.values?.map((value) => (
+          return productOption?.values?.map(value => (
             <ToggleSmall
               key={value.id}
               name={productOption.name}
@@ -240,7 +240,7 @@ const QuickAdd: React.FC<QuickAddProps> = ({
                 leaveTo="opacity-0 max-h-0">
                 <Popover.Panel
                   static
-                  className="absolute bottom-4 left-4 right-4 hidden w-[calc(100%-32px)] rounded-1.5xl bg-background-black p-4 shadow-2xl lg:block"
+                  className="absolute bottom-4 left-4 right-4 hidden w-[calc(100%-32px)] rounded-1.5xl bg-background-grey-100 p-4 shadow-2xl lg:block"
                   ref={panelRef}
                   onMouseEnter={openQuickAdd}
                   onMouseLeave={closeQuickAdd}
@@ -252,7 +252,7 @@ const QuickAdd: React.FC<QuickAddProps> = ({
                         !!productOption?.values?.length && (
                           // Expanding/collapsing content wrapper
                           <div
-                            ref={(ref) => {
+                            ref={ref => {
                               if (!ref) return;
 
                               window.requestAnimationFrame(() => {
@@ -277,7 +277,7 @@ const QuickAdd: React.FC<QuickAddProps> = ({
                             key={productOption.id}>
                             {/* Back button */}
                             {index > 0 && (
-                              <div className="mb-4 border-b border-b-background-secondary pb-2">
+                              <div className="mb-4 border-b border-b-background-black-100 pb-2">
                                 <button
                                   className="flex items-center space-x-1.5 text-sm font-semibold"
                                   type="button"

@@ -26,7 +26,7 @@ const calculateOptionVisibility = (
   //  If the option has no parent, it's always visible
   if (!option.parentId) return true;
 
-  const parentOption = productOptions.find((o) => o.id === option.parentId);
+  const parentOption = productOptions.find(o => o.id === option.parentId);
 
   // If the parent option is not found, hide the option
   if (!parentOption) return false;
@@ -70,7 +70,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
 }) => {
   const filteredOptions = useMemo(
     () =>
-      options.filter((option) =>
+      options.filter(option =>
         calculateOptionVisibility(option, options, selectedOptions),
       ),
     [options, selectedOptions],
@@ -84,7 +84,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
           name={productOption.name || productOption.attributeId}
           value={id}
           label={name}
-          onChange={(valueId) =>
+          onChange={valueId =>
             onChange?.({
               type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,
               payload: { optionId: productOption.id, valueId },
@@ -107,7 +107,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
           return selectOption(productOption);
         }
         case OPTION_INPUT_TYPE.TOGGLE: {
-          return productOption.values?.map((value) => (
+          return productOption.values?.map(value => (
             <Toggle
               key={value.id}
               name={productOption.name}
@@ -133,7 +133,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
               className="w-full"
               placeholder={productOption.placeholder}
               required={productOption.required}
-              onChange={(e) => {
+              onChange={e => {
                 onChange?.({
                   type: ACTIONS.SET_TEXT_PRODUCT_OPTION,
                   payload: {
@@ -152,7 +152,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
               className="w-full"
               style={{ maxWidth: '100%', width: '100%' }}
               required={productOption.required}
-              onChange={(e) => {
+              onChange={e => {
                 onChange?.({
                   type: ACTIONS.SET_TEXT_PRODUCT_OPTION,
                   payload: {
@@ -171,7 +171,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
 
   return (
     <div className="mt-5 flex flex-col gap-5">
-      {filteredOptions.map((productOption) => {
+      {filteredOptions.map(productOption => {
         // Don't wrap the toggle in a container
         if (productOption.inputType === OPTION_INPUT_TYPE.TOGGLE) {
           return renderOption(productOption);

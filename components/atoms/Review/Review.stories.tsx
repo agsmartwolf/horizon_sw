@@ -14,7 +14,7 @@ export default {
   },
 } as ComponentMeta<typeof Review>;
 
-const Template: ComponentStory<typeof Review> = (args) => <Review {...args} />;
+const Template: ComponentStory<typeof Review> = args => <Review {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

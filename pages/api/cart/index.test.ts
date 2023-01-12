@@ -59,7 +59,7 @@ describe('cart api handler', () => {
   });
 
   it('rejects when missing required data on PUT request', async () => {
-    Object.keys(defaultBody).forEach(async (field) => {
+    Object.keys(defaultBody).forEach(async field => {
       const { req, res } = getIncompleteReq(
         { method: 'PUT', body: defaultBody },
         field,

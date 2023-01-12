@@ -21,7 +21,7 @@ export function isNotNull<T>(argument: T | null): argument is T {
 export function denullifyArray<T>(array: T[] | undefined | null) {
   return (
     (array?.filter(
-      (item) => item !== null && item !== undefined,
+      item => item !== null && item !== undefined,
     ) as NotNullish<T>[]) ?? []
   );
 }

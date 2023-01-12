@@ -12,7 +12,7 @@ export default {
   },
 } as ComponentMeta<typeof Memberships>;
 
-const Template: ComponentStory<typeof Memberships> = (args) => (
+const Template: ComponentStory<typeof Memberships> = args => (
   <Memberships {...args} />
 );
 

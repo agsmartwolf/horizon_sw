@@ -55,7 +55,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
           </caption>
         )}
         <tbody className="mb-2 table w-full">
-          {rows.map((row) => (
+          {rows.map(row => (
             <tr key={`${row.label}${row.value}`}>
               <th
                 className={[

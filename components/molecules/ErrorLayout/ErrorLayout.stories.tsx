@@ -9,7 +9,7 @@ export default {
   component: ErrorLayout,
 } as ComponentMeta<typeof ErrorLayout>;
 
-const Template: ComponentStory<typeof ErrorLayout> = (args) => (
+const Template: ComponentStory<typeof ErrorLayout> = args => (
   <ErrorLayout {...args} />
 );
 

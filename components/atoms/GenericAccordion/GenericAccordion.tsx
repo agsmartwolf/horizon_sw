@@ -1,31 +1,51 @@
 import React, { ReactNode } from 'react';
 import { Disclosure, Transition } from '@headlessui/react';
 import ChevronDown from 'assets/icons/chevron-down.svg';
+import useClassNames from '../../../hooks/useClassNames';
 
 export interface GenericAccordionProps {
   name: string;
   defaultOpen: boolean;
   children: ReactNode;
+  hideArrow?: boolean;
+  className?: string;
 }
 
 const GenericAccordion: React.FC<GenericAccordionProps> = ({
   name,
   defaultOpen,
   children,
+  hideArrow = false,
+  className = '',
 }) => {
   return (
     <div>
       <Disclosure defaultOpen={defaultOpen}>
         {({ open }) => (
-          <div className="flex flex-col overflow-hidden">
+          <div
+            className={useClassNames(
+              'flex flex-col overflow-hidden',
+              className,
+            )}>
             <Disclosure.Button className="flex w-full items-center justify-between py-4">
-              <span className="text-black">{name}</span>
+              <span
+                className={useClassNames(
+                  'text-black border-b border-transparent',
+                  {
+                    'border-gray-400': !open,
+                  },
+                )}>
+                {name}
+              </span>
               <ChevronDown
                 width={16}
                 height={16}
-                className={`text-black transition-transform duration-400 ${
-                  open ? 'rotate-180' : 'rotate-0'
-                }`}
+                className={useClassNames(
+                  `text-black transition-transform duration-400 ${
+                    open ? 'rotate-180' : 'rotate-0'
+                  }`,
+                  hideArrow ? 'hidden' : '',
+                )}
               />
             </Disclosure.Button>
 
@@ -33,7 +53,7 @@ const GenericAccordion: React.FC<GenericAccordionProps> = ({
               <Disclosure.Panel unmount={false}>
                 <div
                   className="transition-[max-height] duration-400"
-                  ref={(ref) => {
+                  ref={ref => {
                     if (!ref) return;
 
                     setTimeout(() => {

@@ -24,7 +24,7 @@ import useSettingsStore from 'stores/settings';
 import { fetchQuizData } from 'lib/rest/fetchStoreData';
 
 const loadFeatures = () =>
-  import('utils/framerFeatures').then((res) => res.default);
+  import('utils/framerFeatures').then(res => res.default);
 
 export type QuizPageProps = {
   id: string;
@@ -101,7 +101,7 @@ const QuizPage: NextPageWithLayout<ServerSideProps<typeof getStaticProps>> = ({
 
   useLiveEditorQuizNavigation(onIndexChange, quiz.id, router);
 
-  const [setSettings, headerSettings] = useSettingsStore((state) => [
+  const [setSettings, headerSettings] = useSettingsStore(state => [
     state.setSettings,
     state.settings?.header,
   ]);
@@ -187,6 +187,6 @@ const QuizPage: NextPageWithLayout<ServerSideProps<typeof getStaticProps>> = ({
   );
 };
 
-QuizPage.getLayout = (page) => <>{page}</>;
+QuizPage.getLayout = page => <>{page}</>;
 
 export default QuizPage;

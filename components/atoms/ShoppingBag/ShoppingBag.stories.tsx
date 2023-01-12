@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof ShoppingBag>;
 
-const Template: ComponentStory<typeof ShoppingBag> = (args) => (
+const Template: ComponentStory<typeof ShoppingBag> = args => (
   <ShoppingBag {...args} />
 );
 

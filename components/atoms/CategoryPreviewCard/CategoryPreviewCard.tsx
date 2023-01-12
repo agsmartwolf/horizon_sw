@@ -5,7 +5,7 @@ import RichText from '../RichText';
 import type { MandatoryImageProps } from 'types/global';
 import useClassNames from 'hooks/useClassNames';
 import { IMAGE_LAYOUT } from 'lib/globals/sizings';
-import { layoutFillConfig } from 'lib/utils/image';
+
 
 export interface CategoryPreviewCardProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -56,16 +56,17 @@ const CategoryPreviewCard: React.FC<CategoryPreviewCardProps> = ({
         'flex min-w-[54vw] flex-col space-y-2 overflow-visible lg:min-w-0 lg:space-y-6',
         props.className,
       ].join(' ')}>
-      <Link href={href} scroll={!preserveScroll}>
-        <a className={imageContainerClassNames}>
-          <Image
-            {...image}
-            {...layoutFillConfig}
-            alt={image.alt}
-            className={imageClassNames}
-            objectFit="cover"
-          />
-        </a>
+      <Link
+        href={href}
+        scroll={!preserveScroll}
+        className={imageContainerClassNames}>
+        <Image
+          {...image}
+          
+          alt={image.alt}
+          className={imageClassNames}
+          objectFit="cover"
+        />
       </Link>
       <div className="flex flex-col lg:space-y-2">
         <Link href={href}>

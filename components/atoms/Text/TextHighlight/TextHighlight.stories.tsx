@@ -13,7 +13,7 @@ export default {
   } as ComponentMeta<typeof TextHighlight>,
 };
 
-const Template: ComponentStory<typeof TextHighlight> = (args) => (
+const Template: ComponentStory<typeof TextHighlight> = args => (
   <TextHighlight {...args} />
 );
 

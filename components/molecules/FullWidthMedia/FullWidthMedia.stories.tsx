@@ -53,7 +53,7 @@ export default {
   },
 } as ComponentMeta<typeof FullWidthMedia>;
 
-const Template: ComponentStory<typeof FullWidthMedia> = (args) => (
+const Template: ComponentStory<typeof FullWidthMedia> = args => (
   <FullWidthMedia {...args} />
 );
 

@@ -12,7 +12,7 @@ export default {
   },
 } as ComponentMeta<typeof ActionModal>;
 
-const Template: ComponentStory<typeof ActionModal> = (args) => (
+const Template: ComponentStory<typeof ActionModal> = args => (
   <ActionModal {...args} />
 );
 

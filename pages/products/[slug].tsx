@@ -89,10 +89,10 @@ export const getStaticPaths: GetStaticPaths = async ({
 
   const paths: { params: ParsedUrlQuery; locale?: string }[] = [];
 
-  productsQueryResults?.results?.forEach((product) => {
+  productsQueryResults?.results?.forEach(product => {
     if (product?.slug) {
       const localesArray = locales?.length ? locales : [defaultLocale];
-      localesArray?.forEach((locale) => {
+      localesArray?.forEach(locale => {
         paths.push({ params: { slug: product.slug as string }, locale });
       });
     }
@@ -104,7 +104,7 @@ export const getStaticPaths: GetStaticPaths = async ({
   };
 };
 
-const propsCallback: GetStaticProps<ProductsPageProps> = async (context) => {
+const propsCallback: GetStaticProps<ProductsPageProps> = async context => {
   if (!context.params?.slug || typeof context.params?.slug !== 'string') {
     return {
       notFound: true,
@@ -180,11 +180,11 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
         productVariants: productVariantsProp,
         upSells: upSellsProp,
       },
-      callback: (newCurrency) =>
+      callback: newCurrency =>
         getProductBySlug(slug, { currency: newCurrency, locale }),
-      currencyGetter: (data) => data.currency,
+      currencyGetter: data => data.currency,
     });
-  const formatPrice = useCurrency((store) => store.formatPrice);
+  const formatPrice = useCurrency(store => store.formatPrice);
 
   const { state, dispatch, activeVariation, addToCart } = useProductSelection({
     productId,
@@ -232,7 +232,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
 
     let toCamelCase: (string?: string | undefined) => string | undefined;
 
-    import('lodash.camelcase').then((pkg) => {
+    import('lodash.camelcase').then(pkg => {
       toCamelCase = pkg.default;
     });
 
@@ -309,7 +309,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                 <ProductOptions
                   options={productOptions}
                   selectedOptions={state.selectedProductOptions}
-                  onChange={(payload) => dispatch(payload)}
+                  onChange={payload => dispatch(payload)}
                   isGiftCard={isGiftCard}
                   priceFormatter={formatPrice}
                 />
@@ -330,7 +330,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                   standardPrice={activeVariation?.standardPrice}
                   subscriptionPrice={activeVariation?.subscriptionPrice}
                   value={state.selectedPurchaseOption}
-                  onChange={(purchaseOption) =>
+                  onChange={purchaseOption =>
                     dispatch({
                       type: ACTIONS.SET_SELECTED_PURCHASE_OPTION,
                       payload: purchaseOption,
@@ -344,7 +344,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                 <SubscriptionOptions
                   plans={purchaseOptions.subscription?.plans}
                   value={state.selectedPlan}
-                  onChange={(plan) =>
+                  onChange={plan =>
                     dispatch({
                       type: ACTIONS.SET_SELECTED_PLAN,
                       payload: plan,
@@ -357,7 +357,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                 {liveSettings.enableProductCounter && (
                   <CounterInput
                     value={state.quantity}
-                    onChange={(quantity) =>
+                    onChange={quantity =>
                       dispatch({
                         type: ACTIONS.SET_QUANTITY,
                         payload: quantity,
@@ -391,7 +391,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
             </form>
             {!!expandableDetails.length && (
               <div className="flex w-full flex-col gap-2 py-8">
-                {expandableDetails.map((detail) => (
+                {expandableDetails.map(detail => (
                   <InfoAccordion
                     className="w-full"
                     key={detail.id}

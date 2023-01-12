@@ -13,7 +13,7 @@ export default {
   },
 } as ComponentMeta<typeof PressMentionCarousel>;
 
-const Template: ComponentStory<typeof PressMentionCarousel> = (args) => (
+const Template: ComponentStory<typeof PressMentionCarousel> = args => (
   <PressMentionCarousel {...args} />
 );
 

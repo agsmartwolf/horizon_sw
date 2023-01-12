@@ -48,13 +48,13 @@ const QuizCheckout = React.forwardRef<HTMLDivElement, QuizCheckoutProps>(
   ) => {
     const row = (texts: string[]) => (
       <p className="flex justify-between" key={texts.join()}>
-        {texts.map((text) => (
+        {texts.map(text => (
           <span key={text}>{text}</span>
         ))}
       </p>
     );
 
-    const formatPrice = useCurrencyStore((state) => state.formatPrice);
+    const formatPrice = useCurrencyStore(state => state.formatPrice);
     const rows = [
       [subtotalText, formatPrice(subtotal)],
       [shippingText, shipping],

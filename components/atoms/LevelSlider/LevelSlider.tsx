@@ -79,7 +79,7 @@ const LevelSlider: React.FC<LevelSliderProps> = ({
    */
   const onOptionSelect = useCallback(
     (id: string) => {
-      const trackOption = trackOptions.find((opt) => opt.id === id);
+      const trackOption = trackOptions.find(opt => opt.id === id);
 
       if (trackOption) {
         setLeftPosition(getThumbLeftPosition(trackOption, thumbRef.current));

@@ -8,7 +8,7 @@ export default {
   component: AccountMobileMenu,
 } as ComponentMeta<typeof AccountMobileMenu>;
 
-const Template: ComponentStory<typeof AccountMobileMenu> = (args) => (
+const Template: ComponentStory<typeof AccountMobileMenu> = args => (
   <AccountMobileMenu {...args} />
 );
 

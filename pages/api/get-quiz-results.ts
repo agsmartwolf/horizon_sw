@@ -21,9 +21,9 @@ export const addInitialPoints = (
   productRanking: Ranking,
   categoryRanking: Ranking,
 ) => {
-  answers.forEach((answer) => {
-    answer.selection.forEach((selection) => {
-      selection.productSelection.forEach((item) => {
+  answers.forEach(answer => {
+    answer.selection.forEach(selection => {
+      selection.productSelection.forEach(item => {
         if (item.model === PRODUCT_MODEL) {
           productRanking[item.slug] = productRanking[item.slug]
             ? productRanking[item.slug] + selection.points
@@ -52,7 +52,7 @@ export const cleanupCategoryRanking = (
         categoryPointsVariations.length - validCategoryCount
       ];
 
-    Object.keys(categoryRanking).forEach((key) => {
+    Object.keys(categoryRanking).forEach(key => {
       if (categoryRanking[key] < lowestValidPoints) {
         delete categoryRanking[key];
       }
@@ -70,20 +70,20 @@ export const addCategoryPointsToProducts = async (
   // if the products within those categories are already ranked
   // in the initial points distribution
   if (categories?.length > 0) {
-    categories.forEach((category) => {
+    categories.forEach(category => {
       if (denullifyArray(category?.products).length === 0 || !category?.slug) {
         return;
       }
 
       const alreadyRankedProducts = Object.keys(productRanking).filter(
-        (productSlug) =>
-          category?.products?.some((product) => product?.slug === productSlug),
+        productSlug =>
+          category?.products?.some(product => product?.slug === productSlug),
       );
 
       if (alreadyRankedProducts.length > 0) {
         const productPointsVariations = [
           ...new Set(
-            alreadyRankedProducts.map((id) => productRanking[id]).sort(),
+            alreadyRankedProducts.map(id => productRanking[id]).sort(),
           ),
         ];
 
@@ -93,14 +93,14 @@ export const addCategoryPointsToProducts = async (
             productPointsVariations.length - 1,
           )[0];
 
-          alreadyRankedProducts.forEach((productId) => {
+          alreadyRankedProducts.forEach(productId => {
             if (productRanking[productId] >= lowestValidPoints) {
               productRanking[productId] +=
                 categoryRanking[category.slug as string];
             }
           });
         } else {
-          alreadyRankedProducts.forEach((productId) => {
+          alreadyRankedProducts.forEach(productId => {
             productRanking[productId] +=
               categoryRanking[category.slug as string];
           });
@@ -144,7 +144,7 @@ export default async function handler(
   // we need to break and redirect to /quiz/results with most popular products
   if (
     !answers?.length ||
-    !answers?.flatMap((answer) => answer.selection).length
+    !answers?.flatMap(answer => answer.selection).length
   ) {
     try {
       const { data } = await client.getFilteredSortedProducts({
@@ -157,8 +157,8 @@ export default async function handler(
 
       if (data?.products?.results) {
         productsSlugs = data.products.results
-          .filter((product) => !!product?.slug)
-          .map((product) => product?.slug as string);
+          .filter(product => !!product?.slug)
+          .map(product => product?.slug as string);
       }
 
       return res.status(200).json({
@@ -185,13 +185,11 @@ export default async function handler(
 
     try {
       // Get all products for each valid category
-      const categoryPromises = Object.keys(categoryRanking).map(
-        async (slug) => {
-          const category = await client.getCategoryWithProductSlugs({ slug });
+      const categoryPromises = Object.keys(categoryRanking).map(async slug => {
+        const category = await client.getCategoryWithProductSlugs({ slug });
 
-          return category.data.categoryBySlug;
-        },
-      );
+        return category.data.categoryBySlug;
+      });
       const categories = await Promise.all(categoryPromises);
 
       await addCategoryPointsToProducts(
@@ -238,10 +236,10 @@ export default async function handler(
     // in the last spot available in the final ranking.
     if (firstAfterLastProductPoints === lastProductPoints) {
       const rankingAboveLast = sortedRanking.filter(
-        (item) => item[1] > lastProductPoints,
+        item => item[1] > lastProductPoints,
       );
       const rankingLast = sortedRanking.filter(
-        (item) => item[1] === lastProductPoints,
+        item => item[1] === lastProductPoints,
       );
       const spotsLeft = VALID_FINAL_RANKING_COUNT - rankingAboveLast.length;
 
@@ -250,15 +248,15 @@ export default async function handler(
 
       try {
         const { data } = await client.getFilteredSortedProducts({
-          filter: { slug: { _in: rankingLast.map((item) => item[0]) } },
+          filter: { slug: { _in: rankingLast.map(item => item[0]) } },
           sort: 'popularity desc',
           limit: rankingLast.length,
         });
 
         if (data?.products?.results) {
           validLastProducts = data.products.results
-            .filter((product) => !!product?.slug)
-            .map((product) => product?.slug as string)
+            .filter(product => !!product?.slug)
+            .map(product => product?.slug as string)
             .slice(0, spotsLeft);
         }
       } catch (error) {
@@ -267,7 +265,7 @@ export default async function handler(
       }
 
       const finalRanking = [
-        ...rankingAboveLast.map((item) => item[0]),
+        ...rankingAboveLast.map(item => item[0]),
         ...validLastProducts,
       ];
 
@@ -280,7 +278,7 @@ export default async function handler(
   }
 
   const finalRanking = sortedRanking
-    .map((item) => item[0])
+    .map(item => item[0])
     .slice(0, VALID_FINAL_RANKING_COUNT);
 
   return res.status(200).json({

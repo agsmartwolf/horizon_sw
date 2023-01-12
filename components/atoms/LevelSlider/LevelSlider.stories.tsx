@@ -12,7 +12,7 @@ export default {
     name: { control: 'text' },
   },
   decorators: [
-    (Story) => (
+    Story => (
       <div className="lg:m-16">
         <Story />
       </div>
@@ -20,7 +20,7 @@ export default {
   ],
 } as ComponentMeta<typeof LevelSlider>;
 
-const Template: ComponentStory<typeof LevelSlider> = (args) => (
+const Template: ComponentStory<typeof LevelSlider> = args => (
   <LevelSlider {...args} />
 );
 

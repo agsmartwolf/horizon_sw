@@ -8,7 +8,7 @@ import { NOTIFICATION_TYPE } from 'types/shared/notification';
 const useLogout = () => {
   const fetchApi = useFetchApi();
   const router = useRouter();
-  const send = useNotificationStore((store) => store.send);
+  const send = useNotificationStore(store => store.send);
 
   const responseCallback = useCallback(
     (res: Response) => {

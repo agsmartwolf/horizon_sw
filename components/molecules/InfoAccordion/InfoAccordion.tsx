@@ -33,9 +33,7 @@ const InfoAccordion: React.FC<InfoAccordionProps> = ({
         {({ open }) => (
           <div className={classNames}>
             <Disclosure.Button className="flex w-full items-center justify-between py-4">
-              <span className="text-sm font-semibold text-black">
-                {label}
-              </span>
+              <span className="text-sm font-semibold text-black">{label}</span>
               {open ? (
                 <Minus width={12} height={12} className="text-black" />
               ) : (
@@ -47,7 +45,7 @@ const InfoAccordion: React.FC<InfoAccordionProps> = ({
               <Disclosure.Panel unmount={false}>
                 <div
                   className="transition-[max-height] duration-400"
-                  ref={(ref) => {
+                  ref={ref => {
                     if (!ref) return;
 
                     setTimeout(() => {

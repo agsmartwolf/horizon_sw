@@ -58,7 +58,7 @@ const SubscriptionIntervalSelect: React.FC<SubscriptionIntervalSelectProps> = ({
                 />
               </Listbox.Button>
               <Listbox.Options className="absolute flex w-full flex-col gap-2 rounded-b-lg border-x border-b border-dividers bg-background-black px-2 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
-                {plans.map((plan) => (
+                {plans.map(plan => (
                   <Listbox.Option key={plan?.id} value={plan}>
                     {({ active }) => (
                       <span

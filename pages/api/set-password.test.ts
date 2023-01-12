@@ -34,7 +34,7 @@ describe('set-password api handler', () => {
   });
 
   it('rejects when missing required data', async () => {
-    Object.keys(defaultBody).forEach(async (field) => {
+    Object.keys(defaultBody).forEach(async field => {
       const { req, res } = getIncompleteReq(
         { method: 'POST', body: defaultBody },
         field,

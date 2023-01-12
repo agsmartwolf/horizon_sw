@@ -16,7 +16,7 @@ export default {
   },
 } as ComponentMeta<typeof ImageThumbnails>;
 
-const Template: ComponentStory<typeof ImageThumbnails> = (args) => (
+const Template: ComponentStory<typeof ImageThumbnails> = args => (
   <ImageThumbnails {...args} />
 );
 

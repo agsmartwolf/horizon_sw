@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof Figure>;
 
-const Template: ComponentStory<typeof Figure> = (args) => <Figure {...args} />;
+const Template: ComponentStory<typeof Figure> = args => <Figure {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

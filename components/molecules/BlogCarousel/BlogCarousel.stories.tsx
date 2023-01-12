@@ -19,7 +19,7 @@ export default {
   },
 } as ComponentMeta<typeof BlogCarousel>;
 
-const Template: ComponentStory<typeof BlogCarousel> = (args) => (
+const Template: ComponentStory<typeof BlogCarousel> = args => (
   <BlogCarousel {...args} />
 );
 

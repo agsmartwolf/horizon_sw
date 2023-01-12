@@ -13,7 +13,7 @@ export default {
   },
 } as ComponentMeta<typeof GridSelectCard>;
 
-const Template: ComponentStory<typeof GridSelectCard> = (args) => (
+const Template: ComponentStory<typeof GridSelectCard> = args => (
   <GridSelectCard {...args} />
 );
 

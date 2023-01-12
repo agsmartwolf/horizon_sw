@@ -32,7 +32,7 @@ export default {
   },
 } as ComponentMeta<typeof HeadingWithText>;
 
-const Template: ComponentStory<typeof HeadingWithText> = (args) => (
+const Template: ComponentStory<typeof HeadingWithText> = args => (
   <HeadingWithText {...args} />
 );
 

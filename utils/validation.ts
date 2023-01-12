@@ -18,9 +18,7 @@ export const validateNonEmptyFields = <
   fields: Fields,
   errorPayloads: ErrorPayloads,
 ): ErrorPayloads[keyof Fields] | null => {
-  const invalid = objectKeys(fields).find(
-    (field) => fields[field].trim() === '',
-  );
+  const invalid = objectKeys(fields).find(field => fields[field].trim() === '');
 
   return invalid ? errorPayloads[invalid] : null;
 };

@@ -28,7 +28,7 @@ const values = [
   },
 ];
 
-const Template: ComponentStory<typeof OptionSelectGrid> = (args) => {
+const Template: ComponentStory<typeof OptionSelectGrid> = args => {
   const [value, setValue] = useState(values[0].id);
   return <OptionSelectGrid {...args} value={value} onChange={setValue} />;
 };

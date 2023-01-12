@@ -18,7 +18,7 @@ export default {
   },
 } as ComponentMeta<typeof PurchaseOptionsRadio>;
 
-const Template: ComponentStory<typeof PurchaseOptionsRadio> = (args) => {
+const Template: ComponentStory<typeof PurchaseOptionsRadio> = args => {
   const [value, setValue] = React.useState<PURCHASE_OPTION_TYPE>(
     PURCHASE_OPTION_TYPE.STANDARD,
   );

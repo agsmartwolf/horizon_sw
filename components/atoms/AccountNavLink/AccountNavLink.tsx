@@ -13,16 +13,15 @@ const AccountNavLink: React.FC<AccountNavLinkProps> = ({
   label,
   active,
 }) => (
-  <Link href={link}>
-    <a
-      className={useClassNames(
-        'decoration-skip-ink-none text-md text-body hover:underline md:font-bold md:text-black',
-        {
-          underline: !!active,
-        },
-      )}>
-      {label}
-    </a>
+  <Link
+    href={link}
+    className={useClassNames(
+      'decoration-skip-ink-none text-md text-body hover:underline md:font-bold md:text-black',
+      {
+        underline: !!active,
+      },
+    )}>
+    {label}
   </Link>
 );
 

@@ -30,7 +30,7 @@ export const getStaticPaths: GetStaticPaths = async ({
   } = await client.getContentPages();
 
   const pages = (contentPages?.results?.filter(
-    (page) => page?.published && page.slug,
+    page => page?.published && page.slug,
   ) ?? []) as { slug: string; published: boolean }[];
 
   const paths: { params: ParsedUrlQuery; locale?: string }[] = [];
@@ -42,7 +42,7 @@ export const getStaticPaths: GetStaticPaths = async ({
     locale,
   });
 
-  pages.forEach((staticPage) => {
+  pages.forEach(staticPage => {
     if (!staticPage) return;
 
     const { slug, published } = staticPage;
@@ -51,7 +51,7 @@ export const getStaticPaths: GetStaticPaths = async ({
 
     const localesArray = locales?.length ? locales : [defaultLocale];
 
-    const localePaths = localesArray.map((locale) => getPath(slug, locale));
+    const localePaths = localesArray.map(locale => getPath(slug, locale));
 
     paths.push(...localePaths);
   });
@@ -62,7 +62,7 @@ export const getStaticPaths: GetStaticPaths = async ({
   };
 };
 
-const propsCallback: GetStaticProps<StaticPageProps> = async (context) => {
+const propsCallback: GetStaticProps<StaticPageProps> = async context => {
   const client = getGQLClient();
   const {
     data: { storeSettings },

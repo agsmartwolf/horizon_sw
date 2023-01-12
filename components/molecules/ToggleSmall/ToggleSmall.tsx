@@ -28,7 +28,7 @@ const ToggleSmall: React.FC<ToggleSmallProps> = ({
       htmlFor={id}
       tabIndex={0}
       role="checkbox"
-      onKeyDown={(e) => {
+      onKeyDown={e => {
         // Select if spacebar is pressed
         if (e.code === 'Space') {
           e.preventDefault();

@@ -58,7 +58,7 @@ const ImageSelectGroup: React.FC<ImageSelectGroupProps> = ({
 
   return (
     <div className={classes}>
-      {options?.map((option) => (
+      {options?.map(option => (
         <CardCheckbox
           key={`${option.id}-component`}
           {...option}

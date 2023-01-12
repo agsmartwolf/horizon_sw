@@ -10,7 +10,7 @@ export interface LocaleSelectProps {
 }
 
 const LocaleSelect: React.FC<LocaleSelectProps> = ({ className }) => {
-  const [activeLocale, locales] = useLocaleStore((state) => [
+  const [activeLocale, locales] = useLocaleStore(state => [
     state.activeLocale,
     state.locales,
   ]);
@@ -45,7 +45,7 @@ const LocaleSelect: React.FC<LocaleSelectProps> = ({ className }) => {
               />
             </Listbox.Button>
             <Listbox.Options className="absolute z-50 flex w-full flex-col gap-2 rounded-b-lg border-x border-b border-dividers bg-background-black px-2 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
-              {locales?.map((locale) => (
+              {locales?.map(locale => (
                 <Listbox.Option key={locale.code} value={locale}>
                   {({ active }) => (
                     <span

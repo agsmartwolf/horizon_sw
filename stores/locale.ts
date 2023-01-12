@@ -23,11 +23,11 @@ interface LocaleState {
   setActiveLocale: (locale: Locale) => void;
 }
 
-const useLocaleStore = create<LocaleState>((set) => ({
+const useLocaleStore = create<LocaleState>(set => ({
   activeLocale: initialLocales[0],
   locales: initialLocales,
-  setLocales: (locales) => set(() => ({ locales })),
-  setActiveLocale: (activeLocale) => set(() => ({ activeLocale })),
+  setLocales: locales => set(() => ({ locales })),
+  setActiveLocale: activeLocale => set(() => ({ activeLocale })),
 }));
 
 export default useLocaleStore;

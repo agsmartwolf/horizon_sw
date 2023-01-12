@@ -43,11 +43,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                   title={item.name}
                   titleClassName="text-md"
                   items={denullifyArray(
-                    item.items.flatMap((column) => column?.items),
+                    item.items.flatMap(column => column?.items),
                   )
                     // Remove heading items from the list
                     // .filter((navItem) => navItem.type !== 'heading')
-                    .map((navItem) => ({
+                    .map(navItem => ({
                       title: navItem.name,
                       href: getHref(navItem),
                     }))}
@@ -63,7 +63,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             )}
           {/* TODO: Make user editable */}
           {/*<NavLink label="account" link="/account/orders" />*/}
-          <Button elType={BUTTON_TYPE.LINK} href="/account/login" buttonStyle={BUTTON_STYLE.PRIMARY}>
+          <Button
+            elType={BUTTON_TYPE.LINK}
+            href="/account/login"
+            buttonStyle={BUTTON_STYLE.PRIMARY}>
             Sign in
           </Button>
         </ul>

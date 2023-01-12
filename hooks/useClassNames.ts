@@ -30,7 +30,7 @@ const useClassNames = (...args: Argument[]) => {
     for (const argument of args) {
       switch (typeof argument) {
         case 'string': {
-          argument.split(' ').forEach((className) => classNames.add(className));
+          argument.split(' ').forEach(className => classNames.add(className));
           break;
         }
         case 'object': {

@@ -98,7 +98,7 @@ describe('useCurrencySubscription', () => {
 
   it('updates the data when the currency changes on the store', async () => {
     const { result: setCurrency } = renderHook(() =>
-      useCurrency((store) => store.setCurrency),
+      useCurrency(store => store.setCurrency),
     );
 
     const { result: useCurrencySubscriptionResult, waitForNextUpdate } =

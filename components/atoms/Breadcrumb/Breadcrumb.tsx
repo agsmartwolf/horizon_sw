@@ -54,9 +54,7 @@ const Breadcrumb: React.FC<BreadcumbProps> = ({ className, customText }) => {
       <ol className="flex">
         {routes.map((route, i) => (
           <li key={i}>
-            <Link href={route.href}>
-              <a>{route.title}</a>
-            </Link>
+            <Link href={route.href}>{route.title}</Link>
             {i !== routes.length - 1 && <span>&nbsp;/&nbsp;</span>}
           </li>
         ))}

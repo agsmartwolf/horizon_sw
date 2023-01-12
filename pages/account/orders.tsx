@@ -38,9 +38,7 @@ const GROUP_TITLES = {
   [ORDER_STATUS.COMPLETE]: 'Complete',
 };
 
-export const propsCallback: GetServerSideProps<OrdersPageProps> = async (
-  ctx,
-) => {
+export const propsCallback: GetServerSideProps<OrdersPageProps> = async ctx => {
   const client = getClientWithSessionToken(ctx.req.cookies);
 
   const {
@@ -48,8 +46,8 @@ export const propsCallback: GetServerSideProps<OrdersPageProps> = async (
   } = await client.getOrders();
 
   const formattedOrders: OrderCardProps[] = (orders?.results ?? []).map(
-    (order) => {
-      const images = order?.items?.map((item) =>
+    order => {
+      const images = order?.items?.map(item =>
         item?.product?.images?.length ? item.product.images[0] : null,
       );
       return {

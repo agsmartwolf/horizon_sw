@@ -8,8 +8,8 @@ export const formatDateToMonthYear = (date: Date, locale?: string): string => {
     dateStyle: 'full',
   })
     .formatToParts(new Date(date))
-    .filter((part) => part?.type === 'month' || part?.type === 'year')
-    .map((part) => part.value)
+    .filter(part => part?.type === 'month' || part?.type === 'year')
+    .map(part => part.value)
     .join(', ');
 };
 

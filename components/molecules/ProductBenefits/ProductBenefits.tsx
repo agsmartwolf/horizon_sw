@@ -16,7 +16,7 @@ const ProductBenefits: React.FC<ProductBenefitsProps> = ({
     className={`grid w-full grid-cols-[repeat(auto-fit,minmax(4.5rem,1fr))] items-center gap-5 ${
       className ?? ''
     }`}>
-    {benefits.map((benefit) => (
+    {benefits.map(benefit => (
       <ProductBenefit
         key={benefit.id}
         label={benefit.label}

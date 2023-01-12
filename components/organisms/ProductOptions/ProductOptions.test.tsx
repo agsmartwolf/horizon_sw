@@ -124,7 +124,7 @@ describe('ProductOptions', () => {
 
   it('should display all the select options', () => {
     render(<Wrapper options={selectOption} />);
-    ['Red', 'Green', 'Blue'].forEach((option) => {
+    ['Red', 'Green', 'Blue'].forEach(option => {
       expect(screen.getByRole('radio', { name: option })).toBeVisible();
     });
   });

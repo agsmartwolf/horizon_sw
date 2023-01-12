@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof OrderInfo>;
 
-const Template: ComponentStory<typeof OrderInfo> = (args) => (
+const Template: ComponentStory<typeof OrderInfo> = args => (
   <OrderInfo {...args} />
 );
 

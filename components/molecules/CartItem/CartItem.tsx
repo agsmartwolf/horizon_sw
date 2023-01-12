@@ -59,7 +59,7 @@ const CartItem: React.FC<CartItemProps> = ({
   stockPurchasable,
   stockLevel,
 }) => {
-  const [removeItem, updateItem] = useCartStore((store) => [
+  const [removeItem, updateItem] = useCartStore(store => [
     store.removeItem,
     store.updateItem,
   ]);
@@ -92,7 +92,7 @@ const CartItem: React.FC<CartItemProps> = ({
   const formatProductOptions = useCallback(() => {
     if (!productOptions?.length) return null;
 
-    return productOptions.map((option) => {
+    return productOptions.map(option => {
       if (!option?.name || !option.value) return null;
 
       const { name, value } = option;
@@ -110,26 +110,22 @@ const CartItem: React.FC<CartItemProps> = ({
   return (
     <li className="grid grid-cols-[3fr_7fr] gap-4 overflow-hidden border-t border-dividers py-6 first:pt-4">
       <Link href={href}>
-        <a>
-          <Image
-            {...image}
-            width={130}
-            height={130}
-            layout="fixed"
-            className="rounded-xl object-cover"
-            alt={image.alt}
-          />
-        </a>
+        <Image
+          {...image}
+          width={130}
+          height={130}
+          layout="fixed"
+          className="rounded-xl object-cover"
+          alt={image.alt}
+        />
       </Link>
       <div className="flex flex-col justify-between overflow-hidden">
         <div>
           <div className="flex justify-between">
             <Link href={href}>
-              <a>
-                <h5 className="font-headings text-sm font-semibold text-black">
-                  {title}
-                </h5>
-              </a>
+              <h5 className="font-headings text-sm font-semibold text-black">
+                {title}
+              </h5>
             </Link>
             <button className="text-black" onClick={() => removeItem(id)}>
               <Close className="mr-0.5 h-3 w-3" />
@@ -189,7 +185,7 @@ const CartItem: React.FC<CartItemProps> = ({
               value={quantityInputValue}
               min={minQuantity}
               max={maxQuantity}
-              onChange={(value) => {
+              onChange={value => {
                 // Debounce the update to avoid excessive requests
                 if (debounceTimeout.current) {
                   clearTimeout(debounceTimeout.current);
@@ -203,7 +199,7 @@ const CartItem: React.FC<CartItemProps> = ({
                 if (isNaN(value) || value < minQuantity || value > maxQuantity)
                   return;
               }}
-              onBlur={(value) => {
+              onBlur={value => {
                 if (debounceTimeout.current) {
                   clearTimeout(debounceTimeout.current);
                 }

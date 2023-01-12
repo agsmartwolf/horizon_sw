@@ -17,7 +17,7 @@ export default {
   },
 } as ComponentMeta<typeof OrderSummary>;
 
-const Template: ComponentStory<typeof OrderSummary> = (args) => (
+const Template: ComponentStory<typeof OrderSummary> = args => (
   <OrderSummary {...args} />
 );
 

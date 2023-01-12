@@ -1,5 +1,5 @@
 import ImageThumbnails from 'components/atoms/ImageThumbnails';
-import { layoutFillConfig } from 'lib/utils/image';
+
 import Image from 'components/atoms/SafeImage';
 import React, { useState, useCallback } from 'react';
 import { useSwipeable } from 'react-swipeable';
@@ -31,13 +31,13 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, aspectRatio }) => {
 
   const setPrevSlide = useCallback(
     () =>
-      setCurrentSlide((prev) => (prev - 1 >= 0 ? prev - 1 : images.length - 1)),
+      setCurrentSlide(prev => (prev - 1 >= 0 ? prev - 1 : images.length - 1)),
     [images.length],
   );
 
   const setNextSlide = useCallback(
     () =>
-      setCurrentSlide((prev) => (prev + 1 <= images.length - 1 ? prev + 1 : 0)),
+      setCurrentSlide(prev => (prev + 1 <= images.length - 1 ? prev + 1 : 0)),
     [images.length],
   );
 
@@ -55,7 +55,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, aspectRatio }) => {
           images={images}
           imageSize={47}
           value={currentSlide}
-          onChange={(value) => setCurrentSlide(value)}
+          onChange={value => setCurrentSlide(value)}
         />
       </div>
       <div
@@ -79,7 +79,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, aspectRatio }) => {
                 {...image}
                 alt={image.alt}
                 className={['object-cover', image.className].join(' ')}
-                {...layoutFillConfig}
+                
               />
             </div>
           </div>

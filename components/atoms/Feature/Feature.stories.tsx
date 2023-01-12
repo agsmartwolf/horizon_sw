@@ -17,9 +17,7 @@ export default {
   },
 } as ComponentMeta<typeof Feature>;
 
-const Template: ComponentStory<typeof Feature> = (args) => (
-  <Feature {...args} />
-);
+const Template: ComponentStory<typeof Feature> = args => <Feature {...args} />;
 
 export const Default = Template.bind({});
 

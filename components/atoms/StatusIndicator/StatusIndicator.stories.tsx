@@ -13,7 +13,7 @@ export default {
   },
 } as ComponentMeta<typeof StatusIndicator>;
 
-const Template: ComponentStory<typeof StatusIndicator> = (args) => (
+const Template: ComponentStory<typeof StatusIndicator> = args => (
   <StatusIndicator {...args} />
 );
 

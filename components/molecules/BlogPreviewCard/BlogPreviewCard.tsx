@@ -2,7 +2,7 @@ import Image from 'components/atoms/SafeImage';
 import Link from 'next/link';
 import React from 'react';
 import { formatDateToMonthYear } from 'lib/utils/date';
-import { layoutFillConfig } from 'lib/utils/image';
+
 import RichText from 'components/atoms/RichText';
 import Tag from 'components/atoms/Tag';
 
@@ -124,19 +124,16 @@ const BlogPreviewCard: React.FC<BlogPreviewCardProps> = ({
   return (
     <article
       className={['flex', articleClasses[size], className ?? ''].join(' ')}>
-      <Link href={href}>
-        <a
-          className={['relative w-full', imageContainerClasses[size]].join(
-            ' ',
-          )}>
-          <Image
-            {...image}
-            {...layoutFillConfig}
-            objectFit="cover"
-            alt={image.alt}
-            className={imageClasses[size]}
-          />
-        </a>
+      <Link
+        href={href}
+        className={['relative w-full', imageContainerClasses[size]].join(' ')}>
+        <Image
+          {...image}
+          
+          objectFit="cover"
+          alt={image.alt}
+          className={imageClasses[size]}
+        />
       </Link>
       <div className={['flex flex-col', bodyClasses[size]].join(' ')}>
         <p className={['text-body', dateClasses[size]].join(' ')}>

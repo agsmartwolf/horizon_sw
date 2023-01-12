@@ -14,7 +14,7 @@ export default {
   },
 } as ComponentMeta<typeof OrderPaymentMethod>;
 
-const Template: ComponentStory<typeof OrderPaymentMethod> = (args) => (
+const Template: ComponentStory<typeof OrderPaymentMethod> = args => (
   <OrderPaymentMethod {...args} />
 );
 

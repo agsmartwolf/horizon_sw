@@ -105,10 +105,10 @@ export const getActiveVariation = (
   }
 
   // Get the matching variant
-  const matchingVariant = productVariants?.find((variant) =>
+  const matchingVariant = productVariants?.find(variant =>
     // Match if every optionValueId is in selectedOptions
-    variant.optionValueIds?.every((valueId) =>
-      selectedOptions?.some((option) => option?.valueId === valueId),
+    variant.optionValueIds?.every(valueId =>
+      selectedOptions?.some(option => option?.valueId === valueId),
     ),
   );
 
@@ -129,7 +129,7 @@ export const getActiveVariation = (
 
   if (productPurchaseOptions.subscription) {
     const subscriptionPlan = productPurchaseOptions.subscription.plans?.find(
-      (plan) => plan?.id === selectedPlan?.id,
+      plan => plan?.id === selectedPlan?.id,
     );
 
     if (subscriptionPlan) {
@@ -138,16 +138,16 @@ export const getActiveVariation = (
       // const selectedOptionValues = [];
       let addPriceTotal = 0;
 
-      productOptions?.forEach((option) => {
+      productOptions?.forEach(option => {
         // If the current option is among the selected options...
         const selectedOption = selectedOptions?.find(
-          (_selectedOption) => _selectedOption?.id === option.id,
+          _selectedOption => _selectedOption?.id === option.id,
         );
 
         if (selectedOption) {
           // ...then get the corresponding value that matches its valueId
           const selectedValue = option.values?.find(
-            (value) => value.id === selectedOption.valueId,
+            value => value.id === selectedOption.valueId,
           );
 
           if (selectedValue) {
@@ -195,7 +195,7 @@ export const mapProducts = (
     | 'variants'
   >[],
 ) =>
-  products.map((product) => ({
+  products.map(product => ({
     id: product.id ?? '',
     description: product.description ?? '',
     href: `/products/${product.slug}`,
@@ -217,7 +217,7 @@ export const mapProducts = (
           inputType: option.inputType ?? '',
           active: option.active ?? true,
           required: option.required ?? false,
-          values: denullifyArray(option.values).map((value) => {
+          values: denullifyArray(option.values).map(value => {
             return {
               id: value.id ?? '',
               name: value.name ?? '',
@@ -248,13 +248,13 @@ export const hasQuickAdd = (product: SwellProduct): boolean =>
   ((!!product?.options?.length &&
     product.options.length < 3 &&
     (!product?.options?.some(
-      (option) =>
+      option =>
         ![OPTION_INPUT_TYPE.SELECT, OPTION_INPUT_TYPE.TOGGLE].includes(
           option?.inputType as OPTION_INPUT_TYPE,
         ),
     ) ||
       !!product?.categories?.some(
-        (category) => category?.slug === 'gifts-sets',
+        category => category?.slug === 'gifts-sets',
       ))) ||
     product?.options?.length === 0);
 
@@ -306,7 +306,7 @@ export const formatProductImages = (
   images?: (SwellProductImage | null)[] | null,
 ): MandatoryImageProps[] => {
   const formattedImages =
-    images?.map((image) =>
+    images?.map(image =>
       image?.file?.url
         ? {
             alt: image.caption ?? '',

@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof ValidationErrorText>;
 
-const Template: ComponentStory<typeof ValidationErrorText> = (args) => (
+const Template: ComponentStory<typeof ValidationErrorText> = args => (
   <ValidationErrorText {...args} />
 );
 

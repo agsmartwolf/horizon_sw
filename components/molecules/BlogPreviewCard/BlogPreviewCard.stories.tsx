@@ -17,7 +17,7 @@ export default {
     },
   },
   decorators: [
-    (Story) => (
+    Story => (
       <div className="px-6 lg:px-46">
         <Story />
       </div>
@@ -25,7 +25,7 @@ export default {
   ],
 } as ComponentMeta<typeof BlogPreviewCard>;
 
-const Template: ComponentStory<typeof BlogPreviewCard> = (args) => (
+const Template: ComponentStory<typeof BlogPreviewCard> = args => (
   <BlogPreviewCard {...args} />
 );
 

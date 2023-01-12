@@ -18,19 +18,17 @@ const AddMoreProductsCard: React.FC<AddMoreProductsCardProps> = ({
   href,
 }) => (
   <Link href={href}>
-    <a>
-      <div className="rounded-2xl border border-dashed border-accent px-10 py-8">
-        <div className="flex items-center gap-10">
-          <AddCircle className="my-4" />
-          <div className="flex flex-col gap-2">
-            <div className="font-headings text-sm font-semibold text-black">
-              {empty ? emptyTitle ?? title : title}
-            </div>
-            {subtitle && <div className="text-2xs text-body">{subtitle}</div>}
+    <div className="rounded-2xl border border-dashed border-accent px-10 py-8">
+      <div className="flex items-center gap-10">
+        <AddCircle className="my-4" />
+        <div className="flex flex-col gap-2">
+          <div className="font-headings text-sm font-semibold text-black">
+            {empty ? emptyTitle ?? title : title}
           </div>
+          {subtitle && <div className="text-2xs text-body">{subtitle}</div>}
         </div>
       </div>
-    </a>
+    </div>
   </Link>
 );
 

@@ -13,7 +13,7 @@ export default {
   },
 } as ComponentMeta<typeof Logo>;
 
-const Template: ComponentStory<typeof Logo> = (args) => <Logo {...args} />;
+const Template: ComponentStory<typeof Logo> = args => <Logo {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

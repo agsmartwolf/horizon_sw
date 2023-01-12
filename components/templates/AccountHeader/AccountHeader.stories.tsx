@@ -9,7 +9,7 @@ export default {
   component: AccountHeader,
 } as ComponentMeta<typeof AccountHeader>;
 
-const Template: ComponentStory<typeof AccountHeader> = (args) => (
+const Template: ComponentStory<typeof AccountHeader> = args => (
   <AccountHeader {...args} />
 );
 

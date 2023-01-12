@@ -15,7 +15,7 @@ export default {
   },
 } as ComponentMeta<typeof SlideNav>;
 
-const Template: ComponentStory<typeof SlideNav> = (args) => {
+const Template: ComponentStory<typeof SlideNav> = args => {
   return <SlideNav {...args} />;
 };
 

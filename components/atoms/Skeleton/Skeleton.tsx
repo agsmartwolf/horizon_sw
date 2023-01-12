@@ -12,7 +12,7 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
         ref={ref}
         className={[
           props.className,
-          'animate-pulse bg-background-secondary',
+          'animate-pulse bg-gray-100',
           rounded ? 'rounded-xl' : '',
         ].join(' ')}
       />

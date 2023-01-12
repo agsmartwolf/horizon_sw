@@ -44,7 +44,7 @@ const StackSelectGroup: React.FC<StackSelectGroupProps> = ({
         'flex flex-col items-center gap-y-6',
         containerClassName,
       ].join(' ')}>
-      {options?.map((option) => (
+      {options?.map(option => (
         <StackCheckbox
           key={`${option.id}-component`}
           onChange={() => onChange(option.id)}

@@ -73,10 +73,8 @@ const QuizNavbar: React.FC<QuizNavbarProps> = ({
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         />
 
-        <Link href="/">
-          <a className="ml-auto">
-            <Close className="h-5 w-5 text-black" />
-          </a>
+        <Link href="/" className="ml-auto">
+          <Close className="h-5 w-5 text-black" />
         </Link>
       </div>
     </nav>

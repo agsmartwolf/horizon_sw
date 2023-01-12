@@ -46,12 +46,12 @@ const PurchaseList: React.FC<PurchaseListProps> = ({
       ) : (
         <div>
           <p className="text-sm text-body md:mt-4">{emptyStateLabel}</p>
-          <Link href="/products">
-            <a className="mt-4 flex items-center space-x-2 text-black">
-              <Plus className="h-4 w-4" />
-              {/* TODO: i18n */}
-              <span className="text-sm font-semibold">Start shopping</span>
-            </a>
+          <Link
+            href="/products"
+            className="mt-4 flex items-center space-x-2 text-black">
+            <Plus className="h-4 w-4" />
+            {/* TODO: i18n */}
+            <span className="text-sm font-semibold">Start shopping</span>
           </Link>
         </div>
       )}

@@ -57,10 +57,8 @@ const CheckEmailPage: NextPageWithLayout<CheckEmailProps> = ({
           )}
           <p className="mt-6 text-center text-sm text-black md:mt-6">
             {text.backToLoginText && <>{text.backToLoginText}&nbsp;</>}
-            <Link href="/account/login">
-              <a className="font-bold hover:underline">
-                {text.backToLoginLink}
-              </a>
+            <Link href="/account/login" className="font-bold hover:underline">
+              {text.backToLoginLink}
             </Link>
           </p>
         </div>

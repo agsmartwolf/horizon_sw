@@ -10,7 +10,7 @@ export default {
   component: MultipleFeatures,
 } as ComponentMeta<typeof MultipleFeatures>;
 
-const Template: ComponentStory<typeof MultipleFeatures> = (args) => (
+const Template: ComponentStory<typeof MultipleFeatures> = args => (
   <MultipleFeatures {...args} />
 );
 

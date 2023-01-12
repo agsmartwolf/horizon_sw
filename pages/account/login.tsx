@@ -155,7 +155,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
   }, [router]);
 
   const handleSubmit = useCallback(
-    async (e) => {
+    async e => {
       e.preventDefault();
       await fetchApi(
         {
@@ -218,7 +218,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                   error={emailError}
                   placeholder={text.emailPlaceholder}
                   value={email}
-                  onChange={(e) => {
+                  onChange={e => {
                     setError(undefined);
                     setEmail(e.currentTarget.value);
                   }}
@@ -243,7 +243,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                   error={passwordError}
                   placeholder={text.passwordPlaceholder}
                   value={password}
-                  onChange={(e) => {
+                  onChange={e => {
                     setError(undefined);
                     setPassword(e.currentTarget.value);
                   }}
@@ -253,10 +253,10 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                 )}
               </p>
               <p className="mt-2">
-                <Link href="/account/password-recovery">
-                  <a className="text-xs text-body hover:underline">
-                    {text.passwordRecovery}
-                  </a>
+                <Link
+                  href="/account/password-recovery"
+                  className="text-xs text-body hover:underline">
+                  {text.passwordRecovery}
                 </Link>
               </p>
             </div>
@@ -277,8 +277,10 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
 
               <p className="mt-4 text-center text-sm text-black md:mt-6">
                 {text.noAccount}&nbsp;
-                <Link href="/account/sign-up">
-                  <a className="font-bold hover:underline">{text.signUp}</a>
+                <Link
+                  href="/account/sign-up"
+                  className="font-bold hover:underline">
+                  {text.signUp}
                 </Link>
               </p>
             </div>

@@ -17,7 +17,7 @@ import {
   SECTION_VERTICAL_PADDING_MAP,
 } from 'lib/globals/sizings';
 import type { MandatoryImageProps } from 'types/global';
-import { layoutFillConfig } from 'lib/utils/image';
+
 import { BUTTON_STYLE, BUTTON_TYPE, CTAOptions } from 'types/shared/button';
 import Button from 'components/atoms/Button';
 import type {
@@ -104,7 +104,7 @@ const HeadingWithText: ContentBlockComponent<HeadingWithTextProps> = ({
           <Image
             className={`absolute inset-0 object-cover ${backgroundPositionClass}`}
             {...background_image}
-            {...layoutFillConfig}
+            
             alt={background_image.alt}
           />
         )}

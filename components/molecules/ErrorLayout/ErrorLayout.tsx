@@ -40,8 +40,8 @@ const ErrorLayout: React.FC<ErrorLayoutProps> = ({
         {showBackToHome && (
           <div className="mt-4 text-center text-sm">
             or go{' '}
-            <Link href="/">
-              <a className="underline">back to home</a>
+            <Link href="/" className="underline">
+              back to home
             </Link>
           </div>
         )}

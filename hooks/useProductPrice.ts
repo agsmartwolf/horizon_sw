@@ -7,14 +7,13 @@ export default function useProductPrice(
   productCurrency?: string,
   currencyPrices?: CurrencyPrice[],
 ) {
-  const [activeCurrency, formatPrice] = useCurrencyStore((state) => [
+  const [activeCurrency, formatPrice] = useCurrencyStore(state => [
     state.currency,
     state.formatPrice,
   ]);
 
   const priceInCurrency = useMemo(
-    () =>
-      currencyPrices?.find((price) => price.currency === activeCurrency.code),
+    () => currencyPrices?.find(price => price.currency === activeCurrency.code),
     [activeCurrency.code, currencyPrices],
   );
 

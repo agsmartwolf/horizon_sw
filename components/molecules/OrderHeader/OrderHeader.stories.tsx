@@ -17,7 +17,7 @@ export default {
   },
 } as ComponentMeta<typeof OrderHeader>;
 
-const Template: ComponentStory<typeof OrderHeader> = (args) => (
+const Template: ComponentStory<typeof OrderHeader> = args => (
   <OrderHeader {...args} />
 );
 

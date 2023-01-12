@@ -34,16 +34,16 @@ export const categories_preview_mapCategories = async (
 ): Promise<CategoryPreviewCardProps[]> => {
   const client = getGQLClient();
 
-  const promises = categories.map((item) =>
+  const promises = categories.map(item =>
     client
       .getCategoryPreviewData({ slug: item.category_id })
-      .then((res) => res.data.categoryBySlug),
+      .then(res => res.data.categoryBySlug),
   );
 
   const categoryData = denullifyArray(await Promise.all(promises));
 
   const mappedCategories: CategoryPreviewCardProps[] = categoryData.map(
-    (category) => ({
+    category => ({
       href: `/categories/${category.slug}`,
       image: {
         src: category.images?.[0]?.file?.url ?? '',
@@ -64,7 +64,7 @@ export const multiple_features_mapFeatures = (
 ) => {
   if (!Array.isArray(features)) return [];
 
-  return features.map((feature) => ({
+  return features.map(feature => ({
     ...feature,
     image: mapImage(feature.image),
   }));
@@ -78,7 +78,7 @@ export const multiple_panels_mapPanels = (
 ): EditorArray<PanelProps> => {
   if (!Array.isArray(panels)) return [];
 
-  return panels.map((panel) => {
+  return panels.map(panel => {
     if (panel.type === PANEL_TYPE.TEXT) {
       return {
         ...panel,
@@ -100,7 +100,7 @@ export const reviews_section_mapReviews = (
 ): EditorArray<ReviewCardProps> => {
   if (!Array.isArray(reviews)) return [];
 
-  return reviews.map((review) => {
+  return reviews.map(review => {
     if (!review.user_image)
       return review as EditorArray<ReviewCardProps>[number];
 
@@ -129,18 +129,18 @@ export const memberships_mapMemberships = async (
   const client = getGQLClient();
 
   const promises = memberships
-    .filter((item) => !!item.product_id)
-    .map((item) =>
+    .filter(item => !!item.product_id)
+    .map(item =>
       client
         .getProduct({ slug: item.product_id })
-        .then((res) => res.data.productBySlug)
+        .then(res => res.data.productBySlug)
         .catch(() => null),
     );
 
   const productData = denullifyArray(await Promise.all(promises));
 
   const mappedProducts: EditorArray<MembershipCardProps> = productData.map(
-    (product) => ({
+    product => ({
       id: generateId(),
       title: product.name ?? '',
       description: product.description ?? '',
@@ -169,7 +169,7 @@ export const quiz_multiple_panels_mapPanels = (
 ): EditorArray<PanelProps> => {
   if (!Array.isArray(panels)) return [];
 
-  return panels.map((panel) => {
+  return panels.map(panel => {
     if (panel.type === PANEL_TYPE.TEXT) {
       return {
         ...panel,

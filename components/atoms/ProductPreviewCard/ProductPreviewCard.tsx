@@ -3,6 +3,9 @@ import type { PurchasableProductData } from 'types/shared/products';
 import ProductPreviewCardPurchasable from './ProductPreviewCardPurchasable';
 import ProductPreviewCardSimple from './ProductPreviewCardSimple';
 import ProductPreviewCardSkeleton from './ProductPreviewCardSkeleton';
+import useClassNames from '../../../hooks/useClassNames';
+
+import styles from './ProductPreview.module.css';
 
 export interface ProductPreviewCardProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -25,12 +28,15 @@ const ProductPreviewCard: React.FC<ProductPreviewCardProps> = ({
     return !hasStandardPrice ? 'From ' : '';
   }, [product?.purchaseOptions?.standard?.price]);
 
+  const className = useClassNames(props.className, styles.productWrapper);
+
   if (loading) return <ProductPreviewCardSkeleton />;
 
   if (product) {
     return product.hasQuickAdd ? (
       <ProductPreviewCardPurchasable
         {...props}
+        className={className}
         show_product_price={show_product_price}
         show_product_description={show_product_description}
         product={product}
@@ -39,6 +45,7 @@ const ProductPreviewCard: React.FC<ProductPreviewCardProps> = ({
     ) : (
       <ProductPreviewCardSimple
         {...props}
+        className={className}
         show_product_price={show_product_price}
         show_product_description={show_product_description}
         product={product}

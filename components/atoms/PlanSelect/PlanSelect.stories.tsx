@@ -15,7 +15,7 @@ export default {
   },
 } as ComponentMeta<typeof PlanSelect>;
 
-const Template: ComponentStory<typeof PlanSelect> = (args) => (
+const Template: ComponentStory<typeof PlanSelect> = args => (
   <PlanSelect {...args} />
 );
 

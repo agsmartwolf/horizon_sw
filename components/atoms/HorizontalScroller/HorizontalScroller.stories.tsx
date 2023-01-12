@@ -9,7 +9,7 @@ export default {
   argTypes: {},
 } as ComponentMeta<typeof HorizontalScroller>;
 
-const Template: ComponentStory<typeof HorizontalScroller> = (args) => (
+const Template: ComponentStory<typeof HorizontalScroller> = args => (
   <HorizontalScroller {...args} />
 );
 

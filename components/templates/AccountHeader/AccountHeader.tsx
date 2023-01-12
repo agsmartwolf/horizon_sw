@@ -83,19 +83,17 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
       <header className={classNames}>
         <div className="grid grid-cols-3 items-center border-b border-dividers py-[1.125rem]">
           <div className="md:ml-6 lg:ml-14">
-            <Link href={storeUrl}>
-              <a className="hidden items-center gap-2 md:flex">
-                <ArrowLeft width={16} height={16} className="text-black" />
-                <span className="text-sm font-semibold text-black">
-                  {backToShopLabel}
-                </span>
-              </a>
+            <Link href={storeUrl} className="hidden items-center gap-2 md:flex">
+              <ArrowLeft width={16} height={16} className="text-black" />
+              <span className="text-sm font-semibold text-black">
+                {backToShopLabel}
+              </span>
             </Link>
           </div>
-          <Link href={storeUrl}>
-            <a className="flex items-center justify-center text-center">
-              <Image {...logo} alt={logo.alt} />
-            </a>
+          <Link
+            href={storeUrl}
+            className="flex items-center justify-center text-center">
+            <Image {...logo} alt={logo.alt} />
           </Link>
         </div>
         <div className="px-6 pt-4 pb-6 md:hidden">

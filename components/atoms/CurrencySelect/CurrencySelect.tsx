@@ -8,9 +8,11 @@ export interface CurrencySelectProps {
 }
 
 const CurrencySelect: React.FC<CurrencySelectProps> = ({ className }) => {
-  const [activeCurrency, currencies, setCurrency] = useCurrencyStore(
-    (state) => [state.currency, state.currencies, state.setCurrency],
-  );
+  const [activeCurrency, currencies, setCurrency] = useCurrencyStore(state => [
+    state.currency,
+    state.currencies,
+    state.setCurrency,
+  ]);
 
   return (
     <span className={`inline-flex items-center gap-2 ${className ?? ''}`}>
@@ -32,7 +34,7 @@ const CurrencySelect: React.FC<CurrencySelectProps> = ({ className }) => {
                 />
               </Listbox.Button>
               <Listbox.Options className="absolute z-50 flex w-full flex-col gap-2 rounded-b-lg border-x border-b border-dividers bg-background-black px-2 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
-                {currencies?.map((currency) => (
+                {currencies?.map(currency => (
                   <Listbox.Option key={currency.code} value={currency}>
                     {({ active }) => (
                       <span

@@ -13,7 +13,7 @@ export default {
   },
 } as ComponentMeta<typeof Textarea>;
 
-const Template: ComponentStory<typeof Textarea> = (args) => (
+const Template: ComponentStory<typeof Textarea> = args => (
   <Textarea {...args} />
 );
 

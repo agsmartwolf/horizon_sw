@@ -8,7 +8,7 @@ export default {
   component: CategoryDisplay,
 } as ComponentMeta<typeof CategoryDisplay>;
 
-const Template: ComponentStory<typeof CategoryDisplay> = (args) => (
+const Template: ComponentStory<typeof CategoryDisplay> = args => (
   <CategoryDisplay {...args} />
 );
 

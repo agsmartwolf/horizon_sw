@@ -34,13 +34,13 @@ const AnchorButton = React.forwardRef<
     ${props.className ?? ''}`;
 
   return elType === BUTTON_TYPE.LINK ? (
-    <Link href={(props as LinkProps).href ?? ''}>
-      <a
-        {...(props as LinkProps)}
-        ref={ref as React.ForwardedRef<HTMLAnchorElement>}
-        className={classNames}
-        dangerouslySetInnerHTML={{ __html: label }}></a>
-    </Link>
+    <Link
+      {...(props as LinkProps)}
+      href={(props as LinkProps).href ?? '#'}
+      ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+      className={classNames}
+      dangerouslySetInnerHTML={{ __html: label }}
+    />
   ) : (
     <button
       {...(props as ButtonProps)}

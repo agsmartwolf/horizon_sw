@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof GenericAccordion>;
 
-const Template: ComponentStory<typeof GenericAccordion> = (args) => (
+const Template: ComponentStory<typeof GenericAccordion> = args => (
   <GenericAccordion {...args} />
 );
 

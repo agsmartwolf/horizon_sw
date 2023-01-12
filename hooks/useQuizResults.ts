@@ -14,15 +14,15 @@ const useQuizResults = (query: NextRouter['query']) => {
   );
   const [selection, setSelection] = useState<QuizResultsProducts>([]);
   const [selectionSlugs, setSelectionSlugs] = useState<string[]>([]);
-  const [activeCurrency] = useCurrency((state) => [state.currency]);
+  const [activeCurrency] = useCurrency(state => [state.currency]);
 
   const { selection: results } = useCurrencySubscription({
-    callback: (currency) => getQuizProducts(selectionSlugs, currency),
+    callback: currency => getQuizProducts(selectionSlugs, currency),
     defaultData: {
       currency: activeCurrency.code,
       selection,
     },
-    currencyGetter: (data) => data.currency,
+    currencyGetter: data => data.currency,
   });
 
   const fetchQuizProductsData = useCallback(
@@ -36,10 +36,10 @@ const useQuizResults = (query: NextRouter['query']) => {
 
       const selectedProducts: [string, number][] = denullifyArray(
         productSelection,
-      ).map((result) => [
+      ).map(result => [
         JSON.stringify({
           productId: result.productId,
-          options: result.productOptions.map((option) => ({
+          options: result.productOptions.map(option => ({
             id: option.id,
             valueId: option.values?.[0]?.id,
           })),

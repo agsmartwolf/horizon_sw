@@ -21,7 +21,7 @@ export default {
   },
 } as ComponentMeta<typeof GhostButton>;
 
-const Template: ComponentStory<typeof GhostButton> = (args) => (
+const Template: ComponentStory<typeof GhostButton> = args => (
   <GhostButton {...args} />
 );
 

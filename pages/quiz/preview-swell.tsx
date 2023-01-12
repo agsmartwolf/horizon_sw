@@ -23,7 +23,7 @@ export const getStaticProps = withMainLayout(propsCallback);
 const PreviewSwell: NextPageWithLayout<
   ServerSideProps<typeof getStaticProps>
 > = ({ _layout: { settings } }) => {
-  const [setSettings, headerSettings] = useSettingsStore((state) => [
+  const [setSettings, headerSettings] = useSettingsStore(state => [
     state.setSettings,
     state.settings?.header,
   ]);
@@ -54,6 +54,6 @@ const PreviewSwell: NextPageWithLayout<
   );
 };
 
-PreviewSwell.getLayout = (page) => <>{page}</>;
+PreviewSwell.getLayout = page => <>{page}</>;
 
 export default PreviewSwell;

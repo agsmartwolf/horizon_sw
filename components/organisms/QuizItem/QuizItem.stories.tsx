@@ -12,7 +12,7 @@ export default {
   argTypes: {},
 } as ComponentMeta<typeof QuizItem>;
 
-const Template: ComponentStory<typeof QuizItem> = (args) => (
+const Template: ComponentStory<typeof QuizItem> = args => (
   <QuizItem {...args} />
 );
 

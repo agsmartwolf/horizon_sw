@@ -13,7 +13,7 @@ export default {
   },
 } as ComponentMeta<typeof PerksAccordion>;
 
-const Template: ComponentStory<typeof PerksAccordion> = (args) => (
+const Template: ComponentStory<typeof PerksAccordion> = args => (
   <PerksAccordion {...args} />
 );
 

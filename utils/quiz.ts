@@ -46,7 +46,7 @@ export const mapSelection = (
 
       return {
         points,
-        productSelection: productSelection.map((item) => ({
+        productSelection: productSelection.map(item => ({
           slug: item.slug,
           model: item._model,
         })),
@@ -55,7 +55,7 @@ export const mapSelection = (
   );
 
 const mapBaseSelectOptions = (answers?: QuizEditorAnswer[]) =>
-  answers?.map((answer) => ({
+  answers?.map(answer => ({
     label: answer?.option ?? '',
     id: generateId(),
     selection: mapSelection(answer?.selection),
@@ -64,7 +64,7 @@ const mapBaseSelectOptions = (answers?: QuizEditorAnswer[]) =>
 const mapCardSelectOptions = (
   answers?: (QuizEditorAnswer & { image: EditorImage })[],
 ) =>
-  answers?.map((answer) => ({
+  answers?.map(answer => ({
     label: answer?.option ?? '',
     id: generateId(),
     image: mapImage(answer?.image),

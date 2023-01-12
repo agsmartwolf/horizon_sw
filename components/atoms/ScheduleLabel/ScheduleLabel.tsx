@@ -36,9 +36,7 @@ export const ScheduleLabel: React.FC<ScheduleLabelProps> = ({
   if (icon) {
     return (
       <div
-        className={`flex items-center space-x-1 text-black ${
-          className ?? ''
-        }`}>
+        className={`flex items-center space-x-1 text-black ${className ?? ''}`}>
         <IconSvg className={iconClasses ?? ''} />
         {label}
       </div>

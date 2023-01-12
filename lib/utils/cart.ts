@@ -2,7 +2,7 @@ import type { CartItemProps } from 'components/molecules/CartItem';
 import type { SwellCart } from 'lib/graphql/generated/sdk';
 
 export const getCartItems = (cart: SwellCart) =>
-  cart.items?.map<CartItemProps | null>((item) =>
+  cart.items?.map<CartItemProps | null>(item =>
     item
       ? {
           id: item.id ?? '',

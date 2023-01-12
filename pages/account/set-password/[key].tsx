@@ -152,7 +152,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
   }, [router]);
 
   const handleSubmit = useCallback(
-    async (e) => {
+    async e => {
       e.preventDefault();
       await fetchApi(
         {
@@ -221,7 +221,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                   error={passwordError}
                   placeholder={text.passwordPlaceholder}
                   value={password}
-                  onChange={(e) => {
+                  onChange={e => {
                     setError(undefined);
                     setPassword(e.currentTarget.value);
                   }}
@@ -250,7 +250,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                   error={confirmPasswordError}
                   placeholder={text.confirmPasswordPlaceholder}
                   value={passwordConfirmation}
-                  onChange={(e) => {
+                  onChange={e => {
                     setError(undefined);
                     setPasswordConfirmation(e.currentTarget.value);
                   }}

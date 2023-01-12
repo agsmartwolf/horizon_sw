@@ -12,7 +12,7 @@ export default function useProductSearch() {
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState<ProductData[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const activeCurrency = useCurrencyStore((state) => state.currency);
+  const activeCurrency = useCurrencyStore(state => state.currency);
   const { current: client } = useRef(getGQLClient());
 
   async function fetchProducts(search: string) {
@@ -20,7 +20,7 @@ export default function useProductSearch() {
       setIsSearching(true);
       client
         .searchProducts({ searchTerm: search, currency: activeCurrency.code })
-        .then((res) => {
+        .then(res => {
           const results = mapProducts(
             denullifyArray(res.data.products?.results),
           );

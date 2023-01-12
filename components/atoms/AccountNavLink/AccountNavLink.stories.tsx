@@ -12,7 +12,7 @@ export default {
   },
 } as ComponentMeta<typeof AccountNavLink>;
 
-const Template: ComponentStory<typeof AccountNavLink> = (args) => (
+const Template: ComponentStory<typeof AccountNavLink> = args => (
   <AccountNavLink {...args} />
 );
 

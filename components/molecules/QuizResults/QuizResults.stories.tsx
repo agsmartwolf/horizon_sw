@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof QuizResults>;
 
-const Template: ComponentStory<typeof QuizResults> = (args) => (
+const Template: ComponentStory<typeof QuizResults> = args => (
   <QuizResults {...args} />
 );
 

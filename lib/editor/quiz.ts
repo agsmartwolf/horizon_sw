@@ -23,7 +23,7 @@ export const mapQuizProps = (quiz: QuizEditorProps) => {
   const totalQuestions =
     quiz?.questions
       ?.filter(({ type }) => type === QUIZ_ITEM_TYPE.QUESTION)
-      ?.map((question) => ({
+      ?.map(question => ({
         id: question.id,
       }))?.length ?? 0;
 

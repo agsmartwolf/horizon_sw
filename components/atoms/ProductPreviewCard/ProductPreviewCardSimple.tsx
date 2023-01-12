@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'components/atoms/SafeImage';
 import Price from 'components/atoms/Price';
 import Link from 'next/link';
-import { layoutFillConfig } from 'lib/utils/image';
+
 import type { ProductData } from 'types/shared/products';
 
 export interface ProductPreviewCardSimpleProps
@@ -20,47 +20,50 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
   show_product_description = true,
   ...props
 }) => {
-  const { description, image, price, origPrice, title, href = "#" } = product;
+  const { description, image, price, origPrice, title, href = '#' } = product;
 
   const containerClassNames =
-    'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-gray-200';
+    'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-gray-100';
 
   return (
     <div
       {...props}
       className={[containerClassNames, props.className].join(' ')}>
-      <Link href={href}>
-        <a className="safe-aspect-square relative overflow-hidden lg:pb-[125%] bg-gray-200">
+      <Link href={href} className="bg-gray-100 px-12">
+        <div className="safe-aspect-4-3 relative overflow-hidden lg:pb-[125%]">
           <Image
-            {...image}
-            {...layoutFillConfig}
+            src={image.src}
             alt={image?.alt}
-            className={`rounded-image ${image?.className ?? ""}`}
-            objectFit="cover"
+            className={`${image?.className ?? ''}`}
+            sizes={'33vw'}
+            fill
+            style={{
+              objectFit: 'none',
+            }}
           />
-        </a>
+        </div>
       </Link>
-      <div className="flex flex-col">
-        <Link href={href}>
-          <a>
+      <div className={'flex px-5 py-5 lg:px-10 bg-gray-200'}>
+        <div className="flex flex-col lg:pr-2">
+          <Link href={href}>
             <h4 className="font-headings text-md font-semibold line-clamp-2 lg:text-sm">
               {title}
             </h4>
-          </a>
-        </Link>
-        {show_product_description && (
-          <span
-            className="text-sm text-body line-clamp-2"
-            dangerouslySetInnerHTML={{ __html: description }}
-          />
+          </Link>
+          {show_product_description && (
+            <span
+              className="text-sm text-body line-clamp-2"
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
+          )}
+        </div>
+        {price && show_product_price && (
+          <div className="text-lg font-semibold lg:text-sm">
+            {fromPriceLabel}
+            <Price price={price} origPrice={origPrice} />
+          </div>
         )}
       </div>
-      {price && show_product_price && (
-        <div className="text-lg font-semibold lg:text-sm">
-          {fromPriceLabel}
-          <Price price={price} origPrice={origPrice} />
-        </div>
-      )}
     </div>
   );
 };

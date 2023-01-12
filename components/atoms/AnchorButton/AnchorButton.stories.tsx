@@ -13,7 +13,7 @@ export default {
   },
 } as ComponentMeta<typeof AnchorButton>;
 
-const Template: ComponentStory<typeof AnchorButton> = (args) => (
+const Template: ComponentStory<typeof AnchorButton> = args => (
   <AnchorButton {...args} />
 );
 

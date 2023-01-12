@@ -42,18 +42,18 @@ const useCartStore = create<CartState>((set, get) => ({
       empty: true,
     },
     setVisible: (visible: boolean) =>
-      set((state) => ({ cart: { ...state.cart, visible } })),
+      set(state => ({ cart: { ...state.cart, visible } })),
     checkoutUrl: '#',
   },
-  showCart: () => set((state) => ({ cart: { ...state.cart, visible: true } })),
-  hideCart: () => set((state) => ({ cart: { ...state.cart, visible: false } })),
+  showCart: () => set(state => ({ cart: { ...state.cart, visible: true } })),
+  hideCart: () => set(state => ({ cart: { ...state.cart, visible: false } })),
   getCart: async () => {
     try {
       const res = await fetch(API_ROUTES.CART);
 
       const cart = (await res.json()) as CartData;
 
-      set((state) => ({
+      set(state => ({
         cart: {
           ...state.cart,
           total: cart.data.total,
@@ -101,7 +101,7 @@ const useCartStore = create<CartState>((set, get) => ({
 
       const cart = (await res.json()) as CartData;
 
-      set((state) => ({
+      set(state => ({
         cart: {
           ...state.cart,
           total: cart.data.total,
@@ -121,7 +121,7 @@ const useCartStore = create<CartState>((set, get) => ({
       console.error(error);
     }
   },
-  removeItem: async (itemId) => {
+  removeItem: async itemId => {
     try {
       const res = await fetch(API_ROUTES.CART_ITEMS, {
         method: 'DELETE',
@@ -133,7 +133,7 @@ const useCartStore = create<CartState>((set, get) => ({
 
       const cart = (await res.json()) as CartData;
 
-      set((state) => ({
+      set(state => ({
         cart: {
           ...state.cart,
           total: cart.data.total,
@@ -161,7 +161,7 @@ const useCartStore = create<CartState>((set, get) => ({
 
       const cart = (await res.json()) as CartData;
 
-      set((state) => ({
+      set(state => ({
         cart: {
           ...state.cart,
           total: cart.data.total,
@@ -186,7 +186,7 @@ export function hasSufficientStock(
   variantName?: string,
 ): boolean {
   const itemInCart = cartItems.find(
-    (item) =>
+    item =>
       item.productId === productId &&
       (variantName ? item.variantName === variantName : true),
   );

@@ -32,7 +32,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, value, onChange }) => {
         style={{
           gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))`,
         }}>
-        {tabs.map((tab) => (
+        {tabs.map(tab => (
           <Trigger
             key={tab.value}
             value={tab.value}
@@ -43,7 +43,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, value, onChange }) => {
           </Trigger>
         ))}
       </List>
-      {tabs.map((tab) => (
+      {tabs.map(tab => (
         // Todo: Add SwitchTransition or similar
         <Content key={tab.value} value={tab.value} className="mt-2">
           {tab.content}

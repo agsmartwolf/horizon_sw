@@ -9,7 +9,7 @@ const query =
   process.env.NEXT_PUBLIC_SWELL_EDITOR === 'true' ? '$preview=true' : '';
 
 export const fetchStoreData = async (endpoint: string, locale = '') =>
-  await fetch(
+  fetch(
     `${process.env.NEXT_PUBLIC_SWELL_STORE_URL}${endpoint}?${encodeURI(query)}`,
     {
       headers: {
@@ -18,7 +18,7 @@ export const fetchStoreData = async (endpoint: string, locale = '') =>
         'x-locale': locale,
       },
     },
-  ).then((res) => res.json());
+  ).then(res => res.json());
 
 export const fetchQuizData = (id: string, locale: string) =>
   fetchStoreData(`/api/content/quizzes/${id}/`, locale);

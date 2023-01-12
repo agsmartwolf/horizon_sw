@@ -13,7 +13,7 @@ export default {
   },
 } as ComponentMeta<typeof Price>;
 
-const Template: ComponentStory<typeof Price> = (args) => <Price {...args} />;
+const Template: ComponentStory<typeof Price> = args => <Price {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

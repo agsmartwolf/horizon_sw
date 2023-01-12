@@ -1,5 +1,5 @@
 import useClassNames from 'hooks/useClassNames';
-import { layoutFillConfig } from 'lib/utils/image';
+
 import Image from 'components/atoms/SafeImage';
 import React from 'react';
 import type { MandatoryImageProps } from 'types/global';
@@ -37,7 +37,7 @@ const Feature: React.FC<FeatureProps> = ({
       'text-right': content_alignment === HORIZONTAL_ALIGNMENT.RIGHT,
     })}>
     <div className={['relative', FEATURE_IMAGE_CLASS_MAP[imageSize]].join(' ')}>
-      <Image {...image} {...layoutFillConfig} alt={image.alt} />
+      <Image {...image}  alt={image.alt} />
     </div>
     <div className="mt-8 w-full font-headings text-xl text-black lg:text-2xl">
       <RichText content={title} />

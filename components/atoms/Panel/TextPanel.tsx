@@ -1,4 +1,4 @@
-import { layoutFillConfig } from 'lib/utils/image';
+
 import {
   HORIZONTAL_ALIGNMENT,
   OBJECT_FIT,
@@ -66,7 +66,7 @@ const TextPanel: React.FC<PanelTextProps> = ({
             ${BACKGROUND_POSITION_MAP[vertical_background_alignment][horizontal_background_alignment]}
         `}
         {...background_image}
-        {...layoutFillConfig}
+        
         alt={background_image.alt}
       />
     )}
@@ -99,7 +99,7 @@ const TextPanel: React.FC<PanelTextProps> = ({
         )}
         <ul className="relative flex flex-col gap-4">
           {links &&
-            links.map((cta) =>
+            links.map(cta =>
               cta.style === BUTTON_STYLE.ANCHOR ? (
                 <AnchorButton
                   key={cta.id}

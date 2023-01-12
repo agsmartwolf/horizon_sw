@@ -30,7 +30,7 @@ const SlideNav = React.forwardRef<HTMLDivElement, SlideNavProps>(
         ref={ref}
         {...props}
         className={['flex items-center gap-4', props.className].join(' ')}>
-        {[...Array(quantity).keys()].map((i) => (
+        {[...Array(quantity).keys()].map(i => (
           <div
             key={i}
             className="flex h-2 w-2 shrink-0 items-center justify-center">

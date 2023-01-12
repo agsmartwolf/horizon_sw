@@ -15,13 +15,14 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       <label htmlFor={id} className="relative inline-block cursor-pointer">
         <input
           {...props}
+          checked={props.checked}
           ref={ref}
           id={id}
           type="checkbox"
           className="peer sr-only"
         />
         <div className="flex h-5 w-5 items-center justify-center rounded-md border border-input-standard transition-colors duration-400 ease-in-out peer-checked:border-primary" />
-        <div className="absolute top-1 left-1 h-3 w-3 rounded-sm transition-colors duration-400 ease-in-out peer-checked:bg-white" />
+        <div className="absolute top-1 left-1 h-3 w-3 rounded-sm transition-colors duration-400 ease-in-out peer-checked:bg-black" />
         <span className="sr-only">{label}</span>
       </label>
     );

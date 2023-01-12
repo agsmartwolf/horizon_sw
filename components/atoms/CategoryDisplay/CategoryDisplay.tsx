@@ -3,7 +3,6 @@ import Image from 'components/atoms/SafeImage';
 import Link from 'next/link';
 import RichText from 'components/atoms/RichText';
 import type { MandatoryImageProps } from 'types/global';
-import { layoutFillConfig } from 'lib/utils/image';
 
 export interface CategoryDisplayProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -23,24 +22,20 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
   <div
     {...props}
     className={`flex flex-col space-y-4 overflow-visible ${props.className}`}>
-    <Link href={href}>
-      <a className="safe-aspect-4-3 relative overflow-hidden">
-        <Image
-          {...image}
-          {...layoutFillConfig}
-          alt={image.alt}
-          className={`rounded-image ${image.className}`}
-          objectFit="cover"
-        />
-      </a>
+    <Link href={href} className="safe-aspect-4-3 relative overflow-hidden">
+      <Image
+        src={image.src}
+        alt={image.alt}
+        className={`rounded-image ${image.className}`}
+        style={{ objectFit: 'cover' }}
+        fill
+      />
     </Link>
     <div className="flex flex-col space-y-1">
       <Link href={href}>
-        <a>
-          <h4 className="font-headings text-md font-semibold text-black line-clamp-2">
-            {title}
-          </h4>
-        </a>
+        <h4 className="font-headings text-md font-semibold text-black line-clamp-2">
+          {title}
+        </h4>
       </Link>
       {description && (
         <RichText

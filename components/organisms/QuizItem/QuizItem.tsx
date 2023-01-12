@@ -25,7 +25,7 @@ export type QuizItemStaticProps =
 
 export type QuizItemProps = QuizItemStaticProps & QuizItemStatefulProps;
 
-const QuizItem: React.FC<QuizItemProps> = (item) => {
+const QuizItem: React.FC<QuizItemProps> = item => {
   const { type, totalQuestions, activeQuestionIndex, onNext, savedAnswer } =
     item;
 

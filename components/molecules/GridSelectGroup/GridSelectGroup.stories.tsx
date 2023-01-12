@@ -11,7 +11,7 @@ export default {
     columns: { control: { type: 'number', min: 2, max: 4, step: 1 } },
   },
   decorators: [
-    (Story) => (
+    Story => (
       <div className="lg:m-16">
         <Story />
       </div>
@@ -19,7 +19,7 @@ export default {
   ],
 } as ComponentMeta<typeof GridSelectGroup>;
 
-const Template: ComponentStory<typeof GridSelectGroup> = (args) => (
+const Template: ComponentStory<typeof GridSelectGroup> = args => (
   <GridSelectGroup {...args} />
 );
 

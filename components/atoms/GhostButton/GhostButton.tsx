@@ -58,13 +58,12 @@ const GhostButton = React.forwardRef<
     );
 
     return elType === BUTTON_TYPE.LINK ? (
-      <Link href={(props as GhostLinkTypeProps).href ?? ''}>
-        <a
-          {...(props as GhostLinkTypeProps)}
-          ref={ref as React.ForwardedRef<HTMLAnchorElement>}
-          className={classNames}>
-          {children}
-        </a>
+      <Link
+        {...(props as GhostLinkTypeProps)}
+        href={(props as GhostLinkTypeProps).href ?? ''}
+        ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+        className={classNames}>
+        {children}
       </Link>
     ) : (
       <button

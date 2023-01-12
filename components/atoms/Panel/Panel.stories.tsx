@@ -43,7 +43,7 @@ export default {
   },
 } as ComponentMeta<typeof Panel>;
 
-const Template: ComponentStory<typeof Panel> = (args) => <Panel {...args} />;
+const Template: ComponentStory<typeof Panel> = args => <Panel {...args} />;
 
 export const Image = Template.bind({});
 Image.args = {

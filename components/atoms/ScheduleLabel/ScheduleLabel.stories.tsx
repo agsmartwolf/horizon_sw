@@ -16,7 +16,7 @@ export default {
   },
 } as ComponentMeta<typeof ScheduleLabel>;
 
-const Template: ComponentStory<typeof ScheduleLabel> = (args) => (
+const Template: ComponentStory<typeof ScheduleLabel> = args => (
   <ScheduleLabel {...args} />
 );
 

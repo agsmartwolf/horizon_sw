@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof Note>;
 
-const Template: ComponentStory<typeof Note> = (args) => <Note {...args} />;
+const Template: ComponentStory<typeof Note> = args => <Note {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

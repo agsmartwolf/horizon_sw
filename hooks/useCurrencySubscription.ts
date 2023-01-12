@@ -15,7 +15,7 @@ export default function useCurrencySubscription<T, K extends T>({
 }: CurrencySubscriptionData<T, K>): T {
   const [returnData, setReturnData] = useState<T>();
   const [currency, setCurrency] = useState(currencyGetter(defaultData));
-  const activeCurrency = useCurrencyStore((state) => state.currency);
+  const activeCurrency = useCurrencyStore(state => state.currency);
 
   useEffect(() => {
     let mounted = true;

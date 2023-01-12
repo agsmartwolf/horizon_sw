@@ -41,7 +41,7 @@ const PressMentionCarousel: React.FC<PressMentionCarouselProps> = ({
 
   const setPrevSlide = useCallback(
     () =>
-      setCurrentSlide((prev) =>
+      setCurrentSlide(prev =>
         prev - 1 >= 0 ? prev - 1 : press_mentions.length - 1,
       ),
     [press_mentions.length],
@@ -49,7 +49,7 @@ const PressMentionCarousel: React.FC<PressMentionCarouselProps> = ({
 
   const setNextSlide = useCallback(
     () =>
-      setCurrentSlide((prev) =>
+      setCurrentSlide(prev =>
         prev + 1 <= press_mentions.length - 1 ? prev + 1 : 0,
       ),
     [press_mentions.length],
@@ -84,14 +84,14 @@ const PressMentionCarousel: React.FC<PressMentionCarouselProps> = ({
         {title}
       </h2>
       {/* Virtual cards hidden from the screen (used for calculating the height of the carousel) */}
-      {press_mentions.map((pressMention) => (
+      {press_mentions.map(pressMention => (
         <PressMentionCard
           {...pressMention}
           key={`virtual-${pressMention.image.src.toString()}`}
           aria-hidden="true"
           tabIndex={-1}
           className="invisible absolute -translate-x-[9999px] opacity-0 lg:hidden"
-          ref={(el) => {
+          ref={el => {
             if (el) {
               virtualCards.current = [...virtualCards.current, el];
             }
@@ -128,7 +128,7 @@ const PressMentionCarousel: React.FC<PressMentionCarouselProps> = ({
       </div>
       {/* Desktop */}
       <div className="hidden w-full lg:flex lg:flex-wrap lg:justify-between lg:gap-10">
-        {press_mentions.map((pressMention) => (
+        {press_mentions.map(pressMention => (
           <PressMentionCard
             {...pressMention}
             key={`desktop-${pressMention.image.src.toString()}`}

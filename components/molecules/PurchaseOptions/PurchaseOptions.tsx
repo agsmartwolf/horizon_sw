@@ -83,7 +83,7 @@ const PurchaseOptions: React.FC<PurchaseOptionsProps> = ({
 
     if (value?.planId) {
       return options.subscription?.plans?.find(
-        (plan) => plan?.id === value?.planId,
+        plan => plan?.id === value?.planId,
       );
     }
     return selectedSubscription;

@@ -50,7 +50,7 @@ export const ProductsPreview: ContentBlockComponent<ProductsPreviewProps> = ({
                 <ProductPreviewCard loading />
               </li>
             ))
-        : items.map((item) => (
+        : items.map(item => (
             <li key={item.id}>
               <ProductPreviewCard
                 className="w-[54vw] min-w-[200px] max-w-[350px] shrink-0 snap-start lg:w-full lg:max-w-full"

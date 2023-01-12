@@ -25,14 +25,14 @@ type AppPropsWithLayout = AppProps & {
 };
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const setCurrencies = useCurrencyStore((state) => state.setCurrencies);
-  const notifications = useNotificationStore((state) => state.notifications);
-  const [locales, setActiveLocale, setLocales] = useLocaleStore((state) => [
+  const setCurrencies = useCurrencyStore(state => state.setCurrencies);
+  const notifications = useNotificationStore(state => state.notifications);
+  const [locales, setActiveLocale, setLocales] = useLocaleStore(state => [
     state.locales,
     state.setActiveLocale,
     state.setLocales,
   ]);
-  const [getCart, hideCart] = useCartStore((store) => [
+  const [getCart, hideCart] = useCartStore(store => [
     store.getCart,
     store.hideCart,
   ]);
@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
       const filteredCurrencies: Currency[] =
         currencies
-          ?.map((currency) => {
+          ?.map(currency => {
             if (!currency?.code || !currency?.symbol) return null;
             return {
               code: currency.code,
@@ -66,7 +66,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
       const filteredLocales: Locale[] =
         locales
-          ?.map((locale) => {
+          ?.map(locale => {
             if (!locale?.code || !locale?.name) return null;
             return {
               code: locale.code,
@@ -85,7 +85,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // sync the activeLocale with the router
   useEffect(() => {
     if (locale) {
-      const newLocale = locales.find((myLocale) => myLocale.code === locale);
+      const newLocale = locales.find(myLocale => myLocale.code === locale);
       if (newLocale) setActiveLocale(newLocale);
     }
   }, [locale, locales, setActiveLocale]);
@@ -111,13 +111,13 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? getMainLayout;
 
   const C = Component as any;
-  const comp = <C {...pageProps} />
+  const comp = <C {...pageProps} />;
 
   return (
     <>
       <ToastProvider>
         {getLayout(comp)}
-        {notifications.map((notification) => (
+        {notifications.map(notification => (
           <Notification
             id={notification.id}
             type={notification.type}

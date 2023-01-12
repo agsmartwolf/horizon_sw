@@ -8,12 +8,10 @@ export default {
   component: Range,
 } as ComponentMeta<typeof Range>;
 
-const Template: ComponentStory<typeof Range> = (args) => {
+const Template: ComponentStory<typeof Range> = args => {
   const [value, setValue] = useState(args.value);
 
-  return (
-    <Range {...args} value={value} onChange={(value) => setValue(value)} />
-  );
+  return <Range {...args} value={value} onChange={value => setValue(value)} />;
 };
 
 export const Default = Template.bind({});

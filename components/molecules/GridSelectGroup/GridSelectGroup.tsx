@@ -58,7 +58,7 @@ const GridSelectGroup: React.FC<GridSelectGroupProps> = ({
 
   return (
     <div className={classes}>
-      {options?.map((option) => (
+      {options?.map(option => (
         <GridCheckbox
           key={`${option.id}-component`}
           onChange={() => onChange(option.id)}

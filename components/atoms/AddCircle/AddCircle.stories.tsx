@@ -9,7 +9,7 @@ export default {
   argTypes: {},
 } as ComponentMeta<typeof AddCircle>;
 
-const Template: ComponentStory<typeof AddCircle> = (args) => (
+const Template: ComponentStory<typeof AddCircle> = args => (
   <AddCircle {...args} />
 );
 

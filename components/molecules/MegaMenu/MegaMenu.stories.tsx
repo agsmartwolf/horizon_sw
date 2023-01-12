@@ -12,7 +12,7 @@ export default {
   },
 } as ComponentMeta<typeof MegaMenu>;
 
-const Template: ComponentStory<typeof MegaMenu> = (args) => (
+const Template: ComponentStory<typeof MegaMenu> = args => (
   <MegaMenu {...args} />
 );
 

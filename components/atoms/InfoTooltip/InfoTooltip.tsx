@@ -18,9 +18,7 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
 
   return (
     <TooltipPrimitive.Provider>
-      <TooltipPrimitive.Root
-        open={open}
-        onOpenChange={(value) => setOpen(value)}>
+      <TooltipPrimitive.Root open={open} onOpenChange={value => setOpen(value)}>
         <TooltipPrimitive.Trigger
           onClick={() => setOpen(true)}
           type="button"

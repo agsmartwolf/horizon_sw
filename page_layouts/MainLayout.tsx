@@ -4,46 +4,46 @@ import Footer from 'components/organisms/Footer';
 import Header from 'components/organisms/Header';
 import useCartStore from 'stores/cart';
 import useSettingsStore, { Settings } from 'stores/settings';
-import { SPACING } from "../lib/globals/sizings";
+import { SPACING } from '../lib/globals/sizings';
 
 export interface MainLayoutProps {
-    settings: Settings;
+  settings: Settings;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children, settings }) => {
-    const cart = useCartStore((store) => store.cart);
+  const cart = useCartStore(store => store.cart);
 
-    const [setSettings, headerSettings, footerSettings, socialLinks] =
-        useSettingsStore((state) => [
-            state.setSettings,
-            state.settings?.header,
-            state.settings?.footer,
-            state.settings?.socialLinks,
-        ]);
+  const [setSettings, headerSettings, footerSettings, socialLinks] =
+    useSettingsStore(state => [
+      state.setSettings,
+      state.settings?.header,
+      state.settings?.footer,
+      state.settings?.socialLinks,
+    ]);
 
-    // Stores settings retrieved server-side on the client-side store.
-    useEffect(() => {
-        if (settings) {
-            setSettings(settings);
-        }
-    }, [setSettings, settings]);
+  // Stores settings retrieved server-side on the client-side store.
+  useEffect(() => {
+    if (settings) {
+      setSettings(settings);
+    }
+  }, [setSettings, settings]);
 
-    return (
-        <div>
-            <Cart {...cart} />
-            <div className="grid min-h-screen grid-rows-[auto_1fr]">
-                <Header {...(headerSettings ?? settings.header)} />
-                <div className="overflow-hidden">
-                    <main className="mx-auto w-full max-w-screen-3xl ">{children}</main>
-                    <Footer
-                        {...(footerSettings ?? settings.footer)}
-                        horizontalPadding={SPACING.MEDIUM}
-                        socialLinks={socialLinks}
-                    />
-                </div>
-            </div>
+  return (
+    <div>
+      <Cart {...cart} />
+      <div className="grid min-h-screen grid-rows-[auto_1fr]">
+        <Header {...(headerSettings ?? settings.header)} />
+        <div className="overflow-hidden">
+          <main className="mx-auto w-full max-w-screen-3xl ">{children}</main>
+          <Footer
+            {...(footerSettings ?? settings.footer)}
+            horizontalPadding={SPACING.MEDIUM}
+            socialLinks={socialLinks}
+          />
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default MainLayout;

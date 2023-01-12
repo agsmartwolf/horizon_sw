@@ -27,19 +27,19 @@ const client = getGQLClient();
 export const getCategories = async (currentSlug?: string) => {
   const { categories: categoriesResponse } = await client
     .getCategories()
-    .then((response) => response.data);
+    .then(response => response.data);
 
   const categoriesList = denullifyArray(categoriesResponse?.results);
 
   const featuredCategoriesList = denullifyArray(
     categoriesList[0]?.content?.featuredCategories?.map(
-      (featured) => featured?.category,
+      featured => featured?.category,
     ),
   );
 
   const featuredCategoriesData = featuredCategoriesList.map<
     (CategoryPreviewCardProps & { id: string }) | null
-  >((featuredCategory) => {
+  >(featuredCategory => {
     return {
       id: generateId(),
       href: `/categories/${featuredCategory.slug ?? ''}`,
@@ -56,7 +56,7 @@ export const getCategories = async (currentSlug?: string) => {
     };
   });
 
-  const categoriesData = categoriesList.map<CategoryData>((category) => {
+  const categoriesData = categoriesList.map<CategoryData>(category => {
     const categoryData = {
       slug: category?.slug ?? '',
       name: category?.name ?? '',
@@ -90,13 +90,13 @@ export const getProductsList = async (
   // Get the products list
   const { products } = await client
     .getAllProducts({ currency })
-    .then((response) => response.data);
+    .then(response => response.data);
 
-  const productResults = denullifyArray(products?.results).filter((product) => {
+  const productResults = denullifyArray(products?.results).filter(product => {
     // If the category slug is defined, check if the product is in the category
     if (categorySlug) {
       return !!product.categories?.some(
-        (category) => category?.slug === categorySlug,
+        category => category?.slug === categorySlug,
       );
     }
 
@@ -130,7 +130,7 @@ export const getProductListingData = async (
 };
 
 export const fetchProductBySlug = async (slug: string) => ({
-  ...((await client.getProduct({ slug }).then((response) => response.data))
+  ...((await client.getProduct({ slug }).then(response => response.data))
     ?.productBySlug ?? {}),
   slug,
 });
@@ -145,12 +145,12 @@ export const getAllProducts = async (): Promise<{
 
   const allPricesByProduct: Map<string, CurrencyPrice[]> = new Map();
 
-  const currenciesPromises = currencies?.map((currency) => {
+  const currenciesPromises = currencies?.map(currency => {
     if (currency?.code) {
       return client
         .getProductsPricesInCurrency({ currency: currency.code })
-        .then((res) => {
-          res.data.products?.results?.forEach((product) => {
+        .then(res => {
+          res.data.products?.results?.forEach(product => {
             if (product?.id && product?.price && product?.currency) {
               const newPrices = allPricesByProduct.get(product.id) ?? [];
               newPrices.push({
@@ -199,7 +199,7 @@ export async function getProductBySlug(
   };
 
   const upSells: (PurchasableProductData | null)[] =
-    product?.upSells?.map((upSell) =>
+    product?.upSells?.map(upSell =>
       upSell?.product
         ? {
             id: upSell?.product?.id ?? '',
@@ -223,7 +223,7 @@ export async function getProductBySlug(
                   inputType: option.inputType ?? '',
                   active: option.active ?? true,
                   required: option.required ?? false,
-                  values: denullifyArray(option.values)?.map((value) => {
+                  values: denullifyArray(option.values)?.map(value => {
                     return {
                       id: value.id ?? '',
                       name: value.name ?? '',
@@ -244,14 +244,13 @@ export async function getProductBySlug(
     slug,
     productId: product?.id ?? '',
     isGiftCard:
-      product?.categories?.some(
-        (category) => category?.slug === 'gifts-sets',
-      ) ?? false,
+      product?.categories?.some(category => category?.slug === 'gifts-sets') ??
+      false,
     currency: product?.currency ?? 'USD',
     details,
     productBenefits: denullifyArray(
       product?.content?.productHighlights ?? [],
-    ).map((benefit) => {
+    ).map(benefit => {
       return {
         id: benefit.id ?? '',
         icon: benefit.icon ?? '',
@@ -280,7 +279,7 @@ export async function getProductBySlug(
           parentId: option.parentId ?? null,
           parentValueIds: denullifyArray(option.parentValueIds),
           placeholder: option.inputHint ?? '',
-          values: denullifyArray(option.values)?.map((value) => {
+          values: denullifyArray(option.values)?.map(value => {
             return {
               id: value.id ?? '',
               name: value.name ?? '',
@@ -334,17 +333,17 @@ export async function getQuizProducts(
   };
 
   const getProductsBySlugs = (slugs: string[]) =>
-    slugs.map((slug) =>
+    slugs.map(slug =>
       client
         .getProduct({ slug, currency })
-        .then((response) => response.data.productBySlug),
+        .then(response => response.data.productBySlug),
     );
 
   const productsPromises = getProductsBySlugs(productsSlugs);
 
   const productsData = await Promise.all(productsPromises);
 
-  const selection = denullifyArray(productsData).map((product) => ({
+  const selection = denullifyArray(productsData).map(product => ({
     productId: product.id ?? '',
     description: product.description ?? '',
     currency: product.currency ?? 'USD',
@@ -367,7 +366,7 @@ export async function getQuizProducts(
           inputType: option.inputType ?? '',
           active: option.active ?? true,
           required: option.required ?? false,
-          values: denullifyArray(option.values).map((value) => {
+          values: denullifyArray(option.values).map(value => {
             return {
               id: value.id ?? '',
               name: value.name ?? '',
@@ -393,7 +392,7 @@ export const getStoreSettings = async () => {
   ]);
 
   return formatStoreSettings(
-    storeData.data.storeSettings?.store?.name ?? 'Horizon',
+    storeData.data.storeSettings?.store?.name ?? 'Smart Wolf',
     storeData.data.storeSettings?.values,
     menusData.data.menuSettings,
   );
@@ -406,7 +405,7 @@ export const getBundles = async () => {
         type: { $eq: ProductType.bundle },
       },
     })
-    .then((response) => response.data);
+    .then(response => response.data);
 
   const productResults = denullifyArray(products?.results);
 
@@ -419,7 +418,7 @@ export const getBestsellers = async () => {
         tags: { $in: [ProductTag.bestseller] },
       },
     })
-    .then((response) => response.data);
+    .then(response => response.data);
 
   const productResults = mapProducts(denullifyArray(products?.results));
 

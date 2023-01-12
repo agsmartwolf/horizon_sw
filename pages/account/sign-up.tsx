@@ -93,7 +93,7 @@ const SignUpPage: NextPageWithLayout<
 > = ({ text, title, metaTitle, metaDescription }) => {
   const router = useRouter();
   const fetchApi = useFetchApi();
-  const send = useNotificationStore((store) => store.send);
+  const send = useNotificationStore(store => store.send);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -202,7 +202,7 @@ const SignUpPage: NextPageWithLayout<
   }, [router, send, text]);
 
   const handleSubmit = useCallback(
-    async (e) => {
+    async e => {
       e.preventDefault();
       await fetchApi(
         {
@@ -266,7 +266,7 @@ const SignUpPage: NextPageWithLayout<
                   error={firstNameError}
                   placeholder={text.firstNamePlaceholder}
                   value={firstName}
-                  onChange={(e) => {
+                  onChange={e => {
                     setError(undefined);
                     setFirstName(e.currentTarget.value);
                   }}
@@ -292,7 +292,7 @@ const SignUpPage: NextPageWithLayout<
                   error={lastNameError}
                   placeholder={text.lastNamePlaceholder}
                   value={lastName}
-                  onChange={(e) => {
+                  onChange={e => {
                     setError(undefined);
                     setLastName(e.currentTarget.value);
                   }}
@@ -319,7 +319,7 @@ const SignUpPage: NextPageWithLayout<
                   error={emailError}
                   placeholder={text.emailPlaceholder}
                   value={email}
-                  onChange={(e) => {
+                  onChange={e => {
                     setError(undefined);
                     setEmail(e.currentTarget.value);
                   }}
@@ -345,7 +345,7 @@ const SignUpPage: NextPageWithLayout<
                   error={passwordError}
                   placeholder={text.passwordPlaceholder}
                   value={password}
-                  onChange={(e) => {
+                  onChange={e => {
                     setError(undefined);
                     setPassword(e.currentTarget.value);
                   }}
@@ -378,8 +378,8 @@ const SignUpPage: NextPageWithLayout<
             <div className="mt-4 text-center text-sm text-black">
               {text.registeredUser && <span>{text.registeredUser}&nbsp;</span>}
 
-              <Link href="/account/login">
-                <a className="font-bold hover:underline">{text.loginLink}</a>
+              <Link href="/account/login" className="font-bold hover:underline">
+                {text.loginLink}
               </Link>
             </div>
           </div>

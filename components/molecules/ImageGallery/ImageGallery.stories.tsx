@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof ImageGallery>;
 
-const Template: ComponentStory<typeof ImageGallery> = (args) => (
+const Template: ComponentStory<typeof ImageGallery> = args => (
   <ImageGallery {...args} />
 );
 

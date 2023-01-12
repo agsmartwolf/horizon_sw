@@ -15,7 +15,7 @@ export default {
   },
 } as ComponentMeta<typeof MultiplePanels>;
 
-const Template: ComponentStory<typeof MultiplePanels> = (args) => (
+const Template: ComponentStory<typeof MultiplePanels> = args => (
   <MultiplePanels {...args} />
 );
 

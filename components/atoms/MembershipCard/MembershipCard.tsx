@@ -6,7 +6,7 @@ import Button from 'components/atoms/Button';
 import { BUTTON_TYPE } from 'types/shared/button';
 import PerkItem from 'components/atoms/PerkItem';
 import useClassNames from 'hooks/useClassNames';
-import { layoutFillConfig } from 'lib/utils/image';
+
 import useCartStore from 'stores/cart';
 import type { SwellProductPurchaseOptions } from 'lib/graphql/generated/sdk';
 import { getPluralizedInterval } from 'lib/utils/subscription';
@@ -48,9 +48,9 @@ const MembershipCard: React.FC<MembershipCardProps> = ({
     subscriptionPlan?.billingSchedule?.intervalCount as number,
   );
 
-  const currencySymbol = useCurrencyStore((state) => state.currency.symbol);
+  const currencySymbol = useCurrencyStore(state => state.currency.symbol);
 
-  const [addToCart, showCart] = useCartStore((store) => [
+  const [addToCart, showCart] = useCartStore(store => [
     store.addToCart,
     store.showCart,
   ]);
@@ -87,7 +87,7 @@ const MembershipCard: React.FC<MembershipCardProps> = ({
       <div className="z-10 flex grow flex-col items-center rounded-2xl bg-background-black px-6 pt-14 pb-6">
         <header className="mb-4 flex flex-col items-center lg:mb-6">
           <div className="relative mb-8 h-20 w-20 lg:h-[100px] lg:w-[100px]">
-            <Image {...image} {...layoutFillConfig} alt={image.alt} />
+            <Image {...image}  alt={image.alt} />
           </div>
           <h3 className="mb-1 text-center font-headings text-xl font-semibold text-black lg:text-2xl">
             <RichText content={title} />
@@ -119,7 +119,7 @@ const MembershipCard: React.FC<MembershipCardProps> = ({
                 hideLabel={hidePerksLabel}
               />
               <ul className="hidden lg:mb-8 lg:flex lg:flex-col lg:gap-y-2 lg:px-[34px]">
-                {perks.map((perk) => (
+                {perks.map(perk => (
                   <li key={perk}>
                     <PerkItem text={perk} />
                   </li>

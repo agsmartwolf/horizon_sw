@@ -26,9 +26,7 @@ const SubscriptionOptions: React.FC<SubscriptionOptionsProps> = ({
   return (
     <div className={className ?? ''}>
       {/* TODO: i18n */}
-      <h3 className="font-headings text-sm text-black">
-        Subscription options
-      </h3>
+      <h3 className="font-headings text-sm text-black">Subscription options</h3>
       <Listbox value={value} onChange={onChange}>
         {({ open }) => (
           <div className="relative mt-2 text-black">
@@ -58,7 +56,7 @@ const SubscriptionOptions: React.FC<SubscriptionOptionsProps> = ({
               />
             </Listbox.Button>
             <Listbox.Options className="absolute z-20 flex w-full flex-col gap-2 rounded-b-lg border-x border-b border-dividers bg-background-black px-2 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
-              {plans.map((plan) => (
+              {plans.map(plan => (
                 <Listbox.Option key={plan?.id} value={plan}>
                   {({ active }) => (
                     <div

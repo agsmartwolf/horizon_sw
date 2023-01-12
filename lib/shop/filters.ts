@@ -46,7 +46,7 @@ export const getFilters = (products: SwellProduct[]) => {
 
       // Check if the attribute is already in the filters
       const filter = attributeFilters.find(
-        (filter) => filter.id === attribute.id,
+        filter => filter.id === attribute.id,
       );
 
       if (!filter) {
@@ -77,7 +77,7 @@ export const getFilters = (products: SwellProduct[]) => {
       } else {
         // Check if the value is already in the values
         const value = filter.values.find(
-          (value) => value.value === attribute.value,
+          value => value.value === attribute.value,
         );
 
         // Add the value to the filter if not already present
@@ -88,7 +88,7 @@ export const getFilters = (products: SwellProduct[]) => {
               // Check if the value is already in the filter and skip if it is
               if (
                 filter.values.some(
-                  (filterValue) => filterValue.value === attributeValue,
+                  filterValue => filterValue.value === attributeValue,
                 )
               )
                 continue;
@@ -124,15 +124,15 @@ export const applyFilters = (
   }));
 
   const priceRangeFilter = currentFilters.find(
-    (filter) => filter.label === 'price',
+    filter => filter.label === 'price',
   );
 
   // Ignore the query parameters that don't belong to the filters
-  const attributeFilters = currentFilters.filter((attributeFilter) =>
-    filterList.some((filter) => filter.id === attributeFilter.label),
+  const attributeFilters = currentFilters.filter(attributeFilter =>
+    filterList.some(filter => filter.id === attributeFilter.label),
   );
 
-  return products.filter((product) => {
+  return products.filter(product => {
     // Check the price range
     const { price } = product;
 
@@ -154,7 +154,7 @@ export const applyFilters = (
       if (!product.attributes) return false;
 
       const key = Object.keys(product.attributes).find(
-        (key) =>
+        key =>
           (product.attributes[key] as ProductAttribute).id === filter.label,
       );
 
@@ -169,7 +169,7 @@ export const applyFilters = (
 
       // If the attribute has an array of values, check if the product has one of them
       if (Array.isArray(attribute.value)) {
-        if (values.some((value) => attribute.value?.includes(value))) continue;
+        if (values.some(value => attribute.value?.includes(value))) continue;
       }
       // If the attribute has a single value, check if it's part of the filter values
       else if (values.includes(attribute.value)) continue;
@@ -187,17 +187,18 @@ export const getPriceRangeFromProducts = (
   if (products.length === 0) return [0, 0];
 
   return [
-    Math.min(...products.map((product) => product.price ?? 0)),
-    Math.max(...products.map((product) => product.price ?? 0)),
+    Math.min(...products.map(product => product.price ?? 0)),
+    Math.max(...products.map(product => product.price ?? 0)),
   ];
 };
 
 export const getPriceRangeFromQuery = (
-  query: ParsedUrlQuery,
+  queryPrice: string | null,
 ): [number, number] | undefined => {
+  const price = queryPrice ? queryPrice.split(',') : [];
   // Check if the price range is set in the query string
-  if (query.price?.length && query.price?.length === 2) {
-    const [newMin, newMax] = query.price;
+  if (price?.length && price?.length === 2) {
+    const [newMin, newMax] = price;
 
     if (isNaN(Number(newMin)) || isNaN(Number(newMax))) return;
 

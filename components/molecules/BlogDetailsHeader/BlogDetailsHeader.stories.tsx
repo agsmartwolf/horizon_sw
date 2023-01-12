@@ -8,7 +8,7 @@ export default {
   component: BlogDetailsHeader,
 } as ComponentMeta<typeof BlogDetailsHeader>;
 
-const Template: ComponentStory<typeof BlogDetailsHeader> = (args) => (
+const Template: ComponentStory<typeof BlogDetailsHeader> = args => (
   <BlogDetailsHeader {...args} />
 );
 

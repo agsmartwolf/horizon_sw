@@ -14,7 +14,7 @@ export default {
   },
 } as ComponentMeta<typeof QuizCrossSell>;
 
-const Template: ComponentStory<typeof QuizCrossSell> = (args) => (
+const Template: ComponentStory<typeof QuizCrossSell> = args => (
   <QuizCrossSell {...args} />
 );
 

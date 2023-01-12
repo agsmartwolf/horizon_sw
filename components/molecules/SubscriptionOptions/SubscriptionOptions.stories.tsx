@@ -41,7 +41,7 @@ const plans = [
   },
 ];
 
-const Template: ComponentStory<typeof SubscriptionOptions> = (args) => {
+const Template: ComponentStory<typeof SubscriptionOptions> = args => {
   const [value, setValue] = useState<
     Maybe<SwellProductPurchaseOptionsSubscriptionPlan>
   >(plans[0]);

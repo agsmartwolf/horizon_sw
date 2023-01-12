@@ -7,23 +7,28 @@ export interface InputProps
   small?: boolean;
   icon?: string;
   error?: boolean;
+  inputClassname?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ small, icon, error, ...props }, ref) => {
+  ({ small, icon, error, inputClassname = '', ...props }, ref) => {
     const classNames = useClassNames(
-      'peer w-full rounded-lg border px-4 text-md text-black transition duration-300',
-      'focus:text-black focus:outline-none',
-      'placeholder:text-input-standard',
+      'peer w-full px-4 text-md transition duration-300',
+      'focus:text-white focus:outline-none',
+      // 'placeholder:text-input-standard',
+      'placeholder:text-gray-400',
       'disabled:border-disabled disabled:text-disabled',
       {
         'border-primary placeholder-shown:border-input-standard focus:border-primary':
           !error,
         'border-error-dark': !!error,
-        'py-4': !small,
-        'py-2': !!small,
+        'py-6': !small,
+        'py-4': !!small,
         'pl-12': !!icon,
+        'pr-12': !small,
+        'pr-10': !!small,
       },
+      inputClassname,
     );
 
     const iconClassNames = useClassNames(

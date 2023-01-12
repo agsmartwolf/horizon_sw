@@ -8,7 +8,7 @@ export default {
   component: InfoTooltip,
 } as ComponentMeta<typeof InfoTooltip>;
 
-const Template: ComponentStory<typeof InfoTooltip> = (args) => (
+const Template: ComponentStory<typeof InfoTooltip> = args => (
   <InfoTooltip {...args} />
 );
 

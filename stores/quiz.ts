@@ -11,10 +11,10 @@ interface QuizzesState {
   setQuiz: (quizSlug: string, data: QuizState) => void;
 }
 
-const useQuizStore = create<QuizzesState>((set) => ({
+const useQuizStore = create<QuizzesState>(set => ({
   quizzes: new Map(),
   setQuiz: (quizSlug: string, data: QuizState) =>
-    set((state) => {
+    set(state => {
       const quizzes = new Map(state.quizzes);
       quizzes.set(quizSlug, {
         ...(quizzes.get(quizSlug)
@@ -24,7 +24,7 @@ const useQuizStore = create<QuizzesState>((set) => ({
       return { quizzes };
     }),
   setAnswer: (quizSlug: string, key: string, answer: Answer) =>
-    set((state) => {
+    set(state => {
       const quizzes = new Map(state.quizzes);
       const quiz = state.quizzes.get(quizSlug);
       if (!quiz?.answers) return state;

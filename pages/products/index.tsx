@@ -17,13 +17,13 @@ const propsCallback: GetStaticProps<
 
 export const getStaticProps = withMainLayout(propsCallback);
 
-const ProductsPage: NextPage<ProductsLayoutProps> = (props) => (
+const ProductsPage: NextPage<ProductsLayoutProps> = props => (
   <div>
     <Head>
-      <title>All products - Horizon</title>
+      <title>All products - SW</title>
     </Head>
 
-    <ProductsLayout {...props} breadcrumbText="All products" />
+    <ProductsLayout {...props} breadcrumbText="Categories / All products" />
   </div>
 );
 

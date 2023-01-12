@@ -1,16 +1,26 @@
 {
   "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "next/core-web-vitals",
-    "plugin:storybook/recommended",
-    "prettier"
+    "react-app",
+    "airbnb-typescript",
+    "plugin:prettier/recommended",
+    "plugin:@next/next/recommended"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "prettier", "@typescript-eslint"],
   "rules": {
     "react-hooks/exhaustive-deps": "error",
     "no-unused-vars": "off",
+    "camelcase": "off",
+    "react/prop-types": "off",
+    "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/no-unused-vars": "error",
     "object-curly-spacing": ["error", "always"]
   }

@@ -11,7 +11,7 @@ import type {
   PurchasableProductData,
 } from 'types/shared/products';
 import GenericAccordion from 'components/atoms/GenericAccordion';
-import {
+import React, {
   ChangeEvent,
   Fragment,
   useCallback,
@@ -19,8 +19,9 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useRouter } from 'next/router';
-import type { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
+import { usePathname, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import type { ParsedUrlQuery } from 'querystring';
 import Link from 'next/link';
 import Checkbox from 'components/atoms/Checkbox';
 import Range from 'components/atoms/Range';
@@ -43,6 +44,10 @@ import useClassNames from 'hooks/useClassNames';
 import getGQLClient from 'lib/graphql/client';
 import { generateId } from 'lib/utils/shared_functions';
 import type { Replace } from 'types/utils';
+import Input from '../../atoms/Input';
+import useProductSearch from '../../../hooks/useProductSearch';
+import { SECTION_PADDING_MAP, SPACING } from 'lib/globals/sizings';
+import TextBody from '../../atoms/Text/TextBody';
 
 export type ProductsPerRow = 2 | 3 | 4 | 5;
 
@@ -63,6 +68,8 @@ export interface ProductsLayoutProps {
   settings: ProductsLayoutSettings;
 }
 
+const placeholderLabel = 'Search your product';
+
 const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   categories,
   settings,
@@ -70,7 +77,10 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   attributeFilters,
 }) => {
   const router = useRouter();
-  const [formatPrice, activeCurrency] = useCurrency((store) => [
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const [formatPrice, activeCurrency] = useCurrency(store => [
     store.formatPrice,
     store.currency,
   ]);
@@ -78,9 +88,10 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState<PurchasableProductData[]>([]);
   const [activeFilters, setActiveFilters] = useState<FilterState[]>();
+
   const [priceRangeValue, setPriceRangeValue] = useState<
     [number, number] | undefined
-  >(getPriceRangeFromQuery(router.query));
+  >();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [priceRangeLimits, setPriceRangeLimits] = useState<[number, number]>([
     0, 0,
@@ -88,6 +99,23 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   const [liveSettings, setLiveSettings] = useState(settings);
 
   const debounceTimeout = useRef<NodeJS.Timeout | undefined>();
+
+  useEffect(() => {
+    const priceParam = searchParams.get('price');
+    if (!priceParam) return;
+    const r = getPriceRangeFromQuery(priceParam);
+    if (!r) return;
+    const [pMin, pMax] = r;
+    setPriceRangeValue([pMin, pMax]);
+  }, [searchParams]);
+
+  const {
+    searchTerm,
+    onSearchTermChange,
+    isSearching,
+    results: searchResults,
+    clear,
+  } = useProductSearch();
 
   const getActiveFilters = useCallback(
     (query: ParsedUrlQuery) =>
@@ -101,7 +129,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
           typeof queryValue === 'string' ? [queryValue] : queryValue;
 
         // Get the filter option
-        const filter = attributeFilters.find((filter) => filter.id === key);
+        const filter = attributeFilters.find(filter => filter.id === key);
 
         if (!filter) return result;
 
@@ -118,32 +146,26 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
       // Update the active filters state
       setActiveFilters(newActiveFilters);
 
-      const updatedQuery = newActiveFilters.reduce<ParsedUrlQueryInput>(
+      // const updatedQuery = newActiveFilters.reduce<ParsedUrlQueryInput>(
+      const updatedQuery = newActiveFilters.reduce<Record<string, string>>(
         (acc, { group, values }) => ({
           ...acc,
-          [group]: Array.from(values),
+          [group]: Array.from(values).toString(),
         }),
         {},
       );
 
-      if (router.query.slug) {
-        updatedQuery.slug = router.query.slug;
+      const slug = searchParams.get('slug');
+      if (slug !== null) {
+        updatedQuery.slug = slug;
       }
 
       setLoading(true);
 
       // Update the url using the new active filters
-      router.push(
-        {
-          pathname: router.pathname,
-          // Transform the array of filters into a query object
-          query: updatedQuery,
-        },
-        undefined,
-        { scroll: false, shallow: true },
-      );
+      router.push(`${pathname}?${new URLSearchParams(updatedQuery)}`);
     },
-    [router],
+    [router, searchParams, pathname],
   );
 
   const onCheck = useCallback(
@@ -151,7 +173,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
       if (!activeFilters) return;
 
       // Find the filter group
-      const index = activeFilters.findIndex((a) => a.group === filter.id);
+      const index = activeFilters.findIndex(a => a.group === filter.id);
 
       if (index === -1) {
         // If the group doesn't exist, create it
@@ -177,7 +199,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
       if (!activeFilters) return;
 
       // Find the filter group
-      const index = activeFilters.findIndex((a) => a.group === filter.id);
+      const index = activeFilters.findIndex(a => a.group === filter.id);
 
       // If the group doesn't exist, skip
       if (index === -1) return;
@@ -210,22 +232,13 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
 
       // Debounce the price range update to avoid too many server requests
       debounceTimeout.current = setTimeout(() => {
-        const updatedQuery = {
-          ...router.query,
-          price: value,
-        };
+        const updatedQuery = new URLSearchParams(searchParams);
+        updatedQuery.set('price', value.toString());
 
-        router.push(
-          {
-            pathname: router.pathname,
-            query: updatedQuery,
-          },
-          undefined,
-          { scroll: false, shallow: true },
-        );
+        router.push(`${pathname}?${updatedQuery}`);
       }, 500);
     },
-    [router],
+    [router, pathname, searchParams],
   );
 
   const onCheckboxChange = useCallback(
@@ -251,42 +264,74 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     // If the active filters have been initialized, return
     if (activeFilters !== undefined) return;
 
-    setActiveFilters(getActiveFilters(router.query));
-  }, [activeFilters, getActiveFilters, router.query]);
+    setActiveFilters(getActiveFilters(searchParams));
+  }, [activeFilters, getActiveFilters, searchParams]);
+
+  async function fetchProps(mounted: boolean) {
+    const productResults = await getProductsList(
+      searchParams.get('slug')?.toString(),
+      activeCurrency.code,
+    );
+
+    if (!mounted) return;
+
+    // Filter the products list by the current filters
+    const filteredProducts = applyFilters(
+      attributeFilters,
+      productResults,
+      searchParams,
+    );
+
+    const productData = mapProducts(filteredProducts);
+
+    // Get the price range limits from the list of products
+    setPriceRangeLimits(getPriceRangeFromProducts(filteredProducts));
+    setProducts(productData);
+    setLoading(false);
+  }
 
   // Update the products list when the query string changes
   useEffect(() => {
     let mounted = true;
 
-    async function fetchProps() {
-      const productResults = await getProductsList(
-        router.query.slug?.toString(),
-        activeCurrency.code,
-      );
-
-      if (!mounted) return;
-
-      // Filter the products list by the current filters
-      const filteredProducts = applyFilters(
-        attributeFilters,
-        productResults,
-        router.query,
-      );
-
-      const productData = mapProducts(filteredProducts);
-
-      // Get the price range limits from the list of products
-      setPriceRangeLimits(getPriceRangeFromProducts(filteredProducts));
-      setProducts(productData);
-      setLoading(false);
-    }
-
-    fetchProps();
+    fetchProps(mounted);
 
     return () => {
       mounted = false;
     };
-  }, [activeCurrency.code, attributeFilters, router.query]);
+  }, [activeCurrency.code, attributeFilters, searchParams]);
+
+  useEffect(() => {
+    let mounted = true;
+    if (isSearching || (!searchTerm && !searchResults.length)) return;
+    if (!searchTerm && searchResults.length) {
+      fetchProps(mounted);
+    }
+    const searchedProducts = mapProducts(searchResults);
+
+    const filteredProducts = applyFilters(
+      attributeFilters,
+      searchedProducts,
+      searchParams,
+    );
+
+    const productData = mapProducts(filteredProducts);
+
+    // Get the price range limits from the list of products
+    setPriceRangeLimits(getPriceRangeFromProducts(filteredProducts));
+    setProducts(productData);
+
+    return () => {
+      mounted = false;
+    };
+  }, [
+    products,
+    searchResults,
+    searchTerm,
+    activeCurrency.code,
+    attributeFilters,
+    searchParams,
+  ]);
 
   // Set up message listeners to update the settings when the user changes them from the editor
   useEffect(() => {
@@ -297,7 +342,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
 
     let toCamelCase: (string?: string | undefined) => string | undefined;
 
-    import('lodash.camelcase').then((pkg) => {
+    import('lodash.camelcase').then(pkg => {
       toCamelCase = pkg.default;
     });
 
@@ -327,7 +372,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
         >;
 
         const featuredCategoriesPromises =
-          camelCasedSettings.featuredCategories?.map((featured) =>
+          camelCasedSettings.featuredCategories?.map(featured =>
             client
               .getFeaturedCategory({ slug: featured.category.slug })
               .then(({ data: { categoryBySlug: featured } }) => {
@@ -370,7 +415,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
           ),
         );
 
-        setLiveSettings((prevValue) => {
+        setLiveSettings(prevValue => {
           const newFeaturedCategory = {
             href: `/categories/${category.slug}`,
             title: category.name ?? '',
@@ -404,8 +449,17 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     };
   }, []);
 
+  const filterCns = useClassNames(
+    'border-dividers min-w-[160px] text-sm md:text-lg',
+  );
+
   return (
-    <article className="mb-6 lg:mb-12 lg:px-8">
+    <article
+      className={useClassNames(
+        'mb-6 lg:mb-12',
+        'lg:pt-32 relative min-h-screen',
+        SECTION_PADDING_MAP[SPACING.SMALL],
+      )}>
       {/* Mobile filters modal toggle */}
       <Button
         elType={BUTTON_TYPE.BUTTON}
@@ -438,7 +492,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
         </>
       ) : null}
 
-      <div className="mt-4 flex">
+      <div className="mt-4 flex flex-col">
         {/* Filters list: */}
         {/* Mobile */}
         <Transition show={mobileFiltersOpen} as={Fragment}>
@@ -470,27 +524,27 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                   </button>
                 </div>
                 <ul className="flex w-full flex-col">
-                  {attributeFilters.map((filter) => (
+                  {attributeFilters.map(filter => (
                     <li className="border-b border-dividers" key={filter.name}>
                       <GenericAccordion
                         // Force re-render of the component client-side to have the defaultOpen state match the query parameters
                         key={typeof activeFilters === 'undefined' ? 1 : 2}
                         defaultOpen={
                           !!activeFilters?.some(
-                            (filterState) => filterState.group === filter.id,
+                            filterState => filterState.group === filter.id,
                           )
                         }
                         name={filter.name}>
                         <ul className="flex flex-col gap-2 pb-4">
-                          {filter.values.map((option) => (
+                          {filter.values.map(option => (
                             <li key={option.label}>
                               <div className="flex items-center gap-2">
                                 <Checkbox
-                                  onChange={(e) =>
+                                  onChange={e =>
                                     onCheckboxChange(e, option, filter)
                                   }
                                   checked={activeFilters?.some(
-                                    (filterState) =>
+                                    filterState =>
                                       filterState.group === filter.id &&
                                       filterState.values.has(option.value),
                                   )}
@@ -548,15 +602,15 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
 
               <div className="sticky bottom-0 flex flex-col gap-6 bg-background-black p-6 shadow-3xl">
                 <ul className="flex flex-wrap items-center gap-2">
-                  {activeFilters?.map((filter) =>
-                    Array.from(filter.values).map((value) => (
+                  {activeFilters?.map(filter =>
+                    Array.from(filter.values).map(value => (
                       <li key={value}>
                         <Tag className="flex items-center gap-2" secondary>
                           {value}{' '}
                           <button
                             onClick={() => {
                               const attrFilter = attributeFilters.find(
-                                (attr) => attr.id === filter.group,
+                                attr => attr.id === filter.group,
                               );
 
                               if (!attrFilter) return;
@@ -595,60 +649,89 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
         </Transition>
 
         {/* Desktop */}
-        <aside className="hidden lg:block">
-          <ul className="flex w-60 shrink-0 flex-col gap-4">
+        <aside className="hidden lg:block absolute top-0 left-0 w-full">
+          <ul
+            className={useClassNames(
+              'flex shrink-0 gap-4 items-center bg-gray-100 h-20',
+              SECTION_PADDING_MAP[SPACING.SMALL],
+            )}>
+            <li className="shrink-0 flex-grow">
+              <Input
+                value={searchTerm}
+                onChange={onSearchTermChange}
+                placeholder={placeholderLabel}
+                icon="material-symbols:search-rounded"
+                className="flex-auto"
+                small
+              />
+            </li>
             <li>
-              <Link href="/products" scroll={false}>
+              <Link
+                href="/products"
+                scroll={false}
+                className={`text-black ${
+                  pathname === '/products' ? 'font-semibold' : ''
+                }`}>
                 {/* If the current route is /products, show it as bold */}
-                <a
-                  className={`text-black ${
-                    router.pathname === '/products' ? 'font-semibold' : ''
-                  }`}>
-                  All products
-                </a>
+                Show ALL
               </Link>
             </li>
-            {categories.map((category) => (
+            {categories.map(category => (
               <li key={category.slug}>
-                <Link href={`/categories/${category.slug}`} scroll={false}>
-                  <a
-                    onClick={() => {
-                      setLoading(true);
-                      setPriceRangeValue(undefined);
-                    }}
-                    className={`text-black ${
-                      // If the category is active, show it as bold
-                      category.slug === router.query.slug ? 'font-semibold' : ''
-                    }`}>
-                    {category.name}
-                  </a>
+                <Link
+                  href={`/categories/${category.slug}`}
+                  scroll={false}
+                  onClick={() => {
+                    setLoading(true);
+                    setPriceRangeValue(undefined);
+                  }}
+                  className={`text-black ${
+                    // If the category is active, show it as bold
+                    category.slug === searchParams.get('slug')
+                      ? 'font-semibold'
+                      : ''
+                  }`}>
+                  {category.name}
                 </Link>
               </li>
             ))}
           </ul>
 
-          <ul className="mt-12 flex h-fit w-60 shrink-0 flex-col border-b border-dividers">
-            {attributeFilters.map((filter) => (
-              <li className="border-t border-dividers" key={filter.name}>
+          <ul
+            className={useClassNames(
+              'flex w-full shrink-0 border-dividers bg-transparent z-20 overflow-hidden',
+              SECTION_PADDING_MAP[SPACING.SMALL],
+            )}>
+            <li className={useClassNames('flex pt-4 pr-10', filterCns)}>
+              <TextBody
+                content="Filters"
+                className="text-gray-400 font-semibold"
+              />
+            </li>
+            {attributeFilters.map(filter => (
+              <li className={filterCns} key={filter.name}>
                 <GenericAccordion
                   // Force re-render of the component client-side to have the defaultOpen state match the query parameters
                   key={typeof activeFilters === 'undefined' ? 1 : 2}
                   defaultOpen={
                     !!activeFilters?.some(
-                      (filterState) => filterState.group === filter.id,
+                      filterState => filterState.group === filter.id,
                     )
                   }
-                  name={filter.name}>
-                  <ul className="flex flex-col gap-2 pb-4">
-                    {filter.values.map((option) => (
+                  name={
+                    filter.name.charAt(0).toUpperCase() + filter.name.slice(1)
+                  }
+                  className="pl-2"
+                  hideArrow>
+                  <ul className="flex flex-col gap-2 pb-4 bg-white z-10 relative px-2 -ml-2">
+                    {filter.values.map(option => (
                       <li key={option.label}>
                         <div className="flex items-center gap-2">
                           <Checkbox
-                            onChange={(e) =>
-                              onCheckboxChange(e, option, filter)
-                            }
+                            id={option.value}
+                            onChange={e => onCheckboxChange(e, option, filter)}
                             checked={activeFilters?.some(
-                              (filterState) =>
+                              filterState =>
                                 filterState.group === filter.id &&
                                 filterState.values.has(option.value),
                             )}
@@ -662,14 +745,15 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                 </GenericAccordion>
               </li>
             ))}
-            <li className="border-t border-dividers">
+            <li className={filterCns}>
               <GenericAccordion
                 // Force re-render of the component client-side to have the defaultOpen state match the query parameters
                 key={typeof activeFilters === 'undefined' ? 1 : 2}
                 defaultOpen={new URLSearchParams(
                   typeof window !== 'undefined' ? window.location.search : '',
                 ).has('price')}
-                name="Price">
+                name="Price"
+                hideArrow>
                 <div>
                   <div className="flex w-full justify-between text-black">
                     <span>
@@ -702,7 +786,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
           </ul>
         </aside>
 
-        <section className="w-full lg:ml-14">
+        <section className="w-full">
           <ProductCount count={products.length} className="px-6 lg:px-0" />
           {/* Products list */}
           <ul
@@ -715,7 +799,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                 'lg:grid-cols-5': Number(liveSettings.productsPerRow) === 5,
               },
             )}>
-            {loading
+            {loading || isSearching
               ? Array(16)
                   .fill(0)
                   .map((_, i) => (
@@ -723,7 +807,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                       <ProductPreviewCard loading />
                     </li>
                   ))
-              : products.map((product) => (
+              : products.map(product => (
                   <li key={product.id}>
                     <ProductPreviewCard
                       className="animate-fade-in duration-75"

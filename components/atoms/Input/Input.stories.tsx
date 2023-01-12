@@ -15,7 +15,7 @@ export default {
   },
 } as ComponentMeta<typeof Input>;
 
-const Template: ComponentStory<typeof Input> = (args) => <Input {...args} />;
+const Template: ComponentStory<typeof Input> = args => <Input {...args} />;
 
 const defaultProps = {
   defaultValue: 'Your first name',

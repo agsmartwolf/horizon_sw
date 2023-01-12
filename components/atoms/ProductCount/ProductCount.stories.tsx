@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof ProductCount>;
 
-const Template: ComponentStory<typeof ProductCount> = (args) => (
+const Template: ComponentStory<typeof ProductCount> = args => (
   <ProductCount {...args} />
 );
 

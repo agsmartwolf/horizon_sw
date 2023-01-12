@@ -3,7 +3,7 @@ import Image from 'components/atoms/SafeImage';
 import RichText from 'components/atoms/RichText';
 
 import type { MandatoryImageProps } from 'types/global';
-import { layoutFillConfig } from 'lib/utils/image';
+
 
 export interface QuizResultsIntroProps {
   /**
@@ -38,7 +38,7 @@ const QuizResultsIntro: React.FC<QuizResultsIntroProps> = ({
     <section className={classNames}>
       <Image
         {...background}
-        {...layoutFillConfig}
+        
         alt={background.alt}
         className="absolute inset-0 object-cover object-right-top lg:object-center"
       />

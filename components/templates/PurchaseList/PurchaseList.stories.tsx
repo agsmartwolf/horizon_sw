@@ -23,7 +23,7 @@ export default {
   },
 } as ComponentMeta<typeof PurchaseList>;
 
-const Template: ComponentStory<typeof PurchaseList> = (args) => (
+const Template: ComponentStory<typeof PurchaseList> = args => (
   <PurchaseList {...args} />
 );
 

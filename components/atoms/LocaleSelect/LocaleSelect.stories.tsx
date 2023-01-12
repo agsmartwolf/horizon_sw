@@ -9,7 +9,7 @@ export default {
   argTypes: {},
 } as ComponentMeta<typeof LocaleSelect>;
 
-const Template: ComponentStory<typeof LocaleSelect> = (args) => (
+const Template: ComponentStory<typeof LocaleSelect> = args => (
   <LocaleSelect {...args} />
 );
 

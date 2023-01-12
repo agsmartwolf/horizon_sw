@@ -8,7 +8,7 @@ export default {
   component: ListSection,
 } as ComponentMeta<typeof ListSection>;
 
-const Template: ComponentStory<typeof ListSection> = (args) => (
+const Template: ComponentStory<typeof ListSection> = args => (
   <ListSection {...args} />
 );
 

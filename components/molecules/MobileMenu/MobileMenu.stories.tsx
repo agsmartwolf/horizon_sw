@@ -13,7 +13,7 @@ export default {
   },
 } as ComponentMeta<typeof MobileMenu>;
 
-const Template: ComponentStory<typeof MobileMenu> = (args) => (
+const Template: ComponentStory<typeof MobileMenu> = args => (
   <MobileMenu {...args} />
 );
 

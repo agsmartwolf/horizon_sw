@@ -10,7 +10,7 @@ export default {
     text: { control: 'text' },
   },
   decorators: [
-    (Story) => (
+    Story => (
       <div className="p-6">
         <Story />
       </div>
@@ -18,7 +18,7 @@ export default {
   ],
 } as ComponentMeta<typeof PerkItem>;
 
-const Template: ComponentStory<typeof PerkItem> = (args) => (
+const Template: ComponentStory<typeof PerkItem> = args => (
   <PerkItem {...args} />
 );
 

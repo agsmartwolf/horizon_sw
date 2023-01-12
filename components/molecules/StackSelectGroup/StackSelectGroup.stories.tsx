@@ -10,7 +10,7 @@ export default {
     options: { control: 'array' },
   },
   decorators: [
-    (Story) => (
+    Story => (
       <div className="lg:m-16">
         <Story />
       </div>
@@ -18,7 +18,7 @@ export default {
   ],
 } as ComponentMeta<typeof StackSelectGroup>;
 
-const Template: ComponentStory<typeof StackSelectGroup> = (args) => (
+const Template: ComponentStory<typeof StackSelectGroup> = args => (
   <StackSelectGroup {...args} />
 );
 

@@ -11,7 +11,7 @@ import {
   HORIZONTAL_ALIGNMENT,
   VERTICAL_ALIGNMENT,
 } from 'types/shared/alignment';
-import { layoutFillConfig } from 'lib/utils/image';
+
 
 import type { MembershipCardProps } from 'components/atoms/MembershipCard';
 import type {
@@ -57,7 +57,7 @@ const Memberships: ContentBlockComponent<MembershipsProps> = ({
             ${BACKGROUND_POSITION_MAP[vertical_background_alignment][horizontal_background_alignment]}
         `}
           {...background_image}
-          {...layoutFillConfig}
+          
           alt={background_image.alt}
         />
       )}
@@ -77,7 +77,7 @@ const Memberships: ContentBlockComponent<MembershipsProps> = ({
         <p className="text-center text-2xl text-body">{description}</p>
       </div>
       <div className="relative grid grid-cols-[minmax(100%,342px)] gap-y-10 lg:flex lg:flex-row lg:flex-wrap lg:justify-center lg:gap-14">
-        {memberships.map((membership) => (
+        {memberships.map(membership => (
           <MembershipCard
             key={membership.title}
             {...membership}

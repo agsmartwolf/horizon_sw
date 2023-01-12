@@ -32,9 +32,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const propsCallback: GetStaticProps<QuizResultsPageProps> = async (
-  context,
-) => {
+export const propsCallback: GetStaticProps<
+  QuizResultsPageProps
+> = async context => {
   if (!context.params?.id || typeof context.params?.id !== 'string') {
     return {
       notFound: true,
@@ -71,9 +71,7 @@ export const propsCallback: GetStaticProps<QuizResultsPageProps> = async (
 
 export const getStaticProps = withMainLayout(propsCallback);
 
-const QuizResults: NextPage<ServerSideProps<typeof getStaticProps>> = (
-  props,
-) => {
+const QuizResults: NextPage<ServerSideProps<typeof getStaticProps>> = props => {
   const router = useRouter();
 
   const { quizId, ...quizResultsProps } = props;

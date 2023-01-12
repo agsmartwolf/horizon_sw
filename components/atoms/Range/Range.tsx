@@ -31,10 +31,10 @@ const Range: React.FC<RangeProps> = ({
         onValueChange={onChange}
         className="relative flex h-5 w-full cursor-pointer touch-none select-none items-center">
         <Slider.Track className="flex h-[1px] grow items-center rounded-full bg-input-standard">
-          <Slider.Range className="absolute h-[1px] rounded-full bg-white" />
+          <Slider.Range className="absolute h-[1px] rounded-full bg-black" />
         </Slider.Track>
-        <Slider.Thumb className="block h-[9px] w-[9px] rounded-full bg-white" />
-        <Slider.Thumb className="block h-[9px] w-[9px] rounded-full bg-white" />
+        <Slider.Thumb className="block h-[9px] w-[9px] rounded-full bg-black" />
+        <Slider.Thumb className="block h-[9px] w-[9px] rounded-full bg-black" />
       </Slider.Root>
     </form>
   );

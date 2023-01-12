@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof ToggleSmall>;
 
-const Template: ComponentStory<typeof ToggleSmall> = (args) => (
+const Template: ComponentStory<typeof ToggleSmall> = args => (
   <ToggleSmall {...args} />
 );
 

@@ -18,7 +18,7 @@ export default {
   },
 } as ComponentMeta<typeof ReviewsSection>;
 
-const Template: ComponentStory<typeof ReviewsSection> = (args) => (
+const Template: ComponentStory<typeof ReviewsSection> = args => (
   <ReviewsSection {...args} />
 );
 

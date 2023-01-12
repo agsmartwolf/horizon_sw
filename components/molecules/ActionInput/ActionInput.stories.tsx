@@ -24,7 +24,7 @@ export default {
   },
 } as ComponentMeta<typeof ActionInput>;
 
-const Template: ComponentStory<typeof ActionInput> = (args) => (
+const Template: ComponentStory<typeof ActionInput> = args => (
   <ActionInput {...args} />
 );
 

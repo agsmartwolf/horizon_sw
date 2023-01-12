@@ -12,7 +12,7 @@ export default {
   },
 } as ComponentMeta<typeof LinksAccordion>;
 
-const Template: ComponentStory<typeof LinksAccordion> = (args) => (
+const Template: ComponentStory<typeof LinksAccordion> = args => (
   <LinksAccordion {...args} />
 );
 

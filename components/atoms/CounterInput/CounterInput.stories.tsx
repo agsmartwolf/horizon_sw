@@ -15,7 +15,7 @@ export default {
   },
 } as ComponentMeta<typeof CounterInput>;
 
-const Template: ComponentStory<typeof CounterInput> = (args) => {
+const Template: ComponentStory<typeof CounterInput> = args => {
   const [value, setValue] = useState(args.value);
 
   useEffect(() => {

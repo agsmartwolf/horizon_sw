@@ -41,7 +41,7 @@ const ReviewsSection: ContentBlockComponent<ReviewsSectionProps> = ({
 
       <HorizontalScroller>
         <div
-          ref={(ref) => {
+          ref={ref => {
             const height = ref?.clientHeight ?? 0;
 
             if (height !== contentHeight) {
@@ -53,7 +53,7 @@ const ReviewsSection: ContentBlockComponent<ReviewsSectionProps> = ({
             style={{ height: `${contentHeight}px` }}
             className="sticky left-0 z-10 -mr-6 h-full w-15 bg-gradient-to-l from-transparent to-background-secondary lg:-mr-8"
           />
-          {reviews.map((review) => (
+          {reviews.map(review => (
             <ReviewCard
               {...review}
               key={review.id}

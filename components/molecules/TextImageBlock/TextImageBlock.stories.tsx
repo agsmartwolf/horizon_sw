@@ -16,7 +16,7 @@ export default {
     },
   },
   decorators: [
-    (Story) => (
+    Story => (
       <div className="px-6">
         <Story />
       </div>
@@ -24,7 +24,7 @@ export default {
   ],
 } as ComponentMeta<typeof TextImageBlock>;
 
-const Template: ComponentStory<typeof TextImageBlock> = (args) => (
+const Template: ComponentStory<typeof TextImageBlock> = args => (
   <TextImageBlock {...args} />
 );
 

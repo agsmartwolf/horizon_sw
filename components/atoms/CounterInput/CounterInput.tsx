@@ -17,7 +17,7 @@ const CounterInput = React.forwardRef<HTMLDivElement, CounterInputProps>(
     const handleChange = useCallback<
       React.ChangeEventHandler<HTMLInputElement>
     >(
-      (e) => {
+      e => {
         const newValue = e.currentTarget.valueAsNumber;
 
         if (props.max && newValue > Number(props.max))
@@ -30,7 +30,7 @@ const CounterInput = React.forwardRef<HTMLDivElement, CounterInputProps>(
     );
 
     const handleBlur = useCallback<React.FocusEventHandler<HTMLInputElement>>(
-      (e) => {
+      e => {
         if (isNaN(e.currentTarget.valueAsNumber)) {
           onChange?.(Number(props.min) ?? 0);
         }

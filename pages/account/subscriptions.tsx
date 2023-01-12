@@ -40,9 +40,9 @@ const GROUP_TITLES = {
   [SUBSCRIPTION_STATUS.UNPAID]: 'Unpaid',
 };
 
-export const propsCallback: GetServerSideProps<SubscriptionsPageProps> = async (
-  ctx,
-) => {
+export const propsCallback: GetServerSideProps<
+  SubscriptionsPageProps
+> = async ctx => {
   const client = getClientWithSessionToken(ctx.req.cookies);
 
   const {
@@ -51,7 +51,7 @@ export const propsCallback: GetServerSideProps<SubscriptionsPageProps> = async (
 
   const formattedSubscriptions: SubscriptionCardProps[] = (
     subscriptions?.results ?? []
-  ).map((subscription) => {
+  ).map(subscription => {
     return {
       title: subscription?.product?.name ?? '',
       productsImages: formatProductImages(subscription?.product?.images),

@@ -5,7 +5,7 @@ import Button from 'components/atoms/Button';
 import RichText from 'components/atoms/RichText';
 import type { MandatoryImageProps } from 'types/global';
 import { BUTTON_TYPE } from 'types/shared/button';
-import { layoutFillConfig } from 'lib/utils/image';
+
 import {
   QUIZ_ITEM_TYPE,
   QUIZ_TRANSITION_LAYOUT_OPTION,
@@ -83,7 +83,7 @@ const QuizTransitionQuestion: React.FC<QuizTransitionQuestionProps> = ({
             {...image}
             alt={image.alt}
             priority
-            {...layoutFillConfig}
+            
           />
         </div>
       )}

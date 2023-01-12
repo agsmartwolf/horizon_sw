@@ -46,7 +46,7 @@ const MultiplePanels: ContentBlockComponent<MultiplePanelsProps> = ({
     <section
       style={{ backgroundColor: background_color }}
       className={classNames}>
-      {panels.map((panel) => {
+      {panels.map(panel => {
         if (panel.type === PANEL_TYPE.TEXT) {
           panel.horizontalAlignment = horizontal_content_alignment;
           panel.verticalAlignment = vertical_content_alignment;

@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'components/atoms/SafeImage';
 import useClassNames from 'hooks/useClassNames';
 import type { MandatoryImageProps } from 'types/global';
-import { layoutFillConfig } from 'lib/utils/image';
+
 import type { SelectOption } from 'types/shared/quiz';
 
 export interface ImageSelectCardProps
@@ -41,7 +41,7 @@ const ImageSelectCard: React.FC<ImageSelectCardProps> = ({
             {...image}
             priority
             alt={label}
-            {...layoutFillConfig}
+            
           />
         )}
       </div>

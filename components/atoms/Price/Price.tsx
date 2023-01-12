@@ -13,7 +13,7 @@ export interface PriceProps {
 }
 
 const Price: React.FC<PriceProps> = ({ price, origPrice, billingSchedule }) => {
-  const formatPrice = useCurrencyStore((state) => state.formatPrice);
+  const formatPrice = useCurrencyStore(state => state.formatPrice);
 
   const formatSchedule = useCallback(
     (price: number) =>

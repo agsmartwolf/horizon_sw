@@ -3,7 +3,7 @@ import React from 'react';
 
 export type SafeImageProps = ImageProps;
 
-const SafeImage: React.FC<SafeImageProps> = (props) => (
+const SafeImage: React.FC<SafeImageProps> = props => (
   <Image
     {...props}
     alt={props.alt ?? ''}

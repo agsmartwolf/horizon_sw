@@ -16,12 +16,12 @@ const CartTotal: React.FC<CartTotalProps> = ({
   className,
   checkoutUrl,
 }) => {
-  const formatPrice = useCurrencyStore((state) => state.formatPrice);
+  const formatPrice = useCurrencyStore(state => state.formatPrice);
 
   return (
     <div
       className={[
-        'flex flex-col gap-6 bg-background-black p-6 shadow-3xl',
+        'flex flex-col gap-6 bg-background-white p-6 shadow-3xl',
         className,
       ].join(' ')}>
       <div className="flex justify-between text-sm font-semibold uppercase text-black">

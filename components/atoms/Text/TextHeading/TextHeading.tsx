@@ -1,15 +1,17 @@
 import React from 'react';
 import RichText from 'components/atoms/RichText';
 import type { RootElement } from 'components/atoms/RichText';
+import useClassNames from '../../../../hooks/useClassNames';
 
 export interface TextHeadingProps {
   content: string;
   size?: 1 | 2;
   rootEl?: RootElement;
+  className?: string;
 }
 
 const SIZE_CLASS_MAPPINGS = {
-  1: 'text-7xl',
+  1: 'text-5xl lg:text-7xl',
   2: 'text-5xl',
 };
 
@@ -17,9 +19,11 @@ const TextHeading: React.FC<TextHeadingProps> = ({
   content,
   size = 1,
   rootEl,
+  className = '',
 }) => {
   const classNames = SIZE_CLASS_MAPPINGS[size];
-  return <RichText content={content} className={classNames} rootEl={rootEl} />;
+  const cn = useClassNames(classNames, className);
+  return <RichText content={content} className={cn} rootEl={rootEl} />;
 };
 
 export default TextHeading;

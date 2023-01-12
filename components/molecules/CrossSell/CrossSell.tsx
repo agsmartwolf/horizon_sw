@@ -1,6 +1,6 @@
 import Button from 'components/atoms/Button';
 import Tag from 'components/atoms/Tag';
-import { layoutFillConfig } from 'lib/utils/image';
+
 import Image from 'components/atoms/SafeImage';
 import Link from 'next/link';
 import React from 'react';
@@ -28,7 +28,7 @@ const CrossSell: React.FC<CrossSellProps> = ({
   onClick,
   className,
 }) => {
-  const formatPrice = useCurrencyStore((state) => state.formatPrice);
+  const formatPrice = useCurrencyStore(state => state.formatPrice);
   const { price, originalPrice } = item;
 
   let tag: string | undefined;
@@ -44,24 +44,24 @@ const CrossSell: React.FC<CrossSellProps> = ({
         'flex flex-col gap-6 lg:grid lg:grid-cols-[1fr_2fr]',
         className,
       ].join(' ')}>
-      <Link href={item.href}>
-        <a className="safe-aspect-square relative lg:min-w-[10rem]">
-          <Image
-            {...item.image}
-            {...layoutFillConfig}
-            className={['rounded-xl object-cover', item.image.className].join(
-              ' ',
-            )}
-            alt={item.image.alt}
-          />
-          {tag && <Tag className="absolute right-0 top-0">{tag}</Tag>}
-        </a>
+      <Link
+        href={item.href}
+        className="safe-aspect-square relative lg:min-w-[10rem]">
+        <Image
+          {...item.image}
+          
+          className={['rounded-xl object-cover', item.image.className].join(
+            ' ',
+          )}
+          alt={item.image.alt}
+        />
+        {tag && <Tag className="absolute right-0 top-0">{tag}</Tag>}
       </Link>
       <div className="flex h-full flex-col gap-4 lg:gap-6">
-        <Link href={item.href}>
-          <a className="text-md font-semibold uppercase text-black">
-            {item.title}
-          </a>
+        <Link
+          href={item.href}
+          className="text-md font-semibold uppercase text-black">
+          {item.title}
         </Link>
         <Button
           elType={BUTTON_TYPE.BUTTON}

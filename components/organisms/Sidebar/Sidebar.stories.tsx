@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof TheSidebar>;
 
-const Template: ComponentStory<typeof TheSidebar> = (args) => (
+const Template: ComponentStory<typeof TheSidebar> = args => (
   <TheSidebar {...args} />
 );
 

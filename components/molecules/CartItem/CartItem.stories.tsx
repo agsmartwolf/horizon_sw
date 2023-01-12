@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof CartItem>;
 
-const Template: ComponentStory<typeof CartItem> = (args) => (
+const Template: ComponentStory<typeof CartItem> = args => (
   <CartItem {...args} />
 );
 

@@ -22,7 +22,7 @@ export const getAnswersWithSelections = (
 ) => {
   const answers: { selection: AnswerSelection[] }[] = [];
   stateAnswers.forEach((value, key) => {
-    const question = quiz.questions.find((question) => question.id === key);
+    const question = quiz.questions.find(question => question.id === key);
     if (question?.type === QUIZ_ITEM_TYPE.QUESTION) {
       if (
         [
@@ -35,14 +35,14 @@ export const getAnswersWithSelections = (
         if (typeof value === 'string') {
           validSelections =
             (question?.inputConfig as InputSelectConfig).options?.find(
-              (option) => option.id === value,
+              option => option.id === value,
             )?.selection ?? [];
         } else {
           validSelections =
             denullifyArray(
               (question?.inputConfig as InputSelectConfig).options
-                ?.filter((option) => value.includes(option.id))
-                ?.flatMap((item) => item.selection),
+                ?.filter(option => value.includes(option.id))
+                ?.flatMap(item => item.selection),
             ) ?? [];
         }
 
@@ -64,7 +64,7 @@ const useQuiz = (quiz: QuizPageProps, router: NextRouter) => {
   const [transitionDirection, setTransitionDirection] = useState(
     TRANSITION_DIRECTION.FORWARD,
   );
-  const [quizState, setQuiz, setStoreAnswer] = useQuizStore((state) => [
+  const [quizState, setQuiz, setStoreAnswer] = useQuizStore(state => [
     state.quizzes.get(quiz.id),
     state.setQuiz,
     state.setAnswer,
@@ -88,7 +88,7 @@ const useQuiz = (quiz: QuizPageProps, router: NextRouter) => {
 
       if (activeIndex + 1 === quiz.questions.length && quizState?.answers) {
         const nameAnswerId = quiz.questions.find(
-          (question) =>
+          question =>
             question.type === QUIZ_ITEM_TYPE.QUESTION &&
             question.questionType === QUIZ_QUESTION_TYPE.TEXT &&
             question?.isCustomerName,
@@ -125,10 +125,10 @@ const useQuiz = (quiz: QuizPageProps, router: NextRouter) => {
       setTransitionDirection(TRANSITION_DIRECTION.FORWARD);
 
       if (quiz.questions[activeIndex + 1].type === QUIZ_ITEM_TYPE.QUESTION) {
-        setActiveQuestionIndex((prevState) => prevState + 1);
+        setActiveQuestionIndex(prevState => prevState + 1);
       }
 
-      setActiveIndex((prevState) => prevState + 1);
+      setActiveIndex(prevState => prevState + 1);
     },
     [
       activeIndex,
@@ -152,17 +152,17 @@ const useQuiz = (quiz: QuizPageProps, router: NextRouter) => {
     setTransitionDirection(TRANSITION_DIRECTION.BACKWARD);
 
     if (quiz.questions[activeIndex].type === QUIZ_ITEM_TYPE.QUESTION) {
-      setActiveQuestionIndex((prevState) => prevState - 1);
+      setActiveQuestionIndex(prevState => prevState - 1);
     }
 
-    setActiveIndex((prevState) => prevState - 1);
+    setActiveIndex(prevState => prevState - 1);
   }, [setActiveIndex, setActiveQuestionIndex, activeIndex, quiz.questions]);
 
   /**
    * Function for handling manual change of the current activeIndex/activeQuestionIndex
    */
   const onIndexChange = useCallback(
-    (newIndex) => {
+    newIndex => {
       setActiveIndex(newIndex);
 
       const questionType = quiz.questions[newIndex]?.type;
@@ -174,19 +174,19 @@ const useQuiz = (quiz: QuizPageProps, router: NextRouter) => {
       if (questionType === QUIZ_ITEM_TYPE.QUESTION) {
         const newIndexId = quiz.questions[newIndex]?.id;
         const newActiveQuestionIndex = quiz.questions
-          .filter((item) => item.type === QUIZ_ITEM_TYPE.QUESTION)
-          .findIndex((item) => item.id === newIndexId);
+          .filter(item => item.type === QUIZ_ITEM_TYPE.QUESTION)
+          .findIndex(item => item.id === newIndexId);
 
         setActiveQuestionIndex(newActiveQuestionIndex);
       } else {
         const arrayToIndex = quiz.questions.slice(0, newIndex + 1);
         const lastQuestionId = arrayToIndex
           ?.reverse()
-          ?.find((item) => item.type === QUIZ_ITEM_TYPE.QUESTION)?.id;
+          ?.find(item => item.type === QUIZ_ITEM_TYPE.QUESTION)?.id;
 
         const newActiveQuestionIndex = quiz.questions
-          .filter((item) => item.type === QUIZ_ITEM_TYPE.QUESTION)
-          .findIndex((item) => item.id === lastQuestionId);
+          .filter(item => item.type === QUIZ_ITEM_TYPE.QUESTION)
+          .findIndex(item => item.id === lastQuestionId);
 
         setActiveQuestionIndex(newActiveQuestionIndex);
       }

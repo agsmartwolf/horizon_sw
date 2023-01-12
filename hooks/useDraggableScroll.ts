@@ -73,7 +73,7 @@ const useDraggableScroll = (options?: Options) => {
   );
 
   const onMouseDown = useCallback<React.MouseEventHandler<HTMLElement>>(
-    (e) => {
+    e => {
       e.preventDefault();
 
       const element = e.currentTarget;
@@ -87,7 +87,7 @@ const useDraggableScroll = (options?: Options) => {
     [stopMomentum],
   );
 
-  const onMouseLeave = useCallback<React.MouseEventHandler>((e) => {
+  const onMouseLeave = useCallback<React.MouseEventHandler>(e => {
     const element = e.currentTarget;
     isDragging.current = false;
 
@@ -98,7 +98,7 @@ const useDraggableScroll = (options?: Options) => {
   }, []);
 
   const onMouseUp = useCallback<React.MouseEventHandler>(
-    (e) => {
+    e => {
       const element = e.currentTarget;
       isDragging.current = false;
 
@@ -112,7 +112,7 @@ const useDraggableScroll = (options?: Options) => {
     [startMomentum],
   );
 
-  const onMouseMove = useCallback<React.MouseEventHandler<HTMLElement>>((e) => {
+  const onMouseMove = useCallback<React.MouseEventHandler<HTMLElement>>(e => {
     if (!isDragging.current) return;
 
     const element = e.currentTarget;

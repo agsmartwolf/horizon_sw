@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof Toggle>;
 
-const Template: ComponentStory<typeof Toggle> = (args) => <Toggle {...args} />;
+const Template: ComponentStory<typeof Toggle> = args => <Toggle {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

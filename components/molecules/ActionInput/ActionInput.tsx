@@ -1,8 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, {useCallback, useState} from 'react';
 import Input from 'components/atoms/Input';
 import useClassNames from 'hooks/useClassNames';
 import ValidationErrorText from 'components/atoms/ValidationErrorText';
 import ArrowRight from 'assets/icons/arrow-right.svg';
+import Button from '../../atoms/Button';
+import {BUTTON_STYLE, BUTTON_TYPE} from '../../../types/shared/button';
 
 export interface ActionInputProps extends React.AriaAttributes {
   id: string;
@@ -22,6 +24,8 @@ export interface ActionInputProps extends React.AriaAttributes {
   onKeyUp?: React.KeyboardEventHandler<HTMLInputElement>;
   onKeyPress?: React.KeyboardEventHandler<HTMLInputElement>;
   noValidate?: boolean;
+  arrowHidden?: boolean;
+  submitLabel?: string;
 }
 
 const ActionInput: React.FC<ActionInputProps> = ({
@@ -32,6 +36,7 @@ const ActionInput: React.FC<ActionInputProps> = ({
   value,
   defaultValue = '',
   noValidate,
+  submitLabel = null,
   ...props
 }) => {
   const inputClassNames = useClassNames({
@@ -43,6 +48,7 @@ const ActionInput: React.FC<ActionInputProps> = ({
     {
       'w-4': !props.small,
       'w-3': !!props.small,
+      hidden: !!props.arrowHidden,
     },
   );
 
@@ -51,7 +57,7 @@ const ActionInput: React.FC<ActionInputProps> = ({
   const changeValueHandler = useCallback<
     React.ChangeEventHandler<HTMLInputElement>
   >(
-    (e) => {
+    e => {
       onChange?.(e);
       setInputValue(e.target.value);
     },
@@ -59,7 +65,7 @@ const ActionInput: React.FC<ActionInputProps> = ({
   );
 
   const submitHandler = useCallback<React.FormEventHandler<HTMLFormElement>>(
-    (e) => {
+    e => {
       e.preventDefault();
       onAction(value ?? inputValue);
     },
@@ -71,18 +77,32 @@ const ActionInput: React.FC<ActionInputProps> = ({
       className="gap flex flex-col gap-1"
       onSubmit={submitHandler}
       noValidate={noValidate}>
-      <div className="relative">
-        <Input
-          aria-describedby={`${id}-error`}
-          className={inputClassNames}
-          value={value ?? inputValue}
-          onChange={changeValueHandler}
-          error={!!errorLabel}
-          {...props}
-        />
-        <button type="submit" className={buttonClassNames}>
-          <ArrowRight />
-        </button>
+      <div className="flex">
+        {submitLabel && (
+          <Button
+            elType={BUTTON_TYPE.BUTTON}
+            buttonStyle={BUTTON_STYLE.SECONDARY}
+            className={''}
+            type="submit"
+            small={props.small}>
+            {submitLabel}
+          </Button>
+        )}
+
+        <div className="relative flex-grow">
+          <Input
+            aria-describedby={`${id}-error`}
+            className={inputClassNames}
+            inputClassname={'bg-black-100 text-gray-400'}
+            value={value ?? inputValue}
+            onChange={changeValueHandler}
+            error={!!errorLabel}
+            {...props}
+          />
+          <button type="submit" className={buttonClassNames}>
+            <ArrowRight className="stroke-green-100" />
+          </button>
+        </div>
       </div>
       {errorLabel && (
         <ValidationErrorText id={`${id}-error`}>

@@ -109,7 +109,7 @@ interface SubscriptionDetailPageProps extends PageProps {
 
 export const propsCallback: GetServerSideProps<
   SubscriptionDetailPageProps
-> = async (context) => {
+> = async context => {
   const subscriptionId = context.params?.id;
   const sessionTokenCookie = context.req.cookies.sessionToken;
   if (
@@ -221,7 +221,7 @@ export const propsCallback: GetServerSideProps<
               height: subscription?.product?.images?.[0]?.file?.height ?? 0,
             },
             options:
-              subscription?.options?.map((option) => option?.value ?? '') ?? [],
+              subscription?.options?.map(option => option?.value ?? '') ?? [],
             quantity: subscription?.quantity ?? 0,
             price: formatSubscriptionPrice(
               formatPriceByCurrency(subscription?.currency)(
@@ -373,7 +373,7 @@ const SubscriptionDetailPage: NextPageWithLayout<
   const { locale } = useRouter();
   const [status, setStatus] = useState(subscription.status);
   const [cancelSubscriptionOpen, setCancelSubscriptionOpen] = useState(false);
-  const send = useNotificationStore((store) => store.send);
+  const send = useNotificationStore(store => store.send);
   const fetchApi = useFetchApi();
 
   const dateCreatedRow = subscription?.dateCreated

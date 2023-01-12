@@ -7,7 +7,7 @@ import type { EditorArray } from 'types/editor';
 import { generateId } from 'lib/utils/shared_functions';
 
 function getMenu(menuId: string, menuSettings?: Maybe<SwellSettingsMenus>) {
-  return menuSettings?.sections?.find((section) => section?.id === menuId);
+  return menuSettings?.sections?.find(section => section?.id === menuId);
 }
 
 function formatMenuItems(items: any): EditorArray<MenuItem> {
@@ -31,6 +31,17 @@ function formatMenuItems(items: any): EditorArray<MenuItem> {
           const label = item.name;
           const link = `/categories/${item.value.slug ?? ''}`;
           return { id: generateId(), label, link };
+        }
+        case 'url': {
+          if (!item.value) return null;
+          const label = item.name;
+          const link = `${item.value ?? '#'}`;
+          return {
+            id: generateId(),
+            label,
+            link,
+            target: item.options.target ?? '',
+          };
         }
       }
 
@@ -72,28 +83,31 @@ export function formatStoreSettings(
     secondaryFooterMenu?.items ?? [],
   );
 
+  const logo = header?.logo?.file
+    ? {
+        src: header.logo.file.url ?? '',
+        alt: storeName ?? 'Logo',
+        width: header.logo.file.width ?? 0,
+        height: header.logo.file.height ?? 0,
+        contentType: header.logo.file.contentType ?? '',
+      }
+    : null;
+  const logoHeight =
+    header?.logoHeight?.desktop && header.logoHeight.mobile
+      ? {
+          desktop: header.logoHeight.desktop ?? 30,
+          mobile: header.logoHeight.mobile ?? 20,
+        }
+      : null;
+
   const formattedHeader: HeaderProps = {
     storeName,
     announcementText: header.announcementText ?? null,
     menu: headerMenu?.items ?? null,
     hideOnScroll: header.hideOnScroll ?? null,
     showAnnouncementBar: header.showAnnouncementBar ?? null,
-    logo: header?.logo?.file
-      ? {
-          src: header.logo.file.url ?? '',
-          alt: storeName ?? 'Logo',
-          width: header.logo.file.width ?? 0,
-          height: header.logo.file.height ?? 0,
-          contentType: header.logo.file.contentType ?? '',
-        }
-      : null,
-    logoHeight:
-      header?.logoHeight?.desktop && header.logoHeight.mobile
-        ? {
-            desktop: header.logoHeight.desktop ?? 30,
-            mobile: header.logoHeight.mobile ?? 20,
-          }
-        : null,
+    logo,
+    logoHeight,
   };
 
   const formattedFooter: FooterProps = {
@@ -106,6 +120,9 @@ export function formatStoreSettings(
     newsletterTitle: footer.newsletterTitle ?? null,
     newsletterPlaceholder: footer.newsletterPlaceholder ?? null,
     horizontalPadding: footer.horizontalPadding ?? null,
+    logo,
+    logoHeight,
+    storeName,
   };
 
   return {

@@ -164,10 +164,10 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
       if (answerType === 'string') {
         setAnswer(newAnswer);
       } else {
-        setAnswer((prevState) => {
+        setAnswer(prevState => {
           const prevValue = prevState as string[];
           return prevValue.includes(newAnswer)
-            ? prevValue.filter((answer) => answer !== newAnswer)
+            ? prevValue.filter(answer => answer !== newAnswer)
             : [...prevState, newAnswer];
         });
       }
@@ -290,7 +290,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
             {...inputConfig}
             id={id}
             value={answer as string}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={e => onChange(e.target.value)}
           />
         );
       default:

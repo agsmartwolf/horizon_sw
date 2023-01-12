@@ -12,7 +12,7 @@ export default {
   },
 } as ComponentMeta<typeof ProductOptions>;
 
-const Template: ComponentStory<typeof ProductOptions> = (args) => {
+const Template: ComponentStory<typeof ProductOptions> = args => {
   const [selectedOptions, setSelectedOptions] = useState(
     new Map<string, string>([
       ['62659cd3e628c74b83c67847', '62659d9fe628c74b83c6713e'],

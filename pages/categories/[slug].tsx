@@ -20,7 +20,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await client.getCategoryPaths();
 
   const paths = denullifyArray(
-    data?.categories?.results?.map((category) =>
+    data?.categories?.results?.map(category =>
       category?.slug
         ? {
             params: {
@@ -37,7 +37,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-const propsCallback: GetStaticProps<CategoryPageProps> = async (context) => {
+const propsCallback: GetStaticProps<CategoryPageProps> = async context => {
   const client = getGQLClient();
   const slug = context.params?.slug;
 
@@ -50,7 +50,7 @@ const propsCallback: GetStaticProps<CategoryPageProps> = async (context) => {
     .getCategory({
       slug: slug?.toString() ?? '',
     })
-    .then((response) => response.data);
+    .then(response => response.data);
 
   const [data, currentCategory] = await Promise.all([
     dataPromise,

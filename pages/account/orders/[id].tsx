@@ -69,9 +69,9 @@ interface OrderDetailPageProps extends PageProps {
   };
 }
 
-export const propsCallback: GetServerSideProps<OrderDetailPageProps> = async (
-  context,
-) => {
+export const propsCallback: GetServerSideProps<
+  OrderDetailPageProps
+> = async context => {
   const orderId = context.params?.id;
   const sessionTokenCookie = context.req.cookies.sessionToken;
   if (!orderId || typeof orderId !== 'string' || !sessionTokenCookie) {
@@ -133,7 +133,7 @@ export const propsCallback: GetServerSideProps<OrderDetailPageProps> = async (
         ),
         // Order items table
         orderItems:
-          order?.items?.map((item) => ({
+          order?.items?.map(item => ({
             title: item?.product?.name ?? '',
             href: `/products/${item?.product?.slug}`,
             image: {
@@ -142,7 +142,7 @@ export const propsCallback: GetServerSideProps<OrderDetailPageProps> = async (
               width: item?.product?.images?.[0]?.file?.width ?? 0,
               height: item?.product?.images?.[0]?.file?.height ?? 0,
             },
-            options: item?.options?.map((option) => option?.value ?? '') ?? [],
+            options: item?.options?.map(option => option?.value ?? '') ?? [],
             quantity: item?.quantity ?? 0,
             price: formatSubscriptionPrice(
               formatPriceByCurrency(order?.currency)(item?.priceTotal ?? 0),

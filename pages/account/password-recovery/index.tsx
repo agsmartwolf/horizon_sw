@@ -131,7 +131,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
   }, [router]);
 
   const handleSubmit = useCallback(
-    async (e) => {
+    async e => {
       e.preventDefault();
       await fetchApi(
         {
@@ -198,7 +198,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
                   error={emailError}
                   placeholder={text.emailPlaceholder}
                   value={email}
-                  onChange={(e) => {
+                  onChange={e => {
                     setError(undefined);
                     setEmail(e.currentTarget.value);
                   }}
@@ -227,10 +227,10 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
 
               <p className="mt-4 text-center text-sm text-black md:mt-6">
                 {text.backToLoginText && <>{text.backToLoginText}&nbsp;</>}
-                <Link href="/account/login">
-                  <a className="font-bold hover:underline">
-                    {text.backToLoginLink}
-                  </a>
+                <Link
+                  href="/account/login"
+                  className="font-bold hover:underline">
+                  {text.backToLoginLink}
                 </Link>
               </p>
             </div>

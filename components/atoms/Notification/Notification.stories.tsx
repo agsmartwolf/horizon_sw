@@ -10,7 +10,7 @@ export default {
   component: Notification,
 } as ComponentMeta<typeof Notification>;
 
-const Template: ComponentStory<typeof Notification> = (args) => (
+const Template: ComponentStory<typeof Notification> = args => (
   <Provider>
     <Notification {...args} />
     <Viewport />

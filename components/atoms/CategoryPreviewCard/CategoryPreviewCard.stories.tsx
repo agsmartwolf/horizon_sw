@@ -16,7 +16,7 @@ export default {
   },
 } as ComponentMeta<typeof CategoryPreviewCard>;
 
-const Template: ComponentStory<typeof CategoryPreviewCard> = (args) => (
+const Template: ComponentStory<typeof CategoryPreviewCard> = args => (
   <CategoryPreviewCard {...args} />
 );
 

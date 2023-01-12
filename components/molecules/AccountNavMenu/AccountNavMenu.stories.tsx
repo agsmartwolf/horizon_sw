@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof AccountNavMenu>;
 
-const Template: ComponentStory<typeof AccountNavMenu> = (args) => (
+const Template: ComponentStory<typeof AccountNavMenu> = args => (
   <AccountNavMenu {...args} />
 );
 

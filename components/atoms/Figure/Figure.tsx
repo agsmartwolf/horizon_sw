@@ -6,6 +6,7 @@ import type {
   ContentBlockComponentWithRef,
   PageSectionSpacing,
 } from 'types/shared/sections';
+import useClassNames from '../../../hooks/useClassNames';
 
 export interface FigureProps
   extends React.HTMLAttributes<HTMLElement>,
@@ -13,6 +14,7 @@ export interface FigureProps
   caption: string;
   image: MandatoryImageProps;
   rounded?: boolean;
+  captionClassName?: string;
 }
 
 const Figure: ContentBlockComponentWithRef<FigureProps> = forwardRef<
@@ -25,6 +27,7 @@ const Figure: ContentBlockComponentWithRef<FigureProps> = forwardRef<
       image,
       rounded,
       horizontal_spacing: horizontalSpacing = SPACING.NONE,
+      captionClassName = '',
       ...props
     },
     ref,
@@ -42,7 +45,11 @@ const Figure: ContentBlockComponentWithRef<FigureProps> = forwardRef<
         className={rounded ? 'rounded-2xl' : ''}
         alt={image.alt}
       />
-      <figcaption className="text-center text-md text-body">
+      <figcaption
+        className={useClassNames(
+          'text-left text-lg lg:text-xl',
+          captionClassName,
+        )}>
         {caption}
       </figcaption>
     </figure>

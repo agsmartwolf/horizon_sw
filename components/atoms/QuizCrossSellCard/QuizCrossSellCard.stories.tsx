@@ -22,7 +22,7 @@ export default {
     addToCartCta: { control: 'text' },
   },
   decorators: [
-    (Story) => (
+    Story => (
       <div className="p-6">
         <Story />
       </div>
@@ -30,7 +30,7 @@ export default {
   ],
 } as ComponentMeta<typeof QuizCrossSellCard>;
 
-const Template: ComponentStory<typeof QuizCrossSellCard> = (args) => (
+const Template: ComponentStory<typeof QuizCrossSellCard> = args => (
   <QuizCrossSellCard {...args} />
 );
 

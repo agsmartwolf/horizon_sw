@@ -14,7 +14,7 @@ export default {
   },
 } as ComponentMeta<typeof ProductsPreview>;
 
-const Template: ComponentStory<typeof ProductsPreview> = (args) => (
+const Template: ComponentStory<typeof ProductsPreview> = args => (
   <ProductsPreview {...args} />
 );
 

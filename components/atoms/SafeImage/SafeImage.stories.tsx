@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof SafeImage>;
 
-const Template: ComponentStory<typeof SafeImage> = (args) => (
+const Template: ComponentStory<typeof SafeImage> = args => (
   <SafeImage {...args} />
 );
 

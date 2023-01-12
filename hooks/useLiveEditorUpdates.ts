@@ -10,7 +10,7 @@ const useLiveEditorUpdates = (sections: PageSection[]) => {
   const contentUpdatedHandler = useCallback(
     async (path: string, value: Record<string, unknown>) => {
       // Get the original (not mapped) props
-      const originalProps = liveSections.map((section) => ({
+      const originalProps = liveSections.map(section => ({
         id: section.id,
         type: section.type,
         ...section._originalProps,

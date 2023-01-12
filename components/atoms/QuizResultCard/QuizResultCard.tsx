@@ -83,7 +83,7 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
     addToCart();
   }
 
-  const formatPrice = useCurrency((state) => state.formatPrice);
+  const formatPrice = useCurrency(state => state.formatPrice);
 
   const hasMultiplePurchaseOptions =
     !!purchaseOptions?.standard && !!purchaseOptions?.subscription;
@@ -139,11 +139,9 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
                 </p>
               )}
               <div className="mt-4 text-sm">
-                <Link href={href}>
-                  <a className="flex items-center gap-x-[10px]">
-                    <span>{hrefCta}</span>
-                    <ArrowRight className="w-[13px]" />
-                  </a>
+                <Link href={href} className="flex items-center gap-x-[10px]">
+                  <span>{hrefCta}</span>
+                  <ArrowRight className="w-[13px]" />
                 </Link>
               </div>
             </div>
@@ -158,7 +156,7 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
                 <ProductOptions
                   options={productOptions}
                   selectedOptions={state.selectedProductOptions}
-                  onChange={(payload) => dispatch(payload)}
+                  onChange={payload => dispatch(payload)}
                   priceFormatter={formatPrice}
                 />
               </div>
@@ -168,7 +166,7 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
                 standardPrice={activeVariation?.standardPrice}
                 subscriptionPrice={activeVariation?.subscriptionPrice}
                 value={state.selectedPurchaseOption}
-                onChange={(purchaseOption) =>
+                onChange={purchaseOption =>
                   dispatch({
                     type: ACTIONS.SET_SELECTED_PURCHASE_OPTION,
                     payload: purchaseOption,
@@ -182,7 +180,7 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
               <SubscriptionOptions
                 plans={purchaseOptions?.subscription?.plans}
                 value={state.selectedPlan}
-                onChange={(plan) =>
+                onChange={plan =>
                   dispatch({ type: ACTIONS.SET_SELECTED_PLAN, payload: plan })
                 }
                 className="z-10 mt-4"
@@ -193,7 +191,7 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
         <div className="mt-4 flex gap-2">
           <CounterInput
             value={state.quantity}
-            onChange={(quantity) =>
+            onChange={quantity =>
               dispatch({ type: ACTIONS.SET_QUANTITY, payload: quantity })
             }
             min={1}

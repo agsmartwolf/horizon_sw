@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'components/atoms/SafeImage';
 import type { MandatoryImageProps } from 'types/global';
-import { layoutFillConfig } from 'lib/utils/image';
+
 
 export interface BlogDetailsHeaderProps {
   label: string;
@@ -15,7 +15,7 @@ const BlogDetailsHeader: React.FC<BlogDetailsHeaderProps> = ({
   <div className="relative flex w-full justify-center py-56 lg:py-32">
     <Image
       className="absolute inset-0 object-cover object-center"
-      {...layoutFillConfig}
+      
       src={image.src}
       alt={image.alt}
     />

@@ -12,7 +12,7 @@ export default {
   },
 } as ComponentMeta<typeof CurrencySelect>;
 
-const Template: ComponentStory<typeof CurrencySelect> = (args) => {
+const Template: ComponentStory<typeof CurrencySelect> = args => {
   return <CurrencySelect {...args} />;
 };
 

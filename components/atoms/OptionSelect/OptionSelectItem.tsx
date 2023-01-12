@@ -28,9 +28,9 @@ const OptionSelectItem: React.FC<OptionSelectItemProps> = ({
     'border rounded-lg p-[10px] text-sm transition duration-[250ms] cursor-pointer',
     'peer-focus-visible:ring-2 peer-focus-visible:ring-accent peer-focus-visible:ring-offset-1',
     {
-      'border-primary bg-white text-background-white': active,
-      'border-body bg-background-black text-black': !active,
-      'border-disabled bg-background-black text-disabled': disabled,
+      'border-green-100 bg-green-100 text-black-100': active,
+      'border-body bg-background-grey-100 text-black': !active,
+      'border-disabled bg-background-grey-100 text-disabled': disabled,
     },
     className,
   );

@@ -21,7 +21,7 @@ export default {
     added: { control: 'boolean' },
   },
   decorators: [
-    (Story) => (
+    Story => (
       <div className="p-6">
         <Story />
       </div>
@@ -29,7 +29,7 @@ export default {
   ],
 } as ComponentMeta<typeof QuizResultCard>;
 
-const Template: ComponentStory<typeof QuizResultCard> = (args) => (
+const Template: ComponentStory<typeof QuizResultCard> = args => (
   <QuizResultCard {...args} />
 );
 

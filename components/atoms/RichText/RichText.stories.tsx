@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof RichText>;
 
-const Template: ComponentStory<typeof RichText> = (args) => (
+const Template: ComponentStory<typeof RichText> = args => (
   <RichText {...args} />
 );
 

@@ -82,7 +82,7 @@ const MultipleFeatures: ContentBlockComponent<MultipleFeaturesProps> = ({
           ? { gridTemplateColumns: `repeat(${features.length}, 1fr)` }
           : undefined
       }>
-      {features.map((feature) => (
+      {features.map(feature => (
         <li key={feature.id}>
           <Feature {...feature} imageSize={cardImageSize} />
         </li>

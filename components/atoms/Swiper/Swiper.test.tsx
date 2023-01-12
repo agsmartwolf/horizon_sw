@@ -6,7 +6,7 @@ import Swiper from './Swiper';
 describe('<Swiper />', () => {
   test('it should mount', () => {
     render(<Swiper />);
-    
+
     const swiper = screen.getByTestId('Swiper');
 
     expect(swiper).toBeInTheDocument();

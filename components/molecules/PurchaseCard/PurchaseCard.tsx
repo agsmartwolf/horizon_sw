@@ -57,7 +57,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
   link,
   ...props
 }) => {
-  const formatPrice = useCurrencyStore((state) => state.formatPrice);
+  const formatPrice = useCurrencyStore(state => state.formatPrice);
   return (
     <div className="border-outline rounded-xl border bg-background-black p-6">
       <div className="md:flex md:justify-between">
@@ -85,7 +85,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
 
             {props.type === PURCHASE_TYPE.ORDER && (
               <div className="mt-1 flex justify-start gap-2 text-sm">
-                <span className="text-body">{LABELS['items']}</span>
+                <span className="text-body">{LABELS.items}</span>
                 <span className="font-semibold text-black">
                   {props.itemsCount}
                 </span>

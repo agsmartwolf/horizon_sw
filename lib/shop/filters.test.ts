@@ -55,7 +55,7 @@ describe('Product filters logic', () => {
       const filters = getFilters(products as SwellProduct[]);
       const filtersWithoutSize = getFilters(
         (products as SwellProduct[]).filter(
-          (product) => !Object.hasOwn(product.attributes, 'size'),
+          product => !Object.hasOwn(product.attributes, 'size'),
         ),
       );
 
@@ -247,7 +247,7 @@ describe('Product filters logic', () => {
       );
 
       expect(
-        oneFilter.some((product) =>
+        oneFilter.some(product =>
           Array.isArray(product.attributes?.color?.value)
             ? !product.attributes.color.value.includes('White')
             : product.attributes?.color?.value !== 'White',
@@ -255,7 +255,7 @@ describe('Product filters logic', () => {
       ).toBe(false);
 
       expect(
-        multipleFilters.some((product) =>
+        multipleFilters.some(product =>
           Array.isArray(product.attributes?.color?.value)
             ? !product.attributes.color.value.includes('Red') ||
               !product.attributes?.size?.value.includes('Large')
@@ -264,7 +264,7 @@ describe('Product filters logic', () => {
       ).toBe(false);
 
       expect(
-        multipleFiltersWithPrice.some((product) =>
+        multipleFiltersWithPrice.some(product =>
           Array.isArray(product.attributes?.color?.value)
             ? !product.attributes.color.value.includes('Red') ||
               !product.attributes?.size?.value.includes('Large') ||
@@ -282,7 +282,7 @@ describe('Product filters logic', () => {
 
       expect(
         filteredProducts.some(
-          (product) => product.price < 25 || product.price > 30,
+          product => product.price < 25 || product.price > 30,
         ),
       ).toBe(false);
     });
@@ -299,7 +299,7 @@ describe('Product filters logic', () => {
       );
 
       expect(
-        filteredProducts.some((product) =>
+        filteredProducts.some(product =>
           Array.isArray(product.attributes?.color?.value)
             ? !product.attributes.color.value.includes('Red') ||
               !product.attributes?.size?.value.includes('Large') ||

@@ -7,10 +7,10 @@ interface NotificationState {
   send: (notification: Omit<Notification, 'id'>) => void;
 }
 
-const useNotification = create<NotificationState>((set) => ({
+const useNotification = create<NotificationState>(set => ({
   notifications: [],
   send: ({ type = NOTIFICATION_TYPE.INFO, message, timeout = 5000 }) =>
-    set((state) => {
+    set(state => {
       const notifications = [...state.notifications];
       const generatedId = generateId();
       notifications.push({ id: generatedId, type, message, timeout });

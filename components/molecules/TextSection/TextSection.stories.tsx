@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof TextSection>;
 
-const Template: ComponentStory<typeof TextSection> = (args) => (
+const Template: ComponentStory<typeof TextSection> = args => (
   <TextSection {...args} />
 );
 

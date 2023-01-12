@@ -8,7 +8,7 @@ export default {
   component: BlockQuote,
 } as ComponentMeta<typeof BlockQuote>;
 
-const Template: ComponentStory<typeof BlockQuote> = (args) => (
+const Template: ComponentStory<typeof BlockQuote> = args => (
   <BlockQuote {...args} />
 );
 

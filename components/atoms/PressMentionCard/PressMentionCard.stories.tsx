@@ -13,7 +13,7 @@ export default {
     quote: { control: 'text' },
   },
   decorators: [
-    (Story) => (
+    Story => (
       <div className="p-6">
         <Story />
       </div>
@@ -21,7 +21,7 @@ export default {
   ],
 } as ComponentMeta<typeof PressMentionCard>;
 
-const Template: ComponentStory<typeof PressMentionCard> = (args) => (
+const Template: ComponentStory<typeof PressMentionCard> = args => (
   <PressMentionCard {...args} />
 );
 

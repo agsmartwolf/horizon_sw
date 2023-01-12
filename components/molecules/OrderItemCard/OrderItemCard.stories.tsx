@@ -18,7 +18,7 @@ export default {
   },
 } as ComponentMeta<typeof OrderItemCard>;
 
-const Template: ComponentStory<typeof OrderItemCard> = (args) => (
+const Template: ComponentStory<typeof OrderItemCard> = args => (
   <OrderItemCard {...args} />
 );
 

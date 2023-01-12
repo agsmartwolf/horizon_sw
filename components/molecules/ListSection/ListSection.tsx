@@ -26,7 +26,7 @@ const TextSection: React.FC<TextSectionProps> = ({
       />
     )}
     <ul className={styles.list}>
-      {items.map((item) => (
+      {items.map(item => (
         <li key={item.id} className="flex">
           <RichText content={item.content} />
         </li>

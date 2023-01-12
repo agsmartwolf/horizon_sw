@@ -13,7 +13,7 @@ export default {
   },
 } as ComponentMeta<typeof StackSelectCard>;
 
-const Template: ComponentStory<typeof StackSelectCard> = (args) => (
+const Template: ComponentStory<typeof StackSelectCard> = args => (
   <StackSelectCard {...args} />
 );
 

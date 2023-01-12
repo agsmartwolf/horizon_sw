@@ -39,7 +39,7 @@ const InfoAccordion: React.FC<InfoAccordionProps> = ({
             <Disclosure.Panel unmount={false}>
               <div
                 className="transition-[max-height]"
-                ref={(ref) => {
+                ref={ref => {
                   if (!ref) return;
 
                   setTimeout(() => {
@@ -51,7 +51,7 @@ const InfoAccordion: React.FC<InfoAccordionProps> = ({
                   }, 0);
                 }}>
                 <ul className="flex flex-col gap-y-2 pt-6">
-                  {perks.map((perk) => (
+                  {perks.map(perk => (
                     <li key={perk}>
                       <PerkItem text={perk} />
                     </li>

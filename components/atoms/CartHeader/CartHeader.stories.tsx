@@ -12,7 +12,7 @@ export default {
   },
 } as ComponentMeta<typeof CartHeader>;
 
-const Template: ComponentStory<typeof CartHeader> = (args) => (
+const Template: ComponentStory<typeof CartHeader> = args => (
   <CartHeader {...args} />
 );
 

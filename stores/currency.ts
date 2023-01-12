@@ -14,12 +14,13 @@ export const initialCurrencies: Currency[] = [
 ];
 
 const useCurrency = create(
-  subscribeWithSelector((set) => ({
+  subscribeWithSelector(set => ({
     currency: initialCurrencies[0],
     currencies: initialCurrencies,
     setCurrency: (currency: Currency) => set(() => ({ currency })),
     setCurrencies: (currencies: Currency[]) => set(() => ({ currencies })),
-    formatPrice: new Intl.NumberFormat(undefined, {
+    formatPrice: new Intl.NumberFormat('en-US', {
+      compactDisplay: 'short',
       currency: 'USD',
       style: 'currency',
     }).format,
@@ -27,8 +28,8 @@ const useCurrency = create(
 );
 
 useCurrency.subscribe(
-  (state) => state.currency,
-  (currency) => {
+  state => state.currency,
+  currency => {
     useCurrency.setState({
       formatPrice: new Intl.NumberFormat(undefined, {
         currency: currency.code,

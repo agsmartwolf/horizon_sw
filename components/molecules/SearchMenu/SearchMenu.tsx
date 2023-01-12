@@ -127,7 +127,7 @@ const SearchMenu: React.FC<SearchMenuProps> = ({
                       <ProductPreviewCard loading product={undefined} />
                     </li>
                   ))
-              : results.map((product) => (
+              : results.map(product => (
                   <li key={product.id}>
                     <ProductPreviewCardSimple
                       className="animate-fade-in duration-75"

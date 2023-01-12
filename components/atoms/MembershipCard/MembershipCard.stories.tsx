@@ -22,7 +22,7 @@ export default {
     hidePerksLabel: { control: 'text' },
   },
   decorators: [
-    (Story) => (
+    Story => (
       <div className="p-6">
         <Story />
       </div>
@@ -30,7 +30,7 @@ export default {
   ],
 } as ComponentMeta<typeof MembershipCard>;
 
-const Template: ComponentStory<typeof MembershipCard> = (args) => (
+const Template: ComponentStory<typeof MembershipCard> = args => (
   <MembershipCard {...args} />
 );
 
