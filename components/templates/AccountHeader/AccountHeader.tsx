@@ -93,7 +93,12 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
           <Link
             href={storeUrl}
             className="flex items-center justify-center text-center">
-            <Image {...logo} alt={logo.alt} />
+            <Image
+              src={logo.src}
+              width={logo.width}
+              height={logo.height}
+              alt={logo.alt}
+            />
           </Link>
         </div>
         <div className="px-6 pt-4 pb-6 md:hidden">
