@@ -20,7 +20,7 @@ export enum SPACING {
 
 export const SECTION_MARGIN_MAP = {
   [SPACING.NONE]: 'mx-0 lg:mx-0',
-  [SPACING.SMALL]: 'mx-6 lg:mx-14',
+  [SPACING.SMALL]: 'mx-4 lg:mx-14',
   [SPACING.MEDIUM]: 'mx-6 lg:mx-36',
   [SPACING.LARGE]: 'px-6 lg:px-46',
   [SPACING.EXTRA_LARGE]: 'mx-6 lg:mx-70',
@@ -28,7 +28,7 @@ export const SECTION_MARGIN_MAP = {
 
 export const SECTION_PADDING_MAP = {
   [SPACING.NONE]: 'px-0 lg:px-0',
-  [SPACING.SMALL]: 'px-6 lg:px-14',
+  [SPACING.SMALL]: 'px-4 lg:px-14',
   [SPACING.MEDIUM]: 'px-6 lg:px-20',
   [SPACING.LARGE]: 'px-6 lg:px-46',
   [SPACING.EXTRA_LARGE]: 'px-6 lg:px-70',

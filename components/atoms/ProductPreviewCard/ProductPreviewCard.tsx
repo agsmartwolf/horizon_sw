@@ -3,7 +3,7 @@ import type { PurchasableProductData } from 'types/shared/products';
 import ProductPreviewCardPurchasable from './ProductPreviewCardPurchasable';
 import ProductPreviewCardSimple from './ProductPreviewCardSimple';
 import ProductPreviewCardSkeleton from './ProductPreviewCardSkeleton';
-import useClassNames from '../../../hooks/useClassNames';
+import useClassNames from 'hooks/useClassNames';
 
 import styles from './ProductPreview.module.css';
 

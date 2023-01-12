@@ -1,0 +1,3 @@
+.productWrapper a > span {
+        @apply m-6 !important;
+}

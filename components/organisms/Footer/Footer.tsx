@@ -10,6 +10,7 @@ import type { EditorArray } from 'types/editor';
 import { Link } from '../../atoms/NavLink';
 import Logo from '../../atoms/Logo';
 import TextBody from '../../atoms/Text/TextBody';
+import { useRouter } from 'next/navigation';
 
 type ReactSVGComponent = ComponentType<React.SVGProps<SVGSVGElement>>;
 
@@ -104,23 +105,29 @@ const Footer: React.FC<FooterProps> = ({
   logoHeight,
   storeName = '',
 }) => {
+  const router = useRouter();
+
   const [newsLetterError, setNewsLetterError] = useState('');
 
   const onChange = useCallback(() => setNewsLetterError(''), []);
-  const onAction = useCallback((value: string) => {
-    if (!value) {
-      setNewsLetterError('Please enter your email');
-      return;
-    }
+  const onAction = useCallback(
+    (value: string) => {
+      if (!value) {
+        setNewsLetterError('Please enter your email');
+        return;
+      }
 
-    // Validate if email is valid
-    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-      setNewsLetterError('Please enter a valid email address');
-      return;
-    }
-    // TODO: Handle submit (email: string) => void;
-    console.log(value);
-  }, []);
+      // Validate if email is valid
+      if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+        setNewsLetterError('Please enter a valid email address');
+        return;
+      }
+      // TODO: Handle submit (email: string) => void;
+      router.push(`/account/sign-up?email=${value}`);
+      console.log(value);
+    },
+    [router],
+  );
 
   return (
     <footer
@@ -129,7 +136,7 @@ const Footer: React.FC<FooterProps> = ({
       } bg-black-200 pb-24 lg:pb-6 pt-14`}>
       {/* Newsletter */}
       <div className="flex justify-between items-center lg:hidden">
-        <Link href="/" passHref className={''}>
+        <Link link="/" className={''}>
           <Logo logo={logo} logoHeight={logoHeight} storeName={storeName} />
         </Link>
         {/* Social links */}

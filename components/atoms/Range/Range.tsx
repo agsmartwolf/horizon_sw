@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Slider from '@radix-ui/react-slider';
+import useClassNames from '../../../hooks/useClassNames';
 
 export interface RangeProps {
   min: number;
@@ -7,6 +8,7 @@ export interface RangeProps {
   value: [number, number];
   onChange: (value: [number, number]) => void;
   label?: string;
+  thumbClassName?: string;
 }
 
 const Range: React.FC<RangeProps> = ({
@@ -15,9 +17,15 @@ const Range: React.FC<RangeProps> = ({
   value,
   onChange,
   label,
+  thumbClassName = '',
 }) => {
   const limitedMin = Math.max(min, value[0]);
   const limitedMax = Math.min(max, value[1]);
+
+  const cnThumb = useClassNames(
+    'block h-[9px] w-[9px] rounded-full',
+    thumbClassName,
+  );
 
   return (
     <form>
@@ -33,8 +41,8 @@ const Range: React.FC<RangeProps> = ({
         <Slider.Track className="flex h-[1px] grow items-center rounded-full bg-input-standard">
           <Slider.Range className="absolute h-[1px] rounded-full bg-black" />
         </Slider.Track>
-        <Slider.Thumb className="block h-[9px] w-[9px] rounded-full bg-black" />
-        <Slider.Thumb className="block h-[9px] w-[9px] rounded-full bg-black" />
+        <Slider.Thumb className={cnThumb} />
+        <Slider.Thumb className={cnThumb} />
       </Slider.Root>
     </form>
   );

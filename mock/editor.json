@@ -175,10 +175,10 @@
     "backToShopLabel": "Back to shop",
     "storeUrl": "/",
     "logo": {
-      "src": "/images/logo.png",
-      "width": 126.5,
-      "height": 20,
-      "alt": "Horizon logo"
+      "src": "/images/logo.svg",
+      "width": 140,
+      "height": 201,
+      "alt": "Smart Wolf logo"
     }
   },
   "quizzes": [

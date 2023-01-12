@@ -43,7 +43,7 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
           />
         </div>
       </Link>
-      <div className={'flex px-5 py-5 lg:px-10 bg-gray-200'}>
+      <div className={'flex flex-col md:flex-row px-5 py-5 lg:px-10 bg-gray-200'}>
         <div className="flex flex-col lg:pr-2">
           <Link href={href}>
             <h4 className="font-headings text-md font-semibold line-clamp-2 lg:text-sm">
@@ -58,7 +58,7 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
           )}
         </div>
         {price && show_product_price && (
-          <div className="text-lg font-semibold lg:text-sm">
+          <div className="text-md font-semibold lg:text-sm">
             {fromPriceLabel}
             <Price price={price} origPrice={origPrice} />
           </div>

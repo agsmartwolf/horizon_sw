@@ -1,10 +1,10 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import Input from 'components/atoms/Input';
 import useClassNames from 'hooks/useClassNames';
 import ValidationErrorText from 'components/atoms/ValidationErrorText';
 import ArrowRight from 'assets/icons/arrow-right.svg';
 import Button from '../../atoms/Button';
-import {BUTTON_STYLE, BUTTON_TYPE} from '../../../types/shared/button';
+import { BUTTON_STYLE, BUTTON_TYPE } from '../../../types/shared/button';
 
 export interface ActionInputProps extends React.AriaAttributes {
   id: string;
@@ -72,6 +72,11 @@ const ActionInput: React.FC<ActionInputProps> = ({
     [inputValue, onAction, value],
   );
 
+  const inputProps = useMemo(() => {
+    const c = { ...props };
+    delete c.arrowHidden;
+    return c;
+  }, [props]);
   return (
     <form
       className="gap flex flex-col gap-1"
@@ -97,7 +102,7 @@ const ActionInput: React.FC<ActionInputProps> = ({
             value={value ?? inputValue}
             onChange={changeValueHandler}
             error={!!errorLabel}
-            {...props}
+            {...inputProps}
           />
           <button type="submit" className={buttonClassNames}>
             <ArrowRight className="stroke-green-100" />

@@ -48,6 +48,7 @@ import Input from '../../atoms/Input';
 import useProductSearch from '../../../hooks/useProductSearch';
 import { SECTION_PADDING_MAP, SPACING } from 'lib/globals/sizings';
 import TextBody from '../../atoms/Text/TextBody';
+import { useViewport } from '../../../hooks/useViewport';
 
 export type ProductsPerRow = 2 | 3 | 4 | 5;
 
@@ -79,6 +80,8 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+
+  const { isMobile } = useViewport();
 
   const [formatPrice, activeCurrency] = useCurrency(store => [
     store.formatPrice,
@@ -475,7 +478,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
       </Button>
 
       <Breadcrumb
-        className="mt-1 mb-6 px-6 lg:mt-8 lg:px-0"
+        className="mt-1 mb-6 lg:mt-8 lg:px-0"
         customText={breadcrumbText}
       />
 
@@ -513,7 +516,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
               leaveTo="translate-x-full"
               className="fixed right-0 top-0 flex h-screen w-screen max-w-[22rem] flex-col bg-background-black transition-transform duration-400">
               <div className="flex flex-1 flex-col overflow-auto px-6 pb-6">
-                <div className="flex items-center justify-between py-4 text-black">
+                <div className="flex items-center justify-between py-4 text-white">
                   <div className="flex gap-4">
                     <span className="text-md font-semibold uppercase">
                       Filters
@@ -534,6 +537,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                             filterState => filterState.group === filter.id,
                           )
                         }
+                        className={'text-white'}
                         name={filter.name}>
                         <ul className="flex flex-col gap-2 pb-4">
                           {filter.values.map(option => (
@@ -567,9 +571,10 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                           ? window.location.search
                           : '',
                       ).has('price')}
+                      className={'text-white'}
                       name="Price">
                       <div>
-                        <div className="flex w-full justify-between text-black">
+                        <div className="flex w-full justify-between text-white">
                           <span>
                             {formatPrice(
                               Math.max(
@@ -593,6 +598,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                           onChange={onPriceRangeChange}
                           value={priceRangeValue ?? priceRangeLimits}
                           label="Price range"
+                          thumbClassName={'bg-white'}
                         />
                       </div>
                     </GenericAccordion>
@@ -652,7 +658,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
         <aside className="hidden lg:block absolute top-0 left-0 w-full">
           <ul
             className={useClassNames(
-              'flex shrink-0 gap-4 items-center bg-gray-100 h-20',
+              'flex shrink-0 gap-14 items-center bg-gray-100 h-20',
               SECTION_PADDING_MAP[SPACING.SMALL],
             )}>
             <li className="shrink-0 flex-grow">
@@ -669,9 +675,15 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
               <Link
                 href="/products"
                 scroll={false}
-                className={`text-black ${
-                  pathname === '/products' ? 'font-semibold' : ''
-                }`}>
+                className={useClassNames(
+                  'text-black px-2 border-b-[1.5px] hover:border-black',
+                  {
+                    // If the category is active, show it as bold
+                    'font-semibold': pathname === '/products',
+                    'border-black': pathname === '/products',
+                    'border-transparent': pathname !== '/products',
+                  },
+                )}>
                 {/* If the current route is /products, show it as bold */}
                 Show ALL
               </Link>
@@ -685,12 +697,18 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                     setLoading(true);
                     setPriceRangeValue(undefined);
                   }}
-                  className={`text-black ${
-                    // If the category is active, show it as bold
-                    category.slug === searchParams.get('slug')
-                      ? 'font-semibold'
-                      : ''
-                  }`}>
+                  className={useClassNames(
+                    'text-black px-2 border-b-[1.5px] hover:border-black',
+                    {
+                      // If the category is active, show it as bold
+                      'font-semibold':
+                        category.slug === searchParams.get('slug'),
+                      'border-black':
+                        category.slug === searchParams.get('slug'),
+                      'border-transparent':
+                        category.slug !== searchParams.get('slug'),
+                    },
+                  )}>
                   {category.name}
                 </Link>
               </li>
@@ -779,6 +797,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                     onChange={onPriceRangeChange}
                     value={priceRangeValue ?? priceRangeLimits}
                     label="Price range"
+                    thumbClassName={'bg-black'}
                   />
                 </div>
               </GenericAccordion>
@@ -787,11 +806,11 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
         </aside>
 
         <section className="w-full">
-          <ProductCount count={products.length} className="px-6 lg:px-0" />
+          <ProductCount count={products.length} className="lg:px-0" />
           {/* Products list */}
           <ul
             className={useClassNames(
-              'mt-4 grid w-full grid-cols-2 gap-y-8 gap-x-4 px-6 lg:mt-6 lg:gap-x-8 lg:gap-y-10 lg:px-0',
+              'mt-4 grid w-full grid-cols-2 gap-y-8 gap-x-4 lg:mt-6 lg:gap-x-8 lg:gap-y-10 lg:px-0',
               {
                 'lg:grid-cols-2': Number(liveSettings.productsPerRow) === 2,
                 'lg:grid-cols-3': Number(liveSettings.productsPerRow) === 3,
@@ -817,9 +836,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                           product.hasQuickAdd && liveSettings.enableQuickAdd,
                       }}
                       show_product_price={liveSettings.showProductsPrice}
-                      show_product_description={
-                        liveSettings.showProductsDescription
-                      }
+                      show_product_description={!isMobile}
                     />
                   </li>
                 ))}

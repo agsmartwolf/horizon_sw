@@ -29,12 +29,9 @@ const GenericAccordion: React.FC<GenericAccordionProps> = ({
             )}>
             <Disclosure.Button className="flex w-full items-center justify-between py-4">
               <span
-                className={useClassNames(
-                  'text-black border-b border-transparent',
-                  {
-                    'border-gray-400': !open,
-                  },
-                )}>
+                className={useClassNames('border-b border-transparent', {
+                  'border-gray-400': !open,
+                })}>
                 {name}
               </span>
               <ChevronDown
