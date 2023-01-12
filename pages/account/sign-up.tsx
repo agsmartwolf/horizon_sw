@@ -96,7 +96,7 @@ const SignUpPage: NextPageWithLayout<
   const send = useNotificationStore(store => store.send);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(router.query.email ?? '');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<{
     field: ACCOUNT_FIELD;
