@@ -1,5 +1,5 @@
 import React from 'react';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 
 interface OptionSelectItemProps {
   name: string;
@@ -24,7 +24,7 @@ const OptionSelectItem: React.FC<OptionSelectItemProps> = ({
     onChange(e.target.value);
   }
 
-  const labelClassNames = useClassNames(
+  const labelClassNames = cn(
     'border rounded-lg p-[10px] text-sm transition duration-[250ms] cursor-pointer',
     'peer-focus-visible:ring-2 peer-focus-visible:ring-accent peer-focus-visible:ring-offset-1',
     {

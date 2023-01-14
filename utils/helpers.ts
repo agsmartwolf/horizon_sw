@@ -6,5 +6,5 @@
  * @param {Obj} obj - The object to get the keys of.
  * @returns {(keyof Obj)[]} An array of the keys of the given object.
  */
-export const objectKeys = <Obj>(obj: Obj): (keyof Obj)[] =>
+export const objectKeys = <Obj>(obj: Record<string, any>): (keyof Obj)[] =>
   Object.keys(obj) as (keyof Obj)[];

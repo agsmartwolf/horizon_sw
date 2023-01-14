@@ -129,7 +129,6 @@ const BlogPreviewCard: React.FC<BlogPreviewCardProps> = ({
         className={['relative w-full', imageContainerClasses[size]].join(' ')}>
         <Image
           {...image}
-          
           objectFit="cover"
           alt={image.alt}
           className={imageClasses[size]}

@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'components/atoms/SafeImage';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import type { MandatoryImageProps } from 'types/global';
 
 import type { SelectOption } from 'types/shared/quiz';
@@ -23,7 +23,7 @@ const ImageSelectCard: React.FC<ImageSelectCardProps> = ({
   onChange,
   ...props
 }) => {
-  const cardClasses = useClassNames(
+  const cardClasses = cn(
     'relative flex h-28 w-full max-w-[342px] cursor-pointer items-center gap-x-4 rounded-lg border py-4 px-6 all-ease-in-out-400 bg-background-black',
     'lg:h-[220px] lg:w-[220px] lg:flex-col lg:justify-between lg:gap-x-0 lg:py-[35px]',
     {
@@ -35,15 +35,7 @@ const ImageSelectCard: React.FC<ImageSelectCardProps> = ({
   return (
     <label htmlFor={id} className={cardClasses}>
       <div className="relative z-[2] h-[80px] w-[80px] items-center justify-center lg:h-[100px] lg:w-[100px]">
-        {image && (
-          <Image
-            objectFit="contain"
-            {...image}
-            priority
-            alt={label}
-            
-          />
-        )}
+        {image && <Image objectFit="contain" {...image} priority alt={label} />}
       </div>
       {label && <span className="z-[2]">{label}</span>}
       <input

@@ -1,5 +1,5 @@
 import React from 'react';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { Icon } from '@iconify/react';
 
 export interface InputProps
@@ -12,7 +12,7 @@ export interface InputProps
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ small, icon, error, inputClassname = '', ...props }, ref) => {
-    const classNames = useClassNames(
+    const classNames = cn(
       'peer w-full px-4 text-md transition duration-300',
       'focus:text-white focus:outline-none',
       // 'placeholder:text-input-standard',
@@ -31,7 +31,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       inputClassname,
     );
 
-    const iconClassNames = useClassNames(
+    const iconClassNames = cn(
       'absolute top-1/2 left-4 -translate-y-1/2 text-black transition duration-300 peer-focus:text-black',
     );
 

@@ -4,7 +4,6 @@ import RichText from 'components/atoms/RichText';
 
 import type { MandatoryImageProps } from 'types/global';
 
-
 export interface QuizResultsIntroProps {
   /**
    * The static part of the heading preceding the name
@@ -38,7 +37,6 @@ const QuizResultsIntro: React.FC<QuizResultsIntroProps> = ({
     <section className={classNames}>
       <Image
         {...background}
-        
         alt={background.alt}
         className="absolute inset-0 object-cover object-right-top lg:object-center"
       />

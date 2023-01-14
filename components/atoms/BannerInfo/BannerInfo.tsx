@@ -1,4 +1,4 @@
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import React from 'react';
 import { TEXT_ALIGNMENT } from 'types/shared/alignment';
 
@@ -13,6 +13,7 @@ export interface BannerInfoProps {
   bannerStyle?: BANNER_INFO_STYLE;
   textAlignment?: TEXT_ALIGNMENT;
   className?: string;
+  children: React.ReactNode;
 }
 
 const BannerInfo: React.FC<BannerInfoProps> = ({
@@ -22,7 +23,7 @@ const BannerInfo: React.FC<BannerInfoProps> = ({
   className,
 }) => (
   <div
-    className={useClassNames(
+    className={cn(
       'rounded-lg px-4 py-2.5 text-xs',
       {
         'bg-background-secondary text-body':

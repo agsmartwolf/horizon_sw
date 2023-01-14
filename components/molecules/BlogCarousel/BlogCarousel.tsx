@@ -4,7 +4,7 @@ import BlogPreviewCard from 'components/molecules/BlogPreviewCard';
 import type { BlogPreviewCardProps } from 'components/molecules/BlogPreviewCard';
 import { BLOCK_PREVIEW_CARD_SIZE } from 'components/molecules/BlogPreviewCard';
 import type { PageSectionSpacing } from 'types/shared/sections';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { BUTTON_TYPE, CTAOptions } from 'types/shared/button';
 import Button from 'components/atoms/Button';
 import { PADDING } from 'lib/globals/sizings';
@@ -50,7 +50,7 @@ const BlogCarousel: React.FC<BlogCarouselProps> = ({
         {title}
       </h2>
       <div
-        className={useClassNames(
+        className={cn(
           'scrollbar-hidden mt-8 flex snap-x scroll-px-6 gap-6 overflow-x-auto px-6 lg:mt-14 lg:box-content lg:grid lg:grid-cols-4 lg:gap-8 lg:overflow-visible',
           {
             'lg:max-w-[912px] lg:px-0':

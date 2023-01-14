@@ -1,5 +1,5 @@
 import Image from 'components/atoms/SafeImage';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import React, { useMemo } from 'react';
 import type { MandatoryImageProps } from 'types/global';
 import { getLogoCssProperties } from 'utils/styles';
@@ -19,7 +19,7 @@ export interface LogoProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
   ({ logo, logoHeight, storeName, className }, ref) => {
-    const classNames = useClassNames('inline-flex', className);
+    const classNames = cn('inline-flex', className);
 
     const logoCssProperties = useMemo(
       () => getLogoCssProperties(logo, logoHeight),

@@ -3,9 +3,8 @@ import Image from 'components/atoms/SafeImage';
 import Link from 'next/link';
 import RichText from '../RichText';
 import type { MandatoryImageProps } from 'types/global';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { IMAGE_LAYOUT } from 'lib/globals/sizings';
-
 
 export interface CategoryPreviewCardProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -32,7 +31,7 @@ const CategoryPreviewCard: React.FC<CategoryPreviewCardProps> = ({
   imageLayout = IMAGE_LAYOUT.PORTRAIT,
   ...props
 }) => {
-  const imageClassNames = useClassNames(
+  const imageClassNames = cn(
     'transition-transform duration-500',
     image.className,
     {
@@ -41,7 +40,7 @@ const CategoryPreviewCard: React.FC<CategoryPreviewCardProps> = ({
     },
   );
 
-  const imageContainerClassNames = useClassNames(
+  const imageContainerClassNames = cn(
     'overflow-hidden relative rounded-image',
     {
       'safe-aspect-square': imageLayout === IMAGE_LAYOUT.SQUARE,
@@ -60,21 +59,13 @@ const CategoryPreviewCard: React.FC<CategoryPreviewCardProps> = ({
         href={href}
         scroll={!preserveScroll}
         className={imageContainerClassNames}>
-        <Image
-          {...image}
-          
-          alt={image.alt}
-          className={imageClassNames}
-          objectFit="cover"
-        />
+        <Image {...image} alt={image.alt} className={imageClassNames} />
       </Link>
       <div className="flex flex-col lg:space-y-2">
         <Link href={href}>
-          <a>
-            <h4 className="font-headings text-lg font-semibold text-black">
-              {title}
-            </h4>
-          </a>
+          <h4 className="font-headings text-lg font-semibold text-black">
+            {title}
+          </h4>
         </Link>
         {showDescription && description && (
           <RichText

@@ -5,7 +5,7 @@ import {
   VERTICAL_ALIGNMENT,
 } from 'types/shared/alignment';
 import { JUSTIFY_CLASS_MAP } from 'utils/classMappings';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import ImagePanel from './ImagePanel';
 import TextPanel from './TextPanel';
 import type { MandatoryImageProps } from 'types/global';
@@ -60,7 +60,7 @@ const Panel: React.FC<PanelProps> = ({ ...props }) => {
       ? JUSTIFY_CLASS_MAP[props.verticalAlignment ?? VERTICAL_ALIGNMENT.CENTER]
       : '';
 
-  const classNames = useClassNames(
+  const classNames = cn(
     'flex w-full flex-col overflow-hidden',
     verticalAlignmentClass,
     props.className,

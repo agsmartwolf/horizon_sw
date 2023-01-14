@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'components/atoms/SafeImage';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import Button from 'components/atoms/Button';
 import RichText from 'components/atoms/RichText';
 import type { MandatoryImageProps } from 'types/global';
@@ -66,7 +66,7 @@ const QuizTransitionQuestion: React.FC<QuizTransitionQuestionProps> = ({
 }) => {
   return (
     <section
-      className={useClassNames(
+      className={cn(
         'flex h-full flex-col overflow-y-auto pt-[61px] lg:pb-0 lg:pt-0',
         {
           'items-center justify-center': !image,
@@ -78,17 +78,11 @@ const QuizTransitionQuestion: React.FC<QuizTransitionQuestionProps> = ({
       )}>
       {image && layoutOption !== QUIZ_TRANSITION_LAYOUT_OPTION.NO_IMAGE && (
         <div className="relative h-[88vw] lg:h-full lg:w-1/2">
-          <Image
-            objectFit="cover"
-            {...image}
-            alt={image.alt}
-            priority
-            
-          />
+          <Image objectFit="cover" {...image} alt={image.alt} priority />
         </div>
       )}
       <div
-        className={useClassNames(
+        className={cn(
           'flex w-full flex-col items-center px-6 pt-10 pb-6 lg:px-14 lg:pt-30 lg:pb-10',
           {
             'lg:w-1/2': !!image,

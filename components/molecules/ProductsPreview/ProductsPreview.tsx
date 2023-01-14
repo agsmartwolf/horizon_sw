@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import ProductPreviewCard, {
   ProductPreviewCardProps,
 } from 'components/atoms/ProductPreviewCard/ProductPreviewCard';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import type {
   ContentBlockComponent,
   PageSectionSpacing,
@@ -34,7 +34,7 @@ export const ProductsPreview: ContentBlockComponent<ProductsPreviewProps> = ({
   horizontal_spacing = SPACING.SMALL,
   vertical_spacing = SPACING.SMALL,
 }) => {
-  const classNames = useClassNames(
+  const classNames = cn(
     SECTION_PADDING_MAP[horizontal_spacing],
     SECTION_VERTICAL_PADDING_MAP[vertical_spacing],
     className,

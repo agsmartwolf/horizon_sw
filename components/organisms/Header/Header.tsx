@@ -5,7 +5,7 @@ import Navbar from 'components/molecules/Navbar';
 import MobileMenu from 'components/molecules/MobileMenu';
 import SearchMenu from 'components/molecules/SearchMenu';
 import { MegaMenuPopup } from 'components/molecules/MegaMenu';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { useRouter } from 'next/router';
 import type { MandatoryImageProps } from 'types/global';
 import type { RootNavItem } from 'types/nav';
@@ -65,7 +65,7 @@ const Header: React.FC<HeaderProps> = ({
     [openMenu],
   );
 
-  const classNames = useClassNames(
+  const classNames = cn(
     'sticky top-0 left-0 z-header w-full font-headings transform transition-transform duration-500 ease-in-out',
     { '-translate-y-full': shouldHide && !openMenu },
   );

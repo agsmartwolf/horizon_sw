@@ -9,7 +9,7 @@ import AccountIcon from 'assets/icons/account.svg';
 import SearchIcon from 'assets/icons/search.svg';
 import useCartStore from 'stores/cart';
 import Logo, { LogoProps } from 'components/atoms/Logo';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import type { RootNavItem } from 'types/nav';
 import MegaMenu from 'components/molecules/MegaMenu';
 import Divider, { DIVIDER_HEIGHT } from '../../atoms/Divider';
@@ -42,7 +42,7 @@ const Navbar: React.FC<NavbarProps> = ({
     ],
   );
 
-  const logoClassNames = useClassNames(
+  const logoClassNames = cn(
     'absolute lg:col-span-2 lg:static lg:translate-x-0 lg:justify-self-start transition-all duration-[400ms] ease-in-out left-0',
     {
       'left-5': openMenu === MENU_TYPE.MOBILE,

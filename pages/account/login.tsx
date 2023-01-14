@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -155,7 +155,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
   }, [router]);
 
   const handleSubmit = useCallback(
-    async e => {
+    async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       await fetchApi(
         {

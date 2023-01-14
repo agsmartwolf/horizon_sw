@@ -4,6 +4,7 @@ import React from 'react';
 export interface ProductOptionContainerProps {
   name: string;
   description?: string;
+  children: React.ReactNode;
 }
 
 const ProductOptionContainer: React.FC<ProductOptionContainerProps> = ({

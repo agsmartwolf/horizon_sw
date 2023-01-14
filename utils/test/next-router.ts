@@ -36,5 +36,6 @@ export const useMockRouter = (): NextRouter => {
     isLocaleDomain: false,
     isReady: false,
     isPreview: false,
+    forward() {},
   };
 };

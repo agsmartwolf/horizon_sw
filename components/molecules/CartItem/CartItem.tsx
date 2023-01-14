@@ -21,7 +21,7 @@ import type {
   SwellCartItemPurchaseOption,
   SwellProduct,
 } from 'lib/graphql/generated/sdk';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import useProductStock from 'hooks/useProductStock';
 
 export interface CartItemProps {
@@ -154,7 +154,7 @@ const CartItem: React.FC<CartItemProps> = ({
               </>
             )}
             <ul
-              className={useClassNames('flex flex-col text-2xs text-body', {
+              className={cn('flex flex-col text-2xs text-body', {
                 'mt-0.5':
                   purchaseOption?.type === PURCHASE_OPTION_TYPE.SUBSCRIPTION,
               })}>

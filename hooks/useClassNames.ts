@@ -9,7 +9,7 @@ type Argument = string | Record<string, boolean> | undefined;
  *
  * `Example input:`
  * ```
- * const classNames = useClassNames('bg-red', { 'text-5xl': myBoolean })
+ * const classNames = cn('bg-red', { 'text-5xl': myBoolean })
  * ```
  * `Example output:`
  *

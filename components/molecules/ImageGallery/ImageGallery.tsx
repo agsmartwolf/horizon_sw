@@ -79,7 +79,6 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, aspectRatio }) => {
                 {...image}
                 alt={image.alt}
                 className={['object-cover', image.className].join(' ')}
-                
               />
             </div>
           </div>

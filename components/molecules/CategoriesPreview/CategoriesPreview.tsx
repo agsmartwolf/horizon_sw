@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import CategoryPreviewCard from 'components/atoms/CategoryPreviewCard';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import type { CategoryPreviewCardProps } from 'components/atoms/CategoryPreviewCard';
 import type {
   ContentBlockComponent,
@@ -34,7 +34,7 @@ const CategoriesPreview: ContentBlockComponent<CategoriesPreviewProps> = ({
   className,
   horizontal_spacing: horizontalSpacing = SPACING.NONE,
 }) => {
-  const classNames = useClassNames(
+  const classNames = cn(
     SECTION_PADDING_MAP[horizontalSpacing],
     SECTION_VERTICAL_PADDING_MAP[vertical_spacing],
     className,

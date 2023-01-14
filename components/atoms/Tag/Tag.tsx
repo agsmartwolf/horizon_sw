@@ -1,4 +1,4 @@
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import React from 'react';
 
 export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -8,7 +8,7 @@ export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
 
 const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
   ({ paddingYClasses = '', secondary, ...props }, ref) => {
-    const classes = useClassNames(
+    const classes = cn(
       'inline-block rounded-md px-4 text-xs font-semibold uppercase ',
       'lg:text-3xs',
       {

@@ -25,8 +25,7 @@ const ProductBenefit: React.FC<ProductBenefitProps> = ({
         src={customIcon.url}
         height={customIcon.height || 16}
         width={customIcon.width || 16}
-        layout="fixed"
-        alt={label}
+        alt={label ?? ''}
       />
     ) : (
       icon && <Icon icon={icon} height={16} />

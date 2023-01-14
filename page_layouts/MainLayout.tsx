@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import Cart from 'components/organisms/Cart';
 import Footer from 'components/organisms/Footer';
 import Header from 'components/organisms/Header';
@@ -8,6 +8,7 @@ import { SPACING } from '../lib/globals/sizings';
 
 export interface MainLayoutProps {
   settings: Settings;
+  children: ReactNode;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children, settings }) => {

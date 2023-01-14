@@ -1,7 +1,7 @@
 import React from 'react';
 import RichText from 'components/atoms/RichText';
 import type { RootElement } from 'components/atoms/RichText';
-import useClassNames from '../../../../hooks/useClassNames';
+import useClassNames from 'hooks/useClassNames';
 
 export interface TextBodyProps {
   content: string;

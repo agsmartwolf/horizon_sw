@@ -1,4 +1,4 @@
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import React from 'react';
 import type { SelectOption } from 'types/shared/quiz';
 
@@ -14,7 +14,7 @@ const StackSelectCard: React.FC<StackSelectCardProps> = ({
 }) => {
   return (
     <article
-      className={useClassNames(
+      className={cn(
         'all-ease-in-out-400 relative h-14 w-full max-w-[342px] rounded-lg border bg-background-black',
         'lg:w-[342px]',
         {
@@ -26,7 +26,7 @@ const StackSelectCard: React.FC<StackSelectCardProps> = ({
         htmlFor={id}
         className="z-[2] flex h-full w-full cursor-pointer items-center gap-x-4 pl-6">
         <div
-          className={useClassNames(
+          className={cn(
             'flex h-5 w-5 items-center justify-center rounded-md border',
             {
               'border-input-standard': !checked,
@@ -34,7 +34,7 @@ const StackSelectCard: React.FC<StackSelectCardProps> = ({
             },
           )}>
           <span
-            className={useClassNames('all-ease-in-out-400 h-3 w-3 rounded-sm', {
+            className={cn('all-ease-in-out-400 h-3 w-3 rounded-sm', {
               'bg-white': !!checked,
             })}></span>
         </div>

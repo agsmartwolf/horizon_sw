@@ -1,14 +1,20 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { ChangeEvent, useCallback, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { OPTION_INPUT_TYPE, ProductOption } from 'types/shared/products';
 import { Action, ACTIONS } from 'hooks/useProductSelection';
 import ProductOptionContainer from 'components/molecules/ProductOptionContainer';
 const OptionSelectItem = dynamic(
   () => import('components/atoms/OptionSelect/OptionSelectItem'),
-);
-const Input = dynamic(() => import('components/atoms/Input'));
-const Textarea = dynamic(() => import('components/atoms/Textarea'));
-const Toggle = dynamic(() => import('components/molecules/Toggle'));
+) as (props: any) => JSX.Element;
+const Input = dynamic(() => import('components/atoms/Input')) as (
+  props: any,
+) => JSX.Element;
+const Textarea = dynamic(() => import('components/atoms/Textarea')) as (
+  props: any,
+) => JSX.Element;
+const Toggle = dynamic(() => import('components/molecules/Toggle')) as (
+  props: any,
+) => JSX.Element;
 
 export interface ProductOptionsProps {
   options: ProductOption[];
@@ -84,7 +90,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
           name={productOption.name || productOption.attributeId}
           value={id}
           label={name}
-          onChange={valueId =>
+          onChange={(valueId: string) =>
             onChange?.({
               type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,
               payload: { optionId: productOption.id, valueId },
@@ -133,7 +139,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
               className="w-full"
               placeholder={productOption.placeholder}
               required={productOption.required}
-              onChange={e => {
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 onChange?.({
                   type: ACTIONS.SET_TEXT_PRODUCT_OPTION,
                   payload: {
@@ -152,7 +158,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
               className="w-full"
               style={{ maxWidth: '100%', width: '100%' }}
               required={productOption.required}
-              onChange={e => {
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
                 onChange?.({
                   type: ACTIONS.SET_TEXT_PRODUCT_OPTION,
                   payload: {

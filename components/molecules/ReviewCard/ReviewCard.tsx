@@ -4,7 +4,7 @@ import Review from 'components/atoms/Review';
 import type { MandatoryImageProps } from 'types/global';
 import type { Rating } from 'components/atoms/Review';
 import { HORIZONTAL_ALIGNMENT } from 'types/shared/alignment';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { TEXT_ALIGNMENT_MAP } from 'utils/classMappings';
 import RichText from 'components/atoms/RichText';
 
@@ -34,7 +34,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
       ${TEXT_ALIGNMENT_MAP[content_alignment]}
       ${props.className ?? ''}`}>
       <div
-        className={useClassNames('flex gap-4', {
+        className={cn('flex gap-4', {
           'justify-center': content_alignment === HORIZONTAL_ALIGNMENT.CENTER,
           'flex-row-reverse': content_alignment === HORIZONTAL_ALIGNMENT.RIGHT,
         })}>
@@ -44,12 +44,12 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
           </div>
         )}
         <div
-          className={useClassNames({
+          className={cn({
             'text-left': content_alignment !== HORIZONTAL_ALIGNMENT.RIGHT,
             'text-right': content_alignment === HORIZONTAL_ALIGNMENT.RIGHT,
           })}>
           <div
-            className={useClassNames('w-2/3', {
+            className={cn('w-2/3', {
               'ml-auto': content_alignment === HORIZONTAL_ALIGNMENT.RIGHT,
             })}>
             <Review value={rating} disabled={true} />

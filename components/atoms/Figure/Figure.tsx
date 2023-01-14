@@ -6,7 +6,7 @@ import type {
   ContentBlockComponentWithRef,
   PageSectionSpacing,
 } from 'types/shared/sections';
-import useClassNames from '../../../hooks/useClassNames';
+import cn from 'classnames';
 
 export interface FigureProps
   extends React.HTMLAttributes<HTMLElement>,
@@ -46,10 +46,7 @@ const Figure: ContentBlockComponentWithRef<FigureProps> = forwardRef<
         alt={image.alt}
       />
       <figcaption
-        className={useClassNames(
-          'text-left text-lg lg:text-xl',
-          captionClassName,
-        )}>
+        className={cn('text-left text-lg lg:text-xl', captionClassName)}>
         {caption}
       </figcaption>
     </figure>

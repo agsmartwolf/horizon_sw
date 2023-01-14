@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { useRouter } from 'next/router';
 import ArrowLeft from 'assets/icons/arrow-left.svg';
 import type { MandatoryImageProps } from 'types/global';
@@ -35,7 +35,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const router = useRouter();
 
-  const classNames = useClassNames(
+  const classNames = cn(
     'sticky top-0 left-0 z-header w-full font-headings bg-background-black transform transition-transform duration-500 ease-in-out',
     {
       '-translate-y-full': shouldHide && !showMobileMenu,

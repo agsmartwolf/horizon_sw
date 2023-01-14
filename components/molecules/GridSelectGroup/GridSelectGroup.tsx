@@ -1,5 +1,5 @@
 import React from 'react';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { isChecked } from 'utils/quiz';
 import GridCheckbox from 'components/atoms/GridSelectCard';
 
@@ -45,7 +45,7 @@ const GridSelectGroup: React.FC<GridSelectGroupProps> = ({
   isMultipleChoice,
   onChange,
 }) => {
-  const classes = useClassNames(
+  const classes = cn(
     'flex flex-col items-center gap-y-4',
     'lg:grid lg:gap-6',
     containerClassName,

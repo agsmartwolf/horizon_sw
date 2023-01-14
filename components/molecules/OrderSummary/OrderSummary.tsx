@@ -1,4 +1,4 @@
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import React from 'react';
 import ScheduleLabel from 'components/atoms/ScheduleLabel';
 import type { SubscriptionSchedule } from 'types/subscription';
@@ -75,20 +75,20 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
           ))}
         </tbody>
         <tfoot
-          className={useClassNames('border-outline table w-full', {
+          className={cn('border-outline table w-full', {
             'border-t': !subscriptionSchedule,
             'border-b': !!subscriptionSchedule,
           })}>
           <tr className="text-lg font-semibold">
             <th
-              className={useClassNames('text-left', {
+              className={cn('text-left', {
                 'pt-4': !subscriptionSchedule,
                 'pb-6': !!subscriptionSchedule,
               })}>
               {totalRow.label}
             </th>
             <td
-              className={useClassNames('text-right', {
+              className={cn('text-right', {
                 'pt-4': !subscriptionSchedule,
                 'pb-6': !!subscriptionSchedule,
               })}>

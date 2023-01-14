@@ -274,9 +274,9 @@ export interface StockStatusArgs {
   lowStockIndicator?: number | null;
 }
 
-type getStockStatus = (args: StockStatusArgs) => STOCK_STATUS;
+type getStockStatusType = (args: StockStatusArgs) => STOCK_STATUS;
 
-export const getStockStatus: getStockStatus = ({
+export const getStockStatus: getStockStatusType = ({
   stockTracking,
   stockPurchasable,
   stockLevel,

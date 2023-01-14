@@ -5,7 +5,7 @@ import type { MandatoryImageProps } from 'types/global';
 import Button from 'components/atoms/Button';
 import { BUTTON_TYPE } from 'types/shared/button';
 import PerkItem from 'components/atoms/PerkItem';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 
 import useCartStore from 'stores/cart';
 import type { SwellProductPurchaseOptions } from 'lib/graphql/generated/sdk';
@@ -67,7 +67,7 @@ const MembershipCard: React.FC<MembershipCardProps> = ({
     }).then(() => showCart());
   }
 
-  const className = useClassNames(
+  const className = cn(
     'flex max-w-[342px] flex-col rounded-2xl',
     'lg:max-w-[368px]',
     {
@@ -87,7 +87,7 @@ const MembershipCard: React.FC<MembershipCardProps> = ({
       <div className="z-10 flex grow flex-col items-center rounded-2xl bg-background-black px-6 pt-14 pb-6">
         <header className="mb-4 flex flex-col items-center lg:mb-6">
           <div className="relative mb-8 h-20 w-20 lg:h-[100px] lg:w-[100px]">
-            <Image {...image}  alt={image.alt} />
+            <Image {...image} alt={image.alt} />
           </div>
           <h3 className="mb-1 text-center font-headings text-xl font-semibold text-black lg:text-2xl">
             <RichText content={title} />

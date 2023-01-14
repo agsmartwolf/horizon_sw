@@ -1,5 +1,5 @@
 import React from 'react';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { isChecked } from 'utils/quiz';
 import CardCheckbox from 'components/atoms/ImageSelectCard';
 
@@ -45,7 +45,7 @@ const ImageSelectGroup: React.FC<ImageSelectGroupProps> = ({
   isMultipleChoice,
   onChange,
 }) => {
-  const classes = useClassNames(
+  const classes = cn(
     'flex flex-col items-center justify-center gap-y-4',
     'lg:flex-row lg:flex-wrap lg:gap-6',
     containerClassName,

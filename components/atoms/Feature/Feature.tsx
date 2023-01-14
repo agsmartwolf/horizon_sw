@@ -1,4 +1,4 @@
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 
 import Image from 'components/atoms/SafeImage';
 import React from 'react';
@@ -31,13 +31,13 @@ const Feature: React.FC<FeatureProps> = ({
   content_alignment = HORIZONTAL_ALIGNMENT.CENTER,
 }) => (
   <div
-    className={useClassNames('flex flex-col items-center', {
+    className={cn('flex flex-col items-center', {
       'text-left': content_alignment === HORIZONTAL_ALIGNMENT.LEFT,
       'text-center': content_alignment === HORIZONTAL_ALIGNMENT.CENTER,
       'text-right': content_alignment === HORIZONTAL_ALIGNMENT.RIGHT,
     })}>
     <div className={['relative', FEATURE_IMAGE_CLASS_MAP[imageSize]].join(' ')}>
-      <Image {...image}  alt={image.alt} />
+      <Image {...image} alt={image.alt} />
     </div>
     <div className="mt-8 w-full font-headings text-xl text-black lg:text-2xl">
       <RichText content={title} />

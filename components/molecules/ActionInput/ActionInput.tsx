@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import Input from 'components/atoms/Input';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import ValidationErrorText from 'components/atoms/ValidationErrorText';
 import ArrowRight from 'assets/icons/arrow-right.svg';
 import Button from '../../atoms/Button';
@@ -39,18 +39,15 @@ const ActionInput: React.FC<ActionInputProps> = ({
   submitLabel = null,
   ...props
 }) => {
-  const inputClassNames = useClassNames({
+  const inputClassNames = cn({
     'border-error-dark': !!errorLabel,
   });
 
-  const buttonClassNames = useClassNames(
-    'absolute right-4 top-1/2 -translate-y-1/2',
-    {
-      'w-4': !props.small,
-      'w-3': !!props.small,
-      hidden: !!props.arrowHidden,
-    },
-  );
+  const buttonClassNames = cn('absolute right-4 top-1/2 -translate-y-1/2', {
+    'w-4': !props.small,
+    'w-3': !!props.small,
+    hidden: !!props.arrowHidden,
+  });
 
   const [inputValue, setInputValue] = useState(defaultValue);
 

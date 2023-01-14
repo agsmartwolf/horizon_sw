@@ -3,7 +3,7 @@ import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import TextBody from './TextBody';
 
-export default {
+const args = {
   title: 'Atoms/TextBody',
   component: 'TextBody',
   argTypes: {
@@ -12,6 +12,7 @@ export default {
     rootEl: { control: 'string' },
   } as ComponentMeta<typeof TextBody>,
 };
+export default args;
 
 const Template: ComponentStory<typeof TextBody> = args => (
   <TextBody {...args} />

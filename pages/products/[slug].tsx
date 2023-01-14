@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import useProductSelection, { ACTIONS } from 'hooks/useProductSelection';
 import useProductStock from 'hooks/useProductStock';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import ProductBenefits from 'components/molecules/ProductBenefits';
 import PurchaseOptionsRadio from 'components/atoms/PurchaseOptionsRadio';
 import SubscriptionOptions from 'components/molecules/SubscriptionOptions';
@@ -221,7 +221,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
     addToCart();
   }
 
-  const imageSectionClasses = useClassNames({
+  const imageSectionClasses = cn({
     'lg:order-1': liveSettings.layoutOptions === LAYOUT_ALIGNMENT.LEFT_ALIGNED,
   });
 

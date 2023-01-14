@@ -1,10 +1,10 @@
 import type { SwellProduct } from 'lib/graphql/generated/sdk';
-import type { ParsedUrlQuery } from 'querystring';
 import type {
   ProductAttribute,
   ProductFilterOption,
   ProductFilterOptionValue,
 } from 'types/shared/products';
+import type { useSearchParams } from 'next/navigation';
 
 export enum PRODUCT_ATTRIBUTE_TYPE {
   TEXT = 'text',
@@ -113,10 +113,11 @@ export const getFilters = (products: SwellProduct[]) => {
   return attributeFilters;
 };
 
+export type SearchParams = ReturnType<typeof useSearchParams>;
 export const applyFilters = (
   filterList: ProductFilterOption[],
   products: SwellProduct[],
-  query: ParsedUrlQuery,
+  query: SearchParams,
 ) => {
   const currentFilters = Object.entries(query).map(([key, value]) => ({
     label: key,

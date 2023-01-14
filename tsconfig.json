@@ -17,6 +17,6 @@
     "importsNotUsedAsValues": "error",
     "baseUrl": "."
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "lib/**/*.test.ts", "lib/**/*.test.tsx", "**/*.test.ts", "**/*.test.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

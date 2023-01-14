@@ -5,7 +5,7 @@ import ProductCount from 'components/atoms/ProductCount';
 import ProductPreviewCard from 'components/atoms/ProductPreviewCard';
 import CloseIcon from 'assets/icons/close.svg';
 import useProductSearch from 'hooks/useProductSearch';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import ProductPreviewCardSimple from 'components/atoms/ProductPreviewCard/ProductPreviewCardSimple';
 
 // TODO: i18n
@@ -66,14 +66,14 @@ const SearchMenu: React.FC<SearchMenuProps> = ({
     };
   }, [getHeight]);
 
-  const searchMenuClassNames = useClassNames(
+  const searchMenuClassNames = cn(
     'mx-auto max-w-screen-3xl px-4 pt-2 lg:px-14 lg:pt-4',
     {
       'pb-6 lg:pb-10': hideProducts,
     },
   );
 
-  const productsClassNames = useClassNames(
+  const productsClassNames = cn(
     'mt-4 grid w-full grid-cols-2 gap-4 overflow-y-auto lg:grid-cols-4 lg:gap-y-8 lg:gap-x-6',
     {
       hidden: hideProducts,
@@ -81,7 +81,7 @@ const SearchMenu: React.FC<SearchMenuProps> = ({
     },
   );
 
-  const productCountClassNames = useClassNames('mt-4 lg:mt-8', {
+  const productCountClassNames = cn('mt-4 lg:mt-8', {
     hidden: hideProducts,
   });
 

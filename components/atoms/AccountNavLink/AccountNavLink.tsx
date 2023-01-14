@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 
 export interface AccountNavLinkProps {
   label: string;
@@ -15,7 +15,7 @@ const AccountNavLink: React.FC<AccountNavLinkProps> = ({
 }) => (
   <Link
     href={link}
-    className={useClassNames(
+    className={cn(
       'decoration-skip-ink-none text-md text-body hover:underline md:font-bold md:text-black',
       {
         underline: !!active,

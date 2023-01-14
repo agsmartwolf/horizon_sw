@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Root, Description } from '@radix-ui/react-toast';
 import { Icon } from '@iconify/react';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import styles from './Notification.module.css';
 import { NOTIFICATION_TYPE } from 'types/shared/notification';
 import type { Notification as NotificationProps } from 'types/shared/notification';
@@ -11,7 +11,7 @@ const Notification: React.FC<NotificationProps> = ({
   type,
   timeout,
 }) => {
-  const classes = useClassNames(
+  const classes = cn(
     'inline-flex items-center justify-between shadow-3xl rounded-lg py-[10px] px-4',
     {
       'text-success-dark bg-success-light': type === NOTIFICATION_TYPE.SUCCESS,

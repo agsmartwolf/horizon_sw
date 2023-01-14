@@ -38,16 +38,17 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
             sizes={'33vw'}
             style={{
               position: 'absolute',
-              width: "100%",
+              width: '100%',
               top: 0,
               left: 0,
-              height: "100%",
-              objectFit: "contain",
+              height: '100%',
+              objectFit: 'contain',
             }}
           />
         </div>
       </Link>
-      <div className={'flex flex-col md:flex-row px-5 py-5 lg:px-10 bg-gray-200'}>
+      <div
+        className={'flex flex-col md:flex-row px-5 py-5 lg:px-10 bg-gray-200'}>
         <div className="flex flex-col lg:pr-2">
           <Link href={href}>
             <h4 className="font-headings text-md font-semibold line-clamp-2 lg:text-sm">

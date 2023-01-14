@@ -1,6 +1,5 @@
 // import PreviewPageSkeleton from 'components/organisms/PreviewPageSkeleton';
 import {
-  SECTION_MARGIN_MAP,
   SECTION_PADDING_MAP,
   SECTION_VERTICAL_PADDING_MAP,
   SPACING,
@@ -23,11 +22,11 @@ import type { SwellProduct } from 'lib/graphql/generated/sdk';
 import type { PurchasableProductData } from '../types/shared/products';
 import TextHeading from '../components/atoms/Text/TextHeading';
 import Figure from '../components/atoms/Figure';
-import useClassNames from '../hooks/useClassNames';
 import ArrowLeft from 'assets/icons/arrow-left.svg';
 import ArrowRight from 'assets/icons/arrow-right.svg';
 import { useCallback, useRef } from 'react';
-import { SwiperRef } from 'swiper/react';
+import type { SwiperRef } from 'swiper/react';
+import cn from 'classnames';
 // import {isNextPublicSwellEditor} from 'utils/editor';
 
 const propsCallback: GetStaticProps<Record<string, unknown>> = async () => {
@@ -130,14 +129,14 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
       </div>
 
       <div
-        className={useClassNames(
+        className={cn(
           {
             [SECTION_VERTICAL_PADDING_MAP[SPACING.MEDIUM]]: true,
             [SECTION_PADDING_MAP[SPACING.MEDIUM]]: !isMobile,
           },
           'overflow-hidden',
         )}>
-        <div className={useClassNames('relative')}>
+        <div className={cn('relative')}>
           <ArrowLeft
             className={
               'hidden absolute left-4 lg:block w-6 bottom-0 cursor-pointer'
@@ -191,11 +190,11 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
         </Swiper>
       </div>
 
-      <article className={useClassNames('bg-black-100')}>
+      <article className={cn('bg-black-100')}>
         <div>
           <Figure
             className={'flex-col-reverse relative'}
-            captionClassName={useClassNames(
+            captionClassName={cn(
               'text-white pt-15 md:pt-0 md:absolute right-0 bottom-16 md:w-1/2',
               SECTION_PADDING_MAP[SPACING.MEDIUM],
             )}

@@ -1,4 +1,4 @@
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import React from 'react';
 import type { SelectOption } from 'types/shared/quiz';
 
@@ -12,7 +12,7 @@ const GridSelectCard: React.FC<GridSelectCardProps> = ({
   onChange,
   ...props
 }) => {
-  const classNames = useClassNames(
+  const classNames = cn(
     'all-ease-in-out-400 relative flex h-14 w-full max-w-[342px] items-center justify-center rounded-lg border bg-background-black',
     'lg:w-[220px]',
     {

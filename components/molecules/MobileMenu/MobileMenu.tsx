@@ -5,7 +5,6 @@ import type { RootNavItem } from 'types/nav';
 import { getHref } from 'lib/utils/nav';
 import { denullifyArray } from 'lib/utils/denullify';
 import NavLink from 'components/atoms/NavLink';
-import AnchorButton from '../../atoms/AnchorButton';
 import Button from '../../atoms/Button';
 import { BUTTON_STYLE, BUTTON_TYPE } from '../../../types/shared/button';
 

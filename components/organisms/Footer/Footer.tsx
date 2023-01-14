@@ -14,30 +14,30 @@ import { useRouter } from 'next/navigation';
 
 type ReactSVGComponent = ComponentType<React.SVGProps<SVGSVGElement>>;
 
-const TwitterIcon: ReactSVGComponent = dynamic(
+const TwitterIcon = dynamic<ReactSVGComponent>(
   () => import('assets/icons/twitter.svg'),
-);
-const FacebookIcon: ReactSVGComponent = dynamic(
+) as (props: any) => JSX.Element;
+const FacebookIcon = dynamic<ReactSVGComponent>(
   () => import('assets/icons/facebook.svg'),
-);
-const InstagramIcon: ReactSVGComponent = dynamic(
+) as (props: any) => JSX.Element;
+const InstagramIcon = dynamic<ReactSVGComponent>(
   () => import('assets/icons/instagram.svg'),
-);
-const TiktokIcon: ReactSVGComponent = dynamic(
+) as (props: any) => JSX.Element;
+const TiktokIcon = dynamic<ReactSVGComponent>(
   () => import('assets/icons/tiktok.svg'),
-);
-const PinterestIcon: ReactSVGComponent = dynamic(
+) as (props: any) => JSX.Element;
+const PinterestIcon = dynamic<ReactSVGComponent>(
   () => import('assets/icons/pinterest.svg'),
-);
-const YoutubeIcon: ReactSVGComponent = dynamic(
+) as (props: any) => JSX.Element;
+const YoutubeIcon = dynamic<ReactSVGComponent>(
   () => import('assets/icons/youtube.svg'),
-);
-const VimeoIcon: ReactSVGComponent = dynamic(
+) as (props: any) => JSX.Element;
+const VimeoIcon = dynamic<ReactSVGComponent>(
   () => import('assets/icons/vimeo.svg'),
-);
-const WhatsappIcon: ReactSVGComponent = dynamic(
+) as (props: any) => JSX.Element;
+const WhatsappIcon = dynamic<ReactSVGComponent>(
   () => import('assets/icons/whatsapp.svg'),
-);
+) as (props: any) => JSX.Element;
 
 export interface FooterLink {
   href: string;
@@ -53,8 +53,6 @@ export interface Column {
   heading?: string;
   items: MenuItem[];
 }
-
-const PROMO_TEXT = 'Powered by Swell';
 
 const SOCIAL_ICONS_MAP = {
   twitter: <TwitterIcon height={20} width={20} className="w-8 h-auto" />,
@@ -96,9 +94,7 @@ const Footer: React.FC<FooterProps> = ({
   secondaryMenu,
   showSocials = true,
   socialLinks,
-  copyrightText,
   showNewsletter = true,
-  newsletterTitle,
   newsletterPlaceholder,
   horizontalPadding,
   logo,

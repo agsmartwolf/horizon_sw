@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { joinClasses } from 'utils/className';
 import type { SelectOption } from 'types/shared/quiz';
 
@@ -288,14 +288,14 @@ const LevelSlider: React.FC<LevelSliderProps> = ({
     };
   }, [onMouseMove, onMouseUp]);
 
-  const trackFillClasses = useClassNames(
+  const trackFillClasses = cn(
     'absolute top-0 left-0 h-full rounded-l-[0.75rem] bg-white',
     {
       'transition-[width] duration-700': !isDragging,
       'transition-none': isDragging,
     },
   );
-  const thumbClasses = useClassNames(
+  const thumbClasses = cn(
     'absolute top-1/2 flex h-8 w-8 items-center justify-center rounded-full border-4 border-background-primary bg-white shadow-[0_0_0_1px] shadow-primary',
     {
       'cursor-grabbing transition-none': isDragging,

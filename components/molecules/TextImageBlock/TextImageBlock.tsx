@@ -1,5 +1,5 @@
 import RichText from 'components/atoms/RichText';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { SECTION_MARGIN_MAP } from 'lib/globals/sizings';
 import Image from 'components/atoms/SafeImage';
 import React from 'react';
@@ -26,7 +26,7 @@ const TextImageBlock: ContentBlockComponent<TextImageBlockProps> = ({
   desktopAllignment,
   horizontal_spacing: horizontalSpacing,
 }) => {
-  const classes = useClassNames(
+  const classes = cn(
     'flex flex-col gap-y-6',
     'lg:gap-x-18 lg:justify-center lg:items-center lg:flex-row',
     {

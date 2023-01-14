@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from 'components/atoms/Input';
 import Label from 'components/atoms/Label';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import ValidationErrorText from 'components/atoms/ValidationErrorText';
 
 export interface TextFieldInputConfigProps {
@@ -27,7 +27,7 @@ const TextField: React.FC<TextFieldProps> = ({
   containerStyle,
   ...props
 }) => {
-  const inputClassNames = useClassNames(
+  const inputClassNames = cn(
     {
       'border-error-dark': !!errorLabel,
     },

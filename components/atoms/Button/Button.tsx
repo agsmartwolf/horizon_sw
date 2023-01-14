@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { joinClasses } from 'utils/className';
 import { BUTTON_STYLE, BUTTON_TYPE } from 'types/shared/button';
 
@@ -70,7 +70,7 @@ const Button = React.forwardRef<
     },
     ref,
   ) => {
-    const classNames = useClassNames(
+    const classNames = cn(
       'inline-block border text-md text-center font-bold capitalize all-ease-in-out-400',
       'disabled:pointer-events-none disabled:select-none',
       {

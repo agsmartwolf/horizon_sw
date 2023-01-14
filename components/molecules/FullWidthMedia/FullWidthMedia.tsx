@@ -17,7 +17,7 @@ import { SECTION_PADDING_MAP, SPACING } from 'lib/globals/sizings';
 import type { MandatoryImageProps } from 'types/global';
 import type { ContentBlockComponent } from 'types/shared/sections';
 import type { EditorArray } from 'types/editor';
-import useClassNames from '../../../hooks/useClassNames';
+import cn from 'classnames';
 
 export interface FullWidthMediaProps {
   title?: string;
@@ -132,7 +132,7 @@ const FullWidthMedia: ContentBlockComponent<FullWidthMediaProps> = ({
     }
   }, []);
 
-  const imageCN = useClassNames('object-cover', backgroundPositionClass);
+  const imageCN = cn('object-cover', backgroundPositionClass);
 
   return (
     <section className={classNames}>

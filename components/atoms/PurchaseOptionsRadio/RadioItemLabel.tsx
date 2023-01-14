@@ -3,6 +3,7 @@ import React from 'react';
 export interface RadioItemLabelProps {
   name: string;
   trial?: JSX.Element;
+  children: JSX.Element;
 }
 
 const RadioItemLabel: React.FC<RadioItemLabelProps> = ({

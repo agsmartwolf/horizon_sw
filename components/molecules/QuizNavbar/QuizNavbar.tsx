@@ -1,5 +1,5 @@
 import React from 'react';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import ProgressBar from 'components/atoms/ProgressBar';
 import Close from 'assets/icons/close.svg';
 import ArrowLeft from 'assets/icons/arrow-left.svg';
@@ -46,7 +46,7 @@ const QuizNavbar: React.FC<QuizNavbarProps> = ({
 }) => {
   return (
     <nav
-      className={useClassNames(
+      className={cn(
         'flex h-[61px] flex-col border-b-[0.8px] transition duration-1800 ease-in-out',
         'lg:h-30',
         containerClassName,

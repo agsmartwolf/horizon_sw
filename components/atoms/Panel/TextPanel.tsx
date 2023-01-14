@@ -1,4 +1,3 @@
-
 import {
   HORIZONTAL_ALIGNMENT,
   OBJECT_FIT,
@@ -66,7 +65,6 @@ const TextPanel: React.FC<PanelTextProps> = ({
             ${BACKGROUND_POSITION_MAP[vertical_background_alignment][horizontal_background_alignment]}
         `}
         {...background_image}
-        
         alt={background_image.alt}
       />
     )}

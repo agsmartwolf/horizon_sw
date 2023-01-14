@@ -12,7 +12,6 @@ import {
   VERTICAL_ALIGNMENT,
 } from 'types/shared/alignment';
 
-
 import type { MembershipCardProps } from 'components/atoms/MembershipCard';
 import type {
   ContentBlockComponent,
@@ -57,7 +56,6 @@ const Memberships: ContentBlockComponent<MembershipsProps> = ({
             ${BACKGROUND_POSITION_MAP[vertical_background_alignment][horizontal_background_alignment]}
         `}
           {...background_image}
-          
           alt={background_image.alt}
         />
       )}

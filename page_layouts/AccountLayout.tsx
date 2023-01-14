@@ -7,6 +7,7 @@ import { links } from 'lib/utils/nav';
 
 export interface AccountLayoutProps {
   header: AccountHeaderProps;
+  children: React.ReactNode;
 }
 
 const AccountLayout: React.FC<AccountLayoutProps> = ({ children, header }) => (

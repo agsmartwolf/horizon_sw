@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'components/atoms/SafeImage';
 import RichText from 'components/atoms/RichText';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import {
   BACKGROUND_POSITION_MAP,
   ALIGN_CLASS_MAP,
@@ -79,7 +79,7 @@ const HeadingWithText: ContentBlockComponent<HeadingWithTextProps> = ({
   const horizontalAlignmentClass = ALIGN_CLASS_MAP[horizontal_alignment];
   const hasMultipleElements = !!(label || title || description) && !!cta;
 
-  const contentClassNames = useClassNames(
+  const contentClassNames = cn(
     'relative flex flex-col text-5xl text-black',
     {
       // TODO: Handle this better when we have
@@ -92,7 +92,7 @@ const HeadingWithText: ContentBlockComponent<HeadingWithTextProps> = ({
     className ?? '',
   );
 
-  const textClassNames = useClassNames('relative flex flex-col gap-4', {
+  const textClassNames = cn('relative flex flex-col gap-4', {
     'w-full': text_layout === TEXT_LAYOUT.DUAL_COLUMN,
     'w-full lg:w-1/2': text_layout === TEXT_LAYOUT.SINGLE_COLUMN,
   });
@@ -104,7 +104,6 @@ const HeadingWithText: ContentBlockComponent<HeadingWithTextProps> = ({
           <Image
             className={`absolute inset-0 object-cover ${backgroundPositionClass}`}
             {...background_image}
-            
             alt={background_image.alt}
           />
         )}

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { BUTTON_TYPE } from 'types/shared/button';
 
 interface BaseProps {
@@ -48,7 +48,7 @@ const GhostButton = React.forwardRef<
     },
     ref,
   ) => {
-    const classNames = useClassNames(
+    const classNames = cn(
       'text-black flex items-center font-semibold',
       props.className,
       {

@@ -20,5 +20,6 @@ export const validateNonEmptyFields = <
 ): ErrorPayloads[keyof Fields] | null => {
   const invalid = objectKeys(fields).find(field => fields[field].trim() === '');
 
+  // @ts-ignore
   return invalid ? errorPayloads[invalid] : null;
 };

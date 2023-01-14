@@ -19,9 +19,13 @@
     "react-hooks/exhaustive-deps": "error",
     "no-unused-vars": "off",
     "camelcase": "off",
+    "import/no-extraneous-dependencies": "off",
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/no-shadow": "off",
     "react/prop-types": "off",
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/no-unused-vars": "error",
     "object-curly-spacing": ["error", "always"]
-  }
+  },
+  "ignorePatterns": ["**/*.js", "**/*.jsx", "**/*.json", "**/*.test.tsx", "**/*.test.ts"]
 }

@@ -22,6 +22,7 @@ const Modal: React.FC<ModalProps> = ({ title, body, open, onClose }) => {
           leave="ease-in duration-200"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
+          // @ts-ignore
           className="fixed inset-0 z-backdrop bg-[rgba(0,0,0,0.3)]"
         />
         <Transition.Child
@@ -32,6 +33,7 @@ const Modal: React.FC<ModalProps> = ({ title, body, open, onClose }) => {
           leave="ease-in duration-200"
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-95"
+          // @ts-ignore
           className="shadow-xl fixed top-1/2 left-1/2 z-modal flex w-full max-w-[342px] -translate-x-1/2 -translate-y-1/2 transform flex-col space-y-6 overflow-hidden rounded-xl bg-background-black p-6 text-left align-middle transition-all md:max-w-[463px]">
           <div className="flex items-center justify-between">
             <Dialog.Title

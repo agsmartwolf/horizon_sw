@@ -49,7 +49,6 @@ const CrossSell: React.FC<CrossSellProps> = ({
         className="safe-aspect-square relative lg:min-w-[10rem]">
         <Image
           {...item.image}
-          
           className={['rounded-xl object-cover', item.image.className].join(
             ' ',
           )}

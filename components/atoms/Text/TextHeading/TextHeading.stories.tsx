@@ -3,7 +3,7 @@ import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import TextHeading from './TextHeading';
 
-export default {
+const args = {
   title: 'Atoms/TextHeading',
   component: 'TextHeading',
   argTypes: {
@@ -12,6 +12,8 @@ export default {
     rootEl: { control: 'string' },
   } as ComponentMeta<typeof TextHeading>,
 };
+
+export default args;
 
 const Template: ComponentStory<typeof TextHeading> = args => (
   <TextHeading {...args} />

@@ -12,7 +12,7 @@ import {
 } from 'lib/globals/sizings';
 import { BUTTON_STYLE, BUTTON_TYPE, CTAOptions } from 'types/shared/button';
 import Button from 'components/atoms/Button';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import AnchorButton from 'components/atoms/AnchorButton';
 import type { Namespaced } from 'types/utils';
 import type { EditorArray } from 'types/editor';
@@ -44,7 +44,7 @@ const MultipleFeatures: ContentBlockComponent<MultipleFeaturesProps> = ({
   cardImageSize,
 }) => (
   <section
-    className={useClassNames(
+    className={cn(
       'flex flex-col items-center',
       SECTION_PADDING_MAP[horizontal_spacing],
       SECTION_VERTICAL_PADDING_MAP[vertical_spacing],
@@ -70,7 +70,7 @@ const MultipleFeatures: ContentBlockComponent<MultipleFeaturesProps> = ({
     )}
 
     <ul
-      className={useClassNames(
+      className={cn(
         'mt-12 grid gap-x-4 gap-y-10 lg:mt-14 lg:grid-cols-3 lg:gap-x-18 lg:gap-y-14',
         {
           'grid-cols-2': cardImageSize === FEATURE_IMAGE_SIZE.SMALL,

@@ -1,4 +1,4 @@
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import useDraggableScroll from 'hooks/useDraggableScroll';
 import React, { useRef, useEffect, useCallback } from 'react';
 
@@ -58,7 +58,7 @@ const HorizontalScroller: React.FC<HorizontalScrollerProps> = ({
     <div
       ref={ref}
       {...props}
-      className={useClassNames(
+      className={cn(
         'scrollbar-hidden relative snap-mandatory scroll-px-6 overflow-x-auto touch:snap-x',
         props.className ?? '',
         {

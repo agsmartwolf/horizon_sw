@@ -11,7 +11,6 @@ import { BUTTON_STYLE, BUTTON_TYPE } from 'types/shared/button';
 import type { SwellProductPurchaseOptions } from 'lib/graphql/generated/sdk';
 import useCartStore from 'stores/cart';
 
-
 export type QuizCrossSellCardProps = React.HTMLAttributes<HTMLDivElement> &
   Omit<ProductData, 'price' | 'originalPrice'> & {
     productId: string;
@@ -70,7 +69,6 @@ const QuizCrossSellCard: React.FC<QuizCrossSellCardProps> = ({
           className="relative col-span-1 row-span-1 lg:row-span-4">
           <Image
             {...image}
-            
             alt={image.alt}
             className="rounded-xl object-cover object-center lg:rounded-2xl"
           />

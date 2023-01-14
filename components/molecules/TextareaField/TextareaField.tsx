@@ -1,5 +1,5 @@
 import React from 'react';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 
 import Textarea from 'components/atoms/Textarea';
 import Label from 'components/atoms/Label';
@@ -39,7 +39,7 @@ const TextareaField: React.FC<TextareaFieldProps> = ({
   containerStyle,
   ...props
 }) => {
-  const textareaClassNames = useClassNames(
+  const textareaClassNames = cn(
     {
       'border-error-dark': !!errorLabel,
     },

@@ -67,8 +67,8 @@ const ProductPreviewCardPurchasable: React.FC<
         addToCart={addToCart}
         focusOnRef={wrapperRef}
         className="safe-aspect-square relative overflow-hidden lg:pb-[125%] bg-white"
-        hoverableElement={props => (
-          <Link {...props} href={href}>
+        hoverableElement={p => (
+          <Link {...p} href={href}>
             <Image
               {...image}
               alt={image?.alt}

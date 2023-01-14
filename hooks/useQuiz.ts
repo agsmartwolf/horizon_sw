@@ -162,7 +162,7 @@ const useQuiz = (quiz: QuizPageProps, router: NextRouter) => {
    * Function for handling manual change of the current activeIndex/activeQuestionIndex
    */
   const onIndexChange = useCallback(
-    newIndex => {
+    (newIndex: number) => {
       setActiveIndex(newIndex);
 
       const questionType = quiz.questions[newIndex]?.type;

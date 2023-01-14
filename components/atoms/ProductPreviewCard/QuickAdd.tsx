@@ -19,7 +19,7 @@ import useCurrency from 'stores/currency';
 import type { AddToCartConfig } from 'stores/cart';
 
 interface QuickAddProps {
-  hoverableElement: React.ElementType;
+  hoverableElement: (props: any) => JSX.Element;
   className?: string;
   focusOnRef: React.RefObject<HTMLElement>;
   productOptions: ProductOption[];

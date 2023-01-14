@@ -3,10 +3,12 @@ import type { QuizQuestionStaticProps } from 'components/molecules/QuizQuestion'
 import dynamic from 'next/dynamic';
 import { Answer, QUIZ_ITEM_TYPE } from 'types/shared/quiz';
 
-const QuizQuestion = dynamic(() => import('components/molecules/QuizQuestion'));
+const QuizQuestion = dynamic(
+  () => import('components/molecules/QuizQuestion'),
+) as (props: any) => JSX.Element;
 const QuizTransitionQuestion = dynamic(
   () => import('components/molecules/QuizTransitionQuestion'),
-);
+) as (props: any) => JSX.Element;
 
 export const QuestionWrapper: React.FC<{ children?: React.ReactNode }> = ({
   children,

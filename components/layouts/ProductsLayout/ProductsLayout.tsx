@@ -21,7 +21,6 @@ import React, {
 } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
-import type { ParsedUrlQuery } from 'querystring';
 import Link from 'next/link';
 import Checkbox from 'components/atoms/Checkbox';
 import Range from 'components/atoms/Range';
@@ -30,6 +29,7 @@ import {
   applyFilters,
   getPriceRangeFromProducts,
   getPriceRangeFromQuery,
+  SearchParams,
 } from 'lib/shop/filters';
 import { mapProducts } from 'lib/utils/products';
 import { getProductsList } from 'lib/shop/fetchingFunctions';
@@ -40,7 +40,7 @@ import { InlineIcon } from '@iconify/react';
 import Close from 'assets/icons/close.svg';
 import Tag from 'components/atoms/Tag';
 import type { EditorArray } from 'types/editor';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import getGQLClient from 'lib/graphql/client';
 import { generateId } from 'lib/utils/shared_functions';
 import type { Replace } from 'types/utils';
@@ -78,7 +78,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   attributeFilters,
 }) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const searchParams: SearchParams = useSearchParams();
   const pathname = usePathname();
 
   const { isMobile } = useViewport();
@@ -117,13 +117,12 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     onSearchTermChange,
     isSearching,
     results: searchResults,
-    clear,
   } = useProductSearch();
 
   const getActiveFilters = useCallback(
-    (query: ParsedUrlQuery) =>
+    (query: SearchParams) =>
       Object.keys(query).reduce<FilterState[]>((result, key) => {
-        const queryValue = query[key];
+        const queryValue = query.get(key);
 
         if (!queryValue) return result;
 
@@ -302,6 +301,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     return () => {
       mounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeCurrency.code, attributeFilters, searchParams]);
 
   useEffect(() => {
@@ -327,6 +327,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     return () => {
       mounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     products,
     searchResults,
@@ -386,8 +387,8 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                   image: {
                     alt: featured?.images?.[0]?.caption ?? '',
                     src: featured?.images?.[0]?.file?.url ?? '',
-                    height: featured?.images?.[0]?.file?.height ?? '',
-                    width: featured?.images?.[0]?.file?.width ?? '',
+                    height: featured?.images?.[0]?.file?.height ?? 0,
+                    width: featured?.images?.[0]?.file?.width ?? 0,
                   },
                 };
               }),
@@ -426,8 +427,8 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
             image: {
               alt: category.images?.[0]?.caption ?? '',
               src: category.images?.[0]?.file?.url ?? '',
-              height: category.images?.[0]?.file?.height ?? '',
-              width: category.images?.[0]?.file?.width ?? '',
+              height: category.images?.[0]?.file?.height ?? 0,
+              width: category.images?.[0]?.file?.width ?? 0,
             },
           };
 
@@ -452,13 +453,11 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     };
   }, []);
 
-  const filterCns = useClassNames(
-    'border-dividers min-w-[160px] text-sm md:text-lg',
-  );
+  const filterCns = cn('border-dividers min-w-[160px] text-sm md:text-lg');
 
   return (
     <article
-      className={useClassNames(
+      className={cn(
         'mb-6 lg:mb-12',
         'lg:pt-32 relative min-h-screen',
         SECTION_PADDING_MAP[SPACING.SMALL],
@@ -657,7 +656,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
         {/* Desktop */}
         <aside className="hidden lg:block absolute top-0 left-0 w-full">
           <ul
-            className={useClassNames(
+            className={cn(
               'flex shrink-0 gap-14 items-center bg-gray-100 h-20',
               SECTION_PADDING_MAP[SPACING.SMALL],
             )}>
@@ -675,7 +674,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
               <Link
                 href="/products"
                 scroll={false}
-                className={useClassNames(
+                className={cn(
                   'text-black px-2 border-b-[1.5px] hover:border-black',
                   {
                     // If the category is active, show it as bold
@@ -697,7 +696,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                     setLoading(true);
                     setPriceRangeValue(undefined);
                   }}
-                  className={useClassNames(
+                  className={cn(
                     'text-black px-2 border-b-[1.5px] hover:border-black',
                     {
                       // If the category is active, show it as bold
@@ -716,11 +715,11 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
           </ul>
 
           <ul
-            className={useClassNames(
+            className={cn(
               'flex w-full shrink-0 border-dividers bg-transparent z-20 overflow-hidden',
               SECTION_PADDING_MAP[SPACING.SMALL],
             )}>
-            <li className={useClassNames('flex pt-4 pr-10', filterCns)}>
+            <li className={cn('flex pt-4 pr-10', filterCns)}>
               <TextBody
                 content="Filters"
                 className="text-gray-400 font-semibold"
@@ -809,7 +808,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
           <ProductCount count={products.length} className="lg:px-0" />
           {/* Products list */}
           <ul
-            className={useClassNames(
+            className={cn(
               'mt-4 grid w-full grid-cols-2 gap-y-8 gap-x-4 lg:mt-6 lg:gap-x-8 lg:gap-y-10 lg:px-0',
               {
                 'lg:grid-cols-2': Number(liveSettings.productsPerRow) === 2,

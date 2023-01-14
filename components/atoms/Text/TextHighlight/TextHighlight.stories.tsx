@@ -3,7 +3,7 @@ import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import TextHighlight from './TextHighlight';
 
-export default {
+const args = {
   title: 'Atoms/TextHighlight',
   component: 'TextHighlight',
   argTypes: {
@@ -12,7 +12,7 @@ export default {
     rootEl: { control: 'string' },
   } as ComponentMeta<typeof TextHighlight>,
 };
-
+export default args;
 const Template: ComponentStory<typeof TextHighlight> = args => (
   <TextHighlight {...args} />
 );

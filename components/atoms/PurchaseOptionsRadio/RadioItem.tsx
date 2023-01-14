@@ -1,6 +1,6 @@
 import React from 'react';
 import RadioIcon from 'assets/icons/radio.svg';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import type { PURCHASE_OPTION_TYPE } from 'types/shared/products';
 
 interface RadioItemProps {
@@ -26,7 +26,7 @@ const RadioItem: React.FC<RadioItemProps> = ({
     onChange(e.target.value as PURCHASE_OPTION_TYPE);
   }
 
-  const labelClassNames = useClassNames(
+  const labelClassNames = cn(
     'flex items-center cursor-pointer gap-2 rounded-lg border py-[10px] pl-4 pr-6 text-sm text-black transition duration-[250ms]',
     'peer-focus-visible:border-primary',
     {
@@ -35,13 +35,10 @@ const RadioItem: React.FC<RadioItemProps> = ({
     },
   );
 
-  const iconClassNames = useClassNames(
-    'w-4 h-4 transition-all duration-[250ms]',
-    {
-      'fill-background-black stroke-input-standard': value !== activeValue,
-      'fill-black-100 stroke-primary': value === activeValue,
-    },
-  );
+  const iconClassNames = cn('w-4 h-4 transition-all duration-[250ms]', {
+    'fill-background-black stroke-input-standard': value !== activeValue,
+    'fill-black-100 stroke-primary': value === activeValue,
+  });
 
   return (
     <div className={className ?? ''}>

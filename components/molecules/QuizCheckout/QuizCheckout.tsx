@@ -4,7 +4,7 @@ import Button from 'components/atoms/Button';
 import Tag from 'components/atoms/Tag';
 
 import { BUTTON_TYPE } from 'types/shared/button';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { joinClasses } from 'utils/className';
 
 export interface QuizCheckoutProps
@@ -60,16 +60,12 @@ const QuizCheckout = React.forwardRef<HTMLDivElement, QuizCheckoutProps>(
       [shippingText, shipping],
     ];
 
-    const tagClasses = useClassNames(
-      'transition-opacity duration-300',
-      'lg:text-md',
-      {
-        'opacity-0': !showTag,
-        'opacity-1': showTag,
-      },
-    );
+    const tagClasses = cn('transition-opacity duration-300', 'lg:text-md', {
+      'opacity-0': !showTag,
+      'opacity-1': showTag,
+    });
 
-    const headingClasses = useClassNames(
+    const headingClasses = cn(
       'inline-flex w-full justify-between text-xl font-headings font-semibold text-black',
       'lg:mb-4 lg:text-2xl',
       {

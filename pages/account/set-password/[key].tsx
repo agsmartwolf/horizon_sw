@@ -4,7 +4,7 @@ import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
 import { useRouter } from 'next/router';
-import { useCallback, useState } from 'react';
+import { FormEvent, useCallback, useState } from 'react';
 import PasswordInput from 'components/molecules/PasswordInput';
 import ValidationErrorText from 'components/atoms/ValidationErrorText';
 import BannerInfo, { BANNER_INFO_STYLE } from 'components/atoms/BannerInfo';
@@ -152,7 +152,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
   }, [router]);
 
   const handleSubmit = useCallback(
-    async e => {
+    async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       await fetchApi(
         {

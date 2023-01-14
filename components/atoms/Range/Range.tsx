@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Slider from '@radix-ui/react-slider';
-import useClassNames from '../../../hooks/useClassNames';
+import cn from 'classnames';
 
 export interface RangeProps {
   min: number;
@@ -22,10 +22,7 @@ const Range: React.FC<RangeProps> = ({
   const limitedMin = Math.max(min, value[0]);
   const limitedMax = Math.min(max, value[1]);
 
-  const cnThumb = useClassNames(
-    'block h-[9px] w-[9px] rounded-full',
-    thumbClassName,
-  );
+  const cnThumb = cn('block h-[9px] w-[9px] rounded-full', thumbClassName);
 
   return (
     <form>

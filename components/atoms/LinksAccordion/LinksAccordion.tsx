@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import Plus from 'assets/icons/plus.svg';
-import Minus from 'assets/icons/minus.svg';
+// import Plus from 'assets/icons/plus.svg';
+// import Minus from 'assets/icons/minus.svg';
 import { Disclosure, Transition } from '@headlessui/react';
-import useClassNames from '../../../hooks/useClassNames';
+import cn from 'classnames';
 
 export interface LinksAccordionProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -25,7 +25,7 @@ const LinksAccordion: React.FC<LinksAccordionProps> = ({
   panelClassname = '',
   ...props
 }) => {
-  const panelClassnames = useClassNames(
+  const panelClassnames = cn(
     'ml-4 transition-[max-height] duration-400',
     panelClassname,
   );

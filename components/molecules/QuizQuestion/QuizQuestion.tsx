@@ -1,6 +1,6 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { TEXT_FIELD_PATTERN } from 'utils/quiz';
 import Button from 'components/atoms/Button';
 import Note from 'components/molecules/Note';
@@ -20,20 +20,24 @@ import {
   QUIZ_QUESTION_TYPE,
 } from 'types/shared/quiz';
 
-const TextField = dynamic(() => import('components/molecules/TextField'));
+const TextField = dynamic(() => import('components/molecules/TextField')) as (
+  props: any,
+) => JSX.Element;
 const TextareaField = dynamic(
   () => import('components/molecules/TextareaField'),
-);
+) as (props: any) => JSX.Element;
 const ImageSelectGroup = dynamic(
   () => import('components/molecules/ImageSelectGroup'),
-);
+) as (props: any) => JSX.Element;
 const GridSelectGroup = dynamic(
   () => import('components/molecules/GridSelectGroup'),
-);
+) as (props: any) => JSX.Element;
 const StackSelectGroup = dynamic(
   () => import('components/molecules/StackSelectGroup'),
-);
-const LevelSlider = dynamic(() => import('components/atoms/LevelSlider'));
+) as (props: any) => JSX.Element;
+const LevelSlider = dynamic(() => import('components/atoms/LevelSlider')) as (
+  props: any,
+) => JSX.Element;
 
 export type InputSelectConfig =
   | ImageSelectInputConfigProps
@@ -290,7 +294,9 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
             {...inputConfig}
             id={id}
             value={answer as string}
-            onChange={e => onChange(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+              onChange(e.target.value)
+            }
           />
         );
       default:
@@ -320,13 +326,13 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
   const isSlider = questionType === QUIZ_QUESTION_TYPE.SINGLE_SELECT;
   const isButtonDisabled = (required && !parseAnswer(answer)) || !valid;
 
-  const inputInfoClasses = useClassNames('mt-6 text-sm text-body', {
+  const inputInfoClasses = cn('mt-6 text-sm text-body', {
     'hidden lg:block': isSlider,
   });
 
   return (
     <form
-      className={useClassNames(
+      className={cn(
         'flex h-full w-full flex-col items-center overflow-y-auto px-6 pt-[101px] pb-6 lg:pt-44 lg:pb-10',
       )}
       aria-describedby={`question-description-${currentQuestion}`}

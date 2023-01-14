@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Disclosure, Transition } from '@headlessui/react';
 import ChevronDown from 'assets/icons/chevron-down.svg';
-import useClassNames from '../../../hooks/useClassNames';
+import cn from 'classnames';
 
 export interface GenericAccordionProps {
   name: string;
@@ -22,14 +22,10 @@ const GenericAccordion: React.FC<GenericAccordionProps> = ({
     <div>
       <Disclosure defaultOpen={defaultOpen}>
         {({ open }) => (
-          <div
-            className={useClassNames(
-              'flex flex-col overflow-hidden',
-              className,
-            )}>
+          <div className={cn('flex flex-col overflow-hidden', className)}>
             <Disclosure.Button className="flex w-full items-center justify-between py-4">
               <span
-                className={useClassNames('border-b border-transparent', {
+                className={cn('border-b border-transparent', {
                   'border-gray-400': !open,
                 })}>
                 {name}
@@ -37,7 +33,7 @@ const GenericAccordion: React.FC<GenericAccordionProps> = ({
               <ChevronDown
                 width={16}
                 height={16}
-                className={useClassNames(
+                className={cn(
                   `text-black transition-transform duration-400 ${
                     open ? 'rotate-180' : 'rotate-0'
                   }`,

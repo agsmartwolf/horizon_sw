@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ReactNode, useRef } from 'react';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { useSwipeable } from 'react-swipeable';
 
 interface BottomSheetProps
@@ -109,7 +109,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ children, ...props }) => {
     };
   }, [ref]);
 
-  const wrapperClasses = useClassNames(
+  const wrapperClasses = cn(
     'sticky inset-x-0 w-full transition-[bottom] duration-500 ease-in-out',
     'lg:hidden',
     {
@@ -136,7 +136,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ children, ...props }) => {
       }}>
       {/* Line  */}
       <div
-        className={useClassNames(
+        className={cn(
           'absolute top-[5px] left-1/2 h-1 w-[72px] -translate-x-1/2 rounded-3xl bg-background-secondary',
           {
             hidden: !isSticked && !isOpen,

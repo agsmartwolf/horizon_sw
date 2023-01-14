@@ -3,7 +3,7 @@ import type { PurchasableProductData } from 'types/shared/products';
 import ProductPreviewCardPurchasable from './ProductPreviewCardPurchasable';
 import ProductPreviewCardSimple from './ProductPreviewCardSimple';
 import ProductPreviewCardSkeleton from './ProductPreviewCardSkeleton';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 
 import styles from './ProductPreview.module.css';
 
@@ -28,7 +28,7 @@ const ProductPreviewCard: React.FC<ProductPreviewCardProps> = ({
     return !hasStandardPrice ? 'From ' : '';
   }, [product?.purchaseOptions?.standard?.price]);
 
-  const className = useClassNames(props.className, styles.productWrapper);
+  const className = cn(props.className, styles.productWrapper);
 
   if (loading) return <ProductPreviewCardSkeleton />;
 

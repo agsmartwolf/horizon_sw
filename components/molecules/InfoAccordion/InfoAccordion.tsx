@@ -2,7 +2,7 @@ import React from 'react';
 import Plus from 'assets/icons/plus.svg';
 import Minus from 'assets/icons/minus.svg';
 import RichText from 'components/atoms/RichText';
-import useClassNames from 'hooks/useClassNames';
+import cn from 'classnames';
 import { Disclosure, Transition } from '@headlessui/react';
 
 export interface InfoAccordionProps {
@@ -18,7 +18,7 @@ const InfoAccordion: React.FC<InfoAccordionProps> = ({
   accordionStyle = 'default',
   className,
 }) => {
-  const classNames = useClassNames(
+  const classNames = cn(
     'flex flex-col overflow-hidden px-6 rounded-lg',
     'lg:px-8',
     {

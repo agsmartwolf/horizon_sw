@@ -26,7 +26,6 @@ const ProductDisplay: React.FC<ProductDisplayProps> = ({
       <Link href={href} className="safe-aspect-4-3 relative overflow-hidden">
         <Image
           {...image}
-          
           alt={image.alt}
           className={`rounded-image ${image.className}`}
           objectFit="cover"

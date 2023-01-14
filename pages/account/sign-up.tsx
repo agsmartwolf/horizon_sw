@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import type { GetServerSideProps } from 'next';
@@ -96,7 +96,7 @@ const SignUpPage: NextPageWithLayout<
   const send = useNotificationStore(store => store.send);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState(router.query.email ?? '');
+  const [email, setEmail] = useState((router.query.email as string) ?? '');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<{
     field: ACCOUNT_FIELD;
@@ -202,7 +202,7 @@ const SignUpPage: NextPageWithLayout<
   }, [router, send, text]);
 
   const handleSubmit = useCallback(
-    async e => {
+    async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       await fetchApi(
         {
