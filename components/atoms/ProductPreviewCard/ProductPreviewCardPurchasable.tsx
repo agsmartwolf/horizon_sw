@@ -54,7 +54,7 @@ const ProductPreviewCardPurchasable: React.FC<
   }, [activeVariation, origPrice, price]);
 
   const containerClassNames =
-    'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-gray-100';
+    'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-white';
 
   return (
     <div
@@ -66,7 +66,7 @@ const ProductPreviewCardPurchasable: React.FC<
         dispatch={dispatch}
         addToCart={addToCart}
         focusOnRef={wrapperRef}
-        className="safe-aspect-square relative overflow-hidden lg:pb-[125%] bg-gray-200"
+        className="safe-aspect-square relative overflow-hidden lg:pb-[125%] bg-white"
         hoverableElement={props => (
           <Link {...props} href={href}>
             <Image

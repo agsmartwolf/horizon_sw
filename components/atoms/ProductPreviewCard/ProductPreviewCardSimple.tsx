@@ -23,22 +23,26 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
   const { description, image, price, origPrice, title, href = '#' } = product;
 
   const containerClassNames =
-    'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-gray-100';
+    'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-white border-[1px] border-gray-100';
 
   return (
     <div
       {...props}
       className={[containerClassNames, props.className].join(' ')}>
-      <Link href={href} className="bg-gray-100 px-12">
-        <div className="safe-aspect-4-3 relative overflow-hidden lg:pb-[125%]">
+      <Link href={href} className="bg-white">
+        <div className="safe-aspect-square relative overflow-hidden">
           <Image
             src={image.src}
             alt={image?.alt}
             className={`${image?.className ?? ''}`}
             sizes={'33vw'}
-            fill
             style={{
-              objectFit: 'none',
+              position: 'absolute',
+              width: "100%",
+              top: 0,
+              left: 0,
+              height: "100%",
+              objectFit: "contain",
             }}
           />
         </div>
