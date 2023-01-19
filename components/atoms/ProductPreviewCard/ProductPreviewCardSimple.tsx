@@ -29,8 +29,8 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
     <div
       {...props}
       className={[containerClassNames, props.className].join(' ')}>
-      <Link href={href} className="bg-white">
-        <div className="safe-aspect-square relative overflow-hidden">
+      <Link href={href}>
+        <div className="safe-aspect-square relative overflow-hidden bg-white">
           <Image
             src={image.src}
             alt={image?.alt}
@@ -46,29 +46,27 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
             }}
           />
         </div>
-      </Link>
-      <div
-        className={'flex flex-col md:flex-row px-5 py-5 lg:px-10 bg-gray-200'}>
-        <div className="flex flex-col lg:pr-2">
-          <Link href={href}>
-            <h4 className="font-headings text-md font-semibold line-clamp-2 lg:text-sm">
+        <div className="flex flex-col md:flex-row px-2.5 py-2.5 lg:p-5 bg-gray-200">
+          <div className="flex flex-col lg:pr-2">
+            <h4 className="text-md font-medium md:font-bold lg:text-sm mb-2 block truncate">
+              {/*<h4 className="text-md font-medium md:font-bold line-clamp-2 lg:text-sm mb-2">*/}
               {title}
             </h4>
-          </Link>
-          {show_product_description && (
-            <span
-              className="text-sm text-body line-clamp-2"
-              dangerouslySetInnerHTML={{ __html: description }}
-            />
+            {show_product_description && (
+              <span
+                className="text-sm text-body line-clamp-2"
+                dangerouslySetInnerHTML={{ __html: description }}
+              />
+            )}
+          </div>
+          {price && show_product_price && (
+            <div className="text-md font-semibold lg:text-sm">
+              {fromPriceLabel}
+              <Price price={price} origPrice={origPrice} />
+            </div>
           )}
         </div>
-        {price && show_product_price && (
-          <div className="text-md font-semibold lg:text-sm">
-            {fromPriceLabel}
-            <Price price={price} origPrice={origPrice} />
-          </div>
-        )}
-      </div>
+      </Link>
     </div>
   );
 };

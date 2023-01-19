@@ -19,7 +19,7 @@ import ProductHeader, {
 import getGQLClient from 'lib/graphql/client';
 import { getProductBySlug } from 'lib/shop/fetchingFunctions';
 import type { MandatoryImageProps } from 'types/global';
-import { BUTTON_TYPE } from 'types/shared/button';
+import { BUTTON_STYLE, BUTTON_TYPE } from 'types/shared/button';
 import {
   ProductOption,
   PurchasableProductData,
@@ -40,7 +40,6 @@ import useCurrency from 'stores/currency';
 import { withMainLayout } from 'lib/utils/fetch_decorators';
 import type { ParsedUrlQuery } from 'querystring';
 import StatusIndicator from 'components/atoms/StatusIndicator';
-import { useEffect } from 'react';
 
 export enum LAYOUT_ALIGNMENT {
   STANDARD = 'standard',
@@ -169,7 +168,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
 }) => {
   const { locale } = useRouter();
 
-  const [liveSettings, setLiveSettings] = useState(settings);
+  const [liveSettings] = useState(settings);
 
   const { productOptions, purchaseOptions, productVariants, upSells } =
     useCurrencySubscription({
@@ -221,59 +220,18 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
     addToCart();
   }
 
-  const imageSectionClasses = cn({
-    'lg:order-1': liveSettings.layoutOptions === LAYOUT_ALIGNMENT.LEFT_ALIGNED,
-  });
-
-  // Set up message listeners to update the settings when the user changes them from the editor
-  useEffect(() => {
-    // Only enable the live updates if the editor variable is set to true
-    if (process.env.NEXT_PUBLIC_SWELL_EDITOR !== 'true') return;
-
-    let toCamelCase: (string?: string | undefined) => string | undefined;
-
-    import('lodash.camelcase').then(pkg => {
-      toCamelCase = pkg.default;
-    });
-
-    const handler = async (event: MessageEvent) => {
-      const { type, details } = event.data;
-
-      if (
-        type !== 'content.updated' ||
-        details?.model !== 'products' ||
-        !details.value
-      )
-        return;
-
-      const camelCasedSettings = Object.entries(details.value).reduce(
-        (acc, [key, value]) => ({
-          ...acc,
-          [toCamelCase(key) ?? '']: value,
-        }),
-        {},
-      );
-
-      setLiveSettings(camelCasedSettings as ProductSettings);
-    };
-
-    window.addEventListener('message', handler);
-
-    return () => {
-      window.removeEventListener('message', handler);
-    };
-  }, []);
+  const imageSectionClasses = cn('mt-10 pl-8');
 
   return (
     <div>
       <Head>
-        <title>{meta.title} - Horizon</title>
+        <title>{meta.title} - SW</title>
         <meta name="description" content={meta.description} />
       </Head>
       <article className="flex flex-col lg:grid lg:grid-cols-2">
         <section className={imageSectionClasses}>
           <div className="top-0 lg:sticky">
-            <ImageGallery images={images} aspectRatio="8/9" />
+            <ImageGallery images={images} aspectRatio="12/10" />
           </div>
         </section>
         <aside className="mt-10 lg:px-14">
@@ -284,7 +242,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
             )}
             {liveSettings.calloutTitle || liveSettings.calloutDescription ? (
               <div className="mt-10">
-                <div className="rounded-md bg-background-secondary py-4 px-8 text-center text-black">
+                <div className="rounded-md bg-secondary py-4 px-8 text-center text-black">
                   {liveSettings.calloutTitle ? (
                     <p
                       className="text-lg font-semibold"
@@ -304,7 +262,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                 </div>
               </div>
             ) : null}
-            <form onSubmit={handleSubmit} className="flex flex-col">
+            <form onSubmit={handleSubmit} className="flex flex-col mb-5">
               {!!productOptions.length && (
                 <ProductOptions
                   options={productOptions}
@@ -353,27 +311,16 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                   className="mt-4"
                 />
               )}
-              <div className="mt-4 flex gap-2">
-                {liveSettings.enableProductCounter && (
-                  <CounterInput
-                    value={state.quantity}
-                    onChange={quantity =>
-                      dispatch({
-                        type: ACTIONS.SET_QUANTITY,
-                        payload: quantity,
-                      })
-                    }
-                    min={1}
-                    max={maxQuantity}
-                  />
-                )}
+              <div className="mt-4 inline-grid grid-cols-3 gap-2">
                 <Button
+                  className={'col-span-2'}
+                  buttonStyle={BUTTON_STYLE.SECONDARY}
                   elType={BUTTON_TYPE.BUTTON}
                   fullWidth
                   type="submit"
                   disabled={stockStatus === STOCK_STATUS.OUT_OF_STOCK}>
                   {/* TODO: i18n */}
-                  ADD TO BAG -{' '}
+                  Add to cart -{' '}
                   {state.selectedPurchaseOption ===
                   PURCHASE_OPTION_TYPE.SUBSCRIPTION ? (
                     <Price
@@ -387,6 +334,20 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                     />
                   )}
                 </Button>
+                {liveSettings.enableProductCounter && (
+                  <CounterInput
+                    className="col-span-1 justify-between"
+                    value={state.quantity}
+                    onChange={quantity =>
+                      dispatch({
+                        type: ACTIONS.SET_QUANTITY,
+                        payload: quantity,
+                      })
+                    }
+                    min={1}
+                    max={maxQuantity}
+                  />
+                )}
               </div>
             </form>
             {!!expandableDetails.length && (

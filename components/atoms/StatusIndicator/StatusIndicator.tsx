@@ -57,7 +57,7 @@ const StatusIndicator: React.FC<StatusIndicatorProps> = ({
 }) => {
   const template = useMemo(() => STATUS_MAP.get(status), [status]);
   return (
-    <div className="inline-flex items-center gap-[6px] rounded-lg bg-background-secondary px-2 py-1">
+    <div className="inline-flex items-center gap-[6px] rounded-lg bg-secondary px-2 py-1">
       <div
         className="h-2 w-2 rounded-full"
         style={{ backgroundColor: template?.color }}></div>

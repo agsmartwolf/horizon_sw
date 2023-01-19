@@ -102,7 +102,7 @@ const PlanSelect: React.FC<PlanSelectProps> = ({
             </span>
           </Listbox.Button>
 
-          <Listbox.Options className="w-full rounded-b-lg border border-t-0 border-primary bg-background-black px-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1">
+          <Listbox.Options className="w-full rounded-b-lg border border-t-0 border-primary bg-black px-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1">
             <hr className="border-t border-dividers" />
             <div className="pt-3 pb-4">
               {plans.map(plan => (
@@ -110,7 +110,7 @@ const PlanSelect: React.FC<PlanSelectProps> = ({
                   {({ active }) => (
                     <div
                       className={`flex cursor-pointer justify-between rounded-lg px-2 py-3 text-sm text-black ${
-                        active ? 'bg-background-secondary' : ''
+                        active ? 'bg-secondary' : ''
                       }`}>
                       <span className="flex gap-2">
                         <SyncIcon className="w-6" />

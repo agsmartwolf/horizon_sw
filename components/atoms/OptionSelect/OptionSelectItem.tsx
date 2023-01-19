@@ -25,12 +25,12 @@ const OptionSelectItem: React.FC<OptionSelectItemProps> = ({
   }
 
   const labelClassNames = cn(
-    'border rounded-lg p-[10px] text-sm transition duration-[250ms] cursor-pointer',
+    'border p-[10px] text-sm transition duration-[250ms] cursor-pointer min-w-10',
     'peer-focus-visible:ring-2 peer-focus-visible:ring-accent peer-focus-visible:ring-offset-1',
     {
-      'border-green-100 bg-green-100 text-black-100': active,
-      'border-body bg-background-grey-100 text-black': !active,
-      'border-disabled bg-background-grey-100 text-disabled': disabled,
+      'border-black bg-green-100 text-black-100': active,
+      'border-body bg-grey-100 text-black border-gray-300': !active,
+      'border-disabled bg-grey-100 text-disabled': disabled,
     },
     className,
   );

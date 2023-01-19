@@ -15,7 +15,7 @@ const StackSelectCard: React.FC<StackSelectCardProps> = ({
   return (
     <article
       className={cn(
-        'all-ease-in-out-400 relative h-14 w-full max-w-[342px] rounded-lg border bg-background-black',
+        'all-ease-in-out-400 relative h-14 w-full max-w-[342px] rounded-lg border bg-black',
         'lg:w-[342px]',
         {
           'border-transparent shadow-3xl': !checked,

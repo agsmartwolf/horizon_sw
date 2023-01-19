@@ -23,7 +23,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     <Transition
       show={show}
       aria-live="polite"
-      className="absolute z-[-1] w-full bg-background-black p-6 transition-transform lg:hidden"
+      className="absolute z-[-1] w-full bg-black p-6 transition-transform lg:hidden"
       enter={`duration-1000 ease-out ${
         openDelay ? 'delay-[700ms] lg:delay-[400ms]' : 'delay-[400ms]'
       }`}

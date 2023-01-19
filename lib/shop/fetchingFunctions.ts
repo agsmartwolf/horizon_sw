@@ -192,9 +192,15 @@ export async function getProductBySlug(
   });
   const { productBySlug: product } = response.data;
 
+  // reduce categories to one string by name prop
+  const subtitle = product?.categories?.reduce(
+    (acc, category) => `${acc ? `${acc} >` : ''} ${category?.name} `,
+    '',
+  );
+
   const details: ProductHeaderProps = {
     title: product?.name ?? '',
-    subtitle: product?.categories?.[0]?.name ?? '',
+    subtitle: subtitle ?? '',
     description: product?.description ?? '',
   };
 

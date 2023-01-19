@@ -28,7 +28,11 @@ const ProductPreviewCard: React.FC<ProductPreviewCardProps> = ({
     return !hasStandardPrice ? 'From ' : '';
   }, [product?.purchaseOptions?.standard?.price]);
 
-  const className = cn(props.className, styles.productWrapper);
+  const className = cn(
+    props.className,
+    styles.productWrapper,
+    'transition-all ease-in-out hover:scale-110 hover:drop-shadow-lg duration-150',
+  );
 
   if (loading) return <ProductPreviewCardSkeleton />;
 

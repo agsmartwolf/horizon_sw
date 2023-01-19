@@ -4,6 +4,10 @@ import type { Currency } from 'types/shared/currency';
 
 export const initialCurrencies: Currency[] = [
   {
+    code: 'GEL',
+    symbol: '₾',
+  },
+  {
     code: 'USD',
     symbol: '$',
   },
@@ -21,7 +25,7 @@ const useCurrency = create(
     setCurrencies: (currencies: Currency[]) => set(() => ({ currencies })),
     formatPrice: new Intl.NumberFormat('en-US', {
       compactDisplay: 'short',
-      currency: 'USD',
+      currency: 'GEL',
       style: 'currency',
     }).format,
   })),

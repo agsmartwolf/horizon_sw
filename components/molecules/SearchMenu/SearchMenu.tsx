@@ -89,7 +89,7 @@ const SearchMenu: React.FC<SearchMenuProps> = ({
     <div className="relative z-[-1]">
       <Transition
         show={show}
-        className="shadow-md absolute w-full bg-background-black transition-transform"
+        className="shadow-md absolute w-full bg-black transition-transform"
         enter={`ease-out duration-[600ms] ${
           openDelay ? 'delay-[1000ms] lg:delay-[300ms]' : 'delay-[300ms]'
         }`}

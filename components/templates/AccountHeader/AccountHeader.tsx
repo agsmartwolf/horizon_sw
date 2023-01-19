@@ -36,7 +36,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
   const router = useRouter();
 
   const classNames = cn(
-    'sticky top-0 left-0 z-header w-full font-headings bg-background-black transform transition-transform duration-500 ease-in-out',
+    'sticky top-0 left-0 z-header w-full font-headings bg-black transform transition-transform duration-500 ease-in-out',
     {
       '-translate-y-full': shouldHide && !showMobileMenu,
       'shadow-3xl md:shadow-none': !!(pageTitle && mobileMenuLinks),

@@ -36,9 +36,7 @@ const ImageThumbnails = React.forwardRef<
       <ul
         ref={ref}
         {...props}
-        className={['flex flex-col items-center gap-1', props.className].join(
-          ' ',
-        )}>
+        className={['flex items-center gap-1', props.className].join(' ')}>
         {images.map((image, i) => (
           <li key={image.src.toString()}>
             <button
@@ -59,8 +57,7 @@ const ImageThumbnails = React.forwardRef<
                   width={imageSize}
                   height={imageSize}
                   alt={image.alt}
-                  className={['object-cover', image.className].join(' ')}
-                  layout="intrinsic"
+                  className={[image.className].join(' ')}
                 />
               </div>
             </button>

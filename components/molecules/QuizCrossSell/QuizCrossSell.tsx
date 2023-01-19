@@ -23,7 +23,7 @@ const QuizCrossSell: React.FC<QuizCrossSellProps> = ({
   return (
     <section
       className={[
-        'flex w-full flex-col items-center justify-center gap-y-10 bg-background-secondary py-14 lg:gap-y-14 lg:py-[72px]',
+        'flex w-full flex-col items-center justify-center gap-y-10 bg-secondary py-14 lg:gap-y-14 lg:py-[72px]',
         props.className ?? '',
       ].join(' ')}>
       <h2 className="text-center font-headings text-2xl font-semibold leading-[1.5] text-black lg:text-5xl">

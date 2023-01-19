@@ -11,9 +11,11 @@ interface UseProductStockArgs extends StockStatusArgs {
   activeVariation?: ActiveVariation | undefined;
 }
 
-type useProductStock = (args: UseProductStockArgs) => [STOCK_STATUS, number];
+type useProductStockType = (
+  args: UseProductStockArgs,
+) => [STOCK_STATUS, number];
 
-const useProductStock: useProductStock = ({
+const useProductStock: useProductStockType = ({
   stockLevel,
   stockPurchasable,
   stockTracking,

@@ -513,7 +513,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
               enterTo="translate-x-0"
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
-              className="fixed right-0 top-0 flex h-screen w-screen max-w-[22rem] flex-col bg-background-black transition-transform duration-400">
+              className="fixed right-0 top-0 flex h-screen w-screen max-w-[22rem] flex-col bg-black transition-transform duration-400">
               <div className="flex flex-1 flex-col overflow-auto px-6 pb-6">
                 <div className="flex items-center justify-between py-4 text-white">
                   <div className="flex gap-4">
@@ -605,7 +605,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                 </ul>
               </div>
 
-              <div className="sticky bottom-0 flex flex-col gap-6 bg-background-black p-6 shadow-3xl">
+              <div className="sticky bottom-0 flex flex-col gap-6 bg-black p-6 shadow-3xl">
                 <ul className="flex flex-wrap items-center gap-2">
                   {activeFilters?.map(filter =>
                     Array.from(filter.values).map(value => (
@@ -828,7 +828,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
               : products.map(product => (
                   <li key={product.id}>
                     <ProductPreviewCard
-                      className="animate-fade-in duration-75"
+                      className="animate-fade-in"
                       product={{
                         ...product,
                         hasQuickAdd:

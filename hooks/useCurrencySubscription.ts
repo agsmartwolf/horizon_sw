@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 import useCurrencyStore from 'stores/currency';
 
 interface CurrencySubscriptionData<T, K> {
@@ -28,7 +28,9 @@ export default function useCurrencySubscription<T, K extends T>({
         }
       }
     }
-    fetchData();
+    startTransition(() => {
+      fetchData();
+    });
     return () => {
       mounted = false;
     };

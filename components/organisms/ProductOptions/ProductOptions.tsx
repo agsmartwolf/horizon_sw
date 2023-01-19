@@ -1,20 +1,30 @@
 import React, { ChangeEvent, useCallback, useMemo } from 'react';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import { OPTION_INPUT_TYPE, ProductOption } from 'types/shared/products';
 import { Action, ACTIONS } from 'hooks/useProductSelection';
 import ProductOptionContainer from 'components/molecules/ProductOptionContainer';
+import ProductColorSelect from '../../atoms/ProductColorSelect';
+import dynamic from 'next/dynamic';
+
+// TODO replace with dynamic import
+// import OptionSelectItem from 'components/atoms/OptionSelect/OptionSelectItem';
+// import Input from 'components/atoms/Input';
+// import Textarea from 'components/atoms/Textarea';
+// import Toggle from 'components/molecules/Toggle';
+
 const OptionSelectItem = dynamic(
   () => import('components/atoms/OptionSelect/OptionSelectItem'),
+  { ssr: false },
 ) as (props: any) => JSX.Element;
-const Input = dynamic(() => import('components/atoms/Input')) as (
-  props: any,
-) => JSX.Element;
-const Textarea = dynamic(() => import('components/atoms/Textarea')) as (
-  props: any,
-) => JSX.Element;
-const Toggle = dynamic(() => import('components/molecules/Toggle')) as (
-  props: any,
-) => JSX.Element;
+const Input = dynamic(() => import('components/atoms/Input'), {
+  ssr: false,
+}) as (props: any) => JSX.Element;
+const Textarea = dynamic(() => import('components/atoms/Textarea'), {
+  ssr: false,
+}) as (props: any) => JSX.Element;
+const Toggle = dynamic(() => import('components/molecules/Toggle'), {
+  ssr: false,
+}) as (props: any) => JSX.Element;
 
 export interface ProductOptionsProps {
   options: ProductOption[];
@@ -106,6 +116,28 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
     (productOption: ProductOption) => {
       if (isGiftCard) {
         return selectOption(productOption);
+      }
+
+      switch (productOption.attributeId) {
+        case 'color': {
+          return productOption.values?.map(({ id, name }) => (
+            <ProductColorSelect
+              key={id}
+              name={productOption.name || productOption.attributeId}
+              value={id}
+              label={name}
+              onChange={(valueId: string) =>
+                onChange?.({
+                  type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,
+                  payload: { optionId: productOption.id, valueId },
+                })
+              }
+              active={selectedOptions.get(productOption.id) === id}
+            />
+          ));
+        }
+        default: {
+        }
       }
 
       switch (productOption.inputType) {

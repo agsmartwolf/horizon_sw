@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { startTransition, useState } from 'react';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { Icon } from '@iconify/react';
 import { Transition } from '@headlessui/react';
@@ -20,7 +20,11 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
     <TooltipPrimitive.Provider>
       <TooltipPrimitive.Root open={open} onOpenChange={value => setOpen(value)}>
         <TooltipPrimitive.Trigger
-          onClick={() => setOpen(true)}
+          onClick={() =>
+            startTransition(() => {
+              setOpen(true);
+            })
+          }
           type="button"
           className="flex">
           {customTrigger ?? (

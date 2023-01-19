@@ -13,7 +13,7 @@ const QuizResultsCart: React.FC<QuizResultsCartProps> = ({
   selectedProducts,
 }) => {
   return (
-    <section className="bg-background-black px-6 py-12">
+    <section className="bg-black px-6 py-12">
       <div className="mx-auto max-w-[964px]">
         <QuizResults
           resultsGroups={resultsGroups}

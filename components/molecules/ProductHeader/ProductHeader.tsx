@@ -16,9 +16,7 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
   tag,
 }) => (
   <div>
-    <h5 className="font-headings text-md font-semibold uppercase text-body">
-      {subtitle}
-    </h5>
+    <h5 className="capitalize text-sm font-body text-gray-400">{subtitle}</h5>
     <h3 className="mt-2 font-headings text-5xl font-semibold text-black">
       {title}
     </h3>

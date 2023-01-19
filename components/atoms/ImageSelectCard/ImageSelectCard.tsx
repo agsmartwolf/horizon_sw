@@ -24,7 +24,7 @@ const ImageSelectCard: React.FC<ImageSelectCardProps> = ({
   ...props
 }) => {
   const cardClasses = cn(
-    'relative flex h-28 w-full max-w-[342px] cursor-pointer items-center gap-x-4 rounded-lg border py-4 px-6 all-ease-in-out-400 bg-background-black',
+    'relative flex h-28 w-full max-w-[342px] cursor-pointer items-center gap-x-4 rounded-lg border py-4 px-6 all-ease-in-out-400 bg-black',
     'lg:h-[220px] lg:w-[220px] lg:flex-col lg:justify-between lg:gap-x-0 lg:py-[35px]',
     {
       'border-transparent shadow-3xl': !checked,

@@ -51,7 +51,7 @@ const Navbar: React.FC<NavbarProps> = ({
   );
 
   return (
-    <div className="bg-background-black">
+    <div className="bg-black">
       <div
         className={`${
           SECTION_PADDING_MAP[horizontalPadding ?? SPACING.MEDIUM]

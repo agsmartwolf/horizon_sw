@@ -240,7 +240,7 @@ const QuickAdd: React.FC<QuickAddProps> = ({
                 leaveTo="opacity-0 max-h-0">
                 <Popover.Panel
                   static
-                  className="absolute bottom-4 left-4 right-4 hidden w-[calc(100%-32px)] rounded-1.5xl bg-background-grey-100 p-4 shadow-2xl lg:block"
+                  className="absolute bottom-4 left-4 right-4 hidden w-[calc(100%-32px)] rounded-1.5xl bg-gray-100 p-4 shadow-2xl lg:block"
                   ref={panelRef}
                   onMouseEnter={openQuickAdd}
                   onMouseLeave={closeQuickAdd}
@@ -312,7 +312,7 @@ const QuickAdd: React.FC<QuickAddProps> = ({
           ) : (
             <Transition
               show={!open && (quickAddOpen || added)}
-              className="path-fill-black-100 hover:path-fill-background-black absolute bottom-4 left-4 right-4 z-30 hidden w-[calc(100%-32px)] text-center transition-opacity ease-in-out lg:inline-block"
+              className="path-fill-black-100 hover:path-fill-black absolute bottom-4 left-4 right-4 z-30 hidden w-[calc(100%-32px)] text-center transition-opacity ease-in-out lg:inline-block"
               enter="transition-opacity duration-1800"
               enterFrom="opacity-0"
               enterTo="opacity-100"
@@ -341,7 +341,7 @@ const QuickAdd: React.FC<QuickAddProps> = ({
             leave="transition-opacity duration-800"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
-            className="path-fill-black-100 hover:path-fill-background-black pointer-events-none absolute bottom-4 left-4 right-4 z-30 hidden w-[calc(100%-32px)] text-center transition-opacity ease-in-out lg:inline-block"
+            className="path-fill-black-100 hover:path-fill-black pointer-events-none absolute bottom-4 left-4 right-4 z-30 hidden w-[calc(100%-32px)] text-center transition-opacity ease-in-out lg:inline-block"
             as={Button}
             elType={BUTTON_TYPE.BUTTON}
             hasBorder={false}

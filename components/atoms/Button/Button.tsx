@@ -71,7 +71,7 @@ const Button = React.forwardRef<
     ref,
   ) => {
     const classNames = cn(
-      'inline-block border text-md text-center font-bold capitalize all-ease-in-out-400',
+      'inline-block border text-md text-center font-bold first-letter:uppercase all-ease-in-out-400',
       'disabled:pointer-events-none disabled:select-none',
       {
         [joinClasses(

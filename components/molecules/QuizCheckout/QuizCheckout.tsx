@@ -77,7 +77,7 @@ const QuizCheckout = React.forwardRef<HTMLDivElement, QuizCheckoutProps>(
     return (
       <aside
         className={joinClasses(
-          'flex flex-col gap-y-8 bg-background-black p-6',
+          'flex flex-col gap-y-8 bg-black p-6',
           'lg:max-w-[528px] lg:gap-y-10 lg:bg-transparent lg:px-12 lg:py-0',
           props.className ?? '',
         )}

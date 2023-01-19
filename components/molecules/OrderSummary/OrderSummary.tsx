@@ -44,10 +44,9 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
 
   return (
     <div
-      className={[
-        'w-full rounded-xl bg-background-secondary p-6',
-        className ?? '',
-      ].join(' ')}>
+      className={['w-full rounded-xl bg-secondary p-6', className ?? ''].join(
+        ' ',
+      )}>
       <table className="w-full text-sm text-black">
         {caption && (
           <caption className="mb-4 text-left text-2xl font-semibold text-black">

@@ -54,7 +54,7 @@ const ProductPreviewCardPurchasable: React.FC<
   }, [activeVariation, origPrice, price]);
 
   const containerClassNames =
-    'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-white';
+    'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-white  border-[1px] border-gray-100 cursor-pointer';
 
   return (
     <div
@@ -66,14 +66,22 @@ const ProductPreviewCardPurchasable: React.FC<
         dispatch={dispatch}
         addToCart={addToCart}
         focusOnRef={wrapperRef}
-        className="safe-aspect-square relative overflow-hidden lg:pb-[125%] bg-white"
+        className="safe-aspect-square relative overflow-hidden bg-white"
         hoverableElement={p => (
           <Link {...p} href={href}>
             <Image
-              {...image}
+              src={image.src}
               alt={image?.alt}
               className={`${image?.className ?? ''}`}
-              fill
+              sizes={'33vw'}
+              style={{
+                position: 'absolute',
+                width: '100%',
+                top: 0,
+                left: 0,
+                height: '100%',
+                objectFit: 'contain',
+              }}
             />
           </Link>
         )}
@@ -81,28 +89,27 @@ const ProductPreviewCardPurchasable: React.FC<
         addedToBagLabel="Added to bag"
         nextLabel="Next"
       />
-
-      <div className={'px-5 py-5 lg:px-10'}>
-        <div className="flex flex-col" ref={wrapperRef}>
-          <Link href={href}>
-            <h4 className="font-headings text-md font-semibold line-clamp-2 lg:text-sm">
+      <Link href={href} className="cursor-pointer">
+        <div className="flex flex-col md:flex-row px-2.5 py-2.5 lg:p-5 bg-gray-200">
+          <div className="flex flex-col lg:pr-2" ref={wrapperRef}>
+            <h4 className="text-md font-medium md:font-bold lg:text-sm mb-2 block truncate">
               {title}
             </h4>
-          </Link>
-          {show_product_description && (
-            <span
-              className="text-sm text-body line-clamp-2"
-              dangerouslySetInnerHTML={{ __html: description }}
-            />
+            {show_product_description && (
+              <span
+                className="text-sm text-body line-clamp-2"
+                dangerouslySetInnerHTML={{ __html: description }}
+              />
+            )}
+          </div>
+          {show_product_price && (
+            <div className="text-lg font-semibold lg:text-sm">
+              {fromPriceLabel}
+              <Price price={activePrice} origPrice={activeOrigPrice} />
+            </div>
           )}
         </div>
-        {show_product_price && (
-          <div className="text-lg font-semibold lg:text-sm">
-            {fromPriceLabel}
-            <Price price={activePrice} origPrice={activeOrigPrice} />
-          </div>
-        )}
-      </div>
+      </Link>
     </div>
   );
 };

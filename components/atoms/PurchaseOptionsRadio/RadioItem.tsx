@@ -36,7 +36,7 @@ const RadioItem: React.FC<RadioItemProps> = ({
   );
 
   const iconClassNames = cn('w-4 h-4 transition-all duration-[250ms]', {
-    'fill-background-black stroke-input-standard': value !== activeValue,
+    'fill-black stroke-input-standard': value !== activeValue,
     'fill-black-100 stroke-primary': value === activeValue,
   });
 

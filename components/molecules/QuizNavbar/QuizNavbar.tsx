@@ -51,9 +51,9 @@ const QuizNavbar: React.FC<QuizNavbarProps> = ({
         'lg:h-30',
         containerClassName,
         {
-          'border-dividers bg-background-black': !transparent,
+          'border-dividers bg-black': !transparent,
           [joinClasses(
-            'border-dividers bg-background-black',
+            'border-dividers bg-black',
             'lg:border-transparent lg:bg-transparent',
           )]: transparent,
         },

@@ -21,7 +21,7 @@ const CartTotal: React.FC<CartTotalProps> = ({
   return (
     <div
       className={[
-        'flex flex-col gap-6 bg-background-white p-6 shadow-3xl',
+        'flex flex-col gap-6 bg-white p-6 shadow-3xl',
         className,
       ].join(' ')}>
       <div className="flex justify-between text-sm font-semibold uppercase text-black">

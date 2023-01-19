@@ -51,7 +51,7 @@ const Cart: React.FC<CartProps> = ({
           enterTo="translate-y-0 lg:translate-x-0"
           leaveFrom="translate-y-0 lg:translate-x-0"
           leaveTo="-translate-y-full lg:translate-y-0 lg:translate-x-full"
-          className="fixed left-0 top-0 flex h-screen w-screen flex-col bg-background-white transition-transform duration-400 lg:left-auto lg:right-0 lg:w-112">
+          className="fixed left-0 top-0 flex h-screen w-screen flex-col bg-white transition-transform duration-400 lg:left-auto lg:right-0 lg:w-112">
           <div className="flex-1 overflow-auto px-6 pb-4">
             <CartHeader
               label={headerLabel}

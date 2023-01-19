@@ -28,7 +28,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
       <button
         type="button"
         onClick={() => setValue?.(!value)}
-        className="absolute right-4 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-md bg-background-secondary">
+        className="absolute right-4 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-md bg-secondary">
         <Icon
           width={16}
           height={16}

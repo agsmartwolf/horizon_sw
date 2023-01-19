@@ -48,7 +48,7 @@ const SubscriptionIntervalSelect: React.FC<SubscriptionIntervalSelectProps> = ({
             <div className="relative inline-block text-sm text-black">
               <Listbox.Button
                 className={`inline-flex items-center gap-2 rounded-lg border border-dividers px-4 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                  open ? 'rounded-b-[0] bg-background-black' : ''
+                  open ? 'rounded-b-[0] bg-black' : ''
                 }`}>
                 {formatLabel(value?.billingSchedule)}
                 <ChevronSmallIcon
@@ -57,13 +57,13 @@ const SubscriptionIntervalSelect: React.FC<SubscriptionIntervalSelectProps> = ({
                   }`}
                 />
               </Listbox.Button>
-              <Listbox.Options className="absolute flex w-full flex-col gap-2 rounded-b-lg border-x border-b border-dividers bg-background-black px-2 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+              <Listbox.Options className="absolute flex w-full flex-col gap-2 rounded-b-lg border-x border-b border-dividers bg-black px-2 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
                 {plans.map(plan => (
                   <Listbox.Option key={plan?.id} value={plan}>
                     {({ active }) => (
                       <span
                         className={`block cursor-pointer rounded-lg px-2 py-1 ${
-                          active ? 'bg-background-secondary' : ''
+                          active ? 'bg-secondary' : ''
                         }`}>
                         {formatLabel(plan?.billingSchedule)}
                       </span>

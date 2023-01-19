@@ -59,7 +59,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
 }) => {
   const formatPrice = useCurrencyStore(state => state.formatPrice);
   return (
-    <div className="border-outline rounded-xl border bg-background-black p-6">
+    <div className="border-outline rounded-xl border bg-black p-6">
       <div className="md:flex md:justify-between">
         <div className="md:flex-1">
           <StatusIndicator status={status} />

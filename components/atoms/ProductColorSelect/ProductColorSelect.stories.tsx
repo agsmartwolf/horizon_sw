@@ -1,11 +1,11 @@
 import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import PerkItem from './PerkItem';
+import ProductColorSelect from './ProductColorSelect';
 
 export default {
   title: 'Atoms/ProductColorSelect',
-  component: PerkItem,
+  component: ProductColorSelect,
   argTypes: {
     text: { control: 'text' },
   },
@@ -16,14 +16,14 @@ export default {
       </div>
     ),
   ],
-} as ComponentMeta<typeof PerkItem>;
+} as ComponentMeta<typeof ProductColorSelect>;
 
-const Template: ComponentStory<typeof PerkItem> = args => (
-  <PerkItem {...args} />
+const Template: ComponentStory<typeof ProductColorSelect> = args => (
+  <ProductColorSelect {...args} />
 );
 
 export const Default = Template.bind({});
 
 Default.args = {
-  text: 'Trial for 30 days',
+  label: 'Trial for 30 days',
 };

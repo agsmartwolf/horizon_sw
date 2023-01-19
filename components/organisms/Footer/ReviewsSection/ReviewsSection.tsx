@@ -31,7 +31,7 @@ const ReviewsSection: ContentBlockComponent<ReviewsSectionProps> = ({
 
   return (
     <section
-      className={`bg-background-secondary
+      className={`bg-secondary
       ${SECTION_PADDING_MAP[horizontal_spacing]} 
       ${SECTION_VERTICAL_PADDING_MAP[vertical_spacing]}
     `}>

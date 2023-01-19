@@ -22,7 +22,7 @@ const InfoAccordion: React.FC<InfoAccordionProps> = ({
     'flex flex-col overflow-hidden px-6 rounded-lg',
     'lg:px-8',
     {
-      'bg-background-secondary': accordionStyle === 'default',
+      'bg-secondary': accordionStyle === 'default',
       'border border-primary': accordionStyle === 'secondary',
     },
   );

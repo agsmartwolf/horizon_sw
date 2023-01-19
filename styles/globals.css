@@ -1,6 +1,5 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
 
 @font-face {
   font-family: 'Sora';
@@ -38,6 +37,7 @@ html,
 body {
   @apply font-body antialiased;
 }
+@tailwind utilities;
 
 .font-headings {
   font-weight: var(--typography-font-weight-headings);
@@ -73,8 +73,8 @@ body {
     @apply fill-black-100;
   }
 
-  .path-fill-background-black path {
-    @apply fill-background-black;
+  .path-fill-black path {
+    @apply fill-black;
   }
 
   .straight-quotation {

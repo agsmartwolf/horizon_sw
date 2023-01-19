@@ -15,7 +15,7 @@ import {
   VERTICAL_ALIGNMENT,
 } from '../types/shared/alignment';
 import { useViewport } from '../hooks/useViewport';
-import Swiper from '../components/atoms/Swiper';
+import Swiper from 'components/atoms/Swiper';
 import type { ServerSideProps } from '../types/shared/pages';
 import ProductPreviewCard from '../components/atoms/ProductPreviewCard';
 import type { SwellProduct } from 'lib/graphql/generated/sdk';
@@ -88,10 +88,10 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
       <div className={'bg-black-100'}>
         <FullWidthMedia
           title={
-            '<p class="uppercase text-xl md:text-2xl">Make your dog more</p>'
+            '<p class="uppercase text-xl md:text-2xl text-white">Make your dog more</p>'
           }
           description={
-            '<h1 class="text-green-100 text-9xl md:text-14xl uppercase font-semibold">brighter</h1>'
+            '<h1 class="text-green-100 text-9xl md:text-14xl uppercase font-semibold mb-12">brighter</h1>'
           }
           links={[
             {
@@ -118,8 +118,8 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
               : {
                   src: '/images/landing/desktop/hero.png',
                   alt: "Close-up of a Woman's face, with the skin on focus",
-                  width: 1342,
-                  height: 335,
+                  width: 1388,
+                  height: 293,
                 }
           }
           isImageAbsolute={false}
@@ -165,6 +165,7 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
           />
         </div>
         <Swiper
+          effectsEnabled
           ref={swiperRef}
           slidesPerView={isMobile ? 1.5 : 3}
           centeredSlides

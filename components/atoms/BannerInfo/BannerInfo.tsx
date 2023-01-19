@@ -26,8 +26,7 @@ const BannerInfo: React.FC<BannerInfoProps> = ({
     className={cn(
       'rounded-lg px-4 py-2.5 text-xs',
       {
-        'bg-background-secondary text-body':
-          bannerStyle === BANNER_INFO_STYLE.INFO,
+        'bg-secondary text-body': bannerStyle === BANNER_INFO_STYLE.INFO,
         'bg-error-light text-error-dark':
           bannerStyle === BANNER_INFO_STYLE.ERROR,
         'bg-success-light text-success-dark':

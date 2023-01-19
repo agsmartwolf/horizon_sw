@@ -72,7 +72,7 @@ const MembershipCard: React.FC<MembershipCardProps> = ({
     'lg:max-w-[368px]',
     {
       'border-primary border-2 bg-white': !!highlight,
-      'bg-background-black shadow-3xl': !highlight,
+      'bg-black shadow-3xl': !highlight,
     },
     props.className,
   );
@@ -84,7 +84,7 @@ const MembershipCard: React.FC<MembershipCardProps> = ({
           {highlight}
         </p>
       )}
-      <div className="z-10 flex grow flex-col items-center rounded-2xl bg-background-black px-6 pt-14 pb-6">
+      <div className="z-10 flex grow flex-col items-center rounded-2xl bg-black px-6 pt-14 pb-6">
         <header className="mb-4 flex flex-col items-center lg:mb-6">
           <div className="relative mb-8 h-20 w-20 lg:h-[100px] lg:w-[100px]">
             <Image {...image} alt={image.alt} />

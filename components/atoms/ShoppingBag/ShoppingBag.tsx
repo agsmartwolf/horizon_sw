@@ -14,7 +14,7 @@ const ShoppingBag = React.forwardRef<HTMLButtonElement, ShoppingBagProps>(
       className={['relative', props.className].join(' ')}>
       {!!itemQuantity && (
         <div
-          className="absolute -right-1 -top-1 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-white text-2xs text-background-white"
+          className="absolute -right-1 -top-1 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-white text-2xs text-black"
           style={{
             width: `calc(min(${
               itemQuantity.toString().length

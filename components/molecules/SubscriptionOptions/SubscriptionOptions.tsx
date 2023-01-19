@@ -32,7 +32,7 @@ const SubscriptionOptions: React.FC<SubscriptionOptionsProps> = ({
           <div className="relative mt-2 text-black">
             <Listbox.Button
               className={`flex w-full items-center justify-between rounded-lg border border-dividers py-2 px-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                open ? 'rounded-b-[0] bg-background-black' : ''
+                open ? 'rounded-b-[0] bg-black' : ''
               }`}>
               <span className="flex gap-2">
                 <SyncIcon className="h-6 w-6 text-black" />
@@ -55,13 +55,13 @@ const SubscriptionOptions: React.FC<SubscriptionOptionsProps> = ({
                 }`}
               />
             </Listbox.Button>
-            <Listbox.Options className="absolute z-20 flex w-full flex-col gap-2 rounded-b-lg border-x border-b border-dividers bg-background-black px-2 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+            <Listbox.Options className="absolute z-20 flex w-full flex-col gap-2 rounded-b-lg border-x border-b border-dividers bg-black px-2 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
               {plans.map(plan => (
                 <Listbox.Option key={plan?.id} value={plan}>
                   {({ active }) => (
                     <div
                       className={`flex cursor-pointer gap-2 rounded-lg px-4 py-3 text-black ${
-                        active ? 'bg-background-secondary text-body' : ''
+                        active ? 'bg-secondary text-body' : ''
                       }`}>
                       <SyncIcon className="h-6 w-6" />
                       <span className="flex flex-col items-start justify-center">

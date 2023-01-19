@@ -19,37 +19,6 @@ module.exports = {
     './hooks/**/*.{ts,tsx}',
   ],
   theme: {
-/*    colors: {
-      primary: 'var(--colors-primary)',
-      accent: 'var(--colors-accent)',
-      body: 'var(--colors-body)',
-      background: {
-        primary: 'var(--colors-background-black)',
-        secondary: 'var(--colors-background-white)',
-      },
-      disabled: '#D6D6D6',
-      dividers: 'var(--colors-dividers)',
-      input: {
-        standard: 'var(--colors-input-standard)',
-      },
-      transparent: 'transparent',
-      error: {
-        light: '#FAEDEC',
-        dark: 'var(--colors-error-dark)',
-      },
-      success: {
-        light: '#E3F2F0',
-        dark: 'var(--colors-success-dark)',
-      },
-      warning: {
-        light: '#FDF8EE',
-        dark: '#F4A732',
-      },
-      button: {
-        primary: 'var(--colors-button-primary)',
-        secondary: 'var(--colors-button-secondary)',
-      },
-    },*/
     borderRadius: {
       none: '0',
       sm: '0.125rem',
@@ -203,12 +172,7 @@ module.exports = {
         'gray-300': 'var(--gray-300)',
         'gray-400': 'var(--gray-400)',
         body: 'var(--colors-body)',
-        background: {
-          black: 'var(--colors-background-black)',
-          white: 'var(--colors-background-white)',
-          green: 'var(--colors-background-green)',
-        },
-        disabled: 'var(--gray-300)',
+        disabled: 'var(--gray-400)',
         dividers: 'var(--colors-dividers)',
         input: {
           standard: 'var(--colors-input-standard)',

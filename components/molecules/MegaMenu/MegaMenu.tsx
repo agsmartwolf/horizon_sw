@@ -101,7 +101,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
   return (
     <NavigationMenu.List
       {...props}
-      className={`hidden flex-wrap items-center gap-x-10 gap-y-4 justify-self-start lg:justify-center 2xl:justify-end bg-background-black text-md text-black lg:flex ${
+      className={`hidden flex-wrap items-center gap-x-10 gap-y-4 justify-self-start lg:justify-center 2xl:justify-end bg-black text-md text-black lg:flex ${
         props.className ?? ''
       }`}>
       {items.map((item, index) => (

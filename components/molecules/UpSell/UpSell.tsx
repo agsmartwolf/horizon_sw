@@ -17,7 +17,7 @@ const UpSell: React.FC<UpSellProps> = ({ items, className }) => {
           className="w-1/2 min-w-[54vw] shrink-0 snap-start lg:w-[322px]"
           product={{
             ...item,
-            image: { ...item.image, layout: 'responsive' },
+            image: { ...item.image, fill: undefined },
           }}
         />
       ))}

@@ -198,7 +198,7 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
             max={99}
           />
           <Button
-            className="path-fill-black-100 hover:path-fill-background-black"
+            className="path-fill-black-100 hover:path-fill-black"
             fullWidth
             elType={BUTTON_TYPE.BUTTON}
             type="submit">

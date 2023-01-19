@@ -13,7 +13,7 @@ const GridSelectCard: React.FC<GridSelectCardProps> = ({
   ...props
 }) => {
   const classNames = cn(
-    'all-ease-in-out-400 relative flex h-14 w-full max-w-[342px] items-center justify-center rounded-lg border bg-background-black',
+    'all-ease-in-out-400 relative flex h-14 w-full max-w-[342px] items-center justify-center rounded-lg border bg-black',
     'lg:w-[220px]',
     {
       'border-transparent shadow-3xl': !checked,

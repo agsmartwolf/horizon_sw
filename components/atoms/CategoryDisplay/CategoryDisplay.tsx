@@ -22,13 +22,13 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
   <div
     {...props}
     className={`flex flex-col space-y-4 overflow-visible ${props.className}`}>
-    <Link href={href} className="safe-aspect-4-3 relative overflow-hidden">
+    <Link href={href} className="relative overflow-hidden">
       <Image
         src={image.src}
         alt={image.alt}
         className={`rounded-image ${image.className}`}
-        style={{ objectFit: 'cover' }}
-        fill
+        width={image.width}
+        height={image.height}
       />
     </Link>
     <div className="flex flex-col space-y-1">

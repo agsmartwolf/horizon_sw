@@ -350,7 +350,7 @@ const LevelSlider: React.FC<LevelSliderProps> = ({
           <input
             type="radio"
             className={joinClasses(
-              'relative h-[10px] w-[10px] cursor-pointer appearance-none rounded-full bg-background-black opacity-30',
+              'relative h-[10px] w-[10px] cursor-pointer appearance-none rounded-full bg-black opacity-30',
               'after:absolute after:-inset-2 after:h-6 after:content-[""]', // Increased touch/click area
             )}
             key={id}
