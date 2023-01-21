@@ -52,8 +52,9 @@ const ProductColorSelect: React.FC<ProductColorSelectProps> = ({
       <label
         htmlFor={value}
         className={cn(
-          'border-[1px] border-gray-100 p-[2.5px] w-10 h-10 cursor-pointer',
+          'border-[1px] p-[2.5px] w-10 h-10 cursor-pointer',
           { 'border-black': active },
+          { 'border-gray-100': !active },
         )}>
         <div
           className={cn('w-full h-full', {
