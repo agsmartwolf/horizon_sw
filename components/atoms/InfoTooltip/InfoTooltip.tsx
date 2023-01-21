@@ -42,7 +42,7 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
               className="transition-opacity duration-300"
               enterFrom="opacity-0"
               enterTo="opacity-100">
-              <div className="max-w-[10rem] rounded-lg bg-body px-2 py-1.5 text-sm text-background-white">
+              <div className="max-w-[10rem] rounded-lg bg-body px-2 py-1.5 text-sm text-white">
                 {!hideArrow && (
                   <TooltipPrimitive.Arrow
                     width={19}
