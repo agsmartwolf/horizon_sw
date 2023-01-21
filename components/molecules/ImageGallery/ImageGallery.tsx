@@ -5,6 +5,8 @@ import React, { useState, useCallback } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import type { MandatoryImageProps } from 'types/global';
 import SlideNav from '../../atoms/SlideNav';
+import ArrowRight from 'assets/icons/arrow-right.svg';
+import ArrowLeft from 'assets/icons/arrow-left.svg';
 
 export interface ImageGalleryProps {
   images: MandatoryImageProps[];
@@ -53,11 +55,17 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, aspectRatio }) => {
         <ImageThumbnails
           className="hidden w-fit -translate-y-full pb-8 pl-8 lg:flex"
           images={images}
-          imageSize={47}
+          imageSize={100}
           value={currentSlide}
           onChange={value => setCurrentSlide(value)}
         />
       </div>
+      <ArrowLeft
+        width={16}
+        height={20}
+        className="text-black absolute top-1/2 left-0 z-20 md:hidden"
+        onClick={setPrevSlide}
+      />
       <div
         {...handlers}
         className="align-center relative flex w-full justify-center overflow-hidden lg:w-auto"
@@ -74,16 +82,26 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, aspectRatio }) => {
               currentSlide,
               images.length,
             )}`}>
-            <div className="h-full w-full">
+            <div className="h-full w-full px-4 lg:px-0">
               <Image
-                {...image}
+                sizes="(max-width: 640px) 100vw, 640px"
+                width={image.width}
+                height={image.height}
+                src={image.src}
                 alt={image.alt}
-                className={['object-cover', image.className].join(' ')}
+                className={[image.className].join(' ')}
+                style={{ objectFit: 'contain' }}
               />
             </div>
           </div>
         ))}
       </div>
+      <ArrowRight
+        width={16}
+        height={20}
+        className="text-black absolute right-0 top-1/2 z-20 md:hidden"
+        onClick={setNextSlide}
+      />
 
       <SlideNav
         className="absolute left-1/2 bottom-6 z-20 -translate-x-1/2 -translate-y-full lg:hidden"

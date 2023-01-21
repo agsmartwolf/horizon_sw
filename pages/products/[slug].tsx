@@ -40,6 +40,7 @@ import useCurrency from 'stores/currency';
 import { withMainLayout } from 'lib/utils/fetch_decorators';
 import type { ParsedUrlQuery } from 'querystring';
 import StatusIndicator from 'components/atoms/StatusIndicator';
+import { SECTION_PADDING_MAP, SPACING } from '../../lib/globals/sizings';
 
 export enum LAYOUT_ALIGNMENT {
   STANDARD = 'standard',
@@ -220,7 +221,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
     addToCart();
   }
 
-  const imageSectionClasses = cn('mt-10 pl-8');
+  const imageSectionClasses = cn('mt-10', SECTION_PADDING_MAP[SPACING.MEDIUM]);
 
   return (
     <div>
