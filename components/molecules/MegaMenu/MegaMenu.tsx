@@ -26,7 +26,12 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
 
     return (
       <NavigationMenu.Trigger key={index} className={defaultLinkClasses}>
-        {item.name}
+        <MenuLink
+          item={item}
+          className={
+            'text-md font-normal text-white pb-1 hover:border-b-2 border-white'
+          }
+        />
       </NavigationMenu.Trigger>
     );
   }, []);
