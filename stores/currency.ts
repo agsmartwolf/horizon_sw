@@ -26,6 +26,7 @@ const useCurrency = create(
     formatPrice: new Intl.NumberFormat('en-US', {
       compactDisplay: 'short',
       currency: 'GEL',
+      currencyDisplay: 'narrowSymbol',
       style: 'currency',
     }).format,
   })),
