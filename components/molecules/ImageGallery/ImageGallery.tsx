@@ -50,68 +50,68 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, aspectRatio }) => {
   });
 
   return (
-    <div className="relative w-full select-text">
-      <div className="sticky top-full z-20 h-0">
-        <ImageThumbnails
-          className="hidden w-fit -translate-y-full pb-8 pl-8 lg:flex"
-          images={images}
-          imageSize={100}
-          value={currentSlide}
-          onChange={value => setCurrentSlide(value)}
-        />
-      </div>
-      <ArrowLeft
-        width={16}
-        height={20}
-        className="text-black absolute top-1/2 left-0 z-20 md:hidden"
-        onClick={setPrevSlide}
-      />
-      <div
-        {...handlers}
-        className="align-center relative flex w-full justify-center overflow-hidden lg:w-auto"
-        style={{
-          aspectRatio,
-        }}>
-        {images.map((image, i) => (
-          <div
-            key={image.src.toString()}
-            aria-hidden={i !== currentSlide ? 'true' : undefined}
-            tabIndex={-1}
-            className={`absolute flex h-full w-full items-center justify-center transition-all lg:transition-opacity ${getImageClassName(
-              i,
-              currentSlide,
-              images.length,
-            )}`}>
-            <div className="h-full w-full px-4 lg:px-0">
-              <Image
-                sizes="(max-width: 640px) 100vw, 640px"
-                width={image.width}
-                height={image.height}
-                src={image.src}
-                alt={image.alt}
-                className={[image.className].join(' ')}
-                style={{ objectFit: 'contain' }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-      <ArrowRight
-        width={16}
-        height={20}
-        className="text-black absolute right-0 top-1/2 z-20 md:hidden"
-        onClick={setNextSlide}
-      />
-
-      <SlideNav
-        className="absolute left-1/2 bottom-6 z-20 -translate-x-1/2 -translate-y-full lg:hidden"
-        quantity={images.length}
+    <div className="w-full select-text flex flex-col-reverse gap-2">
+      <ImageThumbnails
+        className="hidden lg:flex overflow-y-auto w-full"
+        images={images}
+        imageSize={100}
         value={currentSlide}
-        disabled
+        onChange={value => setCurrentSlide(value)}
       />
+      <div className="relative w-full">
+        <ArrowLeft
+          width={16}
+          height={20}
+          className="text-black absolute top-1/2 left-0 z-20 md:hidden"
+          onClick={setPrevSlide}
+        />
+        <div
+          {...handlers}
+          className="align-center relative flex w-full justify-center overflow-hidden lg:w-auto"
+          style={{
+            aspectRatio,
+          }}>
+          {images.map((image, i) => (
+            <div
+              key={image.src.toString()}
+              aria-hidden={i !== currentSlide ? 'true' : undefined}
+              tabIndex={-1}
+              className={`absolute flex h-full w-full items-center justify-center transition-all lg:transition-opacity ${getImageClassName(
+                i,
+                currentSlide,
+                images.length,
+              )}`}>
+              <div className="h-full w-full px-4 lg:px-0">
+                <Image
+                  sizes="(max-width: 640px) 100vw, 640px"
+                  width={image.width}
+                  height={image.height}
+                  src={image.src}
+                  alt={image.alt}
+                  className={[image.className].join(' ')}
+                  style={{ objectFit: 'contain' }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+        <ArrowRight
+          width={16}
+          height={20}
+          className="text-black absolute right-0 top-1/2 z-20 md:hidden"
+          onClick={setNextSlide}
+        />
 
-      <div className="sr-only">
-        Image {currentSlide + 1} of {images.length}
+        <SlideNav
+          className="absolute left-1/2 bottom-6 z-20 -translate-x-1/2 -translate-y-full lg:hidden"
+          quantity={images.length}
+          value={currentSlide}
+          disabled
+        />
+
+        <div className="sr-only">
+          Image {currentSlide + 1} of {images.length}
+        </div>
       </div>
     </div>
   );

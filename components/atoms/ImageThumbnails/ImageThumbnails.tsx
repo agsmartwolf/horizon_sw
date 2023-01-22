@@ -36,28 +36,35 @@ const ImageThumbnails = React.forwardRef<
       <ul
         ref={ref}
         {...props}
-        className={['flex items-center gap-1', props.className].join(' ')}>
+        className={[
+          'flex items-center gap-1 overflow-x-auto w-full scrollbar-hidden',
+          props.className,
+        ].join(' ')}>
         {images.map((image, i) => (
-          <li key={image.src.toString()}>
+          <li key={image.src.toString()} className={'flex-none w-24 h-24'}>
             <button
               disabled={disabled}
               onClick={() => {
                 onChange?.(i);
                 setCurrent(i);
               }}
-              className={`relative border border-background-primary transition-opacity hover:opacity-100 disabled:hover:opacity-50 ${
+              className={`w-full h-full bg-white relative border border-background-primary transition-opacity hover:opacity-100 disabled:hover:opacity-50 ${
                 value === i
                   ? 'opacity-100 disabled:hover:opacity-100'
                   : 'opacity-50'
               }`}>
               {value === i && <div className="sr-only">(Current item)</div>}
-              <div className="flex w-full items-center justify-center overflow-hidden">
+              <div className="flex w-full h-full items-center justify-center overflow-hidden">
                 <Image
-                  {...image}
-                  width={imageSize}
-                  height={imageSize}
+                  sizes={`(max-width: ${imageSize}px) 100vw, ${imageSize}px`}
+                  src={image.src}
                   alt={image.alt}
                   className={[image.className].join(' ')}
+                  style={{
+                    objectFit: 'contain',
+                    height: 'auto',
+                    width: '100%',
+                  }}
                 />
               </div>
             </button>

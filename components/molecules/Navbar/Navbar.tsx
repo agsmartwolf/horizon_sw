@@ -43,7 +43,7 @@ const Navbar: React.FC<NavbarProps> = ({
   );
 
   const logoClassNames = cn(
-    'absolute lg:col-span-2 lg:static lg:translate-x-0 lg:justify-self-start transition-all duration-[400ms] ease-in-out left-0',
+    'absolute col-span-3 xl:col-span-2 lg:static lg:translate-x-0 lg:justify-self-start transition-all duration-[400ms] ease-in-out left-0',
     {
       'left-5': openMenu === MENU_TYPE.MOBILE,
       'left-1/2 -translate-x-1/2': openMenu !== MENU_TYPE.MOBILE,
@@ -70,19 +70,19 @@ const Navbar: React.FC<NavbarProps> = ({
         </Link>
 
         <Divider
-          className="hidden lg:block md:col-span-3 xl:col-span-4 xl:mr-10 "
+          className="hidden lg:block col-span-2 lg:mr-10 xl:col-span-4 lg:mx-auto lg:w-[80%]"
           vertical_spacing={DIVIDER_HEIGHT.NONE}
           background_color={'#FFFFFF'}
         />
 
         {/* Desktop nav links */}
-        <div className="md:col-span-4 xl:col-span-3">
+        <div className="col-span-4 xl:col-span-3 xl:col-start-7">
           <MegaMenu className="z-10" items={menu ?? []} />
         </div>
 
         {/* right-side icons */}
         <div
-          className={`col-start-3 lg:col-span-3 flex items-center justify-end gap-5 justify-self-end transition-transform duration-300 ease-in-out ${
+          className={`lg:col-span-3 flex items-center justify-end gap-5 justify-self-end transition-transform duration-300 ease-in-out ${
             openMenu ? '-translate-x-10 lg:translate-x-0' : ''
           }`}>
           <LocaleSelect className="hidden lg:inline-block" />

@@ -229,11 +229,9 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
         <title>{meta.title} - SW</title>
         <meta name="description" content={meta.description} />
       </Head>
-      <article className="flex flex-col lg:grid lg:grid-cols-2">
+      <article className="flex flex-col lg:grid lg:grid-cols-2 mb-4">
         <section className={imageSectionClasses}>
-          <div className="top-0 lg:sticky">
-            <ImageGallery images={images} aspectRatio="12/10" />
-          </div>
+          <ImageGallery images={images} aspectRatio="12/10" />
         </section>
         <aside className="mt-10 lg:px-14">
           <div className="px-6">
