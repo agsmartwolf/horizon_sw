@@ -120,10 +120,12 @@ export const getActiveVariation = (
   // salePrice: matchingVariant.salePrice,
   // Maybe also make purchaseOption.standard mandatory in this schema
   const standardPrice = {
-    price: matchingVariant.price,
-    origPrice: matchingVariant.origPrice,
     ...matchingVariant.purchaseOptions?.standard,
   };
+
+  standardPrice.price = standardPrice.price ?? matchingVariant.price;
+  standardPrice.origPrice =
+    standardPrice.origPrice ?? matchingVariant.origPrice;
 
   let subscriptionPrice;
 

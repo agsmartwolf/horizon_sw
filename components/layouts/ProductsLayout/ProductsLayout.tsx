@@ -49,6 +49,8 @@ import useProductSearch from '../../../hooks/useProductSearch';
 import { SECTION_PADDING_MAP, SPACING } from 'lib/globals/sizings';
 import TextBody from '../../atoms/Text/TextBody';
 import { useViewport } from '../../../hooks/useViewport';
+import useProductsStore from 'stores/products';
+import type { SwellProduct } from '../../../lib/graphql/generated/sdk';
 
 export type ProductsPerRow = 2 | 3 | 4 | 5;
 
@@ -269,11 +271,25 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     setActiveFilters(getActiveFilters(searchParams));
   }, [activeFilters, getActiveFilters, searchParams]);
 
+  const allProducts = useProductsStore(state => state.products);
+  const updateProductsStore = useProductsStore(state => state.updateProducts);
+
   async function fetchProps(mounted: boolean) {
-    const productResults = await getProductsList(
-      searchParams.get('slug')?.toString(),
-      activeCurrency.code,
-    );
+    // When it will be a LARGE amount of products, we will need to get them from server for certain filters
+    // Right now we are getting all products FOR THE FIRST TIME and filter them by client side
+
+    let productResults: SwellProduct[] = [];
+
+    if (!allProducts.length) {
+      const pL = await getProductsList(
+        searchParams.get('slug')?.toString(),
+        activeCurrency.code,
+      );
+      updateProductsStore(pL as SwellProduct[]);
+      productResults = pL;
+    } else {
+      productResults = allProducts;
+    }
 
     if (!mounted) return;
 
