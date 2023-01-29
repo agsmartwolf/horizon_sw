@@ -1,7 +1,7 @@
 import { generateId } from 'lib/utils/shared_functions';
 import type { SwellProductOption } from 'lib/graphql/generated/sdk';
 import { denullifyArray } from 'lib/utils/denullify';
-import { getFilters } from './filters';
+import { filterProductsByCategory, getFilters } from './filters';
 import getGQLClient from 'lib/graphql/client';
 import type { CategoryPreviewCardProps } from 'components/atoms/CategoryPreviewCard';
 import type {
@@ -21,6 +21,7 @@ import { hasQuickAdd, mapProducts } from 'lib/utils/products';
 import { formatStoreSettings } from 'utils/settings';
 import { formatProductImages } from 'lib/utils/products';
 import { ProductTag, ProductType } from 'types/shared/products';
+import type { SwellProduct } from 'lib/graphql/generated/sdk';
 
 const client = getGQLClient();
 
@@ -92,16 +93,10 @@ export const getProductsList = async (
     .getAllProducts({ currency })
     .then(response => response.data);
 
-  const productResults = denullifyArray(products?.results).filter(product => {
-    // If the category slug is defined, check if the product is in the category
-    if (categorySlug) {
-      return !!product.categories?.some(
-        category => category?.slug === categorySlug,
-      );
-    }
-
-    return true;
-  });
+  const productResults = filterProductsByCategory(
+    (products?.results as SwellProduct[]) ?? [],
+    categorySlug,
+  );
 
   return productResults;
 };

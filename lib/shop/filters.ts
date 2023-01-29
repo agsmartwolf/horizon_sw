@@ -5,6 +5,7 @@ import type {
   ProductFilterOptionValue,
 } from 'types/shared/products';
 import type { useSearchParams } from 'next/navigation';
+import { denullifyArray } from '../utils/denullify';
 
 export enum PRODUCT_ATTRIBUTE_TYPE {
   TEXT = 'text',
@@ -207,4 +208,21 @@ export const getPriceRangeFromQuery = (
 
     return [Number(newMin), Number(newMax)];
   }
+};
+
+export const filterProductsByCategory = (
+  products: SwellProduct[],
+  categorySlug?: string,
+) => {
+  const productResults = denullifyArray(products).filter(product => {
+    // If the category slug is defined, check if the product is in the category
+    if (categorySlug) {
+      return !!product.categories?.some(
+        category => category?.slug === categorySlug,
+      );
+    }
+
+    return true;
+  });
+  return productResults;
 };

@@ -27,6 +27,7 @@ import Range from 'components/atoms/Range';
 import useCurrency from 'stores/currency';
 import {
   applyFilters,
+  filterProductsByCategory,
   getPriceRangeFromProducts,
   getPriceRangeFromQuery,
   SearchParams,
@@ -281,14 +282,14 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     let productResults: SwellProduct[] = [];
 
     if (!allProducts.length) {
-      const pL = await getProductsList(
-        searchParams.get('slug')?.toString(),
-        activeCurrency.code,
-      );
+      const pL = await getProductsList(undefined, activeCurrency.code);
       updateProductsStore(pL as SwellProduct[]);
       productResults = pL;
     } else {
-      productResults = allProducts;
+      productResults = filterProductsByCategory(
+        allProducts,
+        searchParams.get('slug')?.toString(),
+      );
     }
 
     if (!mounted) return;
