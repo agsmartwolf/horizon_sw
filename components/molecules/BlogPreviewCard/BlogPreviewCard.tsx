@@ -127,12 +127,7 @@ const BlogPreviewCard: React.FC<BlogPreviewCardProps> = ({
       <Link
         href={href}
         className={['relative w-full', imageContainerClasses[size]].join(' ')}>
-        <Image
-          {...image}
-          objectFit="cover"
-          alt={image.alt}
-          className={imageClasses[size]}
-        />
+        <Image {...image} alt={image.alt} className={imageClasses[size]} />
       </Link>
       <div className={['flex flex-col', bodyClasses[size]].join(' ')}>
         <p className={['text-body', dateClasses[size]].join(' ')}>

@@ -30,7 +30,9 @@ export function withMainLayout<C extends GetProps<unknown>>(callback: C) {
       return result;
     }
 
-    const settings = await getStoreSettings();
+    const { currencies, locales, ...settings } = await getStoreSettings(
+      result.props.locale,
+    );
 
     return {
       ...result,
@@ -38,6 +40,8 @@ export function withMainLayout<C extends GetProps<unknown>>(callback: C) {
         ...result.props,
         _layout: {
           settings,
+          locales,
+          currencies,
         },
       },
     };
@@ -54,14 +58,14 @@ export function withAuthLayout<C extends GetProps<unknown>>(callback: C) {
       return result;
     }
 
-    const editorData = await import('mock/editor.json');
+    const settings = await getStoreSettings(result.props.locale);
 
     return {
       ...result,
       props: {
         ...result.props,
         _layout: {
-          header: editorData.account_header,
+          settings,
         },
       },
     };
@@ -107,20 +111,15 @@ export function withAccountLayout<C extends GetProps<unknown>>(callback: C) {
       return result;
     }
 
-    const editorData = await import('mock/editor.json');
-
-    const { pageTitle } = result.props;
+    const settings = await getStoreSettings(result.props.locale);
 
     return {
       ...result,
       props: {
         ...result.props,
         _layout: {
-          header: {
-            ...editorData.account_header,
-            pageTitle,
-            accountDetails: account,
-          },
+          accountDetails: account,
+          settings,
         },
       },
     };

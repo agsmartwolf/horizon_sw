@@ -23,65 +23,49 @@ import { ACCOUNT_FIELD } from 'types/account';
 import useFetchApi from 'hooks/useFetchApi';
 import useNotificationStore from 'stores/notification';
 import { NOTIFICATION_TYPE } from 'types/shared/notification';
+import useI18n, { I18n } from 'hooks/useI18n';
 
-interface SignUpProps extends PageProps {
-  text: {
-    signUpTitle: string;
-    firstNameLabel: string;
-    firstNameEmptyErrorText: string;
-    firstNamePlaceholder?: string;
-    lastNameLabel: string;
-    lastNameEmptyErrorText: string;
-    lastNamePlaceholder?: string;
-    emailLabel: string;
-    emailEmptyErrorText: string;
-    emailInvalidErrorText: string;
-    emailPlaceholder?: string;
-    passwordLabel: string;
-    passwordEmptyErrorText: string;
-    passwordInvalidErrorText: string;
-    passwordPlaceholder?: string;
-    serverErrorText: string;
-    emailTakenErrorText: string;
-    passwordRequirementsText?: string;
-    signUpButton: string;
-    registeredUser?: string;
-    loginLink: string;
-    accountSuccessfullyCreated: string;
-  };
-}
+const signupText = (i18n: I18n) => ({
+  pageTitle: i18n('account.signup.page_title'),
+  signupTitle: i18n('account.signup.title'),
+  firstName: {
+    label: i18n('account.signup.first_name.label'),
+    emptyErrorText: i18n('account.signup.first_name.empty_error_text'),
+    placeholder: i18n('account.signup.first_name.placeholder'),
+  },
+  lastName: {
+    label: i18n('account.signup.last_name.label'),
+    emptyErrorText: i18n('account.signup.last_name.empty_error_text'),
+    placeholder: i18n('account.signup.last_name.placeholder'),
+  },
+  email: {
+    label: i18n('account.signup.email.label'),
+    emptyErrorText: i18n('account.signup.email.empty_error_text'),
+    invalidErrorText: i18n('account.signup.email.invalid_error_text'),
+    placeholder: i18n('account.signup.email.placeholder'),
+  },
+  password: {
+    label: i18n('account.signup.password.label'),
+    emptyErrorText: i18n('account.signup.password.empty_error_text'),
+    invalidErrorText: i18n('account.signup.password.invalid_error_text'),
+    placeholder: i18n('account.signup.password.placeholder'),
+    requirementsText: i18n('account.signup.password.requirements_text'),
+  },
+  errors: {
+    server: i18n('account.signup.errors.server_error_text'),
+    emailTaken: i18n('account.signup.errors.email_taken'),
+  },
+  signupButton: i18n('account.signup.signup_button'),
+  registeredUser: i18n('account.signup.registered_user_label'),
+  loginLink: i18n('account.signup.login_link'),
+  successMessage: i18n('account.signup.success_message'),
+});
 
-const propsCallback: GetServerSideProps<SignUpProps> = async () => {
-  const storeName = 'Horizon';
+const propsCallback: GetServerSideProps<PageProps> = async context => {
+  const { locale } = context;
   return {
     props: {
-      storeName,
-      title: `${storeName} | Create account`,
-      text: {
-        signUpTitle: 'Create account',
-        firstNameLabel: 'First name',
-        firstNameEmptyErrorText: 'First name is required',
-        firstNamePlaceholder: 'Enter your first name',
-        lastNameLabel: 'Last name',
-        lastNameEmptyErrorText: 'Last name is required',
-        lastNamePlaceholder: 'Enter your last name',
-        emailLabel: 'Email',
-        emailEmptyErrorText: 'Email is required',
-        emailInvalidErrorText: 'Email format is invalid',
-        emailPlaceholder: 'Enter your email',
-        passwordLabel: 'Password',
-        passwordEmptyErrorText: 'Password is required',
-        passwordInvalidErrorText:
-          'Your password needs to be at least 6 characters.',
-        passwordPlaceholder: 'Enter your password',
-        serverErrorText: 'Internal server error',
-        emailTakenErrorText: 'There is already an account with this email',
-        passwordRequirementsText: 'Must include a minimum of 6 characters.',
-        signUpButton: 'Create account',
-        registeredUser: 'Already have an account?',
-        loginLink: 'Log in',
-        accountSuccessfullyCreated: 'Your account was successfully created',
-      },
+      ...(locale ? { locale } : {}),
     },
   };
 };
@@ -90,7 +74,9 @@ export const getServerSideProps = withAuthLayout(propsCallback);
 
 const SignUpPage: NextPageWithLayout<
   ServerSideProps<typeof getServerSideProps>
-> = ({ text, title, metaTitle, metaDescription }) => {
+> = ({ metaTitle, metaDescription }) => {
+  const i18n = useI18n();
+  const text = signupText(i18n);
   const router = useRouter();
   const fetchApi = useFetchApi();
   const send = useNotificationStore(store => store.send);
@@ -115,13 +101,13 @@ const SignUpPage: NextPageWithLayout<
       if (res.status === 409) {
         setError({
           field: ACCOUNT_FIELD.OTHER,
-          message: text.emailTakenErrorText,
+          message: text.errors.emailTaken,
         });
         return false;
       } else if (res.status !== 200) {
         setError({
           field: ACCOUNT_FIELD.OTHER,
-          message: text.serverErrorText,
+          message: text.errors.server,
         });
         return false;
       }
@@ -132,7 +118,7 @@ const SignUpPage: NextPageWithLayout<
   const errorCallback = useCallback(() => {
     setError({
       field: ACCOUNT_FIELD.OTHER,
-      message: text.serverErrorText,
+      message: text.errors.server,
     });
   }, [text]);
 
@@ -140,19 +126,19 @@ const SignUpPage: NextPageWithLayout<
     const requiredErrorPayloads = {
       [ACCOUNT_FIELD.FIRST_NAME]: {
         field: ACCOUNT_FIELD.FIRST_NAME,
-        message: text.firstNameEmptyErrorText,
+        message: text.firstName.emptyErrorText,
       },
       [ACCOUNT_FIELD.LAST_NAME]: {
         field: ACCOUNT_FIELD.LAST_NAME,
-        message: text.lastNameEmptyErrorText,
+        message: text.lastName.emptyErrorText,
       },
       [ACCOUNT_FIELD.EMAIL]: {
         field: ACCOUNT_FIELD.EMAIL,
-        message: text.emailEmptyErrorText,
+        message: text.email.emptyErrorText,
       },
       [ACCOUNT_FIELD.PASSWORD]: {
         field: ACCOUNT_FIELD.PASSWORD,
-        message: text.passwordEmptyErrorText,
+        message: text.password.emptyErrorText,
       },
     };
 
@@ -176,7 +162,7 @@ const SignUpPage: NextPageWithLayout<
     if (password.length < 6) {
       setError({
         field: ACCOUNT_FIELD.PASSWORD,
-        message: text.passwordInvalidErrorText,
+        message: text.password.invalidErrorText,
       });
       return false;
     }
@@ -186,7 +172,7 @@ const SignUpPage: NextPageWithLayout<
     if (!emailValid) {
       setError({
         field: ACCOUNT_FIELD.EMAIL,
-        message: text.emailInvalidErrorText,
+        message: text.email.invalidErrorText,
       });
       return false;
     }
@@ -195,7 +181,7 @@ const SignUpPage: NextPageWithLayout<
   const completeCallback = useCallback(() => {
     setError(undefined);
     send({
-      message: text.accountSuccessfullyCreated,
+      message: text.successMessage,
       type: NOTIFICATION_TYPE.INFO,
     });
     router.push('/account/orders');
@@ -234,7 +220,7 @@ const SignUpPage: NextPageWithLayout<
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
       <Head>
-        <title>{title}</title>
+        <title>{text.pageTitle}</title>
         <meta name="description" content={metaDescription} />
         <meta name="title" content={metaTitle} />
       </Head>
@@ -247,7 +233,7 @@ const SignUpPage: NextPageWithLayout<
           <div>
             <legend className="w-full text-center">
               <h1 className="font-headings text-2xl font-semibold text-black md:text-5xl">
-                {text.signUpTitle}
+                {text.signupTitle}
               </h1>
             </legend>
             <div className="mt-8">
@@ -255,7 +241,7 @@ const SignUpPage: NextPageWithLayout<
                 <label
                   className="text-xs font-semibold uppercase text-black"
                   htmlFor="first-name">
-                  {text.firstNameLabel}
+                  {text.firstName.label}
                 </label>
                 <Input
                   id="first-name"
@@ -264,7 +250,7 @@ const SignUpPage: NextPageWithLayout<
                   aria-invalid={firstNameError}
                   aria-errormessage={firstNameError ? error.message : undefined}
                   error={firstNameError}
-                  placeholder={text.firstNamePlaceholder}
+                  placeholder={text.firstName.placeholder}
                   value={firstName}
                   onChange={e => {
                     setError(undefined);
@@ -281,7 +267,7 @@ const SignUpPage: NextPageWithLayout<
                 <label
                   className="text-xs font-semibold uppercase text-black"
                   htmlFor="last-name">
-                  {text.lastNameLabel}
+                  {text.lastName.label}
                 </label>
                 <Input
                   id="last-name"
@@ -290,7 +276,7 @@ const SignUpPage: NextPageWithLayout<
                   aria-invalid={lastNameError}
                   aria-errormessage={lastNameError ? error.message : undefined}
                   error={lastNameError}
-                  placeholder={text.lastNamePlaceholder}
+                  placeholder={text.lastName.placeholder}
                   value={lastName}
                   onChange={e => {
                     setError(undefined);
@@ -307,7 +293,7 @@ const SignUpPage: NextPageWithLayout<
                 <label
                   className="text-xs font-semibold uppercase text-black"
                   htmlFor="email">
-                  {text.emailLabel}
+                  {text.email.label}
                 </label>
                 <Input
                   id="email"
@@ -317,7 +303,7 @@ const SignUpPage: NextPageWithLayout<
                   aria-invalid={emailError}
                   aria-errormessage={emailError ? error.message : undefined}
                   error={emailError}
-                  placeholder={text.emailPlaceholder}
+                  placeholder={text.email.placeholder}
                   value={email}
                   onChange={e => {
                     setError(undefined);
@@ -334,7 +320,7 @@ const SignUpPage: NextPageWithLayout<
                 <label
                   className="text-xs font-semibold uppercase text-black"
                   htmlFor="password">
-                  {text.passwordLabel}
+                  {text.password.label}
                 </label>
                 <PasswordInput
                   id="password"
@@ -343,7 +329,7 @@ const SignUpPage: NextPageWithLayout<
                   aria-invalid={passwordError}
                   aria-errormessage={passwordError ? error.message : undefined}
                   error={passwordError}
-                  placeholder={text.passwordPlaceholder}
+                  placeholder={text.password.placeholder}
                   value={password}
                   onChange={e => {
                     setError(undefined);
@@ -353,9 +339,9 @@ const SignUpPage: NextPageWithLayout<
                 {error?.field === ACCOUNT_FIELD.PASSWORD && (
                   <ValidationErrorText>{error.message}</ValidationErrorText>
                 )}
-                {text.passwordRequirementsText && (
+                {text.password.requirementsText && (
                   <p className="mt-2 text-2xs text-black">
-                    {text.passwordRequirementsText}
+                    {text.password.requirementsText}
                   </p>
                 )}
               </p>
@@ -372,7 +358,7 @@ const SignUpPage: NextPageWithLayout<
             ) : null}
             <div>
               <Button elType={BUTTON_TYPE.BUTTON} fullWidth type="submit">
-                {text.signUpButton}
+                {text.signupButton}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm text-black">

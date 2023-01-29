@@ -1,46 +1,40 @@
 import Head from 'next/head';
-import type { GetStaticProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
 import Button from 'components/atoms/Button';
 import { BUTTON_TYPE } from 'types/shared/button';
+import useI18n, { I18n } from 'hooks/useI18n';
 
-interface CheckEmailProps extends PageProps {
-  text: {
-    title: string;
-    message?: string;
-    loginLinkText: string;
-  };
-}
+const successText = (i18n: I18n) => ({
+  pageTitle: i18n('account.set_new_password.success.page_title'),
+  title: i18n('account.set_new_password.success.title'),
+  message: i18n('account.set_new_password.success.message'),
+  loginLink: i18n('account.set_new_password.success.login_link'),
+});
 
-const propsCallback: GetStaticProps<CheckEmailProps> = async () => {
-  const storeName = 'Horizon';
+const propsCallback: GetServerSideProps<PageProps> = async context => {
+  const { locale } = context;
   return {
     props: {
-      storeName,
-      title: `${storeName} | Success`,
-      text: {
-        title: 'Success',
-        message: 'You can now log into your account using your new password.',
-        loginLinkText: 'Login',
-      },
+      ...(locale ? { locale } : {}),
     },
   };
 };
 
 export const getStaticProps = withAuthLayout(propsCallback);
 
-const CheckEmailPage: NextPageWithLayout<CheckEmailProps> = ({
-  text,
-  title,
+const CheckEmailPage: NextPageWithLayout<PageProps> = ({
   metaTitle,
   metaDescription,
 }) => {
+  const i18n = useI18n();
+  const text = successText(i18n);
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
       <Head>
-        <title>{title}</title>
+        <title>{text.pageTitle}</title>
         <meta name="description" content={metaDescription} />
         <meta name="title" content={metaTitle} />
       </Head>
@@ -55,7 +49,7 @@ const CheckEmailPage: NextPageWithLayout<CheckEmailProps> = ({
           )}
           <p className="mt-16 w-full text-center text-sm text-black">
             <Button fullWidth href="/account/login" elType={BUTTON_TYPE.LINK}>
-              {text.loginLinkText}
+              {text.loginLink}
             </Button>
           </p>
         </div>

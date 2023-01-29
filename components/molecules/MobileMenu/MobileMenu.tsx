@@ -7,6 +7,7 @@ import { denullifyArray } from 'lib/utils/denullify';
 import NavLink from 'components/atoms/NavLink';
 import Button from '../../atoms/Button';
 import { BUTTON_STYLE, BUTTON_TYPE } from '../../../types/shared/button';
+// import useI18n from 'hooks/useI18n';
 
 export interface MobileMenuProps extends React.HTMLAttributes<HTMLDivElement> {
   items: RootNavItem[] | null;
@@ -19,6 +20,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   show,
   openDelay,
 }) => {
+  // const i18n = useI18n();
+  // const accountLinkLabel = i18n('navigation.account');
+
   return (
     <Transition
       show={show}
@@ -60,8 +64,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                 />
               ),
             )}
-          {/* TODO: Make user editable */}
-          {/*<NavLink label="account" link="/account/orders" />*/}
+
+          {/*<NavLink label={accountLinkLabel} link="/account/orders" />*/}
           <Button
             elType={BUTTON_TYPE.LINK}
             href="/account/login"

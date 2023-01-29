@@ -2,38 +2,38 @@ import React, { useState, useEffect } from 'react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
 import ArrowLeft from 'assets/icons/arrow-left.svg';
-import type { MandatoryImageProps } from 'types/global';
-import Image from 'components/atoms/SafeImage';
 import Link from 'next/link';
 import AccountMobileMenu from 'components/organisms/AccountMobileMenu';
 import type { AccountNavLinkProps } from 'components/atoms/AccountNavLink';
 import AccountDetails, {
   AccountDetailsProps,
 } from 'components/atoms/AccountDetails';
+import useI18n from 'hooks/useI18n';
+import type { LogoProps } from 'components/atoms/Logo';
+import Logo from 'components/atoms/Logo';
 
 export interface AccountHeaderProps
   extends React.HTMLAttributes<HTMLDivElement> {
   hideOnScroll: boolean;
-  storeUrl: string;
-  backToShopLabel: string;
-  logo: MandatoryImageProps;
+  logoSettings: LogoProps;
   mobileMenuLinks?: AccountNavLinkProps[];
   pageTitle?: string;
-  accountDetails: AccountDetailsProps;
+  accountDetails?: AccountDetailsProps;
 }
 
 const AccountHeader: React.FC<AccountHeaderProps> = ({
   hideOnScroll,
-  storeUrl,
-  backToShopLabel,
+  logoSettings,
   pageTitle,
   mobileMenuLinks,
-  logo,
   accountDetails,
 }) => {
   const [shouldHide, setShouldHide] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const router = useRouter();
+  const i18n = useI18n();
+
+  const backToShopLabel = i18n('navigation.account_return_home');
 
   const classNames = cn(
     'sticky top-0 left-0 z-header w-full font-headings bg-black transform transition-transform duration-500 ease-in-out',
@@ -83,7 +83,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
       <header className={classNames}>
         <div className="grid grid-cols-3 items-center border-b border-dividers py-[1.125rem]">
           <div className="md:ml-6 lg:ml-14">
-            <Link href={storeUrl} className="hidden items-center gap-2 md:flex">
+            <Link href="/" className="hidden items-center gap-2 md:flex">
               <ArrowLeft width={16} height={16} className="text-black" />
               <span className="text-sm font-semibold text-black">
                 {backToShopLabel}
@@ -91,19 +91,22 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
             </Link>
           </div>
           <Link
-            href={storeUrl}
+            href="/"
             className="flex items-center justify-center text-center">
-            <Image
+            <Logo {...logoSettings} />
+            {/*<Image
               src={logo.src}
               width={logo.width}
               height={logo.height}
               alt={logo.alt}
-            />
+            />*/}
           </Link>
         </div>
-        <div className="px-6 pt-4 pb-6 md:hidden">
-          <AccountDetails {...accountDetails} />
-        </div>
+        {accountDetails && (
+          <div className="px-6 pt-4 pb-6 md:hidden">
+            <AccountDetails {...accountDetails} />
+          </div>
+        )}
         {!!pageTitle && !!mobileMenuLinks && (
           // TODO: Make MobileMenu visibility be controlled by showMobileMenu state
           <AccountMobileMenu label={pageTitle} links={mobileMenuLinks} />

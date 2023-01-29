@@ -10,6 +10,11 @@ export type Typography = {
   fontFamily: Fonts;
 };
 export type Borders = { image: { radius: number } };
+type AccountSettings = {
+  header: {
+    hideOnScroll: true;
+  };
+};
 
 export interface Settings {
   colors: Colors;
@@ -18,6 +23,8 @@ export interface Settings {
   header: HeaderProps;
   footer: FooterProps;
   socialLinks: SocialLinks;
+  lang: any;
+  account: AccountSettings;
 }
 
 interface SettingsState {

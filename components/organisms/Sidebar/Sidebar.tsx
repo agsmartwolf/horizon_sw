@@ -7,20 +7,27 @@ import useLogout from 'hooks/useLogout';
 import AccountDetails, {
   AccountDetailsProps,
 } from 'components/atoms/AccountDetails';
+import useI18n from 'hooks/useI18n';
 
 export interface SidebarProps {
   links: AccountNavLinkProps[];
-  accountDetails: AccountDetailsProps;
+  accountDetails?: AccountDetailsProps;
 }
 
 const TheSidebar: React.FC<SidebarProps> = ({ links, accountDetails }) => {
+  const i18n = useI18n();
+  const logoutLabel = i18n('account.logout.label');
+
   const logout = useLogout();
+
   return (
     <aside className="hidden h-full min-w-[275px] md:block">
       <div className="fixed flex h-full flex-col items-start overflow-auto">
-        <div className="mb-10">
-          <AccountDetails {...accountDetails} />
-        </div>
+        {accountDetails && (
+          <div className="mb-10">
+            <AccountDetails {...accountDetails} />
+          </div>
+        )}
         <NavMenu links={links} />
         <form
           onSubmit={e => {
@@ -28,13 +35,12 @@ const TheSidebar: React.FC<SidebarProps> = ({ links, accountDetails }) => {
             logout();
           }}
           className="mt-20">
-          {/* TODO: i18n */}
           <Button
             elType={BUTTON_TYPE.BUTTON}
             buttonStyle={BUTTON_STYLE.SECONDARY}
             type="submit"
             small>
-            Logout
+            {logoutLabel}
           </Button>
         </form>
       </div>

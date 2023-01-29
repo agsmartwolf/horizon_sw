@@ -61,7 +61,7 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
           </div>
           {price && show_product_price && (
             <div className="text-md font-semibold lg:text-sm">
-              {fromPriceLabel}
+              {fromPriceLabel ? `${fromPriceLabel} ` : ''}
               <Price price={price} origPrice={origPrice} />
             </div>
           )}

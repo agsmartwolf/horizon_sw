@@ -10,7 +10,7 @@
     "dev": "next dev",
     "generate": "pnpm run build",
     "build": "pnpm run setup && next build",
-    "start": "next start",
+    "start": "NODE_ENV=production next start",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --ci --collectCoverage --watchAll=false",

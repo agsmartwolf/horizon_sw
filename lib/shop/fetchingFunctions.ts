@@ -18,7 +18,11 @@ import { LAYOUT_ALIGNMENT, ProductsPageProps } from 'pages/products/[slug]';
 import type { CurrencyPrice } from 'types/shared/currency';
 import type { QuizResultsProducts } from 'components/molecules/QuizResults';
 import { hasQuickAdd, mapProducts } from 'lib/utils/products';
-import { formatStoreSettings } from 'utils/settings';
+import {
+  formatCurrencies,
+  formatLocales,
+  formatStoreSettings,
+} from 'utils/settings';
 import { formatProductImages } from 'lib/utils/products';
 import { ProductTag, ProductType } from 'types/shared/products';
 import type { SwellProduct } from 'lib/graphql/generated/sdk';
@@ -326,13 +330,6 @@ export async function getQuizProducts(
     };
   }
 
-  // TODO: dictionary management & i18n
-  const resultsDictionary = {
-    hrefCta: 'See product details',
-    addLabel: 'Add to Bag',
-    addedLabel: 'Added',
-  };
-
   const getProductsBySlugs = (slugs: string[]) =>
     slugs.map(slug =>
       client
@@ -377,7 +374,6 @@ export async function getQuizProducts(
       },
     ),
     productVariants: denullifyArray(product?.variants?.results),
-    ...resultsDictionary,
   }));
 
   return {
@@ -386,17 +382,20 @@ export async function getQuizProducts(
   };
 }
 
-export const getStoreSettings = async () => {
+export const getStoreSettings = async (locale?: string) => {
   const [storeData, menusData] = await Promise.all([
-    client.getStoreSettings(),
+    client.getStoreSettings({ locale }),
     client.getMenus(),
   ]);
 
-  return formatStoreSettings(
-    storeData.data.storeSettings?.store?.name ?? 'Smart Wolf',
-    storeData.data.storeSettings?.values,
-    menusData.data.menuSettings,
-  );
+  return {
+    ...formatStoreSettings(
+      storeData.data.storeSettings,
+      menusData.data.menuSettings,
+    ),
+    locales: formatLocales(storeData.data.storeSettings),
+    currencies: formatCurrencies(storeData.data.storeSettings),
+  };
 };
 
 export const getBundles = async () => {

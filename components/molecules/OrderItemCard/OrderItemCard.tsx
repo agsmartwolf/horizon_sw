@@ -36,10 +36,8 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
         className="relative w-full max-w-[93px] md:max-w-[123px]">
         <Image
           {...image}
-          layout="responsive"
           width={1}
           height={1}
-          objectFit="cover"
           alt={image.alt}
           className="rounded-lg"
         />

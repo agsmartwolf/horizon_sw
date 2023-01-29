@@ -28,7 +28,6 @@ const ProductDisplay: React.FC<ProductDisplayProps> = ({
           {...image}
           alt={image.alt}
           className={`rounded-image ${image.className}`}
-          objectFit="cover"
         />
       </Link>
       <div className="flex flex-col space-y-1">

@@ -4,18 +4,21 @@ import type {
   SwellSubscriptionOrderSchedule,
 } from 'lib/graphql/generated/sdk';
 
-export enum SUBSCRIPTION_STATUS {
-  ACTIVE = 'active',
-  CANCELED = 'canceled',
-  COMPLETE = 'complete',
-  TRIAL = 'trial',
-  PAUSED = 'paused',
-  PASTDUE = 'pastdue',
-  PENDING = 'pending',
-  UNPAID = 'unpaid',
-  PAID = 'paid',
-  DRAFT = 'draft',
-}
+export const SUBSCRIPTION_STATUS = {
+  ACTIVE: 'active',
+  CANCELED: 'canceled',
+  COMPLETE: 'complete',
+  TRIAL: 'trial',
+  PAUSED: 'paused',
+  PASTDUE: 'pastdue',
+  PENDING: 'pending',
+  UNPAID: 'unpaid',
+  PAID: 'paid',
+  DRAFT: 'draft',
+} as const;
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export type SUBSCRIPTION_STATUS =
+  typeof SUBSCRIPTION_STATUS[keyof typeof SUBSCRIPTION_STATUS];
 
 export type OrderSchedule = Pick<
   SwellSubscriptionOrderSchedule,

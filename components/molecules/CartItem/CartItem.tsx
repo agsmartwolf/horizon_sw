@@ -23,6 +23,7 @@ import type {
 } from 'lib/graphql/generated/sdk';
 import cn from 'classnames';
 import useProductStock from 'hooks/useProductStock';
+import useI18n from 'hooks/useI18n';
 
 export interface CartItemProps {
   id: string;
@@ -59,6 +60,10 @@ const CartItem: React.FC<CartItemProps> = ({
   stockPurchasable,
   stockLevel,
 }) => {
+  const i18n = useI18n();
+  const billingMessage = i18n('cart.billing_message');
+  const orderMessage = i18n('cart.order_message');
+
   const [removeItem, updateItem] = useCartStore(store => [
     store.removeItem,
     store.updateItem,
@@ -136,6 +141,7 @@ const CartItem: React.FC<CartItemProps> = ({
               <>
                 <ScheduleLabel
                   type="billing"
+                  base={billingMessage}
                   schedule={purchaseOption?.billingSchedule}
                   textClasses="text-2xs"
                   iconClasses="w-4"
@@ -144,6 +150,7 @@ const CartItem: React.FC<CartItemProps> = ({
                 {purchaseOption?.orderSchedule && (
                   <ScheduleLabel
                     type="order"
+                    base={orderMessage}
                     schedule={purchaseOption?.orderSchedule}
                     className="mt-0.5"
                     textClasses="text-2xs"
