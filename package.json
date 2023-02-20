@@ -54,7 +54,6 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-swipeable": "^6.2.1",
-    "sharp": "^0.31.2",
     "swell-node": "^4.0.10",
     "swiper": "^8.4.5",
     "tailwindcss-radix": "^2.6.0",

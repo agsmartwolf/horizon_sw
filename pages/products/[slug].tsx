@@ -42,6 +42,7 @@ import type { ParsedUrlQuery } from 'querystring';
 import StatusIndicator from 'components/atoms/StatusIndicator';
 import useI18n from 'hooks/useI18n';
 import { SECTION_PADDING_MAP, SPACING } from '../../lib/globals/sizings';
+import { addStockOptionData } from '../../lib/utils/products';
 
 export enum LAYOUT_ALIGNMENT {
   STANDARD = 'standard',
@@ -255,7 +256,13 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
             <form onSubmit={handleSubmit} className="flex flex-col mb-5">
               {!!productOptions.length && (
                 <ProductOptions
-                  options={productOptions}
+                  options={addStockOptionData(
+                    productOptions,
+                    state.selectedProductOptions,
+                    purchaseOptions,
+                    productVariants,
+                    stockLevel,
+                  )}
                   selectedOptions={state.selectedProductOptions}
                   onChange={payload => dispatch(payload)}
                   isGiftCard={isGiftCard}

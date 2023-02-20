@@ -59,6 +59,7 @@ export interface ProductOption {
     id: string;
     name: string;
     price?: number;
+    disabled?: boolean;
   }[];
 }
 

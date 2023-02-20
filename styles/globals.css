@@ -101,3 +101,18 @@ body {
     text-decoration-skip-ink: none;
   }
 }
+
+.strikethrough-diagonal {
+  position: relative;
+}
+
+.strikethrough-diagonal:before {
+  position: absolute;
+  content: '';
+  left: 0;
+  top: 50%;
+  right: 0;
+  border-top: 1px solid;
+  border-color: var(--gray-400);
+  transform: skewY(-11deg);
+}

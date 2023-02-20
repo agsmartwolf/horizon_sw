@@ -94,7 +94,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
 
   const selectOption = useCallback(
     (productOption: ProductOption) =>
-      productOption.values?.map(({ id, name }) => (
+      productOption.values?.map(({ id, name, disabled }) => (
         <OptionSelectItem
           key={id}
           name={productOption.name || productOption.attributeId}
@@ -107,6 +107,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
             })
           }
           active={selectedOptions.get(productOption.id) === id}
+          disabled={disabled}
         />
       )),
     [onChange, selectedOptions],

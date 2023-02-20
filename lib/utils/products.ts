@@ -21,6 +21,7 @@ import type {
 import type { SwellProductPurchaseOptionsStandard } from 'lib/graphql/generated/sdk';
 import { denullifyArray, NotNullish } from './denullify';
 import type { MandatoryImageProps } from 'types/global';
+import type { CartItemInputOption } from '../../types/shared/cart';
 
 export const getCrossSellPrice = (crossSell: SwellProductCrossSell) => {
   if (
@@ -319,4 +320,62 @@ export const formatProductImages = (
         : null,
     ) ?? [];
   return denullifyArray(formattedImages);
+};
+
+export const isOptionValueInStock = (
+  curOptions: CartItemInputOption[],
+  productData: {
+    productOptions: ProductOption[];
+    purchaseOptions: SwellProductPurchaseOptions;
+    productVariants: SwellProductVariant[];
+    stockLevel?: SwellProduct['stockLevel'];
+  },
+) => {
+  const curVariant = getActiveVariation(
+    curOptions,
+    productData.purchaseOptions.subscription?.plans?.[0] ?? null,
+    productData.productOptions,
+    productData.purchaseOptions,
+    productData.productVariants,
+    productData.stockLevel,
+  );
+  return curVariant?.stockLevel && curVariant.stockLevel > 0;
+};
+
+export const addStockOptionData = (
+  productOptions: ProductOption[],
+  selectedProductOptions: Map<string, string>,
+  purchaseOptions: SwellProductPurchaseOptions,
+  productVariants: SwellProductVariant[],
+  stockLevel?: SwellProduct['stockLevel'],
+) => {
+  const updatedProductOptions = [...productOptions];
+  const colorOptions = updatedProductOptions.find(
+    o => o.attributeId === 'color',
+  );
+  const sizeOptions = updatedProductOptions.find(o => o.attributeId === 'size');
+  // Array.from(selectedProductOptions.entries()).map(([id, valueId]) => ({
+  //   id,
+  //   valueId,
+  // }))
+  if (colorOptions?.values && sizeOptions && colorOptions) {
+    const currentColorOptValue = selectedProductOptions.get(colorOptions.id);
+    if (currentColorOptValue) {
+      sizeOptions.values?.forEach(sizeOpt => {
+        sizeOpt.disabled = !isOptionValueInStock(
+          [
+            { id: colorOptions.id, valueId: currentColorOptValue },
+            { id: sizeOptions.id, valueId: sizeOpt.id },
+          ],
+          {
+            productOptions,
+            purchaseOptions,
+            productVariants,
+            stockLevel,
+          },
+        );
+      });
+    }
+  }
+  return updatedProductOptions;
 };

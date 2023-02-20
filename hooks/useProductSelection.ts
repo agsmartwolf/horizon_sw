@@ -1,6 +1,6 @@
 import { useReducer, useMemo, useEffect, useCallback } from 'react';
 import useCartStore, { AddToCartConfig } from 'stores/cart';
-import { getActiveVariation } from 'lib/utils/products';
+import { getActiveVariation, isOptionValueInStock } from 'lib/utils/products';
 import {
   OPTION_INPUT_TYPE,
   ProductOption,
@@ -104,6 +104,35 @@ const useProductSelection = ({
             (option.inputType === OPTION_INPUT_TYPE.SELECT || isGiftCard) &&
             option.values?.[0]?.id
           ) {
+            // needed to preselect the color which has sizes in stock
+            if (option.attributeId === 'color') {
+              const sizeOptions = productOptions.find(
+                o => o.attributeId === 'size',
+              );
+              if (!sizeOptions || typeof sizeOptions.values === 'undefined') {
+                return;
+              }
+              const initColorValue = option.values.find(v =>
+                sizeOptions.values!.some(sizeOpt =>
+                  isOptionValueInStock(
+                    [
+                      { id: option.id, valueId: v.id },
+                      { id: sizeOptions.id, valueId: sizeOpt.id },
+                    ],
+                    {
+                      productOptions,
+                      purchaseOptions,
+                      productVariants,
+                      stockLevel,
+                    },
+                  ),
+                ),
+              );
+              if (initColorValue) {
+                options.set(option.id, initColorValue?.id);
+              }
+              return;
+            }
             options.set(option.id, option.values?.[0]?.id);
           }
         });
