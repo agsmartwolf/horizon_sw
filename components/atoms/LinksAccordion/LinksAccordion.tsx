@@ -33,7 +33,7 @@ const LinksAccordion: React.FC<LinksAccordionProps> = ({
     <div {...props}>
       <Disclosure defaultOpen>
         {({ open }) => (
-          <div className="flex flex-col overflow-hidden text-black">
+          <div className="flex flex-col overflow-hidden text-white">
             {title}
             {/*<Disclosure.Button className="flex w-full items-center justify-between">
             <span
@@ -66,7 +66,7 @@ const LinksAccordion: React.FC<LinksAccordionProps> = ({
                       <li key={item.title}>
                         <Link
                           href={item.href}
-                          className={`text-md text-black ${itemClassName}`}>
+                          className={`text-md text-white ${itemClassName}`}>
                           {item.title}
                         </Link>
                       </li>
