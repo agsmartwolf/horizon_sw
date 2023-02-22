@@ -55,7 +55,7 @@ const Navbar: React.FC<NavbarProps> = ({
       <div
         className={`${
           SECTION_PADDING_MAP[horizontalPadding ?? SPACING.MEDIUM]
-        } relative mx-auto grid max-w-screen-3xl grid-cols-3 items-center py-5 px-4 text-white lg:py-6 lg:grid-cols-12 lg:gap-1`}>
+        } relative mx-auto grid max-w-screen-3xl grid-cols-3 items-center py-5 px-4 text-white lg:py-6 lg:grid-cols-12 lg:gap-1 items-center`}>
         {/* Mobile burger icon */}
         <button
           className={`justify-self-start transition-opacity duration-300 ease-in-out lg:hidden ${
@@ -76,13 +76,13 @@ const Navbar: React.FC<NavbarProps> = ({
         />
 
         {/* Desktop nav links */}
-        <div className="col-span-4 xl:col-span-3 xl:col-start-7">
+        <div className="hidden lg:block col-span-4 xl:col-span-3 xl:col-start-7">
           <MegaMenu className="z-10" items={menu ?? []} />
         </div>
 
         {/* right-side icons */}
         <div
-          className={`lg:col-span-3 flex items-center justify-end gap-5 justify-self-end transition-transform duration-300 ease-in-out ${
+          className={`lg:col-span-3 col-start-3 flex items-center justify-end gap-5 justify-self-end transition-transform duration-300 ease-in-out ${
             openMenu ? '-translate-x-10 lg:translate-x-0' : ''
           }`}>
           <LocaleSelect className="hidden lg:inline-block" />
