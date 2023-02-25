@@ -61,6 +61,17 @@ export const getCategories = async (currentSlug?: string) => {
     };
   });
 
+  // reduce categories to an array with children array grouped by parentId
+  // const categories = categoriesList.reduce((acc, category) => {
+  //   const parent = categoriesList.find(c => c.parentId === category.parentId);
+  //   if (parent) {
+  //     parent.children = [...(parent.children ?? []), category];
+  //   } else {
+  //     acc.push(category);
+  //   }
+  //   return acc;
+  // }, [] as CategoryItemValue[]);
+
   const categoriesData = categoriesList.map<CategoryData>(category => {
     const categoryData = {
       slug: category?.slug ?? '',
@@ -94,7 +105,7 @@ export const getProductsList = async (
 ) => {
   // Get the products list
   const { products } = await client
-    .getAllProducts({ currency })
+    .getAllProducts({ limit: 100, currency })
     .then(response => response.data);
 
   const productResults = filterProductsByCategory(
@@ -241,6 +252,7 @@ export async function getProductBySlug(
             purchaseOptions: upSell?.product?.purchaseOptions ?? {},
             productVariants: denullifyArray(upSell?.product?.variants?.results),
             hasQuickAdd: hasQuickAdd(upSell.product),
+            stockLevel: upSell.product.stockLevel ?? 0,
           }
         : null,
     ) ?? [];

@@ -1,5 +1,5 @@
-query getAllProducts($currency: String) {
-  products(_currency: $currency) {
+query getAllProducts($currency: String, $limit: Int) {
+  products(limit: $limit, _currency: $currency) {
     count
     results {
       id
@@ -12,6 +12,7 @@ query getAllProducts($currency: String) {
       origPrice
       currency
       attributes
+      stockLevel
       categories {
         name
         slug
@@ -96,7 +97,7 @@ query getAllProducts($currency: String) {
 }
 
 query getProductsPricesInCurrency($currency: String) {
-  products(limit: 20, _currency: $currency) {
+  products(limit: 100, _currency: $currency) {
     results {
       id
       price
@@ -259,7 +260,8 @@ query getProduct($slug: String, $currency: String, $locale: String) {
             stockLevel
             currency
           }
-        }
+        },
+        stockLevel
       }
     }
     crossSells {
@@ -509,6 +511,7 @@ query searchProducts($searchTerm: String, $currency: String) {
       price
       sale
       origPrice
+      stockLevel
       images {
         caption
         file {
@@ -524,7 +527,7 @@ query searchProducts($searchTerm: String, $currency: String) {
 query getFilteredSortedProducts(
   $filter: JSON
   $sort: String
-  $limit: Int = 20
+  $limit: Int = 40
 ) {
   products(where: $filter, sort: $sort, limit: $limit) {
     results {

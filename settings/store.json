@@ -249,6 +249,8 @@
           },
           "add_to_cart": "Add to cart",
           "quick_add": "Quick add",
+          "added": "Added to bag",
+          "next": "Next",
           "quick_view": "Quick view",
           "out_of_stock": "This product is out of stock."
         }

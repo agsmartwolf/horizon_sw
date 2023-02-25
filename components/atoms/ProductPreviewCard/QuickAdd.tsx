@@ -17,6 +17,12 @@ import OptionSelectGrid from 'components/atoms/OptionSelectGrid';
 import ToggleSmall from 'components/molecules/ToggleSmall';
 import useCurrency from 'stores/currency';
 import type { AddToCartConfig } from 'stores/cart';
+import ProductColorSelect from '../ProductColorSelect';
+import { addStockOptionData } from '../../../lib/utils/products';
+import type {
+  SwellProductPurchaseOptions,
+  SwellProductVariant,
+} from '../../../lib/graphql/generated/sdk';
 
 interface QuickAddProps {
   hoverableElement: (props: any) => JSX.Element;
@@ -29,6 +35,10 @@ interface QuickAddProps {
   addToBagLabel: string;
   addedToBagLabel: string;
   nextLabel: string;
+  quickAddLabel: string;
+  stockLevel: number;
+  productVariants: SwellProductVariant[];
+  purchaseOptions: SwellProductPurchaseOptions;
 }
 
 const QuickAdd: React.FC<QuickAddProps> = ({
@@ -36,20 +46,48 @@ const QuickAdd: React.FC<QuickAddProps> = ({
   className,
   focusOnRef,
   productOptions,
+  productVariants,
+  purchaseOptions,
   state,
   dispatch,
   addToCart,
   addToBagLabel,
   addedToBagLabel,
   nextLabel,
+  quickAddLabel,
+  stockLevel,
 }) => {
   const formatPrice = useCurrency(store => store.formatPrice);
 
   const [quickAddOpen, setQuickAddOpen] = useState(false);
+  const [quickAddStarted, setQuickAddStarted] = useState(false);
   const [added, setAdded] = useState(false);
   const [addLabel, setAddLabel] = useState(addToBagLabel);
   const [currentOption, setCurrentOption] = useState(productOptions[0]?.id);
-  const hasOptions = !!productOptions.length;
+
+  const optionsWithDisabledKey = useMemo(() => {
+    const chosenOptionsValuesMap = new Map<string, string>();
+    chosenOptionsValuesMap.set(
+      currentOption,
+      state.selectedProductOptions.get(currentOption) ?? '',
+    );
+    return addStockOptionData(
+      productOptions,
+      chosenOptionsValuesMap,
+      purchaseOptions,
+      productVariants,
+      stockLevel,
+    );
+  }, [
+    currentOption,
+    state.selectedProductOptions,
+    productOptions,
+    purchaseOptions,
+    productVariants,
+    stockLevel,
+  ]);
+
+  const hasOptions = !!optionsWithDisabledKey.length;
   const panelRef = useRef(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -57,10 +95,10 @@ const QuickAdd: React.FC<QuickAddProps> = ({
     () =>
       // '' inputType represents gift-cards
       [OPTION_INPUT_TYPE.SELECT, ''].includes(
-        productOptions.find(option => option.id === currentOption)?.inputType ??
-          'invalid-string',
+        optionsWithDisabledKey.find(option => option.id === currentOption)
+          ?.inputType ?? 'invalid-string',
       ) && !state.selectedProductOptions.get(currentOption),
-    [state, currentOption, productOptions],
+    [state, currentOption, optionsWithDisabledKey],
   );
   const addButtonLabel = useMemo(
     () =>
@@ -77,8 +115,9 @@ const QuickAdd: React.FC<QuickAddProps> = ({
     [addLabel, addToBagLabel],
   );
   const currentOptionIndex = useMemo(
-    () => productOptions.map(option => option.id).indexOf(currentOption),
-    [currentOption, productOptions],
+    () =>
+      optionsWithDisabledKey.map(option => option.id).indexOf(currentOption),
+    [currentOption, optionsWithDisabledKey],
   );
 
   const openQuickAdd = () => setQuickAddOpen(true);
@@ -89,7 +128,8 @@ const QuickAdd: React.FC<QuickAddProps> = ({
       event.preventDefault();
 
       const isLastStep =
-        currentOptionIndex === productOptions?.length - 1 || !hasOptions;
+        currentOptionIndex === optionsWithDisabledKey?.length - 1 ||
+        !hasOptions;
 
       if (isLastStep) {
         addToCart().then(() => {
@@ -101,16 +141,16 @@ const QuickAdd: React.FC<QuickAddProps> = ({
 
           // Reset selection & current option
           dispatch({ type: ACTIONS.RESET_STATE, payload: undefined });
-          setCurrentOption(productOptions[0]?.id);
+          setCurrentOption(optionsWithDisabledKey[0]?.id);
         });
         return;
       }
 
-      setCurrentOption(productOptions[currentOptionIndex + 1].id);
+      setCurrentOption(optionsWithDisabledKey[currentOptionIndex + 1].id);
     },
     [
       currentOptionIndex,
-      productOptions,
+      optionsWithDisabledKey,
       hasOptions,
       addToCart,
       addToBagLabel,
@@ -123,6 +163,35 @@ const QuickAdd: React.FC<QuickAddProps> = ({
     (productOption: ProductOption) => {
       if (!productOption?.values?.length) {
         return null;
+      }
+
+      switch (productOption.attributeId) {
+        case 'color': {
+          return (
+            <div className="mt-2 flex items-center justify-start gap-2 overflow-x-auto scrollbar-hidden flex-wrap">
+              {productOption.values?.map(({ id, name, disabled }) => (
+                <ProductColorSelect
+                  key={id}
+                  name={productOption.name || productOption.attributeId}
+                  value={id}
+                  label={name}
+                  onChange={(valueId: string) =>
+                    dispatch({
+                      type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,
+                      payload: { optionId: productOption.id, valueId },
+                    })
+                  }
+                  active={
+                    state.selectedProductOptions.get(productOption.id) === id
+                  }
+                  disabled={disabled}
+                />
+              ))}
+            </div>
+          );
+        }
+        default: {
+        }
       }
 
       if (productOption?.inputType === '') {
@@ -200,6 +269,12 @@ const QuickAdd: React.FC<QuickAddProps> = ({
     }
   }, [added, closeButtonRef]);
 
+  useEffect(() => {
+    if (!quickAddOpen) {
+    } else {
+    }
+  }, [quickAddOpen]);
+
   return (
     <Popover className={className} as="form" onSubmit={handleSubmit}>
       {({ open, close }) => (
@@ -240,72 +315,88 @@ const QuickAdd: React.FC<QuickAddProps> = ({
                 leaveTo="opacity-0 max-h-0">
                 <Popover.Panel
                   static
-                  className="absolute bottom-4 left-4 right-4 hidden w-[calc(100%-32px)] rounded-1.5xl bg-gray-100 p-4 shadow-2xl lg:block"
+                  className="absolute bottom-4 left-4 right-4 hidden w-[calc(100%-32px)] bg-gray-100 p-4 shadow-2xl lg:block"
                   ref={panelRef}
                   onMouseEnter={openQuickAdd}
                   onMouseLeave={closeQuickAdd}
                   onFocus={openQuickAdd}
                   onBlur={closeQuickAdd}>
-                  <div className="grid grid-cols-1 grid-rows-1">
-                    {productOptions.map(
-                      (productOption, index) =>
-                        !!productOption?.values?.length && (
-                          // Expanding/collapsing content wrapper
-                          <div
-                            ref={ref => {
-                              if (!ref) return;
+                  {quickAddStarted ? (
+                    <>
+                      <div className="grid grid-cols-1 grid-rows-1">
+                        {optionsWithDisabledKey.map(
+                          (productOption, index) =>
+                            !!productOption?.values?.length && (
+                              // Expanding/collapsing content wrapper
+                              <div
+                                ref={ref => {
+                                  if (!ref) return;
 
-                              window.requestAnimationFrame(() => {
-                                if (productOption.id === currentOption) {
-                                  ref.style.transitionDelay = '0ms';
-                                  ref.style.maxHeight = `${ref.scrollHeight}px`;
-                                } else {
-                                  ref.style.transitionDelay = '400ms';
-                                  ref.style.maxHeight = `0px`;
-                                }
-                              });
-                            }}
-                            {...(productOption.id !== currentOption && {
-                              'aria-hidden': 'true',
-                            })}
-                            className={[
-                              'relative col-start-1 col-end-2 row-start-1 row-end-2 transition-[opacity,_max-height] duration-400 ease-linear',
-                              productOption.id === currentOption
-                                ? 'z-10 opacity-100'
-                                : 'z-0 opacity-0',
-                            ].join(' ')}
-                            key={productOption.id}>
-                            {/* Back button */}
-                            {index > 0 && (
-                              <div className="mb-4 border-b border-b-background-black-100 pb-2">
-                                <button
-                                  className="flex items-center space-x-1.5 text-sm font-semibold"
-                                  type="button"
-                                  onClick={() =>
-                                    setCurrentOption(productOptions[0].id)
-                                  }>
-                                  <ArrowLeft className="w-3" />
-                                  <span>Back</span>
-                                </button>
+                                  window.requestAnimationFrame(() => {
+                                    if (productOption.id === currentOption) {
+                                      ref.style.transitionDelay = '0ms';
+                                      ref.style.maxHeight = `${ref.scrollHeight}px`;
+                                    } else {
+                                      ref.style.transitionDelay = '400ms';
+                                      ref.style.maxHeight = `0px`;
+                                    }
+                                  });
+                                }}
+                                {...(productOption.id !== currentOption && {
+                                  'aria-hidden': 'true',
+                                })}
+                                className={[
+                                  'relative col-start-1 col-end-2 row-start-1 row-end-2 transition-[opacity,_max-height] duration-400 ease-linear',
+                                  productOption.id === currentOption
+                                    ? 'z-10 opacity-100'
+                                    : 'z-0 opacity-0',
+                                ].join(' ')}
+                                key={productOption.id}>
+                                {/* Back button */}
+                                {index > 0 && (
+                                  <div className="mb-4 border-b border-b-background-black-100 pb-2">
+                                    <button
+                                      className="flex items-center space-x-1.5 text-sm font-semibold"
+                                      type="button"
+                                      onClick={() =>
+                                        setCurrentOption(
+                                          optionsWithDisabledKey[0].id,
+                                        )
+                                      }>
+                                      <ArrowLeft className="w-3" />
+                                      <span>Back</span>
+                                    </button>
+                                  </div>
+                                )}
+                                {/* Option input form */}
+                                {renderOption(productOption)}
                               </div>
-                            )}
-                            {/* Option input form */}
-                            {renderOption(productOption)}
-                          </div>
-                        ),
-                    )}
-                  </div>
+                            ),
+                        )}
+                      </div>
 
-                  <Button
-                    elType={BUTTON_TYPE.BUTTON}
-                    small
-                    className="relative z-10 mt-4 w-full text-center"
-                    type="submit"
-                    disabled={isNextDisabled}>
-                    {currentOptionIndex === productOptions.length - 1
-                      ? addLabel
-                      : nextLabel}
-                  </Button>
+                      <Button
+                        elType={BUTTON_TYPE.BUTTON}
+                        small
+                        className="relative z-10 mt-4 w-full text-center"
+                        type="submit"
+                        disabled={isNextDisabled}>
+                        {currentOptionIndex ===
+                        optionsWithDisabledKey.length - 1
+                          ? addLabel
+                          : nextLabel}
+                      </Button>
+                    </>
+                  ) : (
+                    <Button
+                      onClick={() => setQuickAddStarted(true)}
+                      elType={BUTTON_TYPE.BUTTON}
+                      small
+                      className="relative z-10 mt-4 w-full text-center"
+                      type="button">
+                      {quickAddLabel}
+                    </Button>
+                  )}
                 </Popover.Panel>
               </Transition>
             </>

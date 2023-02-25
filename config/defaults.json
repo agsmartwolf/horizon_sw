@@ -363,7 +363,13 @@
         "title": "You may also like"
       },
       "preview": {
-        "from": "From"
+        "from": "From",
+        "quick_add": {
+          "add_to_cart": "Add to bag",
+          "added": "Added to bag",
+          "next": "Next",
+          "quick_add":"Quick add"
+        }
       }
     },
     "categories": {

@@ -5,7 +5,7 @@ export interface OptionSelectProps {
   attributeId: string;
   name: string;
   active: boolean;
-  values: { id: string; name: string }[];
+  values: { id: string; name: string; disabled?: boolean }[];
   value: string;
   onChange: (value: string) => void;
   className?: string;
@@ -26,7 +26,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
     <div className={className ?? ''}>
       <h3 className="font-headings text-sm font-semibold text-black">{name}</h3>
       <div className="mt-2 grid grid-cols-2 gap-2">
-        {values.map(({ id: valueId, name: valueName }) => (
+        {values.map(({ id: valueId, name: valueName, disabled }) => (
           <OptionSelectItem
             name={name || attributeId}
             key={valueId}
@@ -34,6 +34,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
             label={valueName}
             onChange={onChange}
             active={valueId === value}
+            disabled={disabled}
             className={[
               'text-center',
               valueName.length <= 10 ? 'col-span-1' : 'col-span-2',

@@ -3,6 +3,8 @@ query getCategories {
     results {
       name
       slug
+      parentId
+      topId
       images {
         id
         caption

@@ -42,6 +42,7 @@ Default.args = {
         },
       },
       hasQuickAdd: true,
+      stockLevel: 10,
     },
     {
       id: '2',
@@ -94,6 +95,7 @@ Default.args = {
         },
       },
       hasQuickAdd: true,
+      stockLevel: 10,
     },
     {
       id: '3',
@@ -146,6 +148,7 @@ Default.args = {
         },
       },
       hasQuickAdd: true,
+      stockLevel: 10,
     },
     {
       id: '4',
@@ -198,6 +201,7 @@ Default.args = {
         },
       },
       hasQuickAdd: true,
+      stockLevel: 10,
     },
   ],
 };

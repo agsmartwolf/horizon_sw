@@ -6,6 +6,7 @@ import Link from 'next/link';
 import type { PurchasableProductData } from 'types/shared/products';
 import useProductSelection from 'hooks/useProductSelection';
 import QuickAdd from './QuickAdd';
+import useI18n from '../../../hooks/useI18n';
 
 export interface ProductPreviewCardPurchasableProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -53,6 +54,16 @@ const ProductPreviewCardPurchasable: React.FC<
     ];
   }, [activeVariation, origPrice, price]);
 
+  const i18n = useI18n();
+
+  const addToBagLabel =
+    i18n('products.preview.quick_add.add_to_cart') || 'Add to bag';
+  const addedToBagLabel =
+    i18n('products.preview.quick_add.added') || 'Added to bag';
+  const nextLabel = i18n('products.preview.quick_add.next') || 'Next';
+  const quickAddLabel =
+    i18n('products.preview.quick_add.quick_add') || 'Quick add';
+
   const containerClassNames =
     'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-white  border-[1px] border-gray-100 cursor-pointer';
 
@@ -61,6 +72,8 @@ const ProductPreviewCardPurchasable: React.FC<
       {...props}
       className={[containerClassNames, props.className].join(' ')}>
       <QuickAdd
+        {...product}
+        stockLevel={product.stockLevel}
         productOptions={productOptions}
         state={state}
         dispatch={dispatch}
@@ -85,16 +98,27 @@ const ProductPreviewCardPurchasable: React.FC<
             />
           </Link>
         )}
-        addToBagLabel="Add to bag"
-        addedToBagLabel="Added to bag"
-        nextLabel="Next"
+        addToBagLabel={addToBagLabel}
+        addedToBagLabel={addedToBagLabel}
+        nextLabel={nextLabel}
+        quickAddLabel={quickAddLabel}
       />
       <Link href={href} className="cursor-pointer">
-        <div className="flex flex-col md:flex-row px-2.5 py-2.5 lg:p-5 bg-gray-200">
-          <div className="flex flex-col lg:pr-2" ref={wrapperRef}>
-            <h4 className="text-md font-medium md:font-bold lg:text-sm mb-2 block truncate">
+        <div className="md:min-h-[100px] lg:min-h-[116px] bg-gray-200 px-2.5 py-2.5 lg:p-5">
+          <div className={'flex flex-col md:flex-row justify-between'}>
+            <h4
+              className="text-md font-medium md:font-bold lg:text-sm mb-2 block truncate"
+              title={title}>
               {title}
             </h4>
+            {show_product_price && (
+              <div className="text-lg font-semibold lg:text-sm">
+                {fromPriceLabel ? `${fromPriceLabel} ` : ''}
+                <Price price={activePrice} origPrice={activeOrigPrice} />
+              </div>
+            )}
+          </div>
+          <div className="flex flex-col lg:pr-2" ref={wrapperRef}>
             {show_product_description && (
               <span
                 className="text-sm text-body line-clamp-2"
@@ -102,12 +126,6 @@ const ProductPreviewCardPurchasable: React.FC<
               />
             )}
           </div>
-          {show_product_price && (
-            <div className="text-lg font-semibold lg:text-sm">
-              {fromPriceLabel ? `${fromPriceLabel} ` : ''}
-              <Price price={activePrice} origPrice={activeOrigPrice} />
-            </div>
-          )}
         </div>
       </Link>
     </div>

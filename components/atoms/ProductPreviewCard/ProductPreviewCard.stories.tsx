@@ -42,6 +42,7 @@ Default.args = {
       },
     },
     hasQuickAdd: false,
+    stockLevel: 4,
   },
 };
 
@@ -97,6 +98,7 @@ NoPrice.args = {
       },
     },
     hasQuickAdd: false,
+    stockLevel: 0,
   },
 };
 
@@ -149,6 +151,7 @@ QuickAdd.args = {
       },
     },
     hasQuickAdd: true,
+    stockLevel: 0,
   },
 };
 
@@ -202,5 +205,6 @@ Skeleton.args = {
       },
     },
     hasQuickAdd: true,
+    stockLevel: 1,
   },
 };

@@ -196,6 +196,7 @@ export const mapProducts = (
     | 'origPrice'
     | 'purchaseOptions'
     | 'variants'
+    | 'stockLevel'
   >[],
 ) =>
   products.map(product => ({
@@ -233,6 +234,7 @@ export const mapProducts = (
     productVariants: denullifyArray(product?.variants?.results),
     purchaseOptions: product.purchaseOptions ?? {},
     hasQuickAdd: hasQuickAdd(product),
+    stockLevel: product?.stockLevel ?? 0,
   }));
 
 // A product has quick add if:
@@ -354,11 +356,24 @@ export const addStockOptionData = (
     o => o.attributeId === 'color',
   );
   const sizeOptions = updatedProductOptions.find(o => o.attributeId === 'size');
-  // Array.from(selectedProductOptions.entries()).map(([id, valueId]) => ({
-  //   id,
-  //   valueId,
-  // }))
   if (colorOptions?.values && sizeOptions && colorOptions) {
+    colorOptions.values.forEach(colorOpt => {
+      colorOpt.disabled = !sizeOptions.values?.some(sizeOpt => {
+        return isOptionValueInStock(
+          [
+            { id: colorOptions.id, valueId: colorOpt.id },
+            { id: sizeOptions.id, valueId: sizeOpt.id },
+          ],
+          {
+            productOptions,
+            purchaseOptions,
+            productVariants,
+            stockLevel,
+          },
+        );
+      });
+    });
+
     const currentColorOptValue = selectedProductOptions.get(colorOptions.id);
     if (currentColorOptValue) {
       sizeOptions.values?.forEach(sizeOpt => {

@@ -44,6 +44,7 @@ const items = [
       },
     },
     hasQuickAdd: true,
+    stockLevel: 10,
   },
   {
     id: '2',
@@ -96,6 +97,7 @@ const items = [
       },
     },
     hasQuickAdd: true,
+    stockLevel: 2,
   },
   {
     id: '3',
@@ -148,6 +150,7 @@ const items = [
       },
     },
     hasQuickAdd: true,
+    stockLevel: 0,
   },
   {
     id: '4',
@@ -200,6 +203,7 @@ const items = [
       },
     },
     hasQuickAdd: true,
+    stockLevel: 2,
   },
 ];
 

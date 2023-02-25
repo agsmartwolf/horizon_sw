@@ -41,7 +41,9 @@ export interface ProductData {
 
 export interface CategoryData {
   name: string;
+  id?: string;
   slug: string;
+  children?: CategoryData[];
 }
 
 export interface ProductOption {
@@ -115,6 +117,7 @@ export interface PurchasableProductData extends ProductData {
   productVariants: SwellProductVariant[];
   purchaseOptions: SwellProductPurchaseOptions;
   hasQuickAdd: boolean;
+  stockLevel: number;
 }
 
 export interface StandardPurchaseOption {
