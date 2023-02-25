@@ -1,6 +1,7 @@
 import React from 'react';
 // import Tick from 'assets/icons/tick.svg';
 import cn from 'classnames';
+import styles from './ProductColorSelect.module.css';
 
 interface ProductColorSelectProps {
   name: string;
@@ -23,7 +24,44 @@ const COLOR_MAP = new Map([
   ['brown', 'bg-brown-500'],
   ['black', 'bg-black-100'],
   ['white', 'bg-white-500'],
-  ['grey', 'bg-grey-500'],
+  ['grey', 'bg-gray-500'],
+
+  ['gray', 'bg-gray-500'],
+
+  ['orange/black', 'bg-gradient-to-r from-orange-500 to-black-100'],
+  ['army green', 'bg-armygreen'],
+  ['vibrant orange', 'bg-vibrantorange'],
+  ['pool blue', 'bg-poolblue'],
+  ['ribbon red', 'bg-ribbonred'],
+  ['orangeade', 'bg-orangeade'],
+  ['baltic', 'bg-baltic'],
+  ['neon yellow', 'bg-neonyellow'],
+  ['fuchsia', 'bg-fuchsia'],
+  ['royal blue', 'bg-royalblue'],
+  ['grass green', 'bg-grassgreen'],
+  ['funchsia', 'bg-funchsia'],
+  ['grey/orange', 'bg-gradient-to-r from-gray-400 to-orange-200'],
+  ['grey/yellow', 'bg-gradient-to-r from-gray-400 to-yellow-200'],
+  ['grey/neon yellow', 'bg-gradient-to-r from-gray-400 to-yellow-200'],
+  ['black/orange', 'bg-gradient-to-r from-orange-500 to-black-100'],
+  ['black/neon yellow', 'bg-gradient-to-r from-black-100 to-yellow-100'],
+  ['glacier gray', 'bg-glaciergray'],
+  ['bright white', 'bg-brightwhite'],
+  ['blue radiance', 'bg-blueradiance'],
+  ['calypso coral', 'bg-calypsocoral'],
+  ['blue topaz', 'bg-bluetopaz'],
+  ['blazing yellow', 'bg-blazingyellow'],
+  ['hot coral', 'bg-hotcoral'],
+  ['black ink', 'bg-blackink'],
+  ['turquoise', 'bg-turquoise'],
+  ['rosso', 'bg-rosso'],
+  ['carrot', 'bg-carrot'],
+  ['artic', 'bg-artic'],
+  ['chocolate', 'bg-chocolate'],
+  ['gold', 'bg-gold'],
+  ['steel', 'bg-steel'],
+  ['violet', 'bg-violet'],
+  ['wine', 'bg-wine'],
 ]);
 
 const ProductColorSelect: React.FC<ProductColorSelectProps> = ({
@@ -52,9 +90,11 @@ const ProductColorSelect: React.FC<ProductColorSelectProps> = ({
       <label
         htmlFor={value}
         className={cn(
-          'border-[1px] p-[2.5px] w-10 h-10 cursor-pointer',
+          'border-[1px] p-[2.5px] w-10 h-10 min-w-10 cursor-pointer',
           { 'border-black': active },
           { 'border-gray-100': !active },
+          { 'opacity-20 strikethrough-diagonal cursor-not-allowed': disabled },
+          { [styles.disabled]: disabled },
         )}>
         <div
           className={cn('w-full h-full', {
