@@ -81,9 +81,9 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, aspectRatio }) => {
                 currentSlide,
                 images.length,
               )}`}>
-              <div className="h-full w-full px-4 lg:px-0">
+              <div className="px-4 lg:px-0">
                 <Image
-                  sizes="(max-width: 640px) 100vw, 640px"
+                  sizes="(max-width: 640px) 100vw, 540px"
                   width={image.width}
                   height={image.height}
                   src={image.src}

@@ -228,7 +228,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
           <ImageGallery
             images={images}
             aspectRatio={
-              images[1] ? `${images[1].height}/${images[1].width}` : '12/10'
+              images[0] ? `${images[0].width}/${images[0].height}` : '12/10'
             }
           />
         </section>
