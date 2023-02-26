@@ -18,14 +18,10 @@ const InfoAccordion: React.FC<InfoAccordionProps> = ({
   accordionStyle = 'default',
   className,
 }) => {
-  const classNames = cn(
-    'flex flex-col overflow-hidden px-6 rounded-lg',
-    'lg:px-8',
-    {
-      'bg-secondary': accordionStyle === 'default',
-      'border border-primary': accordionStyle === 'secondary',
-    },
-  );
+  const classNames = cn('flex flex-col overflow-hidden rounded-lg', '', {
+    'bg-secondary': accordionStyle === 'default',
+    'border border-primary': accordionStyle === 'secondary',
+  });
 
   return (
     <div className={className}>
