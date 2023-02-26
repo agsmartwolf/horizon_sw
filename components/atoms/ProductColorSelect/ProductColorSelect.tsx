@@ -62,6 +62,7 @@ const COLOR_MAP = new Map([
   ['steel', 'bg-steel'],
   ['violet', 'bg-violet'],
   ['wine', 'bg-wine'],
+  ['multicolor', 'bg-gradient-to-r from-blue-400 to-red-500'],
 ]);
 
 const ProductColorSelect: React.FC<ProductColorSelectProps> = ({
