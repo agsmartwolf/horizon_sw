@@ -48,14 +48,14 @@ const Breadcrumb: React.FC<BreadcumbProps> = ({ className, customText }) => {
     <nav
       aria-label="breadcrumbs"
       className={[
-        'text-sm font-semibold capitalize tracking-wide text-black',
+        'text-sm font-light capitalize tracking-wide text-gray-400',
         className,
       ].join(' ')}>
       <ol className="flex">
         {routes.map((route, i) => (
           <li key={i}>
             <Link href={route.href}>{route.title}</Link>
-            {i !== routes.length - 1 && <span>&nbsp;/&nbsp;</span>}
+            {i !== routes.length - 1 && <span>&nbsp;&gt;&nbsp;</span>}
           </li>
         ))}
       </ol>
