@@ -7,6 +7,7 @@ export interface MandatoryImageProps extends ImageProps {
   alt: string;
   width: number;
   height: number;
+  id?: string;
 }
 
 export interface ILink {

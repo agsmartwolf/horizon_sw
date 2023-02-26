@@ -75,6 +75,7 @@ export interface ProductsPageProps {
   stockPurchasable: SwellProduct['stockPurchasable'];
   stockTracking: SwellProduct['stockTracking'];
   settings: ProductSettings;
+  tags: Array<string | null>;
   meta: {
     title: string;
     description: string;
@@ -154,6 +155,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
   stockTracking,
   settings,
   meta,
+  tags,
 }) => {
   const { locale } = useRouter();
   const i18n = useI18n();
@@ -223,11 +225,16 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
       </Head>
       <article className="flex flex-col lg:grid lg:grid-cols-2 mb-4">
         <section className={imageSectionClasses}>
-          <ImageGallery images={images} aspectRatio="12/10" />
+          <ImageGallery
+            images={images}
+            aspectRatio={
+              images[1] ? `${images[1].height}/${images[1].width}` : '12/10'
+            }
+          />
         </section>
         <aside className="mt-10 lg:px-14">
           <div className="px-6">
-            <ProductHeader {...details} />
+            <ProductHeader {...details} tags={tags} />
             {!!productBenefits.length && (
               <ProductBenefits benefits={productBenefits} className="mt-10" />
             )}

@@ -22,7 +22,7 @@ export const Default = Template.bind({});
 Default.args = {
   title: 'Foaming Cleanser',
   subtitle: 'Skin care essentials',
-  tag: 'Available for subscription',
+  tags: ['Available for subscription'],
   description:
     'Non-offensive and suitable for all skin types. Moisturizes and soothes skinwhile romoving all traces of makeup and pollution. It’s gentle formula is humbly effective and loved by all.',
 };

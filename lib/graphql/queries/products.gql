@@ -120,6 +120,7 @@ query getProduct($slug: String, $currency: String, $locale: String) {
     price
     sale
     origPrice
+    tags
     images {
       id
       caption
@@ -182,6 +183,7 @@ query getProduct($slug: String, $currency: String, $locale: String) {
         description
         slug
         price
+        tags
         sale
         origPrice
         currency
@@ -392,6 +394,7 @@ query getProductPricesInCurrency($slug: String, $currency: String) {
         sale
         origPrice
         currency
+        tags
         options {
           id
           attributeId
@@ -510,6 +513,7 @@ query searchProducts($searchTerm: String, $currency: String) {
       slug
       price
       sale
+      tags
       origPrice
       stockLevel
       images {

@@ -222,6 +222,7 @@ export async function getProductBySlug(
             title: upSell?.product?.name ?? '',
             description: upSell?.product?.description ?? '',
             price: upSell?.product?.price ?? 0,
+            tags: upSell?.product?.tags ?? [],
             origPrice: upSell?.product?.origPrice ?? null,
             href: `/products/${upSell?.product?.slug ?? ''}`,
             image: {
@@ -312,6 +313,7 @@ export async function getProductBySlug(
     stockLevel: product?.stockLevel,
     stockPurchasable: product?.stockPurchasable,
     stockTracking: product?.stockTracking,
+    tags: product?.tags ?? [],
     meta: {
       title: product?.metaTitle ?? '',
       description: product?.metaDescription ?? '',
