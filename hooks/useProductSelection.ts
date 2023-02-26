@@ -133,7 +133,11 @@ const useProductSelection = ({
               }
               return;
             }
-            options.set(option.id, option.values?.[0]?.id);
+            const firstAvailableOption = option.values.find(v => !v.disabled);
+            options.set(
+              option.id,
+              firstAvailableOption?.id ?? option.values?.[0]?.id,
+            );
           }
         });
       }
