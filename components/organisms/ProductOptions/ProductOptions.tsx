@@ -121,7 +121,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
 
       switch (productOption.attributeId) {
         case 'color': {
-          return productOption.values?.map(({ id, name }) => (
+          return productOption.values?.map(({ id, name, disabled }) => (
             <ProductColorSelect
               key={id}
               name={productOption.name || productOption.attributeId}
@@ -134,6 +134,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
                 })
               }
               active={selectedOptions.get(productOption.id) === id}
+              disabled={disabled}
             />
           ));
         }
