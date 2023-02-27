@@ -1,10 +1,10 @@
 import RichText from 'components/atoms/RichText';
 import Tag from 'components/atoms/Tag';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
 import styles from './ProductHeader.module.css';
 import Breadcrumb from '../../atoms/Breadcrumb';
-// import { InlineIcon } from '@iconify/react';
+import { InlineIcon } from '@iconify/react';
 
 export interface ProductHeaderProps {
   title: string;
@@ -13,12 +13,25 @@ export interface ProductHeaderProps {
   tags?: Array<string | null>;
 }
 
+const MIN_DESCRIPTION_HEIGHT = 130;
+
 const ProductHeader: React.FC<ProductHeaderProps> = ({
   title,
   description,
   tags,
 }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [stateChangedOnce, setStateChangedOnce] = useState(false);
+
+  const descriptionBlockRef = useRef<HTMLDivElement>(null);
+  const [descriptionHeight, setDescriptionHeight] = useState(0);
+
+  useEffect(() => {
+    if (descriptionBlockRef.current) {
+      setDescriptionHeight(descriptionBlockRef.current.clientHeight);
+    }
+  }, []);
+
   return (
     <div>
       {/*<h5 className="capitalize text-sm font-body text-gray-400">{subtitle}</h5>*/}
@@ -35,29 +48,37 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
           ))}
         </div>
       )}
-      <div className={`text-sm text-body ${tags ? 'lg:mt-2' : 'mt-2 lg:mt-3'}`}>
+      <div
+        className={`text-sm text-body ${tags ? 'lg:mt-2' : 'mt-2 lg:mt-3'}`}
+        ref={descriptionBlockRef}>
         <RichText
-          onClick={() => setOpen(!open)}
+          onClick={() => {
+            setOpen(!open);
+            setStateChangedOnce(true);
+          }}
           content={description}
           className={cn(
             styles.content,
-            'text-ellipsis overflow-hidden',
-            'transition-[max-height] duration-400 cursor-pointer',
+            'text-ellipsis overflow-hidden text-justify',
+            'transition-[max-height] duration-400 cursor-pointer select-none',
             {
-              'max-h-[100px] text-justify': !open,
               'max-h-[5000px]': open,
+              [`line-clamp-6 max-h-[${MIN_DESCRIPTION_HEIGHT}px]`]:
+                !open && descriptionHeight !== 0,
             },
           )}
         />
-        {/*<InlineIcon*/}
-        {/*  height={24}*/}
-        {/*  width={24}*/}
-        {/*  icon={`system-uicons:pull-${open ? 'up' : 'down'}`}*/}
-        {/*  className={cn('text-black cursor-pointer mx-auto', {*/}
-        {/*    'animate-bounce mt-4': !open,*/}
-        {/*  })}*/}
-        {/*  onClick={() => setOpen(!open)}*/}
-        {/*/>*/}
+        <InlineIcon
+          height={24}
+          width={24}
+          icon={`system-uicons:pull-${open ? 'up' : 'down'}`}
+          className={cn('text-black cursor-pointer mx-auto', {
+            'mt-4': !open,
+            'animate-bounce': !open && !stateChangedOnce,
+            hidden: descriptionHeight < MIN_DESCRIPTION_HEIGHT,
+          })}
+          onClick={() => setOpen(!open)}
+        />
       </div>
     </div>
   );
