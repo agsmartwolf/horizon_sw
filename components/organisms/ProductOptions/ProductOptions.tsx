@@ -119,7 +119,9 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
         return selectOption(productOption);
       }
 
-      switch (productOption.attributeId) {
+      // TODO: report to SWELL team: attributeId is null in response however it presents in SWELL dashboard
+      //  (in graphql response it's null too)
+      switch (productOption.attributeId || productOption.name.toLowerCase()) {
         case 'color': {
           return productOption.values?.map(({ id, name, disabled }) => (
             <ProductColorSelect
