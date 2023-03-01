@@ -17,13 +17,14 @@
   --typography-font-size-2xl: 1.424rem;
   --typography-font-size-xl: 1.266rem;
   --typography-font-size-lg: 1.125rem;
-  --typography-font-size-md: 1.000rem;
+  --typography-font-size-md: 1rem;
   --typography-font-size-sm: 0.889rem;
-  --typography-font-size-xs: 0.790rem;
+  --typography-font-size-xs: 0.79rem;
   --typography-font-size-2xs: 0.702rem;
   --typography-font-size-3xs: 0.624rem;
   --typography-font-family-headings: Sora, sans-serif;
   --typography-font-family-body: Sora, sans-serif;
+  --typography-font-family-graphity: Empires, sans-serif;
   --typography-font-weight-headings: 600;
   --typography-font-weight-body: 400;
   --colors-outline: hsla(200, 100%, 36%, 0.75);
@@ -33,7 +34,7 @@
   --green-300: #4fe155;
   --black: #171717;
   --black-100: #171717;
-  --black-200: #0A0A0A;
+  --black-200: #0a0a0a;
   --white: #ffffff;
   --gray: #f5f4f4;
   --gray-100: #ededed;
@@ -56,11 +57,10 @@
   --colors-status-warn: #ffca38;
   --colors-status-error: #e61c1c;
   --colors-status-error_faded: #ffd6d6;
-  --colors-success-dark: #00BA99;
-  --colors-error-dark: #FF766D;
+  --colors-success-dark: #00ba99;
+  --colors-error-dark: #ff766d;
 
-
-  --colors-input-standard: #BDB9C6;
-  --colors-dividers: #ECEAF0;
+  --colors-input-standard: #bdb9c6;
+  --colors-dividers: #eceaf0;
   --borders-image-radius: 20px;
 }

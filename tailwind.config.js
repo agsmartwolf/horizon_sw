@@ -52,6 +52,7 @@ module.exports = {
         '"Noto Color Emoji"',
       ],
       headings: ['var(--typography-font-family-headings)'],
+      graphity: ['var(--typography-font-family-graphity)'],
       body: ['var(--typography-font-family-body)'],
     },
     fontSize: {

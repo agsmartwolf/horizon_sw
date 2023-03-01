@@ -12,7 +12,7 @@ export enum NAV_ITEM_TYPE {
 }
 
 export enum NAV_CONTENT_MODEL {
-  PAGES = 'content/pages',
+  PAGES = 'pages',
   QUIZZES = 'content/quizzes',
 }
 

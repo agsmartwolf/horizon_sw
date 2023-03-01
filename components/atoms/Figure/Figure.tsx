@@ -14,6 +14,7 @@ export interface FigureProps
   caption: string;
   image: MandatoryImageProps;
   rounded?: boolean;
+  innerCaption?: boolean;
   captionClassName?: string;
 }
 
@@ -28,6 +29,7 @@ const Figure: ContentBlockComponentWithRef<FigureProps> = forwardRef<
       rounded,
       horizontal_spacing: horizontalSpacing = SPACING.NONE,
       captionClassName = '',
+      innerCaption = false,
       ...props
     },
     ref,
@@ -45,10 +47,19 @@ const Figure: ContentBlockComponentWithRef<FigureProps> = forwardRef<
         className={rounded ? 'rounded-2xl' : ''}
         alt={image.alt}
       />
-      <figcaption
-        className={cn('text-left text-lg lg:text-xl', captionClassName)}>
-        {caption}
-      </figcaption>
+      {innerCaption ? (
+        <figcaption
+          className={cn('text-left text-lg lg:text-xl', captionClassName)}
+          dangerouslySetInnerHTML={{
+            __html: innerCaption ? caption : '',
+          }}
+        />
+      ) : (
+        <figcaption
+          className={cn('text-left text-lg lg:text-xl', captionClassName)}>
+          {caption}
+        </figcaption>
+      )}
     </figure>
   ),
 );

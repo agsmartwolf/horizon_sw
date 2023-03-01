@@ -67,30 +67,32 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, aspectRatio }) => {
         />
         <div
           {...handlers}
-          className="align-center relative flex w-full justify-center overflow-hidden lg:w-auto"
-          style={{
-            aspectRatio,
-          }}>
+          className="align-center relative flex w-full justify-center overflow-hidden lg:w-auto">
           {images.map((image, i) => (
             <div
               key={image.src.toString()}
-              aria-hidden={i !== currentSlide ? 'true' : undefined}
-              tabIndex={-1}
-              className={`absolute flex h-full w-full items-center justify-center transition-all lg:transition-opacity ${getImageClassName(
-                i,
-                currentSlide,
-                images.length,
-              )}`}>
-              <div className="px-4 lg:px-0">
-                <Image
-                  sizes="(max-width: 640px) 100vw, 540px"
-                  width={image.width}
-                  height={image.height}
-                  src={image.src}
-                  alt={image.alt}
-                  className={[image.className].join(' ')}
-                  style={{ objectFit: 'contain' }}
-                />
+              style={{
+                aspectRatio: `${image.width}/${image.height}` || aspectRatio,
+              }}>
+              <div
+                aria-hidden={i !== currentSlide ? 'true' : undefined}
+                tabIndex={-1}
+                className={`absolute flex h-full w-full items-center justify-center transition-all lg:transition-opacity ${getImageClassName(
+                  i,
+                  currentSlide,
+                  images.length,
+                )}`}>
+                <div className="px-4 lg:px-0">
+                  <Image
+                    sizes="(max-width: 640px) 100vw, 540px"
+                    width={image.width}
+                    height={image.height}
+                    src={image.src}
+                    alt={image.alt}
+                    className={[image.className].join(' ')}
+                    style={{ objectFit: 'contain' }}
+                  />
+                </div>
               </div>
             </div>
           ))}
