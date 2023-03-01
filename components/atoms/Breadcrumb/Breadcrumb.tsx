@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import useI18n from '../../../hooks/useI18n';
 
 export interface BreadcumbProps {
   className?: string;
@@ -15,6 +16,10 @@ interface BreadcrumbRoute {
 const Breadcrumb: React.FC<BreadcumbProps> = ({ className, customText }) => {
   const [routes, setRoutes] = useState<BreadcrumbRoute[]>([]);
   const router = useRouter();
+
+  const i18n = useI18n();
+
+  const homeLabel = i18n('home.home') || 'Home';
 
   useEffect(() => {
     if (!router) return;
@@ -52,6 +57,9 @@ const Breadcrumb: React.FC<BreadcumbProps> = ({ className, customText }) => {
         className,
       ].join(' ')}>
       <ol className="flex">
+        <li>
+          <Link href="/">{homeLabel}&nbsp;&gt;&nbsp;</Link>
+        </li>
         {routes.map((route, i) => (
           <li key={i}>
             <Link href={route.href}>{route.title}</Link>
