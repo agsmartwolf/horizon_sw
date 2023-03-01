@@ -52,7 +52,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, aspectRatio }) => {
   return (
     <div className="w-full select-text flex flex-col-reverse gap-2">
       <ImageThumbnails
-        className="hidden lg:flex overflow-y-auto w-full"
+        className="hidden lg:flex overflow-y-hidden w-full"
         images={images}
         imageSize={100}
         value={currentSlide}
@@ -66,10 +66,11 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, aspectRatio }) => {
           onClick={setPrevSlide}
         />
         <div
-          {...handlers}
-          className="align-center relative flex w-full justify-center overflow-hidden lg:w-auto">
+          className="align-center relative flex justify-center w-full overflow-hidden lg:w-auto"
+          {...handlers}>
           {images.map((image, i) => (
             <div
+              className="w-full grow shrink-0"
               key={image.src.toString()}
               style={{
                 aspectRatio: `${image.width}/${image.height}` || aspectRatio,

@@ -352,10 +352,12 @@ export const addStockOptionData = (
   stockLevel?: SwellProduct['stockLevel'],
 ) => {
   const updatedProductOptions = [...productOptions];
-  const colorOptions = updatedProductOptions.find(
-    o => o.attributeId === 'color',
+  const colorOptions = updatedProductOptions.find(o =>
+    [o.attributeId, o.name.toLowerCase()].includes('color'),
   );
-  const sizeOptions = updatedProductOptions.find(o => o.attributeId === 'size');
+  const sizeOptions = updatedProductOptions.find(o =>
+    [o.attributeId, o.name.toLowerCase()].includes('size'),
+  );
   if (colorOptions?.values && sizeOptions && colorOptions) {
     colorOptions.values.forEach(colorOpt => {
       colorOpt.disabled = !sizeOptions.values?.some(sizeOpt => {
