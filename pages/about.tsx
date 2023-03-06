@@ -79,7 +79,7 @@ const AboutPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
       <section className="h-full text-green-100 bg-black-100 relative lg:min-h-[calc(100vh-90px)] mb-[40px]">
         <RichText
           content="FRiENDS"
-          className="font-graphity lg:text-[800px] -ml-14 absolute -top-[150px] z-0"
+          className="text-[228px] font-bold -ml-7 -top-[calc(50%-74px)] font-graphity lg:text-[800px] lg:-ml-14 absolute lg:-top-[150px] z-0"
           rootEl="p"
         />
         <SafeImage
@@ -111,8 +111,19 @@ const AboutPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
               height: 'auto',
             }}
           />
+          <SafeImage
+            className="w-full md:hidden"
+            src="/images/about-us/3-1.png"
+            alt="mobile img"
+            width={1440}
+            height={1339}
+            style={{
+              width: '100vw',
+              height: 'auto',
+            }}
+          />
         </div>
-        <div className="flex flex-col pl-[80px] pt-[40px] z-10 relative">
+        <div className="flex flex-col pl-[20px] lg:pl-[80px] pt-[40px] z-10 relative">
           {sections.map(s => (
             <Figure
               key={s.id}
@@ -124,8 +135,8 @@ const AboutPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
                 className: 'safe-aspect-square',
               }}
               caption={s.description as string}
-              className={`bg-gray-200 p-[60px] w-2/5 mb-[40px]`}
-              captionClassName={'pt-14'}
+              className={`bg-gray-200 p-[20px] lg:p-[60px] w-3/5 lg:w-2/5 mb-[40px] font-light text-sm`}
+              captionClassName={'pt-0 lg:pt-14'}
               innerCaption
             />
           ))}

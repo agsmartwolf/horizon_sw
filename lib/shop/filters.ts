@@ -120,10 +120,13 @@ export const applyFilters = (
   products: SwellProduct[],
   query: SearchParams,
 ) => {
-  const currentFilters = Object.entries(query).map(([key, value]) => ({
-    label: key,
-    value: Array.isArray(value) ? value : [value ?? ''],
-  }));
+  const currentFilters = [...query.entries()].map(([key, value]) => {
+    const parsedValue = value.split(',');
+    return {
+      label: key,
+      value: parsedValue,
+    };
+  });
 
   const priceRangeFilter = currentFilters.find(
     filter => filter.label === 'price',

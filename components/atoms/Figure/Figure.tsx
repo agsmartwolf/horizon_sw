@@ -49,7 +49,7 @@ const Figure: ContentBlockComponentWithRef<FigureProps> = forwardRef<
       />
       {innerCaption ? (
         <figcaption
-          className={cn('text-left text-lg lg:text-xl', captionClassName)}
+          className={cn('text-left text-sm lg:text-xl', captionClassName)}
           dangerouslySetInnerHTML={{
             __html: innerCaption ? caption : '',
           }}

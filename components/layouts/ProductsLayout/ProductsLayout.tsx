@@ -91,7 +91,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   attributeFilters,
 }) => {
   const router = useRouter();
-  const searchParams: SearchParams = useSearchParams();
+  const searchParams = useSearchParams();
   const pathname = usePathname();
 
   const { isMobile } = useViewport();
@@ -320,7 +320,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     const productData = mapProducts(filteredProducts);
 
     // Get the price range limits from the list of products
-    setPriceRangeLimits(getPriceRangeFromProducts(filteredProducts));
+    setPriceRangeLimits(getPriceRangeFromProducts(productResults));
     setProducts(productData);
     setLoading(false);
   }
@@ -354,7 +354,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     const productData = mapProducts(filteredProducts);
 
     // Get the price range limits from the list of products
-    setPriceRangeLimits(getPriceRangeFromProducts(filteredProducts));
+    setPriceRangeLimits(getPriceRangeFromProducts(searchResults));
     setProducts(productData);
 
     return () => {
