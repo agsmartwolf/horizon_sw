@@ -309,10 +309,10 @@ const QuickAdd: React.FC<QuickAddProps> = ({
             <>
               <Transition
                 show={quickAddOpen}
-                enter="transition-[opacity,_max-height] duration-800 ease-linear"
+                enter="transition-[opacity,_max-height] duration-400 ease-linear"
                 enterFrom="opacity-0 max-h-0"
                 enterTo="opacity-100 max-h-112"
-                leave="transition-[opacity,_max-height] duration-400 ease-linear"
+                leave="transition-[opacity,_max-height] duration-200 ease-linear"
                 leaveFrom="opacity-100 max-h-112"
                 leaveTo="opacity-0 max-h-0">
                 <Popover.Panel
@@ -348,7 +348,7 @@ const QuickAdd: React.FC<QuickAddProps> = ({
                                   'aria-hidden': 'true',
                                 })}
                                 className={[
-                                  'relative col-start-1 col-end-2 row-start-1 row-end-2 transition-[opacity,_max-height] duration-400 ease-linear',
+                                  'relative col-start-1 col-end-2 row-start-1 row-end-2 transition-[opacity,_max-height] duration-200 ease-linear',
                                   productOption.id === currentOption
                                     ? 'z-10 opacity-100'
                                     : 'z-0 opacity-0',
@@ -406,10 +406,10 @@ const QuickAdd: React.FC<QuickAddProps> = ({
             <Transition
               show={!open && (quickAddOpen || added)}
               className="path-fill-black-100 hover:path-fill-black absolute bottom-4 left-4 right-4 z-30 hidden w-[calc(100%-32px)] text-center transition-opacity ease-in-out lg:inline-block"
-              enter="transition-opacity duration-1800"
+              enter="transition-opacity duration-400"
               enterFrom="opacity-0"
               enterTo="opacity-100"
-              leave="transition-opacity duration-800"
+              leave="transition-opacity duration-200"
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
               as={Button}
@@ -428,10 +428,10 @@ const QuickAdd: React.FC<QuickAddProps> = ({
           )}
           <Transition
             show={added}
-            enter="transition-opacity duration-800"
+            enter="transition-opacity duration-400"
             enterFrom="opacity-0"
             enterTo="opacity-100"
-            leave="transition-opacity duration-800"
+            leave="transition-opacity duration-200"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
             className="path-fill-black-100 hover:path-fill-black pointer-events-none absolute bottom-4 left-4 right-4 z-30 hidden w-[calc(100%-32px)] text-center transition-opacity ease-in-out lg:inline-block"
