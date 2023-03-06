@@ -84,10 +84,10 @@ const AboutPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
         />
         <SafeImage
           className="z-10 m-auto pt-14 block relative"
-          width={408}
-          height={773}
+          width={1440}
+          height={810}
           src="/images/about-us/hero.png"
-          alt={'white swiss shepherd dog'}
+          alt={'family with dog'}
         />
       </section>
 
@@ -97,15 +97,19 @@ const AboutPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
             className="ml-auto mb-[40px]"
             src="/images/about-us/1-2.png"
             alt="white swiss shepherd dog"
-            width={1440}
+            width={1143}
             height={958}
           />
           <SafeImage
             className="w-full"
-            src="/images/about-us/2-3.png"
+            src="/images/about-us/2-4.png"
             alt="white swiss shepherd dog"
             width={1440}
-            height={1210}
+            height={1339}
+            style={{
+              width: '100vw',
+              height: 'auto',
+            }}
           />
         </div>
         <div className="flex flex-col pl-[80px] pt-[40px] z-10 relative">
