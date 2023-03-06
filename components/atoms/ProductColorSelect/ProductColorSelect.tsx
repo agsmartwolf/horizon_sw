@@ -21,12 +21,12 @@ const COLOR_MAP = new Map([
   ['yellow', 'bg-yellow-500'],
   ['purple', 'bg-purple-500'],
   ['pink', 'bg-pink-500'],
-  ['brown', 'bg-brown-500'],
+  ['brown', 'bg-amber-900'],
   ['black', 'bg-black-100'],
   ['white', 'bg-white-500'],
-  ['grey', 'bg-gray-500'],
+  ['grey', 'bg-gray-400'],
 
-  ['gray', 'bg-gray-500'],
+  ['gray', 'bg-gray-400'],
 
   ['orange/black', 'bg-gradient-to-r from-orange-500 to-black-100'],
   ['army green', 'bg-armygreen'],
