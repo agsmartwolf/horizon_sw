@@ -165,33 +165,35 @@ const QuickAdd: React.FC<QuickAddProps> = ({
         return null;
       }
 
-      switch (productOption.attributeId) {
-        case 'color': {
-          return (
-            <div className="mt-2 flex items-center justify-start gap-2 overflow-x-auto scrollbar-hidden flex-wrap">
-              {productOption.values?.map(({ id, name, disabled }) => (
-                <ProductColorSelect
-                  key={id}
-                  name={productOption.name || productOption.attributeId}
-                  value={id}
-                  label={name}
-                  onChange={(valueId: string) =>
-                    dispatch({
-                      type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,
-                      payload: { optionId: productOption.id, valueId },
-                    })
-                  }
-                  active={
-                    state.selectedProductOptions.get(productOption.id) === id
-                  }
-                  disabled={disabled}
-                />
-              ))}
-            </div>
-          );
-        }
-        default: {
-        }
+      // TODO Fix this after SWELL fix attributeId to be consistent
+      // now attributeId is returned as null however it's presented in SWELL dashboard
+      if (
+        [productOption.name.toLowerCase(), productOption.attributeId].includes(
+          'color',
+        )
+      ) {
+        return (
+          <div className="mt-2 flex items-center justify-start gap-2 overflow-x-auto scrollbar-hidden flex-wrap">
+            {productOption.values?.map(({ id, name, disabled }) => (
+              <ProductColorSelect
+                key={id}
+                name={productOption.name || productOption.attributeId}
+                value={id}
+                label={name}
+                onChange={(valueId: string) =>
+                  dispatch({
+                    type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,
+                    payload: { optionId: productOption.id, valueId },
+                  })
+                }
+                active={
+                  state.selectedProductOptions.get(productOption.id) === id
+                }
+                disabled={disabled}
+              />
+            ))}
+          </div>
+        );
       }
 
       if (productOption?.inputType === '') {
