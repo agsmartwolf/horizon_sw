@@ -8,6 +8,8 @@ export interface MandatoryImageProps extends ImageProps {
   width: number;
   height: number;
   id?: string;
+  // id of color product option - used for mapping image and color option for auto-select feature
+  colorId?: string;
 }
 
 export interface ILink {

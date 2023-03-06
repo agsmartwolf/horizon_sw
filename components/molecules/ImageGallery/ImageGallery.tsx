@@ -1,7 +1,7 @@
 import ImageThumbnails from 'components/atoms/ImageThumbnails';
 
 import Image from 'components/atoms/SafeImage';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import type { MandatoryImageProps } from 'types/global';
 import SlideNav from '../../atoms/SlideNav';
@@ -11,6 +11,9 @@ import ArrowLeft from 'assets/icons/arrow-left.svg';
 export interface ImageGalleryProps {
   images: MandatoryImageProps[];
   aspectRatio?: `${number}/${number}`;
+  handleChangeCurrentImage: (n: MandatoryImageProps) => void;
+  selectedColorId?: string;
+  // selectedProductOptions: Map<string, string>;
 }
 
 const getImageClassName = (
@@ -28,26 +31,51 @@ const getImageClassName = (
   return 'hidden lg:flex lg:left-0 lg:opacity-0';
 };
 
-const ImageGallery: React.FC<ImageGalleryProps> = ({ images, aspectRatio }) => {
+const ImageGallery: React.FC<ImageGalleryProps> = ({
+  images,
+  aspectRatio,
+  handleChangeCurrentImage,
+  selectedColorId,
+}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const setPrevSlide = useCallback(
-    () =>
-      setCurrentSlide(prev => (prev - 1 >= 0 ? prev - 1 : images.length - 1)),
-    [images.length],
-  );
+  const setPrevSlide = useCallback(() => {
+    setCurrentSlide(prev => (prev - 1 >= 0 ? prev - 1 : images.length - 1));
+    internalSlideChange.current = true;
+  }, [images.length]);
 
-  const setNextSlide = useCallback(
-    () =>
-      setCurrentSlide(prev => (prev + 1 <= images.length - 1 ? prev + 1 : 0)),
-    [images.length],
-  );
+  const setNextSlide = useCallback(() => {
+    setCurrentSlide(prev => (prev + 1 <= images.length - 1 ? prev + 1 : 0));
+    internalSlideChange.current = true;
+  }, [images.length]);
 
   const handlers = useSwipeable({
     onSwipedLeft: setNextSlide,
     onSwipedRight: setPrevSlide,
     preventDefaultTouchmoveEvent: true,
   });
+
+  const internalSlideChange = React.useRef(false);
+
+  // TODO fix infinite loop
+  useEffect(() => {
+    if (internalSlideChange.current) {
+      handleChangeCurrentImage(images[currentSlide]);
+      internalSlideChange.current = false;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSlide]);
+
+  useEffect(() => {
+    if (internalSlideChange.current) return;
+    // const selectedColorId = selectedProductOptions.get('color');
+    if (!selectedColorId) return;
+    if (selectedColorId === images[currentSlide].colorId) return;
+    const index = images.findIndex(image => image.colorId === selectedColorId);
+    if (index === -1 || index === currentSlide) return;
+    setCurrentSlide(index);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedColorId, currentSlide]);
 
   return (
     <div className="w-full select-text flex flex-col-reverse gap-2">
@@ -56,7 +84,10 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, aspectRatio }) => {
         images={images}
         imageSize={100}
         value={currentSlide}
-        onChange={value => setCurrentSlide(value)}
+        onChange={value => {
+          setCurrentSlide(value);
+          internalSlideChange.current = true;
+        }}
       />
       <div className="relative w-full">
         <ArrowLeft

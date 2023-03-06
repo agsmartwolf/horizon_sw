@@ -1,5 +1,9 @@
 import { generateId } from 'lib/utils/shared_functions';
-import type { SwellProductOption } from 'lib/graphql/generated/sdk';
+import type {
+  SwellProductImage,
+  SwellProductOption,
+  SwellProductsVariants,
+} from 'lib/graphql/generated/sdk';
 import { denullifyArray } from 'lib/utils/denullify';
 import { filterProductsByCategory, getFilters } from './filters';
 import getGQLClient from 'lib/graphql/client';
@@ -258,6 +262,58 @@ export async function getProductBySlug(
         : null,
     ) ?? [];
 
+  const colorOption = product?.options?.find(option =>
+    [option?.name?.toLowerCase(), option?.attributeId].includes('color'),
+  );
+
+  // filter product.variants with not repeated color
+  const filteredVariants = product?.variants?.results?.reduce(
+    (acc: SwellProductsVariants['results'], variant) => {
+      if (!acc) {
+        return [variant];
+      }
+      if (
+        acc.some(q =>
+          q?.optionValueIds?.includes(
+            variant?.optionValueIds?.find(v =>
+              colorOption?.values?.find(t => t?.id === v),
+            ) ?? null,
+          ),
+        )
+      ) {
+        return acc;
+      }
+      return [...acc, variant];
+    },
+    [],
+  );
+
+  const images = formatProductImages(
+    filteredVariants?.map(variant =>
+      variant?.images?.[0]
+        ? ({
+            ...variant?.images?.[0],
+            colorId:
+              variant?.optionValueIds?.find(v =>
+                colorOption?.values?.find(t => t?.id === v),
+              ) ?? null,
+          } as SwellProductImage)
+        : null,
+    ) ?? [],
+  );
+
+  const sortedImages = images.sort((a, b) => {
+    if (a?.colorId && b?.colorId) {
+      return (
+        colorOption?.values?.findIndex(value => value?.id === a?.colorId)! -
+        colorOption?.values?.findIndex(value => value?.id === b?.colorId)!
+      );
+    }
+    return 0;
+  });
+
+  // reduce product.variants to array of images[i].file prop by variant color prop
+
   return {
     slug,
     productId: product?.id ?? '',
@@ -283,7 +339,7 @@ export async function getProductBySlug(
     expandableDetails: denullifyArray(
       product?.content?.expandableDetails ?? [],
     ),
-    images: formatProductImages(product?.images),
+    images: sortedImages,
     productOptions: denullifyArray(product?.options)?.map(
       (option: SwellProductOption) => {
         return {

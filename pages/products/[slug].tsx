@@ -80,6 +80,7 @@ export interface ProductsPageProps {
     title: string;
     description: string;
   };
+  colorOptionId?: string;
 }
 
 export const getStaticPaths: GetStaticPaths = async ({
@@ -127,10 +128,15 @@ const propsCallback: GetStaticProps<ProductsPageProps> = async context => {
     locale,
   });
 
+  const colorOption = productData.productOptions.find(option =>
+    [option.name.toLowerCase(), option.attributeId].includes('color'),
+  );
+
   return {
     props: {
       ...productData,
       ...(locale ? { locale } : {}),
+      colorOptionId: colorOption?.id ?? '',
     },
   };
 };
@@ -156,6 +162,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
   settings,
   meta,
   tags,
+  colorOptionId,
 }) => {
   const { locale } = useRouter();
   const i18n = useI18n();
@@ -217,6 +224,15 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
 
   const imageSectionClasses = cn('mt-10', SECTION_PADDING_MAP[SPACING.MEDIUM]);
 
+  const handleChangeCurrentImage = (n: MandatoryImageProps) => {
+    if (n.colorId && colorOptionId) {
+      dispatch({
+        type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,
+        payload: { optionId: colorOptionId, valueId: n.colorId },
+      });
+    }
+  };
+
   return (
     <div>
       <Head>
@@ -230,6 +246,10 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
             aspectRatio={
               images[0] ? `${images[0].width}/${images[0].height}` : '12/10'
             }
+            handleChangeCurrentImage={handleChangeCurrentImage}
+            selectedColorId={state.selectedProductOptions.get(
+              colorOptionId ?? '',
+            )}
           />
         </section>
         <aside className="mt-10 lg:px-14">

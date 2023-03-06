@@ -307,8 +307,12 @@ export const getStockStatus: getStockStatusType = ({
   return STOCK_STATUS.OUT_OF_STOCK;
 };
 
+export type SwellProductImageWithColor = SwellProductImage & {
+  colorId?: string;
+};
+
 export const formatProductImages = (
-  images?: (SwellProductImage | null)[] | null,
+  images?: (SwellProductImageWithColor | null)[] | null,
 ): MandatoryImageProps[] => {
   const formattedImages =
     images?.map(image =>
@@ -318,6 +322,8 @@ export const formatProductImages = (
             height: image.file.height ?? 0,
             width: image.file.width ?? 0,
             src: image.file.url ?? '',
+            id: image.id ?? '',
+            colorId: image.colorId ?? '',
           }
         : null,
     ) ?? [];
