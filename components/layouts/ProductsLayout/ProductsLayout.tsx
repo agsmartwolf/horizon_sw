@@ -1,3 +1,5 @@
+'use client';
+
 import Breadcrumb from 'components/atoms/Breadcrumb';
 import ProductCount from 'components/atoms/ProductCount';
 import ProductPreviewCard from 'components/atoms/ProductPreviewCard';
@@ -21,6 +23,7 @@ import React, {
 } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
+import { useRouter as useRouterLegacy } from 'next/router';
 import Link from 'next/link';
 import Checkbox from 'components/atoms/Checkbox';
 import Range from 'components/atoms/Range';
@@ -90,6 +93,10 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   breadcrumbText,
   attributeFilters,
 }) => {
+  // TODO remove legacy router
+  // now useSearchParams returns undefined values on first render -
+  // however it's written in Next.js docs that it should return values on the first one
+  const routerLegacy = useRouterLegacy();
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -291,14 +298,15 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   const allProducts = useProductsStore(state => state.products);
   const updateProductsStore = useProductsStore(state => state.updateProducts);
 
-  async function fetchProps(mounted: boolean) {
+  const fetchProps = async (mounted: boolean) => {
     // When it will be a LARGE amount of products, we will need to get them from server for certain filters
     // Right now we are getting all products FOR THE FIRST TIME and filter them by client side
 
     let productResults: SwellProduct[] = [];
 
     if (!allProducts.length) {
-      const pL = await getProductsList(undefined, activeCurrency.code);
+      const slug = routerLegacy.query.slug?.toString();
+      const pL = await getProductsList(slug, activeCurrency.code);
       updateProductsStore(pL as SwellProduct[]);
       productResults = pL;
     } else {
@@ -323,19 +331,24 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     setPriceRangeLimits(getPriceRangeFromProducts(productResults));
     setProducts(productData);
     setLoading(false);
-  }
+  };
 
   // Update the products list when the query string changes
   useEffect(() => {
     let mounted = true;
 
+    if (!routerLegacy.isReady) {
+      return () => {
+        mounted = false;
+      };
+    }
     fetchProps(mounted);
 
     return () => {
       mounted = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCurrency.code, attributeFilters, searchParams]);
+  }, [activeCurrency.code, attributeFilters, routerLegacy.isReady]);
 
   useEffect(() => {
     let mounted = true;
