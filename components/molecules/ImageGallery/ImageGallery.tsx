@@ -70,7 +70,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
     if (internalSlideChange.current) return;
     // const selectedColorId = selectedProductOptions.get('color');
     if (!selectedColorId) return;
-    if (selectedColorId === images[currentSlide].colorId) return;
+    if (selectedColorId === images[currentSlide]?.colorId) return;
     const index = images.findIndex(image => image.colorId === selectedColorId);
     if (index === -1 || index === currentSlide) return;
     setCurrentSlide(index);

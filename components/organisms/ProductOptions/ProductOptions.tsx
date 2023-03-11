@@ -5,6 +5,7 @@ import { Action, ACTIONS } from 'hooks/useProductSelection';
 import ProductOptionContainer from 'components/molecules/ProductOptionContainer';
 import ProductColorSelect from '../../atoms/ProductColorSelect';
 import dynamic from 'next/dynamic';
+import { getColorOptionId } from '../../../lib/utils/products';
 
 // TODO replace with dynamic import
 // import OptionSelectItem from 'components/atoms/OptionSelect/OptionSelectItem';
@@ -121,7 +122,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
 
       // TODO: report to SWELL team: attributeId is null in response however it presents in SWELL dashboard
       //  (in graphql response it's null too)
-      switch (productOption.attributeId || productOption.name.toLowerCase()) {
+      switch (getColorOptionId(productOption)) {
         case 'color': {
           return productOption.values?.map(({ id, name, disabled }) => (
             <ProductColorSelect

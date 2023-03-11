@@ -21,21 +21,31 @@ import type { ProductHeaderProps } from 'components/molecules/ProductHeader';
 import { LAYOUT_ALIGNMENT, ProductsPageProps } from 'pages/products/[slug]';
 import type { CurrencyPrice } from 'types/shared/currency';
 import type { QuizResultsProducts } from 'components/molecules/QuizResults';
-import { hasQuickAdd, mapProducts } from 'lib/utils/products';
+import { hasQuickAdd, mapCategories, mapProducts } from 'lib/utils/products';
 import {
   formatCurrencies,
   formatLocales,
   formatStoreSettings,
 } from 'utils/settings';
 import { formatProductImages } from 'lib/utils/products';
-import { ProductTag, ProductType } from 'types/shared/products';
+import {
+  ProductTag,
+  ProductType,
+  SwellCategoryWithChildren,
+} from 'types/shared/products';
 import type { SwellProduct } from 'lib/graphql/generated/sdk';
 
 const client = getGQLClient();
 
-export const getCategories = async (currentSlug?: string) => {
+export const getCategories = async ({
+  currentSlug,
+  locale,
+}: {
+  currentSlug?: string;
+  locale?: string;
+}) => {
   const { categories: categoriesResponse } = await client
-    .getCategories()
+    .getCategories({ locale })
     .then(response => response.data);
 
   const categoriesList = denullifyArray(categoriesResponse?.results);
@@ -67,23 +77,28 @@ export const getCategories = async (currentSlug?: string) => {
 
   // reduce categories to an array with children array grouped by parentId
   // const categories = categoriesList.reduce((acc, category) => {
-  //   const parent = categoriesList.find(c => c.parentId === category.parentId);
+  //   const parent = categoriesList.find(c => c.id === category.parentId);
   //   if (parent) {
-  //     parent.children = [...(parent.children ?? []), category];
+  //     const parentInAcc = acc.find(c => c?.id === parent.id);
+  //     if (parentInAcc) {
+  //       parentInAcc.children?.push(category);
+  //     } else {
+  //       acc.push({
+  //         ...parent,
+  //         children: [category],
+  //       });
+  //     }
   //   } else {
-  //     acc.push(category);
+  //     if (!acc.some(c => c?.id === category.id)) {
+  //       acc.push(category);
+  //     }
   //   }
   //   return acc;
-  // }, [] as CategoryItemValue[]);
+  // }, [] as SwellCategoryWithChildren[]);
 
-  const categoriesData = categoriesList.map<CategoryData>(category => {
-    const categoryData = {
-      slug: category?.slug ?? '',
-      name: category?.name ?? '',
-    };
-
-    return categoryData;
-  });
+  const categoriesData = mapCategories(
+    categoriesList.filter(c => !c.parentId) as SwellCategoryWithChildren[],
+  );
 
   const settings: ProductsLayoutSettings = {
     featuredCategories: denullifyArray(featuredCategoriesData),
@@ -104,12 +119,13 @@ export const getCategories = async (currentSlug?: string) => {
 };
 
 export const getProductsList = async (
-  categorySlug?: string,
+  categorySlug?: string | CategoryData,
   currency?: string,
+  locale?: string,
 ) => {
   // Get the products list
   const { products } = await client
-    .getAllProducts({ limit: 100, currency })
+    .getAllProducts({ limit: 100, currency, locale })
     .then(response => response.data);
 
   const productResults = filterProductsByCategory(
@@ -121,13 +137,18 @@ export const getProductsList = async (
 };
 
 export const getProductListingData = async (
-  categorySlug?: string,
+  categorySlug?: string | CategoryData,
+  locale?: string,
 ): Promise<ProductsLayoutProps> => {
   // Get the products list
-  const productsPromise = getProductsList(categorySlug);
+  const productsPromise = getProductsList(categorySlug, undefined, locale);
 
   // Get featured categories
-  const categoriesPromise = getCategories();
+  const categoriesPromise = getCategories({
+    currentSlug:
+      typeof categorySlug === 'string' ? categorySlug : categorySlug?.slug,
+    locale,
+  });
 
   const [{ categories, settings }, productResults] = await Promise.all([
     categoriesPromise,
@@ -270,9 +291,10 @@ export async function getProductBySlug(
   const filteredVariants = product?.variants?.results?.reduce(
     (acc: SwellProductsVariants['results'], variant) => {
       if (!acc) {
-        return [variant];
+        return variant?.active ? [variant] : [];
       }
       if (
+        !variant?.active ||
         acc.some(q =>
           q?.optionValueIds?.includes(
             variant?.optionValueIds?.find(v =>
@@ -345,6 +367,7 @@ export async function getProductBySlug(
         return {
           id: option.id ?? '',
           attributeId: option.attributeId ?? '',
+          attributeIdCustomId: option.attributeIdCustomId ?? '',
           name: option.name ?? '',
           description: option.description ?? '',
           inputType: option.inputType ?? '',
@@ -353,13 +376,19 @@ export async function getProductBySlug(
           parentId: option.parentId ?? null,
           parentValueIds: denullifyArray(option.parentValueIds),
           placeholder: option.inputHint ?? '',
-          values: denullifyArray(option.values)?.map(value => {
-            return {
-              id: value.id ?? '',
-              name: value.name ?? '',
-              price: value.price ?? 0,
-            };
-          }),
+          values: denullifyArray(option.values)
+            ?.filter(opt =>
+              product?.variants?.results?.some(
+                v => opt?.id && v?.optionValueIds?.includes(opt?.id),
+              ),
+            )
+            .map(value => {
+              return {
+                id: value.id ?? '',
+                name: value.name ?? '',
+                price: value.price ?? 0,
+              };
+            }),
         };
       },
     ),
@@ -455,7 +484,7 @@ export async function getQuizProducts(
 export const getStoreSettings = async (locale?: string) => {
   const [storeData, menusData] = await Promise.all([
     client.getStoreSettings({ locale }),
-    client.getMenus(),
+    client.getMenus({ locale }),
   ]);
 
   return {

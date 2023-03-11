@@ -7,6 +7,8 @@ import { getProductListingData } from 'lib/shop/fetchingFunctions';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { denullifyArray } from 'lib/utils/denullify';
 import { withMainLayout } from 'lib/utils/fetch_decorators';
+import { mapCategory } from '../../lib/utils/products';
+import type { SwellCategoryWithChildren } from '../../types/shared/products';
 
 interface CategoryPageProps extends ProductsLayoutProps {
   title: string;
@@ -43,19 +45,18 @@ const propsCallback: GetStaticProps<CategoryPageProps> = async context => {
 
   if (!slug) return { notFound: true };
 
-  const dataPromise = getProductListingData(slug.toString());
-
   // Get the current category and its products
-  const currentCategoryPromise = client
+  const currentCategory = await client
     .getCategory({
       slug: slug?.toString() ?? '',
+      locale: context?.locale,
     })
     .then(response => response.data);
 
-  const [data, currentCategory] = await Promise.all([
-    dataPromise,
-    currentCategoryPromise,
-  ]);
+  const data = await getProductListingData(
+    mapCategory(currentCategory.categoryBySlug as SwellCategoryWithChildren),
+    context?.locale,
+  );
 
   // If the category doesn't exist, return 404
   if (!currentCategory.categoryBySlug?.slug) {
@@ -90,7 +91,7 @@ const CategoryPage: NextPage<CategoryPageProps> = ({
     <Head>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
-      <title>{title} - Horizon</title>
+      <title>{title} - Smart Wolf</title>
     </Head>
 
     <ProductsLayout {...props} />

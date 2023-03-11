@@ -1,10 +1,16 @@
-query getCategories {
-  categories {
+query getCategories($locale: String) {
+  categories(_locale: $locale) {
     results {
       name
+      id
       slug
       parentId
       topId
+      children {
+        id
+        name
+        slug
+      }
       images {
         id
         caption
@@ -49,13 +55,19 @@ query getCategoryPaths {
   }
 }
 
-query getCategory($slug: String) {
-  categoryBySlug(slug: $slug) {
+query getCategory($slug: String, $locale: String) {
+  categoryBySlug(slug: $slug, _locale: $locale) {
+    id
     name
     slug
     description
     metaKeywords
     metaDescription
+    children {
+      id
+      name
+      slug
+    }
     products {
       id
       name

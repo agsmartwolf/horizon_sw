@@ -1,5 +1,6 @@
 import type { SwellProduct } from 'lib/graphql/generated/sdk';
 import type {
+  CategoryData,
   ProductAttribute,
   ProductFilterOption,
   ProductFilterOptionValue,
@@ -215,14 +216,23 @@ export const getPriceRangeFromQuery = (
 
 export const filterProductsByCategory = (
   products: SwellProduct[],
-  categorySlug?: string,
+  category?: string | CategoryData,
 ) => {
   const productResults = denullifyArray(products).filter(product => {
     // If the category slug is defined, check if the product is in the category
-    if (categorySlug) {
-      return !!product.categories?.some(
-        category => category?.slug === categorySlug,
-      );
+    if (category) {
+      if (typeof category === 'string') {
+        return !!product.categories?.some(
+          category => category?.slug === category,
+        );
+      } else {
+        return !!product.categories?.some(
+          c =>
+            c?.slug === category.slug ||
+            (category.children &&
+              category.children.some(child => child?.slug === c?.slug)),
+        );
+      }
     }
 
     return true;

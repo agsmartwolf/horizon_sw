@@ -13,15 +13,15 @@ export interface InputProps
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ small, icon, error, inputClassname = '', ...props }, ref) => {
     const classNames = cn(
-      'peer w-full px-4 text-md transition duration-300',
-      'focus:text-white focus:outline-none',
+      'peer w-full px-4 text-md transition duration-300 border-[1px]',
+      'focus:text-black focus:outline-none',
       // 'placeholder:text-input-standard',
       'placeholder:text-gray-400',
       'disabled:border-disabled disabled:text-disabled',
       {
-        'border-primary placeholder-shown:border-input-standard focus:border-primary':
+        'border-gray-400 placeholder-shown:border-input-standard focus:border-black':
           !error,
-        'border-error-dark': !!error,
+        'border-red-600': !!error,
         'py-6': !small,
         'py-4': !!small,
         'pl-12': !!icon,

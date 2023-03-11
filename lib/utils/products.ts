@@ -8,9 +8,11 @@ import type {
   SwellProductVariant,
 } from 'lib/graphql/generated/sdk';
 import {
+  CategoryData,
   OPTION_INPUT_TYPE,
   ProductOption,
   STOCK_STATUS,
+  SwellCategoryWithChildren,
 } from 'types/shared/products';
 import type {
   SwellProductPurchaseOptions,
@@ -179,6 +181,19 @@ export const getActiveVariation = (
     standardPrice,
     subscriptionPrice: adjustTrialPrice(subscriptionPrice),
   };
+};
+
+export const mapCategory = (
+  category: SwellCategoryWithChildren,
+): CategoryData => ({
+  slug: category?.slug ?? '',
+  name: category?.name ?? '',
+  id: category?.id ?? '',
+  children: mapCategories(category?.children ?? []),
+});
+export const mapCategories = (categories: SwellCategoryWithChildren[]) => {
+  const result = categories.map(category => mapCategory(category));
+  return result;
 };
 
 export const mapProducts = (
@@ -359,10 +374,10 @@ export const addStockOptionData = (
 ) => {
   const updatedProductOptions = [...productOptions];
   const colorOptions = updatedProductOptions.find(o =>
-    [o.attributeId, o.name.toLowerCase()].includes('color'),
+    getColorOptionArrayIds(o).includes('color'),
   );
   const sizeOptions = updatedProductOptions.find(o =>
-    [o.attributeId, o.name.toLowerCase()].includes('size'),
+    getColorOptionArrayIds(o).includes('size'),
   );
   if (colorOptions?.values && sizeOptions && colorOptions) {
     colorOptions.values.forEach(colorOpt => {
@@ -402,3 +417,14 @@ export const addStockOptionData = (
   }
   return updatedProductOptions;
 };
+
+export const getColorOptionArrayIds = (productOption: ProductOption) => [
+  productOption.name.toLowerCase(),
+  productOption.attributeId,
+  productOption.attributeIdCustomId?.toLowerCase(),
+];
+
+export const getColorOptionId = (productOption: ProductOption) =>
+  productOption.attributeId ||
+  productOption.attributeIdCustomId ||
+  productOption.name.toLowerCase();

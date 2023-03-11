@@ -32,8 +32,8 @@ query getStoreUrl {
   }
 }
 
-query getMenus {
-  menuSettings {
+query getMenus($locale: String) {
+  menuSettings(_locale: $locale) {
     sections {
       id
       name
@@ -41,3 +41,4 @@ query getMenus {
     }
   }
 }
+

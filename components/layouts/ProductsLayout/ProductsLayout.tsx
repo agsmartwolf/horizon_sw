@@ -1,5 +1,3 @@
-'use client';
-
 import Breadcrumb from 'components/atoms/Breadcrumb';
 import ProductCount from 'components/atoms/ProductCount';
 import ProductPreviewCard from 'components/atoms/ProductPreviewCard';
@@ -84,7 +82,7 @@ const productsLayoutText = (i18n: I18n) => ({
   seeResultsLabel: i18n('categories.filters.see_results'),
   allProductsLabel: i18n('categories.filters.all_products'),
   mobileButton: i18n('categories.filters.mobile_button'),
-  searchPlaceholder: i18n('categories.filters.search_placeholder'),
+  searchPlaceholder: i18n('search.placeholder'),
 });
 
 const ProductsLayout: React.FC<ProductsLayoutProps> = ({
@@ -102,6 +100,8 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   const pathname = usePathname();
 
   const { isMobile } = useViewport();
+
+  // useHydratedSettingStore(_layout.settings);
 
   const [formatPrice, activeCurrency] = useCurrency(store => [
     store.formatPrice,
@@ -306,7 +306,12 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
 
     if (!allProducts.length) {
       const slug = routerLegacy.query.slug?.toString();
-      const pL = await getProductsList(slug, activeCurrency.code);
+      const curCategory = categories.find(c => c.slug === slug);
+      const pL = await getProductsList(
+        curCategory ?? slug,
+        activeCurrency.code,
+        routerLegacy.locale,
+      );
       updateProductsStore(pL as SwellProduct[]);
       productResults = pL;
     } else {
@@ -765,7 +770,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
             )}>
             <li className={cn('flex pt-4 pr-10', filterCns)}>
               <TextBody
-                content="Filters"
+                content={text.filtersLabel}
                 className="text-gray-400 font-semibold"
               />
             </li>

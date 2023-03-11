@@ -4,6 +4,7 @@ import type { AuthLayoutProps } from 'page_layouts/AuthLayout';
 import type { MainLayoutProps } from 'page_layouts/MainLayout';
 import { getClientWithSessionToken, getRawClient } from 'lib/graphql/client';
 import { getStoreSettings } from 'lib/shop/fetchingFunctions';
+import { initializeSettingsStore } from '../../stores/settings';
 
 type GetPropsResult<P> =
   | { props: P | Promise<P> }
@@ -30,9 +31,9 @@ export function withMainLayout<C extends GetProps<unknown>>(callback: C) {
       return result;
     }
 
-    const { currencies, locales, ...settings } = await getStoreSettings(
-      result.props.locale,
-    );
+    const allSettings = await getStoreSettings(result.props.locale);
+    const { currencies, locales, ...settings } = allSettings;
+    const settingsStore = initializeSettingsStore({ settings: allSettings });
 
     return {
       ...result,
@@ -43,6 +44,11 @@ export function withMainLayout<C extends GetProps<unknown>>(callback: C) {
           locales,
           currencies,
         },
+        // the "stringify and then parse again" piece is required as next.js
+        // isn't able to serialize it to JSON properly
+        initialSettingsState: JSON.parse(
+          JSON.stringify(settingsStore.getState()),
+        ),
       },
     };
   };
@@ -59,16 +65,23 @@ export function withAuthLayout<C extends GetProps<unknown>>(callback: C) {
     }
 
     const settings = await getStoreSettings(result.props.locale);
+    const settingsStore = initializeSettingsStore({ settings });
 
-    return {
+    const finalProps = {
       ...result,
       props: {
         ...result.props,
         _layout: {
           settings,
         },
+        // the "stringify and then parse again" piece is required as next.js
+        // isn't able to serialize it to JSON properly
+        initialSettingsState: JSON.parse(
+          JSON.stringify(settingsStore.getState()),
+        ),
       },
     };
+    return finalProps;
   };
 }
 
@@ -112,6 +125,7 @@ export function withAccountLayout<C extends GetProps<unknown>>(callback: C) {
     }
 
     const settings = await getStoreSettings(result.props.locale);
+    const settingsStore = initializeSettingsStore({ settings });
 
     return {
       ...result,
@@ -121,6 +135,11 @@ export function withAccountLayout<C extends GetProps<unknown>>(callback: C) {
           accountDetails: account,
           settings,
         },
+        // the "stringify and then parse again" piece is required as next.js
+        // isn't able to serialize it to JSON properly
+        initialSettingsState: JSON.parse(
+          JSON.stringify(settingsStore.getState()),
+        ),
       },
     };
   };

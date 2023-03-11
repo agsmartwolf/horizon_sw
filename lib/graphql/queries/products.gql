@@ -1,5 +1,5 @@
-query getAllProducts($currency: String, $limit: Int) {
-  products(limit: $limit, _currency: $currency) {
+query getAllProducts($currency: String, $limit: Int, $locale: String) {
+  products(limit: $limit, _currency: $currency, _locale: $locale) {
     count
     results {
       id
@@ -28,6 +28,7 @@ query getAllProducts($currency: String, $limit: Int) {
       options {
         id
         attributeId
+        attributeIdCustomId
         name
         inputType
         active
@@ -53,6 +54,7 @@ query getAllProducts($currency: String, $limit: Int) {
       }
       variants {
         results {
+          active
           name
           price
           origPrice
@@ -137,6 +139,7 @@ query getProduct($slug: String, $currency: String, $locale: String) {
     options {
       id
       attributeId
+      attributeIdCustomId
       name
       description
       inputType
@@ -318,6 +321,7 @@ query getProduct($slug: String, $currency: String, $locale: String) {
     variants {
       results {
         name
+        active
         price
         origPrice
         prices {
@@ -503,8 +507,8 @@ query getProductSlugs {
   }
 }
 
-query searchProducts($searchTerm: String, $currency: String) {
-  products(search: $searchTerm, _currency: $currency) {
+query searchProducts($searchTerm: String, $currency: String, $locale: String) {
+  products(search: $searchTerm, _currency: $currency, _locale: $locale) {
     results {
       id
       name

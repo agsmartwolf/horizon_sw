@@ -75,7 +75,10 @@ const useCartStore = create<CartState>((set, get) => ({
         )
       ) {
         const send = useNotificationStore.getState().send;
-        const i18n = getI18n(useSettingsStore.getState().settings?.lang);
+        // TODO FIX TYPO
+        const i18n = getI18n(
+          (useSettingsStore as any).getState().settings?.lang,
+        );
 
         const stockMessage = i18n('products.stock.not_enough', {
           quantity: quantity.toString(),

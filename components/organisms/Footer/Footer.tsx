@@ -100,6 +100,8 @@ const Footer: React.FC<FooterProps> = ({
   logo,
   logoHeight,
   storeName = '',
+  newsletterTitle,
+  copyrightText,
 }) => {
   const router = useRouter();
 
@@ -177,7 +179,7 @@ const Footer: React.FC<FooterProps> = ({
               noValidate
               small
               arrowHidden
-              submitLabel="Subscribe"
+              submitLabel={newsletterTitle}
             />
           </div>
         </div>
@@ -226,7 +228,7 @@ const Footer: React.FC<FooterProps> = ({
         </div>
       </div>
       <TextBody
-        content={`©${new Date().getFullYear()} Smart Wolf. All rights reserved.`}
+        content={`©${new Date().getFullYear()} ${copyrightText}`}
         className={'text-white pb-10 pt-32'}
       />
     </footer>

@@ -5,6 +5,8 @@ import type {
 import type { PRODUCT_ATTRIBUTE_TYPE } from 'lib/shop/filters';
 import type { MandatoryImageProps } from 'types/global';
 import type { CurrencyPrice } from './currency';
+import type { Maybe } from 'graphql/jsutils/Maybe';
+import type { SwellCategory } from 'lib/graphql/generated/sdk';
 
 export enum PURCHASE_OPTION_TYPE {
   STANDARD = 'standard',
@@ -43,13 +45,18 @@ export interface CategoryData {
   name: string;
   id?: string;
   slug: string;
-  children?: CategoryData[];
+  children?: Maybe<CategoryData>[];
 }
+
+export type SwellCategoryWithChildren = Maybe<
+  SwellCategory & Maybe<{ children?: SwellCategoryWithChildren[] }>
+>;
 
 export interface ProductOption {
   description?: string;
   id: string;
   attributeId: string;
+  attributeIdCustomId?: string;
   name: string;
   inputType: string;
   active: boolean;

@@ -9,7 +9,7 @@ const propsCallback: GetStaticProps<
   Omit<ProductsLayoutProps, 'products' | 'productCount'>
 > = async context => {
   const { locale } = context;
-  const data = await getProductListingData();
+  const data = await getProductListingData(undefined, locale);
 
   return {
     props: {

@@ -42,7 +42,10 @@ import type { ParsedUrlQuery } from 'querystring';
 import StatusIndicator from 'components/atoms/StatusIndicator';
 import useI18n from 'hooks/useI18n';
 import { SECTION_PADDING_MAP, SPACING } from '../../lib/globals/sizings';
-import { addStockOptionData } from '../../lib/utils/products';
+import {
+  addStockOptionData,
+  getColorOptionArrayIds,
+} from '../../lib/utils/products';
 
 export enum LAYOUT_ALIGNMENT {
   STANDARD = 'standard',
@@ -129,7 +132,7 @@ const propsCallback: GetStaticProps<ProductsPageProps> = async context => {
   });
 
   const colorOption = productData.productOptions.find(option =>
-    [option.name.toLowerCase(), option.attributeId].includes('color'),
+    getColorOptionArrayIds(option).includes('color'),
   );
 
   return {

@@ -15,6 +15,7 @@ import { getMainLayout } from 'lib/utils/layout_getters';
 import Notification from 'components/atoms/Notification';
 import { setPreviewMode } from 'lib/utils/previewMode';
 import { sendMessage } from 'utils/editor';
+import { SettingsProvider, useCreateSettingsStore } from '../stores/settings';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -70,12 +71,17 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? getMainLayout;
 
   const C = Component as any;
+  const createSettingsStore = useCreateSettingsStore(
+    pageProps.initialSettingsState,
+  );
   const comp = <C {...pageProps} />;
 
   return (
     <>
       <ToastProvider>
-        {getLayout(comp)}
+        <SettingsProvider createStore={createSettingsStore}>
+          {getLayout(comp)}
+        </SettingsProvider>
         {notifications.map(notification => (
           <Notification
             id={notification.id}

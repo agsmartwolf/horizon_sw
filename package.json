@@ -7,7 +7,7 @@
     "pnpm": ">=7"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--inspect' node ./node_modules/next/dist/bin/next",
     "generate": "pnpm run build",
     "build": "pnpm run setup && next build",
     "start": "NODE_ENV=production next start",
@@ -24,7 +24,7 @@
     "setup:old": "pnpm run sync && pnpm run graphql:generate",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "graphql:generate": "graphql-codegen --config codegen.yml -r dotenv/config",
+    "graphql:generate": "DEBUG=1 graphql-codegen --verbose --config codegen.yml -r dotenv/config",
     "theme:generate": "node -r dotenv/config ./build-utils/generate-theme.mjs",
     "chromatic": "npx chromatic",
     "sync:defaults": "swell storefront settings push settings -f ./config/defaults.json --strategy \"defaults\" --store $SWELL_STORE_ID --secret-key $SWELL_SECRET_KEY",
@@ -63,11 +63,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
-    "@graphql-codegen/cli": "2.6.2",
+    "@graphql-codegen/cli": "3.2.2",
     "@graphql-codegen/introspection": "3.0.1",
-    "@graphql-codegen/typescript": "3.0.1",
+    "@graphql-codegen/typescript": "3.0.2",
     "@graphql-codegen/typescript-graphql-request": "^4.5.8",
-    "@graphql-codegen/typescript-operations": "3.0.1",
+    "@graphql-codegen/typescript-operations": "3.0.2",
     "@iconify/react": "^3.2.1",
     "@storybook/addon-actions": "^6.5.10",
     "@storybook/addon-essentials": "^6.5.10",

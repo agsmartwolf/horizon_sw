@@ -39,7 +39,8 @@ export function filterSingular(number: number) {
 }
 
 export function getPluralizedInterval(interval: INTERVAL, number: number) {
-  const i18n = getI18n(useSettingsStore.getState().settings?.lang);
+  // TODO FIX TYPO
+  const i18n = getI18n((useSettingsStore as any).getState().settings?.lang);
   const SINGULAR_MAP = (i18n('products.interval.singular') ||
     SINGULAR_MAP_FALLBACK) as typeof SINGULAR_MAP_FALLBACK;
   const PLURAL_MAP = (i18n('products.interval.plural') ||
@@ -53,7 +54,8 @@ export function formatSubscriptionInterval(
   intervalCount: number,
   longForm = false,
 ) {
-  const i18n = getI18n(useSettingsStore.getState().settings?.lang);
+  // TODO FIX TYPO
+  const i18n = getI18n((useSettingsStore as any).getState().settings?.lang);
 
   const SHORTENED_MAP = (i18n('products.interval.short') ||
     SHORTENED_MAP_FALLBACK) as typeof SHORTENED_MAP_FALLBACK;
