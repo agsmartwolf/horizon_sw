@@ -17,6 +17,11 @@ import Memberships from 'components/molecules/Memberships';
 import PressMentionCarousel from 'components/molecules/PressMentionCarousel';
 import BlogCarousel from 'components/molecules/BlogCarousel';
 import type { ContentBlockComponent } from 'types/shared/sections';
+import type { EditorArray } from '../../types/editor';
+import type {
+  PanelImageProps,
+  PanelTextProps,
+} from '../../components/atoms/Panel';
 
 export interface PageSection {
   /**
@@ -39,6 +44,8 @@ export interface PageSection {
   _originalProps?: {
     [key: string]: unknown;
   };
+
+  panels?: EditorArray<PanelImageProps | PanelTextProps>;
 }
 
 export enum PAGE_SECTION_COMPONENT {

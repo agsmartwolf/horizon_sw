@@ -35,7 +35,9 @@ export interface PanelImageProps extends BaseProps {
 }
 
 export interface PanelTextProps extends BaseProps {
+  id: string;
   title?: string;
+  heading?: string;
   description?: string;
   links?: EditorArray<CTAOptions>;
   type: PANEL_TYPE.TEXT;

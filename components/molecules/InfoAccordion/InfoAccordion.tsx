@@ -20,15 +20,22 @@ const InfoAccordion: React.FC<InfoAccordionProps> = ({
 }) => {
   const classNames = cn('flex flex-col overflow-hidden rounded-lg', '', {
     'bg-secondary': accordionStyle === 'default',
-    'border border-primary': accordionStyle === 'secondary',
+    'border border-primary px-4': accordionStyle === 'secondary',
   });
+  const buttonClassNames = cn(
+    'flex w-full items-center justify-between py-4',
+    '',
+    {
+      'text-left': accordionStyle === 'secondary',
+    },
+  );
 
   return (
     <div className={className}>
       <Disclosure>
         {({ open }) => (
           <div className={classNames}>
-            <Disclosure.Button className="flex w-full items-center justify-between py-4">
+            <Disclosure.Button className={buttonClassNames}>
               <span className="text-sm font-semibold text-black">{label}</span>
               {open ? (
                 <Minus width={12} height={12} className="text-black" />
