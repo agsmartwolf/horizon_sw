@@ -105,7 +105,7 @@ const DeliveryPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
               textClassName: 'grid grid-cols-12 mb-10 text-white bg-black',
               headingClassName: 'col-span-12 lg:col-span-3 text-white',
               descriptionClassName:
-                'col-span-12 lg:col-span-9 text-white bg-black',
+                'col-span-12 lg:col-span-7 text-white bg-black',
             })}
             <div className="grid grid-cols-12">
               {(panelsSection?.panels as PanelTextProps[])?.map(p => (
