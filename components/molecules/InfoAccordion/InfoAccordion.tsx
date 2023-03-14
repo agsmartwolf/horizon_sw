@@ -32,15 +32,15 @@ const InfoAccordion: React.FC<InfoAccordionProps> = ({
 
   return (
     <div className={className}>
-      <Disclosure>
+      <Disclosure defaultOpen>
         {({ open }) => (
           <div className={classNames}>
             <Disclosure.Button className={buttonClassNames}>
-              <span className="text-sm font-semibold text-black">{label}</span>
+              <span className="text-xl lg:text-2xl font-semibold">{label}</span>
               {open ? (
-                <Minus width={12} height={12} className="text-black" />
+                <Minus width={12} height={12} className="" />
               ) : (
-                <Plus width={12} height={12} className="text-black" />
+                <Plus width={12} height={12} className="" />
               )}
             </Disclosure.Button>
 
@@ -60,7 +60,7 @@ const InfoAccordion: React.FC<InfoAccordionProps> = ({
                     }, 0);
                   }}>
                   <RichText
-                    className="pb-4 text-sm text-body"
+                    className="pb-4 text-xl lg:text-2xl"
                     content={content}
                   />
                 </div>

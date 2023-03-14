@@ -1,5 +1,5 @@
 import React from 'react';
-
+import cn from 'classnames';
 export enum DIVIDER_HEIGHT {
   EXTRA_SMALL = 'extra_small',
   SMALL = 'small',
@@ -22,17 +22,19 @@ export interface DividerProps {
   vertical_spacing?: DIVIDER_HEIGHT;
   background_color?: string;
   className?: string;
+  disableDefaultPadding?: boolean;
 }
 
 const Divider: React.FC<DividerProps> = ({
   vertical_spacing = DIVIDER_HEIGHT.SMALL,
   background_color,
   className = '',
-}) => (
-  <hr
-    style={{ backgroundColor: background_color }}
-    className={`border-transparent ${DIVIDER_HEIGHT_PADDING_MAP[vertical_spacing]} ${className}`}
-  />
-);
+  disableDefaultPadding = false,
+}) => {
+  const cln = cn('border-transparent', className, {
+    [DIVIDER_HEIGHT_PADDING_MAP[vertical_spacing]]: !disableDefaultPadding,
+  });
+  return <hr style={{ backgroundColor: background_color }} className={cln} />;
+};
 
 export default Divider;

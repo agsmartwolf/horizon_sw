@@ -6,11 +6,20 @@ import { fetchPageData } from '../lib/rest/fetchStoreData';
 import type { EditorPageOutput } from '../types/editor';
 import type { PageProps, ServerSideProps } from '../types/shared/pages';
 import type { PageSection } from '../lib/editor/sections';
+import {
+  mapSectionProps,
+  PAGE_SECTION_COMPONENT,
+} from '../lib/editor/sections';
 import { denullifyArray } from '../lib/utils/denullify';
-import { mapSectionProps } from '../lib/editor/sections';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import InfoAccordion from '../components/molecules/InfoAccordion';
 import type { PanelTextProps } from '../components/atoms/Panel';
+import usePageSections from '../hooks/usePageSections';
+import Divider from '../components/atoms/Divider';
+import { formatRowHtmlFontStyles } from '../lib/utils/format';
+import Button from '../components/atoms/Button';
+import { BUTTON_TYPE } from '../types/shared/button';
+import { PADDING, SECTION_PADDING_MAP } from '../lib/globals/sizings';
 
 interface StaticPageProps extends PageProps {
   sections: PageSection[];
@@ -65,31 +74,79 @@ const propsCallback: GetStaticProps<StaticPageProps> = async context => {
 };
 export const getStaticProps = withMainLayout(propsCallback);
 
-const AboutPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
+const DeliveryPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
   title,
   sections,
 }) => {
+  const panelsSection = sections?.find(
+    s => s?.type === PAGE_SECTION_COMPONENT.MULTIPLE_PANELS,
+  );
+
+  const headingSectionsData = sections?.filter(
+    s => s?.type === PAGE_SECTION_COMPONENT.HEADING_WITH_TEXT,
+  );
+  const headingSections = usePageSections(headingSectionsData as PageSection[]);
   return (
-    <article className="min-h-screen">
+    <article className="">
       <Head>
         <title>{title}</title>
       </Head>
 
-      <section className="h-full lg:min-h-[calc(100vh-90px)] mb-[40px] container mx-auto py-8 lg: py-12 px-4">
-        {(sections[0]?.panels as PanelTextProps[])?.map(p => (
-          <InfoAccordion
-            className="mb-12 text-left"
-            key={p.id}
-            content={p?.description ?? ''}
-            label={p.heading ?? ''}
-            accordionStyle="secondary"
-          />
-        ))}
+      <section
+        className={`container mx-auto pt-10 ${
+          SECTION_PADDING_MAP[PADDING.SMALL]
+        } lg:px-0`}>
+        {React.cloneElement(headingSections[0] as ReactElement, {
+          textClassName: 'grid grid-cols-12 mb-10',
+          headingClassName: 'col-span-12 lg:col-span-3',
+          descriptionClassName: 'col-span-12 lg:col-span-9',
+        })}
       </section>
+      <section
+        className={`h-full bg-black py-8 lg:py-12 lg:px-0 ${
+          SECTION_PADDING_MAP[PADDING.SMALL]
+        }`}>
+        <div className="container mx-auto">
+          <div>
+            {React.cloneElement(headingSections[1] as ReactElement, {
+              textClassName: 'grid grid-cols-12 mb-10 text-white bg-black',
+              headingClassName: 'col-span-12 lg:col-span-3 text-white',
+              descriptionClassName:
+                'col-span-12 lg:col-span-9 text-white bg-black',
+            })}
+            <div className="grid grid-cols-12">
+              {(panelsSection?.panels as PanelTextProps[])?.map(p => (
+                <div
+                  key={p.id}
+                  className={'col-span-12 lg:col-start-4 lg:col-span-7'}>
+                  <Divider
+                    className={'border-white mt-10 mb-0'}
+                    disableDefaultPadding
+                  />
+                  <InfoAccordion
+                    className="text-left text-white"
+                    key={p.id}
+                    content={formatRowHtmlFontStyles(p?.description) ?? ''}
+                    label={formatRowHtmlFontStyles(p.heading) ?? ''}
+                    accordionStyle="default"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
 
-      <section className={'relative'}></section>
+          <div className="grid grid-cols-12">
+            <Button
+              elType={BUTTON_TYPE.LINK}
+              href={'/products'}
+              className={'mt-10 col-span-12 lg:col-start-4 lg:col-span-3'}>
+              Explore collections
+            </Button>
+          </div>
+        </div>
+      </section>
     </article>
   );
 };
 
-export default AboutPage;
+export default DeliveryPage;

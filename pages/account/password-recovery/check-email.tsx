@@ -38,7 +38,7 @@ const CheckEmailPage: NextPageWithLayout<PageProps> = ({
     {
       loginLink: `<a class="font-bold hover:underline" href='/${
         router.locale !== router.defaultLocale ? `${router.locale}/` : ''
-      }/account/login'>${text.backToLoginLink}</a>`,
+      }account/login'>${text.backToLoginLink}</a>`,
     },
   );
 

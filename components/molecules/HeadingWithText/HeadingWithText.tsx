@@ -25,6 +25,7 @@ import type {
   PageSectionSpacing,
 } from 'types/shared/sections';
 import AnchorButton from 'components/atoms/AnchorButton';
+import { formatRowHtmlFontStyles } from '../../../lib/utils/format';
 
 export enum TEXT_LAYOUT {
   SINGLE_COLUMN = 'single_column',
@@ -34,7 +35,7 @@ export enum TEXT_LAYOUT {
 export interface HeadingWithTextProps extends PageSectionSpacing {
   image?: MandatoryImageProps;
   label?: string;
-  title?: string;
+  heading?: string;
   description?: string;
   text_color?: string;
   title_alignment?: TEXT_ALIGNMENT;
@@ -49,12 +50,15 @@ export interface HeadingWithTextProps extends PageSectionSpacing {
   cta?: CTAOptions;
   className?: string;
   containerClassName?: string;
+  textClassName?: string;
+  headingClassName?: string;
+  descriptionClassName?: string;
 }
 
 const HeadingWithText: ContentBlockComponent<HeadingWithTextProps> = ({
   image,
   label,
-  title,
+  heading,
   description,
   text_color,
   title_alignment = TEXT_ALIGNMENT.LEFT,
@@ -71,13 +75,16 @@ const HeadingWithText: ContentBlockComponent<HeadingWithTextProps> = ({
   containerClassName,
   horizontal_spacing,
   vertical_spacing,
+  textClassName = '',
+  headingClassName = '',
+  descriptionClassName = '',
 }) => {
   const backgroundPositionClass =
     BACKGROUND_POSITION_MAP[vertical_background_position][
       horizontal_background_position
     ];
   const horizontalAlignmentClass = ALIGN_CLASS_MAP[horizontal_alignment];
-  const hasMultipleElements = !!(label || title || description) && !!cta;
+  const hasMultipleElements = !!(label || heading || description) && !!cta;
 
   const contentClassNames = cn(
     'relative flex flex-col text-5xl text-black',
@@ -92,10 +99,23 @@ const HeadingWithText: ContentBlockComponent<HeadingWithTextProps> = ({
     className ?? '',
   );
 
-  const textClassNames = cn('relative flex flex-col gap-4', {
+  const textClassNames = cn({
     'w-full': text_layout === TEXT_LAYOUT.DUAL_COLUMN,
     'w-full lg:w-1/2': text_layout === TEXT_LAYOUT.SINGLE_COLUMN,
+    'relative flex flex-col gap-4': !textClassName,
+    [textClassName]: !!textClassName,
   });
+
+  const descriptionClassNames = cn({
+    [descriptionClassName]: !!descriptionClassName,
+  });
+
+  const headingClassNames = cn({
+    [headingClassName]: !!headingClassName,
+  });
+
+  // remove font size and font family from html style attribute in row html string
+  const descriptionFormatted = formatRowHtmlFontStyles(description);
 
   return (
     <section className={containerClassName}>
@@ -124,16 +144,16 @@ const HeadingWithText: ContentBlockComponent<HeadingWithTextProps> = ({
               content={label}
             />
           )}
-          {title && (
+          {heading && (
             <RichText
-              className={`font-headings text-2xl lg:text-5xl ${TEXT_ALIGNMENT_MAP[title_alignment]}`}
-              content={title}
+              className={`font-headings text-2xl lg:text-5xl xl:text-8xl ${TEXT_ALIGNMENT_MAP[title_alignment]} ${headingClassNames}`}
+              content={heading}
             />
           )}
-          {description && (
+          {descriptionFormatted && (
             <RichText
-              content={description}
-              className={`text-xl lg:text-2xl ${TEXT_ALIGNMENT_MAP[text_alignment]}`}
+              content={descriptionFormatted}
+              className={`text-xl lg:text-2xl ${TEXT_ALIGNMENT_MAP[text_alignment]} ${descriptionClassNames}`}
             />
           )}
         </div>

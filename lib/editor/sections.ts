@@ -53,7 +53,7 @@ export enum PAGE_SECTION_COMPONENT {
   FULL_WIDTH_MEDIA = 'full_width_media',
   CATEGORIES_PREVIEW = 'categories_preview',
   HEADING_WITH_TEXT = 'heading_with_text',
-  MULTIPLE_PANELS = 'multiple_panels',
+  MULTIPLE_PANELS = 'multi_panel',
   REVIEWS_SECTION = 'reviews',
   PRODUCTS_PREVIEW = 'products_preview',
   TEXT_SECTION = 'text',
