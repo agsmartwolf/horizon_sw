@@ -103,9 +103,9 @@ const DeliveryPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
         })}
       </section>
       <section
-        className={`h-full bg-black py-8 lg:py-12 lg:px-0 ${
+        className={`h-full bg-black py-8 lg:py-12 ${
           SECTION_PADDING_MAP[PADDING.SMALL]
-        }`}>
+        } lg:px-0`}>
         <div className="container mx-auto">
           <div>
             {React.cloneElement(headingSections[1] as ReactElement, {
@@ -120,8 +120,9 @@ const DeliveryPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
                   key={p.id}
                   className={'col-span-12 lg:col-start-4 lg:col-span-7'}>
                   <Divider
-                    className={'border-white mt-10 mb-0'}
+                    className={'mt-10 mb-0'}
                     disableDefaultPadding
+                    borderColor={'border-white'}
                   />
                   <InfoAccordion
                     className="text-left text-white"

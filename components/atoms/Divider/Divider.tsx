@@ -22,6 +22,7 @@ export interface DividerProps {
   vertical_spacing?: DIVIDER_HEIGHT;
   background_color?: string;
   className?: string;
+  borderColor?: string;
   disableDefaultPadding?: boolean;
 }
 
@@ -30,9 +31,12 @@ const Divider: React.FC<DividerProps> = ({
   background_color,
   className = '',
   disableDefaultPadding = false,
+  borderColor,
 }) => {
-  const cln = cn('border-transparent', className, {
+  const cln = cn(className, {
     [DIVIDER_HEIGHT_PADDING_MAP[vertical_spacing]]: !disableDefaultPadding,
+    [borderColor ?? '']: !!borderColor,
+    'border-transparent': !borderColor,
   });
   return <hr style={{ backgroundColor: background_color }} className={cln} />;
 };
