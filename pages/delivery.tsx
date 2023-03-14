@@ -19,7 +19,6 @@ import Divider from '../components/atoms/Divider';
 import { formatRowHtmlFontStyles } from '../lib/utils/format';
 import Button from '../components/atoms/Button';
 import { BUTTON_TYPE } from '../types/shared/button';
-import { PADDING, SECTION_PADDING_MAP } from '../lib/globals/sizings';
 
 interface StaticPageProps extends PageProps {
   sections: PageSection[];
@@ -92,20 +91,14 @@ const DeliveryPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
         <title>{title}</title>
       </Head>
 
-      <section
-        className={`container mx-auto pt-10 ${
-          SECTION_PADDING_MAP[PADDING.SMALL]
-        } lg:px-0`}>
+      <section className={`container mx-auto pt-10 px-4 lg:px-0`}>
         {React.cloneElement(headingSections[0] as ReactElement, {
           textClassName: 'grid grid-cols-12 mb-10',
           headingClassName: 'col-span-12 lg:col-span-3',
           descriptionClassName: 'col-span-12 lg:col-span-9',
         })}
       </section>
-      <section
-        className={`h-full bg-black py-8 lg:py-12 ${
-          SECTION_PADDING_MAP[PADDING.SMALL]
-        } lg:px-0`}>
+      <section className={`h-full bg-black py-8 lg:py-12 px-4 lg:px-0`}>
         <div className="container mx-auto">
           <div>
             {React.cloneElement(headingSections[1] as ReactElement, {
