@@ -2,7 +2,7 @@ import type {
   OrderCardProps,
   SubscriptionCardProps,
 } from 'components/molecules/PurchaseCard';
-import type { I18n } from 'hooks/useI18n';
+import type { I18n, LocaleCode } from 'hooks/useI18n';
 import type { ORDER_STATUS } from 'types/orders';
 import { PURCHASE_TYPE } from 'types/purchase';
 import type { SUBSCRIPTION_STATUS } from 'types/subscription';
@@ -44,7 +44,7 @@ export const grouppedPurchases = <
   Acc extends GrouppedPurchases,
 >(
   purchases: P,
-  i18n: I18n,
+  i18n: I18n<LocaleCode>,
 ) =>
   purchases.reduce<Acc>((accumulator, currentValue) => {
     const { status } = currentValue;

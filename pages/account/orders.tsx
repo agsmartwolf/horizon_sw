@@ -68,6 +68,7 @@ const OrdersPage: NextPageWithLayout<OrdersPageProps> = ({
   pageType,
 }) => {
   const i18n = useI18n();
+  // @ts-ignore
   const groupedOrders = grouppedPurchases(orders, i18n);
   return (
     <PurchaseList
