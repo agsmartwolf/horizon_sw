@@ -95,12 +95,13 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
 
   const selectOption = useCallback(
     (productOption: ProductOption) =>
-      productOption.values?.map(({ id, name, disabled }) => (
+      productOption.values?.map(({ id, name, disabled, description }) => (
         <OptionSelectItem
           key={id}
           name={productOption.name || productOption.attributeId}
           value={id}
           label={name}
+          description={description}
           onChange={(valueId: string) =>
             onChange?.({
               type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,
@@ -212,6 +213,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
     [isGiftCard, onChange, priceFormatter, selectOption, selectedOptions],
   );
 
+  // = useRef<SwiperRef | null>(null);
   return (
     <div className="mt-5 flex flex-col gap-5">
       {filteredOptions.map(productOption => {

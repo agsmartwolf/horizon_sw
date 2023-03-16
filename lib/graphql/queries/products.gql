@@ -153,6 +153,7 @@ query getProduct($slug: String, $currency: String, $locale: String) {
         id
         name
         price
+        description
       }
     }
     purchaseOptions {

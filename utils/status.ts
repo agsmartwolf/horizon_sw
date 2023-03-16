@@ -1,4 +1,4 @@
-import type { I18n } from 'hooks/useI18n';
+import type { I18n, LocaleCode } from 'hooks/useI18n';
 import { ORDER_STATUS } from 'types/orders';
 import { STOCK_STATUS } from 'types/shared/products';
 import { SUBSCRIPTION_STATUS } from 'types/subscription';
@@ -31,7 +31,7 @@ type StatusKey =
   | ReturnType<typeof subscriptionStatusKey>
   | STOCK_STATUS;
 
-export const STATUS_MAP = (i18n: I18n) =>
+export const STATUS_MAP = (i18n: I18n<LocaleCode>) =>
   new Map<StatusKey, StatusTemplate>([
     [
       orderStatusKey(ORDER_STATUS.CANCELED),

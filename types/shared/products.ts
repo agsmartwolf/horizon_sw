@@ -67,6 +67,7 @@ export interface ProductOption {
   values?: {
     id: string;
     name: string;
+    description?: string;
     price?: number;
     disabled?: boolean;
   }[];

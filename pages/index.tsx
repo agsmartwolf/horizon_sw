@@ -8,7 +8,7 @@ import { getBestsellers, getBundles } from 'lib/shop/fetchingFunctions';
 import { withMainLayout } from 'lib/utils/fetch_decorators';
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import { BUTTON_STYLE } from 'types/shared/button';
+import { BUTTON_STYLE, BUTTON_TYPE } from 'types/shared/button';
 import FullWidthMedia from '../components/molecules/FullWidthMedia';
 import {
   HORIZONTAL_ALIGNMENT,
@@ -27,6 +27,8 @@ import ArrowRight from 'assets/icons/arrow-right.svg';
 import { useCallback, useRef } from 'react';
 import type { SwiperRef } from 'swiper/react';
 import cn from 'classnames';
+import Button from '../components/atoms/Button';
+import useI18n, { I18n, LocaleCode } from '../hooks/useI18n';
 // import {isNextPublicSwellEditor} from 'utils/editor';
 
 const propsCallback: GetStaticProps<Record<string, unknown>> = async () => {
@@ -66,9 +68,20 @@ const Quotes = ({ className }: { className: string }) => (
   </svg>
 );
 
+const homeText = (i18n: I18n<LocaleCode>) => ({
+  aboutCaption: i18n('home.about.caption'),
+  aboutButton: i18n('home.about.button'),
+  bestsellers: i18n('home.bestsellers'),
+  heroTitle: i18n('home.hero.title'),
+  heroBtn: i18n('home.hero.explore'),
+  heroDescription: i18n('home.hero.descriptions'),
+});
+
 const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
   bestsellers,
 }) => {
+  const i18n = useI18n();
+  const text = homeText(i18n);
   const { isMobile } = useViewport();
   const swiperRef = useRef<SwiperRef | null>(null);
   const handlePrev = useCallback(() => {
@@ -87,17 +100,13 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
       </Head>
       <div className={'bg-black-100'}>
         <FullWidthMedia
-          title={
-            '<p class="uppercase text-xl md:text-2xl text-white">Make your dog more</p>'
-          }
-          description={
-            '<h1 class="text-green-100 text-9xl md:text-14xl uppercase font-semibold mb-12">brighter</h1>'
-          }
+          title={`<p class="uppercase text-xl md:text-2xl text-white">${text.heroTitle}</p>`}
+          description={`<h1 class="text-green-100 text-9xl md:text-14xl uppercase font-semibold mb-12">${text.heroDescription}</h1>`}
           links={[
             {
               id: '1',
               style: BUTTON_STYLE.SECONDARY,
-              label: 'Explore  collections',
+              label: text.heroBtn,
               link: '/collections',
             },
           ]}
@@ -111,13 +120,13 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
             isMobile
               ? {
                   src: '/images/landing/mobile/hero.png',
-                  alt: "Close-up of a Woman's face, with the skin on focus",
+                  alt: '',
                   width: 390,
                   height: 472,
                 }
               : {
                   src: '/images/landing/desktop/hero.png',
-                  alt: "Close-up of a Woman's face, with the skin on focus",
+                  alt: '',
                   width: 1388,
                   height: 293,
                 }
@@ -146,7 +155,7 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
           <div className={'flex justify-center mb-4 lg:mb-7'}>
             <div className={'relative select-none'}>
               <TextHeading
-                content={`Bestsellers`}
+                content={text.bestsellers}
                 rootEl={'h1'}
                 className={'z-10 relative'}
               />
@@ -191,17 +200,15 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
         </Swiper>
       </div>
 
-      <article className={cn('bg-black-100')}>
-        <div>
+      <article className={cn('bg-black-100 select-none')}>
+        <div className="relative">
           <Figure
             className={'flex-col-reverse relative'}
             captionClassName={cn(
-              'text-white pt-15 md:pt-0 md:absolute right-0 bottom-16 md:w-1/2',
+              'text-white pt-15 md:pt-0 md:absolute right-0 bottom-16 md:w-1/2 flex flex-col text-center md:text-left',
               SECTION_PADDING_MAP[SPACING.MEDIUM],
             )}
-            caption={
-              'My name is Yuki and we with my friends has opened this store more dogs being happy and in safety. Look around and find Your equipment.'
-            }
+            caption={text.aboutCaption}
             image={
               isMobile
                 ? {
@@ -217,8 +224,15 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
                     height: 766,
                     alt: 'Yuki dog telling about store',
                   }
-            }
-          />
+            }>
+            <Button
+              className={'mt-6 w-full md:w-fit'}
+              elType={BUTTON_TYPE.LINK}
+              href={'/about'}
+              buttonStyle={BUTTON_STYLE.SECONDARY}>
+              {text.aboutButton}
+            </Button>
+          </Figure>
         </div>
       </article>
     </article>

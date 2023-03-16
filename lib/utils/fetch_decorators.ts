@@ -31,7 +31,7 @@ export function withMainLayout<C extends GetProps<unknown>>(callback: C) {
       return result;
     }
 
-    const allSettings = await getStoreSettings(result.props.locale);
+    const allSettings = await getStoreSettings(context.locale as string);
     const { currencies, locales, ...settings } = allSettings;
     const settingsStore = initializeSettingsStore({ settings: allSettings });
 
@@ -64,7 +64,7 @@ export function withAuthLayout<C extends GetProps<unknown>>(callback: C) {
       return result;
     }
 
-    const settings = await getStoreSettings(result.props.locale);
+    const settings = await getStoreSettings(context.locale as string);
     const settingsStore = initializeSettingsStore({ settings });
 
     const finalProps = {
@@ -124,7 +124,7 @@ export function withAccountLayout<C extends GetProps<unknown>>(callback: C) {
       return result;
     }
 
-    const settings = await getStoreSettings(result.props.locale);
+    const settings = await getStoreSettings(context.locale as string);
     const settingsStore = initializeSettingsStore({ settings });
 
     return {

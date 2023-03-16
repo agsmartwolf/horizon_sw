@@ -37,13 +37,13 @@ import { useRouter } from 'next/router';
 import { denullifyArray } from 'lib/utils/denullify';
 import useFetchApi from 'hooks/useFetchApi';
 import { API_ROUTES } from 'types/shared/api';
-import useI18n, { I18n } from 'hooks/useI18n';
+import useI18n, { I18n, LocaleCode } from 'hooks/useI18n';
 
 interface SubscriptionDetailPageProps extends PageProps {
   subscription: SwellSubscription;
 }
 
-const subscriptionDetailsText = (i18n: I18n) => ({
+const subscriptionDetailsText = (i18n: I18n<LocaleCode>) => ({
   backToSubscriptionsLabel: i18n('account.subscriptions.details.back_link'),
   createdLabel: i18n('account.subscriptions.details.created_label'),
   nextBillingLabel: i18n('account.subscriptions.details.next_billing_label'),

@@ -26,7 +26,7 @@ interface SwiperProps extends CarouselProps {
 const Swiper = forwardRef<SwiperRef, SwiperProps>((props: SwiperProps, ref) => {
   const { verticalPadding, effectsEnabled = false } = props;
   const cns = cn(
-    'w-full',
+    'w-full select-none',
     styles.Swiper,
     { [styles.effectsEnabled]: effectsEnabled },
     // SECTION_PADDING_MAP[horizontalPadding ?? SPACING.NONE],

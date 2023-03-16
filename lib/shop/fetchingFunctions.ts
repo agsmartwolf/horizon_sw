@@ -34,6 +34,7 @@ import {
   SwellCategoryWithChildren,
 } from 'types/shared/products';
 import type { SwellProduct } from 'lib/graphql/generated/sdk';
+import { getDefaultLangJsonByLocale, LocaleCode } from '../../hooks/useI18n';
 
 const client = getGQLClient();
 
@@ -361,7 +362,9 @@ export async function getProductBySlug(
     expandableDetails: denullifyArray(
       product?.content?.expandableDetails ?? [],
     ),
-    images: sortedImages,
+    images: sortedImages.length
+      ? sortedImages
+      : formatProductImages(product?.images ?? []),
     productOptions: denullifyArray(product?.options)?.map(
       (option: SwellProductOption) => {
         return {
@@ -387,6 +390,7 @@ export async function getProductBySlug(
                 id: value.id ?? '',
                 name: value.name ?? '',
                 price: value.price ?? 0,
+                description: value.description ?? '',
               };
             }),
         };
@@ -487,11 +491,21 @@ export const getStoreSettings = async (locale?: string) => {
     client.getMenus({ locale }),
   ]);
 
+  const formattedSettings = formatStoreSettings(
+    storeData.data.storeSettings,
+    menusData.data.menuSettings,
+  );
+
+  const settingsWithMergedLocale = {
+    ...formattedSettings,
+    lang: {
+      ...getDefaultLangJsonByLocale(locale as LocaleCode | undefined),
+      ...formattedSettings.lang,
+    },
+  };
+
   return {
-    ...formatStoreSettings(
-      storeData.data.storeSettings,
-      menusData.data.menuSettings,
-    ),
+    ...settingsWithMergedLocale,
     locales: formatLocales(storeData.data.storeSettings),
     currencies: formatCurrencies(storeData.data.storeSettings),
   };

@@ -47,7 +47,7 @@ import getGQLClient from 'lib/graphql/client';
 import { generateId } from 'lib/utils/shared_functions';
 import type { Replace } from 'types/utils';
 import { parseTextWithVariables } from 'utils/text';
-import useI18n, { I18n } from 'hooks/useI18n';
+import useI18n, { I18n, LocaleCode } from 'hooks/useI18n';
 import Input from '../../atoms/Input';
 import useProductSearch from '../../../hooks/useProductSearch';
 import { SECTION_PADDING_MAP, SPACING } from 'lib/globals/sizings';
@@ -75,7 +75,7 @@ export interface ProductsLayoutProps {
   settings: ProductsLayoutSettings;
 }
 
-const productsLayoutText = (i18n: I18n) => ({
+const productsLayoutText = (i18n: I18n<LocaleCode>) => ({
   filtersLabel: i18n('categories.filters.title'),
   removeAllLabel: i18n('categories.filters.remove_all'),
   priceLabel: i18n('categories.filters.price'),

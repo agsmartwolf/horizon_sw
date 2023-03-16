@@ -21,7 +21,7 @@ const ProductOptionContainer: React.FC<ProductOptionContainerProps> = ({
         {description && <InfoTooltip text={description} />}
       </div>
       {!!children && (
-        <div className="mt-2 flex items-center justify-start gap-2 overflow-x-auto scrollbar-hidden">
+        <div className="mt-2 flex items-center justify-start gap-4 scrollbar-hidden">
           {children}
         </div>
       )}

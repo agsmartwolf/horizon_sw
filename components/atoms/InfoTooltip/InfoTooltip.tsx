@@ -1,4 +1,4 @@
-import React, { startTransition, useState } from 'react';
+import React, { startTransition, useMemo, useState } from 'react';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { Icon } from '@iconify/react';
 import { Transition } from '@headlessui/react';
@@ -6,6 +6,7 @@ import { Transition } from '@headlessui/react';
 export interface InfoTooltipProps {
   text: string;
   hideArrow?: boolean;
+  showIconAboveCustomTrigger?: boolean;
   customTrigger?: React.ReactNode;
 }
 
@@ -16,19 +17,42 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
 
-  return (
-    <TooltipPrimitive.Provider>
-      <TooltipPrimitive.Root open={open} onOpenChange={value => setOpen(value)}>
-        <TooltipPrimitive.Trigger
-          onClick={() =>
+  const toolTipEvents = useMemo(
+    () => ({
+      onPointerEnter: !customTrigger
+        ? undefined
+        : () =>
             startTransition(() => {
               setOpen(true);
-            })
-          }
+            }),
+      onPointerLeave: !customTrigger
+        ? undefined
+        : () =>
+            startTransition(() => {
+              setOpen(false);
+            }),
+    }),
+    [customTrigger],
+  );
+  return (
+    <TooltipPrimitive.Provider>
+      <TooltipPrimitive.Root open={open}>
+        <TooltipPrimitive.Trigger
           type="button"
-          className="flex">
+          className="flex"
+          {...toolTipEvents}>
           {customTrigger ?? (
             <Icon
+              onPointerEnter={() =>
+                startTransition(() => {
+                  setOpen(true);
+                })
+              }
+              onPointerLeave={() =>
+                startTransition(() => {
+                  setOpen(false);
+                })
+              }
               icon="fluent:info-12-regular"
               className="text-input-standard"
               width={20}

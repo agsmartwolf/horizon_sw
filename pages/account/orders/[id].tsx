@@ -27,13 +27,13 @@ import { formatDateToLocale } from 'lib/utils/date';
 import { denullifyArray } from 'lib/utils/denullify';
 import { getClientWithSessionToken } from 'lib/graphql/client';
 import type { SwellOrder } from 'lib/graphql/generated/sdk';
-import useI18n, { I18n } from 'hooks/useI18n';
+import useI18n, { I18n, LocaleCode } from 'hooks/useI18n';
 
 interface OrderDetailPageProps extends PageProps, AccountPageProps {
   order: SwellOrder;
 }
 
-const orderDetailsText = (i18n: I18n) => ({
+const orderDetailsText = (i18n: I18n<LocaleCode>) => ({
   backToOrdersLabel: i18n('account.orders.details.back_link'),
   orderLabel: i18n('account.orders.details.order_label'),
   createReturnLabel: i18n('account.orders.details.create_return_label'),

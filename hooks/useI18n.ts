@@ -5,25 +5,32 @@ import defaults from 'config/defaults.json';
 import camelCase from 'lodash.camelcase';
 import type { NestedPaths } from 'types/utils';
 
-export type I18n = (
-  path: NestedPaths<typeof defaults.lang>,
+export type LocaleCode = 'en' | 'ru';
+export type I18n<T extends LocaleCode> = (
+  path: NestedPaths<typeof defaults.lang[T]>,
   variables?: Record<string, string>,
 ) => string;
 
-export const getI18n: (lang: any) => I18n = lang => (path, variables) => {
-  const defaultValue = getProperty(defaults.lang, path) as string | undefined;
-  if (!lang) return defaultValue as string;
-  const camelCasePath = path.split('.').map(camelCase).join('.');
-  const value = getProperty(lang, camelCasePath) as string | null | undefined;
-
-  let text = fallbackString(value, defaultValue);
-
-  if (variables) {
-    text = parseTextWithVariables(text, variables);
-  }
-
-  return text;
+export const getDefaultLangJsonByLocale = (locale?: LocaleCode) => {
+  return defaults.lang[locale ?? 'en'];
 };
+export const getI18n: (lang: any) => I18n<LocaleCode> =
+  lang => (path, variables) => {
+    const defaultValue = getProperty(defaults.lang.en, path) as
+      | string
+      | undefined;
+    if (!lang) return defaultValue as string;
+    const camelCasePath = path.split('.').map(camelCase).join('.');
+    const value = getProperty(lang, camelCasePath) as string | null | undefined;
+
+    let text = fallbackString(value, defaultValue);
+
+    if (variables) {
+      text = parseTextWithVariables(text, variables);
+    }
+
+    return text;
+  };
 
 const useI18n = () => {
   const lang = useSettingsStore(state => state.settings?.lang);

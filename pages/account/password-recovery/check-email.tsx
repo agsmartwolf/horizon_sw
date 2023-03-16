@@ -4,9 +4,9 @@ import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
 import { useRouter } from 'next/router';
-import useI18n, { I18n } from 'hooks/useI18n';
+import useI18n, { I18n, LocaleCode } from 'hooks/useI18n';
 
-const checkEmailText = (i18n: I18n) => ({
+const checkEmailText = (i18n: I18n<LocaleCode>) => ({
   pageTitle: i18n('account.password_recovery.check_email.page_title'),
   title: i18n('account.password_recovery.check_email.title'),
   message: i18n('account.password_recovery.check_email.message'),

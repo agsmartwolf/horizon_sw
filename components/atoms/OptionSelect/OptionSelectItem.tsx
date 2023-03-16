@@ -1,5 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
+import InfoTooltip from '../InfoTooltip';
 
 interface OptionSelectItemProps {
   name: string;
@@ -9,6 +10,7 @@ interface OptionSelectItemProps {
   disabled?: boolean;
   onChange: (value: string) => void;
   className?: string;
+  description?: string;
 }
 
 const OptionSelectItem: React.FC<OptionSelectItemProps> = ({
@@ -19,13 +21,14 @@ const OptionSelectItem: React.FC<OptionSelectItemProps> = ({
   disabled = false,
   onChange,
   className,
+  description,
 }) => {
   function onOptionChanged(e: React.ChangeEvent<HTMLInputElement>) {
     onChange(e.target.value);
   }
 
   const labelClassNames = cn(
-    'border p-[10px] text-sm transition duration-[250ms] cursor-pointer min-w-10',
+    'border text-sm transition duration-[250ms] cursor-pointer min-w-10',
     'peer-focus-visible:ring-2 peer-focus-visible:ring-accent peer-focus-visible:ring-offset-1 hover:border-black-100',
     {
       'border-black-100': !disabled,
@@ -33,12 +36,14 @@ const OptionSelectItem: React.FC<OptionSelectItemProps> = ({
       'border-body bg-grey-100 text-black border-gray-300': !active,
       'border-disabled bg-grey-100 text-disabled strikethrough-diagonal border-grey-300 cursor-not-allowed':
         disabled,
+      'p-[10px]': !description,
+      // 'p-[10px]': !!description,
     },
     className,
   );
 
-  return (
-    <>
+  const r = (
+    <div className={'flex relative overflow-visible'}>
       <input
         id={value}
         name={name}
@@ -52,8 +57,14 @@ const OptionSelectItem: React.FC<OptionSelectItemProps> = ({
       <label htmlFor={value} className={labelClassNames}>
         {label}
       </label>
-    </>
+      {description && (
+        <div className={'absolute -right-[10px] -top-[10px] overflow-visible'}>
+          <InfoTooltip text={description} />
+        </div>
+      )}
+    </div>
   );
+  return r;
 };
 
 export default OptionSelectItem;

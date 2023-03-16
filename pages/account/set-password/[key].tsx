@@ -15,9 +15,9 @@ import { API_ROUTES } from 'types/shared/api';
 import { ACCOUNT_FIELD } from 'types/account';
 import { validateNonEmptyFields } from 'utils/validation';
 import useFetchApi from 'hooks/useFetchApi';
-import useI18n, { I18n } from 'hooks/useI18n';
+import useI18n, { I18n, LocaleCode } from 'hooks/useI18n';
 
-const setNewPasswordText = (i18n: I18n) => ({
+const setNewPasswordText = (i18n: I18n<LocaleCode>) => ({
   pageTitle: i18n('account.set_new_password.page_title'),
   title: i18n('account.set_new_password.title'),
   subtitle: i18n('account.set_new_password.subtitle'),

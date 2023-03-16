@@ -17,9 +17,9 @@ import { API_ROUTES } from 'types/shared/api';
 import { validateNonEmptyFields } from 'utils/validation';
 import { ACCOUNT_FIELD } from 'types/account';
 import useFetchApi from 'hooks/useFetchApi';
-import useI18n, { I18n } from 'hooks/useI18n';
+import useI18n, { I18n, LocaleCode } from 'hooks/useI18n';
 
-const loginText = (i18n: I18n) => ({
+const loginText = (i18n: I18n<LocaleCode>) => ({
   pageTitle: i18n('account.login.page_title'),
   title: i18n('account.login.title'),
   email: {

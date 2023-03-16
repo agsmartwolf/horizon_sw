@@ -5,9 +5,9 @@ import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
 import Button from 'components/atoms/Button';
 import { BUTTON_TYPE } from 'types/shared/button';
-import useI18n, { I18n } from 'hooks/useI18n';
+import useI18n, { I18n, LocaleCode } from 'hooks/useI18n';
 
-const successText = (i18n: I18n) => ({
+const successText = (i18n: I18n<LocaleCode>) => ({
   pageTitle: i18n('account.set_new_password.success.page_title'),
   title: i18n('account.set_new_password.success.title'),
   message: i18n('account.set_new_password.success.message'),
