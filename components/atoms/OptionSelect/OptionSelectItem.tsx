@@ -37,11 +37,17 @@ const OptionSelectItem: React.FC<OptionSelectItemProps> = ({
       'border-disabled bg-grey-100 text-disabled strikethrough-diagonal border-grey-300 cursor-not-allowed':
         disabled,
       'p-[10px]': !description,
-      // 'p-[10px]': !!description,
+      'py-[9px] px-[15px]': !!description,
     },
     className,
   );
 
+  const iconClassName = cn({
+    'fill-gray-400': disabled,
+    'stroke-gray-400': disabled,
+    'stroke-black': !disabled,
+    'fill-black': !disabled,
+  });
   const r = (
     <div className={'flex relative overflow-visible'}>
       <input
@@ -58,8 +64,9 @@ const OptionSelectItem: React.FC<OptionSelectItemProps> = ({
         {label}
       </label>
       {description && (
-        <div className={'absolute -right-[10px] -top-[10px] overflow-visible'}>
-          <InfoTooltip text={description} />
+        <div
+          className={cn('absolute -right-[5px] -top-[5px] overflow-visible')}>
+          <InfoTooltip text={description} iconClass={iconClassName} />
         </div>
       )}
     </div>

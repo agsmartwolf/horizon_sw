@@ -5,6 +5,7 @@ import cn from 'classnames';
 import styles from './ProductHeader.module.css';
 import Breadcrumb from '../../atoms/Breadcrumb';
 import { InlineIcon } from '@iconify/react';
+import { formatRowHtmlFontStyles } from '../../../lib/utils/format';
 
 export interface ProductHeaderProps {
   title: string;
@@ -56,7 +57,7 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
             setOpen(!open);
             setStateChangedOnce(true);
           }}
-          content={description}
+          content={formatRowHtmlFontStyles(description) ?? ''}
           className={cn(
             styles.content,
             'text-ellipsis overflow-hidden text-justify',

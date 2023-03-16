@@ -1,10 +1,11 @@
 import React, { startTransition, useMemo, useState } from 'react';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
-import { Icon } from '@iconify/react';
+// import { Icon } from '@iconify/react';
 import { Transition } from '@headlessui/react';
 
 export interface InfoTooltipProps {
   text: string;
+  iconClass?: string;
   hideArrow?: boolean;
   showIconAboveCustomTrigger?: boolean;
   customTrigger?: React.ReactNode;
@@ -14,6 +15,7 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
   text,
   hideArrow = false,
   customTrigger,
+  iconClass = '',
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -39,10 +41,12 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
       <TooltipPrimitive.Root open={open}>
         <TooltipPrimitive.Trigger
           type="button"
-          className="flex"
+          className="flex w-fit"
           {...toolTipEvents}>
           {customTrigger ?? (
-            <Icon
+            <svg
+              viewBox="0 0 11 11"
+              xmlns="http://www.w3.org/2000/svg"
               onPointerEnter={() =>
                 startTransition(() => {
                   setOpen(true);
@@ -53,11 +57,23 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
                   setOpen(false);
                 })
               }
-              icon="fluent:info-12-regular"
-              className="text-input-standard"
-              width={20}
-              height={20}
-            />
+              className={`${iconClass}`}
+              width={11}
+              height={11}>
+              <rect
+                x="0.5"
+                y="0.5"
+                width="10"
+                height="10"
+                fill="#FFFFFF"
+                stroke="inherit"
+              />
+              <path
+                fill="inherit"
+                stroke="none"
+                d="M5.25 9V3.71H5.99V9H5.25ZM4.4 4.31V3.71H5.99V4.31H4.4ZM5.41 2.73C5.23 2.73 5.09333 2.68333 5 2.59C4.91333 2.49 4.87 2.36667 4.87 2.22C4.87 2.07333 4.91333 1.95333 5 1.86C5.09333 1.76 5.23 1.71 5.41 1.71C5.59 1.71 5.72333 1.76 5.81 1.86C5.89667 1.95333 5.94 2.07333 5.94 2.22C5.94 2.36667 5.89667 2.49 5.81 2.59C5.72333 2.68333 5.59 2.73 5.41 2.73Z"
+              />
+            </svg>
           )}
         </TooltipPrimitive.Trigger>
         <Transition.Root show={open}>
