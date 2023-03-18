@@ -18,3 +18,10 @@ export interface ILink {
 }
 
 export type Status = SUBSCRIPTION_STATUS | ORDER_STATUS | STOCK_STATUS;
+
+// extend window with gtag
+declare global {
+  interface Window {
+    gtag: any;
+  }
+}

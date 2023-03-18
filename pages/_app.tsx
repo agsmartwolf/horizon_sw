@@ -16,6 +16,9 @@ import Notification from 'components/atoms/Notification';
 import { setPreviewMode } from 'lib/utils/previewMode';
 import { sendMessage } from 'utils/editor';
 import { SettingsProvider, useCreateSettingsStore } from '../stores/settings';
+import Script from 'next/script';
+import * as gtag from 'lib/analytics/google';
+import { GA_MEASUREMENT_ID } from 'lib/analytics/google';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -67,6 +70,18 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     setPreviewMode(router.isPreview);
   }, [router]);
 
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      gtag.pageView(url);
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
+
   // Default to the main layout if the page doesn't specify one
   const getLayout = Component.getLayout ?? getMainLayout;
 
@@ -78,6 +93,23 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <>
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+      />
+      <Script
+        id="gtag-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_MEASUREMENT_ID}');
+          `,
+        }}
+      />
+
       <ToastProvider>
         <SettingsProvider createStore={createSettingsStore}>
           {getLayout(comp)}
