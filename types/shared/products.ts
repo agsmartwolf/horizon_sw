@@ -126,6 +126,7 @@ export interface PurchasableProductData extends ProductData {
   purchaseOptions: SwellProductPurchaseOptions;
   hasQuickAdd: boolean;
   stockLevel: number;
+  tags?: Array<string | null>;
 }
 
 export interface StandardPurchaseOption {

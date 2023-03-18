@@ -54,6 +54,7 @@ module.exports = {
       headings: ['var(--typography-font-family-headings)'],
       graphity: ['var(--typography-font-family-graphity)'],
       body: ['var(--typography-font-family-body)'],
+      tag: ['var(--typography-font-family-tag)'],
     },
     fontSize: {
       '14xl': ['var(--typography-font-size-14xl)', 1.1],

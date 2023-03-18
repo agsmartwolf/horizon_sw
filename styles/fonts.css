@@ -42,6 +42,14 @@
   src: url('../assets/fonts/Empires.otf') format('opentype');
 }
 
+@font-face {
+  font-family: 'Raleway';
+  src: url('../assets/fonts/Raleway-SemiBold.woff2') format('woff2')
+    url('../assets/fonts/Raleway-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
 /*
 !* cyrillic-ext *!
 @font-face {

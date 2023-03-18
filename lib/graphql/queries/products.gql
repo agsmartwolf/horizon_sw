@@ -8,6 +8,7 @@ query getAllProducts($currency: String, $limit: Int, $locale: String) {
       slug
       price
       sale
+      tags
       salePrice
       origPrice
       currency

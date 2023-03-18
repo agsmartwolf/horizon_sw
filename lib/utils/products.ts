@@ -212,11 +212,13 @@ export const mapProducts = (
     | 'purchaseOptions'
     | 'variants'
     | 'stockLevel'
+    | 'tags'
   >[],
 ) =>
   products.map(product => ({
     id: product.id ?? '',
     description: product.description ?? '',
+    tags: product.tags ?? [],
     href: `/products/${product.slug}`,
     image: {
       alt: product.images?.[0]?.caption ?? '',

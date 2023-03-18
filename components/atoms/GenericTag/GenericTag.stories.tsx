@@ -1,17 +1,19 @@
 import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Tag from './Tag';
+import GenericTag from './GenericTag';
 
 export default {
   title: 'Atoms/GenericTag',
-  component: Tag,
+  component: GenericTag,
   argTypes: {
     children: { control: 'text' },
   },
-} as ComponentMeta<typeof Tag>;
+} as ComponentMeta<typeof GenericTag>;
 
-const Template: ComponentStory<typeof Tag> = args => <Tag {...args} />;
+const Template: ComponentStory<typeof GenericTag> = args => (
+  <GenericTag {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
