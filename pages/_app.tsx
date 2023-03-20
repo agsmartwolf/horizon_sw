@@ -19,6 +19,7 @@ import { SettingsProvider, useCreateSettingsStore } from '../stores/settings';
 import Script from 'next/script';
 import * as gtag from 'lib/analytics/google';
 import { GA_MEASUREMENT_ID } from 'lib/analytics/google';
+import PawPrintAnimation from 'components/atoms/PawILoader';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -125,6 +126,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         ))}
         <ToastViewport className="fixed top-0 right-0 z-modal m-4 flex max-w-[500px] flex-col gap-2" />
       </ToastProvider>
+      <PawPrintAnimation />
     </>
   );
 }

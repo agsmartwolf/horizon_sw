@@ -15,4 +15,5 @@ export interface CTAOptions {
   label: string;
   link: string;
   style?: BUTTON_STYLE;
+  className?: string;
 }

@@ -1,0 +1,10 @@
+.container {
+
+}
+
+@keyframes walk {
+  /* appear */
+  25%  {opacity: 1;}
+  /* disappear */
+  100% {opacity: 0;}
+}

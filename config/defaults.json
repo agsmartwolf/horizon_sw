@@ -369,7 +369,7 @@
             "add_to_cart": "Add to bag",
             "added": "Added to bag",
             "next": "Next",
-            "quick_add":"Quick add"
+            "quick_add": "Quick add"
           }
         }
       },
@@ -428,9 +428,21 @@
         "home": "Home",
         "bestsellers": "Bestsellers",
         "hero": {
-          "title": "your dog can be even",
-          "descriptions": "brighter",
-          "explore": "Explore collections"
+          "first": {
+            "title": "Because Your\nBest Friend\nDeserves\nthe Best",
+            "descriptions": "",
+            "explore": "Explore catalog"
+          },
+          "second": {
+            "title": "Your Dog's\nHappiness\nand Safety\nCome First",
+            "descriptions": "",
+            "explore": "Explore catalog"
+          },
+          "third": {
+            "title": "Dress Your\nDog for\nAdventure\nand Style",
+            "descriptions": "",
+            "explore": "Explore catalog"
+          }
         },
         "about": {
           "caption": "My name is Yuki and we with my friends has opened this store more dogs being happy and in safety. Look around and find Your equipment!",
@@ -721,7 +733,7 @@
             "add_to_cart": "Add to bag",
             "added": "Added to bag",
             "next": "Next",
-            "quick_add":"Quick add"
+            "quick_add": "Quick add"
           }
         }
       },
@@ -780,9 +792,21 @@
         "home": "Главная",
         "bestsellers": "Бестселлеры",
         "hero": {
-          "title": "Ваша собака может быть еще",
-          "descriptions": "ярче",
-          "explore": "Посмотреть коллекции"
+          "first": {
+            "title": "Лучший друг\nзаслуживает\nЛучшего",
+            "descriptions": "",
+            "explore": "Перейти в каталог"
+          },
+          "second": {
+            "title": "Счастье и \nбезопасность \nвашей собаки \nпревыше всего",
+            "descriptions": "",
+            "explore": "Перейти в каталог"
+          },
+          "third": {
+            "title": "Оденьте свою\nсобаку для\nприключений\nСтильно!",
+            "descriptions": "",
+            "explore": "Перейти в каталог"
+          }
         },
         "about": {
           "caption": "Меня зовут Юки, и мы с друзьями открыли этот магазин, чтобы больше собак могли почувствовать себя счастливыми и в безопасности. Оглянитесь вокруг и найдите то, что вам понравится!",

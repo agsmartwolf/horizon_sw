@@ -1,0 +1,26 @@
+.swiperContainer {
+  @apply absolute h-full w-full top-0 left-0 z-0;
+}
+.swiperContainer p {
+  @apply mb-[150px] absolute top-[30px] sm:static;
+}
+
+.swiperContainer a {
+  @apply mt-0;
+}
+
+.swiperContainer img {
+  @apply top-[unset];
+}
+
+.swiperContainer section {
+  @apply mb-0 pt-0 pb-0 sm:pt-20 relative h-full sm:h-auto;
+}
+
+.swiperContainer section a {
+  @apply absolute bottom-[80px] sm:static;
+}
+
+.swiperContainer :global(.swiper) {
+  @apply h-full w-full;
+}

@@ -5,7 +5,7 @@ import {
   SwiperProps as CarouselProps,
   SwiperRef,
 } from 'swiper/react';
-import { EffectFade } from 'swiper';
+import { EffectFade, Autoplay } from 'swiper';
 
 import 'swiper/css';
 import styles from './Swiper.module.css';
@@ -24,17 +24,18 @@ interface SwiperProps extends CarouselProps {
 }
 
 const Swiper = forwardRef<SwiperRef, SwiperProps>((props: SwiperProps, ref) => {
-  const { verticalPadding, effectsEnabled = false } = props;
+  const { verticalPadding, effectsEnabled = false, className = '' } = props;
   const cns = cn(
     'w-full select-none',
     styles.Swiper,
     { [styles.effectsEnabled]: effectsEnabled },
     // SECTION_PADDING_MAP[horizontalPadding ?? SPACING.NONE],
     SECTION_VERTICAL_PADDING_MAP[verticalPadding ?? SPACING.SMALL],
+    className,
   );
   return (
     <div className={cns} data-testid="Swiper">
-      <Carousel {...props} ref={ref} modules={[EffectFade]}>
+      <Carousel {...props} ref={ref} modules={[EffectFade, Autoplay]}>
         {Children.map(props.children, (child, index) => (
           <SwiperSlide key={(child as any)?.id || (child as any)?.key || index}>
             {child}

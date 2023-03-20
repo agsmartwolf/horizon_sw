@@ -1,0 +1,40 @@
+.pad {
+  width: 25px;
+  height: 27px;
+  background-color: #654321;
+  -webkit-border-radius: 63px 63px 63px 63px / 108px     108px 72px 72px;
+  border-radius: 50%  50%  50%  50%  / 60%   60%         40%  40%;
+  display: block;
+  position: absolute;
+}
+
+
+.large {
+  width: 70px;
+  height: 80px;
+  transform: rotate(80deg);
+  left: 100px;
+  top: 50px;
+}
+.small-1 {
+  transform: rotate(50deg);
+  left: 145px;
+  top: 28px;
+}
+.small-2 {
+  transform: rotate(65deg);
+  left: 174px;
+  top: 50px;
+}
+.small-3 {
+  transform: rotate(98deg);
+  position: absolute;
+  left: 178px;
+  top: 87px;
+}
+.small-4 {
+  transform: rotate(140deg);
+  position: absolute;
+  left: 158px;
+  top: 117px;
+}

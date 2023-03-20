@@ -30,6 +30,8 @@ import cn from 'classnames';
 import Button from '../components/atoms/Button';
 import useI18n, { I18n, LocaleCode } from '../hooks/useI18n';
 // import {isNextPublicSwellEditor} from 'utils/editor';
+import 'swiper/css/autoplay';
+import styles from 'styles/home.module.css';
 
 const propsCallback: GetStaticProps<Record<string, unknown>> = async () => {
   const [bundles, bestsellers] = await Promise.all([
@@ -72,10 +74,75 @@ const homeText = (i18n: I18n<LocaleCode>) => ({
   aboutCaption: i18n('home.about.caption'),
   aboutButton: i18n('home.about.button'),
   bestsellers: i18n('home.bestsellers'),
-  heroTitle: i18n('home.hero.title'),
-  heroBtn: i18n('home.hero.explore'),
-  heroDescription: i18n('home.hero.descriptions'),
+  heroBlock: [
+    {
+      title: i18n('home.hero.first.title'),
+      descriptions: i18n('home.hero.first.descriptions'),
+      explore: i18n('home.hero.first.explore'),
+    },
+    {
+      title: i18n('home.hero.second.title'),
+      descriptions: i18n('home.hero.second.descriptions'),
+      explore: i18n('home.hero.second.explore'),
+    },
+    {
+      title: i18n('home.hero.third.title'),
+      descriptions: i18n('home.hero.third.descriptions'),
+      explore: i18n('home.hero.third.explore'),
+    },
+  ],
 });
+
+const HERO_IMAGES = [
+  {
+    mobile: {
+      src: '/images/landing/mobile/hero/1.jpeg',
+      alt: '',
+      width: 390,
+      height: 723,
+      style: { width: '100vw', height: 'auto' },
+    },
+    desktop: {
+      src: '/images/landing/desktop/hero/1.jpeg',
+      alt: '',
+      width: 1439,
+      height: 937,
+      style: { width: '100vw', height: 'auto' },
+    },
+  },
+  {
+    mobile: {
+      src: '/images/landing/mobile/hero/2.jpeg',
+      alt: '',
+      width: 390,
+      height: 723,
+      style: { width: '100vw', height: 'auto' },
+    },
+    desktop: {
+      src: '/images/landing/desktop/hero/2.jpeg',
+      alt: '',
+      width: 1439,
+      height: 937,
+      style: { width: '100vw', height: 'auto' },
+    },
+  },
+  {
+    mobile: {
+      src: '/images/landing/mobile/hero/3.jpeg',
+      alt: '',
+      width: 390,
+      height: 723,
+      style: { width: '100vw', height: 'auto' },
+    },
+    desktop: {
+      src: '/images/landing/desktop/hero/3.jpeg',
+      alt: '',
+      width: 1439,
+      height: 937,
+      style: { width: '100vw', height: 'auto' },
+    },
+  },
+];
 
 const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
   bestsellers,
@@ -98,43 +165,27 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
       <Head>
         <title>Home - SW</title>
       </Head>
-      <div className={'bg-black-100'}>
-        <FullWidthMedia
-          title={`<p class="uppercase text-xl md:text-2xl text-white">${text.heroTitle}</p>`}
-          description={`<h1 class="text-green-100 text-9xl md:text-14xl uppercase font-semibold mb-12">${text.heroDescription}</h1>`}
-          links={[
-            {
-              id: '1',
-              style: BUTTON_STYLE.SECONDARY,
-              label: text.heroBtn,
-              link: '/collections',
-            },
-          ]}
-          horizontal_background_alignment={HORIZONTAL_ALIGNMENT.CENTER}
-          vertical_background_alignment={VERTICAL_ALIGNMENT.CENTER}
-          horizontal_content_alignment={HORIZONTAL_ALIGNMENT.CENTER}
-          vertical_content_alignment={VERTICAL_ALIGNMENT.CENTER}
-          horizontal_spacing={SPACING.LARGE}
-          vertical_spacing={SPACING.MEDIUM}
-          background_image={
-            isMobile
-              ? {
-                  src: '/images/landing/mobile/hero.png',
-                  alt: '',
-                  width: 390,
-                  height: 472,
-                }
-              : {
-                  src: '/images/landing/desktop/hero.png',
-                  alt: '',
-                  width: 1388,
-                  height: 293,
-                }
-          }
-          isImageAbsolute={false}
-          // background_color={"#171717"}
-          // overlay_opacity={100}
-        />
+      <div
+        className={cn(
+          'bg-[#000000] overflow-hidden relative',
+          'min-h-[calc(100vh-60px)] sm:h-[calc(100vh-90px)] sm:min-h-[calc(100vh-90px)]',
+        )}>
+        <Swiper
+          className={`pb-0 md:pb-0 lg:pb-0 md:py-0 lg:py-0 ${styles.swiperContainer}`}
+          effectsEnabled={false}
+          autoplay={{
+            delay: 4500,
+          }}
+          loop
+          slidesPerView={1}
+          centeredSlides
+          grabCursor
+          effect="fade"
+          fadeEffect={{
+            crossFade: true,
+          }}>
+          {getHeroImages(text.heroBlock)}
+        </Swiper>
       </div>
 
       <div
@@ -238,5 +289,37 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
     </article>
   );
 };
+
+function getHeroImages(
+  items: { title: string; descriptions: string; explore: string }[],
+) {
+  return items.map((item, index) => (
+    <FullWidthMedia
+      key={item.title}
+      title={`<p class="max-w-[300px] sm:max-w-[unset] text-green-100 text-7xl md:text-[80px] uppercase font-extrabold sm:font-semibold mb-12 sm:whitespace-pre-line">${item.title}</p>`}
+      links={[
+        {
+          id: '1',
+          style: BUTTON_STYLE.SECONDARY,
+          label: item.explore,
+          link: '/products',
+          className: 'absolute bottom-[80px] sm:static',
+        },
+      ]}
+      horizontal_background_alignment={HORIZONTAL_ALIGNMENT.RIGHT}
+      vertical_background_alignment={VERTICAL_ALIGNMENT.CENTER}
+      horizontal_content_alignment={HORIZONTAL_ALIGNMENT.LEFT}
+      vertical_content_alignment={VERTICAL_ALIGNMENT.CENTER}
+      horizontal_spacing={SPACING.MEDIUM}
+      vertical_spacing={SPACING.MEDIUM}
+      imageClassname="ml-auto"
+      background_image={HERO_IMAGES[index]}
+      isImageAbsolute={true}
+      textBlockClassname={''}
+      // background_color={'#000000'}
+      // overlay_opacity={0}
+    />
+  ));
+}
 
 export default Home;

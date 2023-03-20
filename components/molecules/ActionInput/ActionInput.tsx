@@ -93,6 +93,7 @@ const ActionInput: React.FC<ActionInputProps> = ({
 
         <div className="relative flex-grow">
           <Input
+            whiteBg={false}
             aria-describedby={`${id}-error`}
             className={inputClassNames}
             inputClassname={'bg-black-100 text-gray-400'}

@@ -4,6 +4,7 @@ import { Icon } from '@iconify/react';
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
+  whiteBg?: boolean;
   small?: boolean;
   icon?: string;
   error?: boolean;
@@ -11,10 +12,13 @@ export interface InputProps
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ small, icon, error, inputClassname = '', ...props }, ref) => {
+  (
+    { whiteBg = true, small, icon, error, inputClassname = '', ...props },
+    ref,
+  ) => {
     const classNames = cn(
       'peer w-full px-4 text-md transition duration-300 border-[1px]',
-      'focus:text-black focus:outline-none',
+      'focus:outline-none',
       // 'placeholder:text-input-standard',
       'placeholder:text-gray-400',
       'disabled:border-disabled disabled:text-disabled',
@@ -27,6 +31,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         'pl-12': !!icon,
         'pr-12': !small,
         'pr-10': !!small,
+        'focus:text-black': !!whiteBg,
+        'focus:text-white': !whiteBg,
       },
       inputClassname,
     );

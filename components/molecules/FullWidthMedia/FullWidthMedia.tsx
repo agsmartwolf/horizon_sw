@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import Image from 'components/atoms/SafeImage';
 import RichText from 'components/atoms/RichText';
 import Button from 'components/atoms/Button';
 import AnchorButton from 'components/atoms/AnchorButton';
@@ -18,6 +17,7 @@ import type { MandatoryImageProps } from 'types/global';
 import type { ContentBlockComponent } from 'types/shared/sections';
 import type { EditorArray } from 'types/editor';
 import cn from 'classnames';
+import SafeImage from 'components/atoms/SafeImage';
 
 export interface FullWidthMediaProps {
   title?: string;
@@ -27,7 +27,12 @@ export interface FullWidthMediaProps {
   horizontal_spacing?: SPACING;
   vertical_spacing?: SPACING;
   background_color?: string;
-  background_image?: MandatoryImageProps;
+  background_image?:
+    | MandatoryImageProps
+    | {
+        mobile: MandatoryImageProps;
+        desktop: MandatoryImageProps;
+      };
   horizontal_background_alignment?: HORIZONTAL_ALIGNMENT;
   vertical_background_alignment?: VERTICAL_ALIGNMENT;
   horizontal_content_alignment?: HORIZONTAL_ALIGNMENT;
@@ -35,6 +40,7 @@ export interface FullWidthMediaProps {
   overlay_opacity?: number;
   isImageAbsolute?: boolean;
   textBlockClassname?: string;
+  imageClassname?: string;
 }
 
 const contentHeightMap = {
@@ -81,6 +87,7 @@ const FullWidthMedia: ContentBlockComponent<FullWidthMediaProps> = ({
   overlay_opacity = 50,
   isImageAbsolute = true,
   textBlockClassname = '',
+  imageClassname = '',
 }) => {
   const horizontalSpacingClass = SECTION_PADDING_MAP[horizontal_spacing];
   const verticalSpacingClass =
@@ -107,7 +114,7 @@ const FullWidthMedia: ContentBlockComponent<FullWidthMediaProps> = ({
       case BUTTON_STYLE.SECONDARY:
         return (
           <Button
-            className="mt-8"
+            className={cn('mt-8', cta.className)}
             buttonStyle={BUTTON_STYLE.SECONDARY}
             elType={BUTTON_TYPE.LINK}
             href={cta.link}>
@@ -117,7 +124,7 @@ const FullWidthMedia: ContentBlockComponent<FullWidthMediaProps> = ({
       case BUTTON_STYLE.ANCHOR:
         return (
           <AnchorButton
-            className="mt-8"
+            className={cn('mt-8', cta.className)}
             elType={BUTTON_TYPE.LINK}
             label={cta.label}
             href={cta.link}
@@ -125,22 +132,24 @@ const FullWidthMedia: ContentBlockComponent<FullWidthMediaProps> = ({
         );
       default:
         return (
-          <Button className="mt-8" elType={BUTTON_TYPE.LINK} href={cta.link}>
+          <Button
+            className={cn('mt-8', cta.className)}
+            elType={BUTTON_TYPE.LINK}
+            href={cta.link}>
             {cta.label}
           </Button>
         );
     }
   }, []);
 
-  const imageCN = cn('object-cover', backgroundPositionClass);
+  const imageCN = cn('object-cover', backgroundPositionClass, imageClassname);
 
   return (
     <section className={classNames}>
       {isImageAbsolute && background_image && (
-        <Image
+        <SafeImage
           className={`${imageCN} absolute inset-0`}
           {...background_image}
-          alt={background_image.alt}
         />
       )}
       {background_color && (
@@ -152,7 +161,7 @@ const FullWidthMedia: ContentBlockComponent<FullWidthMediaProps> = ({
           }}
         />
       )}
-      <div className={`relative w-full ${textBlockClassname}`}>
+      <div className={`z-0 w-full ${textBlockClassname}`}>
         {title && (
           <RichText
             className="w-full font-headings text-5xl font-semibold text-background-white lg:text-7xl"
@@ -168,11 +177,7 @@ const FullWidthMedia: ContentBlockComponent<FullWidthMediaProps> = ({
           />
         )}
         {!isImageAbsolute && background_image && (
-          <Image
-            className={imageCN}
-            {...background_image}
-            alt={background_image.alt}
-          />
+          <SafeImage className={imageCN} {...background_image} />
         )}
         {links.map(cta => (
           <div key={cta.id}>{renderButton(cta)}</div>
