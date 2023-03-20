@@ -3,13 +3,12 @@ import Image from 'components/atoms/SafeImage';
 import Price from 'components/atoms/Price';
 import Link from 'next/link';
 
-import * as ProductConfig from 'config/products.json';
-
 import type { PurchasableProductData } from 'types/shared/products';
 import useProductSelection from 'hooks/useProductSelection';
 import QuickAdd from './QuickAdd';
 import useI18n from '../../../hooks/useI18n';
 import GenericTag, { getTagTypeByName } from '../GenericTag';
+import { useDisplayedTags } from '../../../hooks/useDisplayedTags';
 
 export interface ProductPreviewCardPurchasableProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -71,13 +70,7 @@ const ProductPreviewCardPurchasable: React.FC<
   const containerClassNames =
     'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-white  border-[1px] border-gray-100 cursor-pointer';
 
-  const displayedTags = useMemo(() => {
-    return tags.filter(
-      t =>
-        t &&
-        ProductConfig.labelsToShowOnProductPreview.includes(t.toLowerCase()),
-    );
-  }, [tags]);
+  const displayedTags = useDisplayedTags(tags);
 
   return (
     <div
@@ -140,7 +133,7 @@ const ProductPreviewCardPurchasable: React.FC<
           </div>
         </div>
       </Link>
-      {displayedTags.map(tag => {
+      {displayedTags?.map(tag => {
         if (!tag) return null;
         const type = getTagTypeByName(tag);
         return type ? (

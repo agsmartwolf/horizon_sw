@@ -43,7 +43,7 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
       {tags && (
         <div className="my-4">
           {tags.map((tag, index) => (
-            <Tag key={index} className="mr-2">
+            <Tag key={index} className="mr-2 mb-2">
               {tag}
             </Tag>
           ))}

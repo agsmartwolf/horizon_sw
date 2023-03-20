@@ -50,6 +50,7 @@ import GenericTag, {
   getTagTypeByName,
 } from '../../components/atoms/GenericTag';
 import { useDisplayedTags } from '../../hooks/useDisplayedTags';
+import styles from 'styles/products.module.css';
 
 export enum LAYOUT_ALIGNMENT {
   STANDARD = 'standard',
@@ -229,7 +230,10 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
     addToCart();
   }
 
-  const imageSectionClasses = cn('mt-10', SECTION_PADDING_MAP[SPACING.MEDIUM]);
+  const imageSectionClasses = cn(
+    'mt-10 relative',
+    SECTION_PADDING_MAP[SPACING.MEDIUM],
+  );
 
   const handleChangeCurrentImage = (n: MandatoryImageProps) => {
     if (n.colorId && colorOptionId) {
@@ -264,7 +268,10 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
             if (!tag) return null;
             const type = getTagTypeByName(tag);
             return type ? (
-              <GenericTag tag={type} key={tag}>
+              <GenericTag
+                tag={type}
+                key={tag}
+                className={`z-20 ${styles.GenericTag}`}>
                 {tag}
               </GenericTag>
             ) : null;
