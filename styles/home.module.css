@@ -10,11 +10,11 @@
 }
 
 .swiperContainer img {
-  @apply top-[unset];
+  @apply top-[unset] sm:max-h-[calc(100vh-90px)];
 }
 
 .swiperContainer section {
-  @apply mb-0 pt-0 pb-0 sm:pt-20 relative h-full sm:h-auto;
+  @apply mb-0 pt-0 pb-0 sm:pt-20 relative h-full;
 }
 
 .swiperContainer section a {

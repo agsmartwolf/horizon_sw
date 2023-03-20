@@ -160,6 +160,12 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
     if (!swiperRef.current) return;
     swiperRef.current.swiper.slideNext();
   }, []);
+
+  const swiperHeroRef = useRef<SwiperRef | null>(null);
+  const handleNextHero = useCallback(() => {
+    if (!swiperHeroRef.current) return;
+    swiperHeroRef.current.swiper.slideNext();
+  }, []);
   return (
     <article>
       <Head>
@@ -171,6 +177,7 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
           'min-h-[calc(100vh-60px)] sm:h-[calc(100vh-90px)] sm:min-h-[calc(100vh-90px)]',
         )}>
         <Swiper
+          ref={swiperHeroRef}
           className={`pb-0 md:pb-0 lg:pb-0 md:py-0 lg:py-0 ${styles.swiperContainer}`}
           effectsEnabled={false}
           autoplay={{
@@ -186,6 +193,20 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
           }}>
           {getHeroImages(text.heroBlock)}
         </Swiper>
+        <div
+          className={
+            'absolute right-0 opacity-0 hover:opacity-100 transition-opacity w-52 z-20 h-full cursor-pointer flex items-center justify-center'
+          }
+          onClick={handleNextHero}>
+          <svg
+            width="22"
+            height="41"
+            viewBox="0 0 22 41"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L21 20.5L1 40" stroke="white" />
+          </svg>
+        </div>
       </div>
 
       <div

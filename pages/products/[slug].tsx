@@ -46,6 +46,10 @@ import {
   addStockOptionData,
   getColorOptionArrayIds,
 } from '../../lib/utils/products';
+import GenericTag, {
+  getTagTypeByName,
+} from '../../components/atoms/GenericTag';
+import { useDisplayedTags } from '../../hooks/useDisplayedTags';
 
 export enum LAYOUT_ALIGNMENT {
   STANDARD = 'standard',
@@ -236,6 +240,8 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
     }
   };
 
+  const displayedTags = useDisplayedTags(tags);
+
   return (
     <div>
       <Head>
@@ -254,6 +260,15 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
               colorOptionId ?? '',
             )}
           />
+          {displayedTags?.map(tag => {
+            if (!tag) return null;
+            const type = getTagTypeByName(tag);
+            return type ? (
+              <GenericTag tag={type} key={tag}>
+                {tag}
+              </GenericTag>
+            ) : null;
+          })}
         </section>
         <aside className="mt-10 lg:px-14">
           <div className="px-6">
