@@ -86,7 +86,7 @@ const AboutPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
           className="z-10 m-auto pt-14 block relative"
           width={1440}
           height={810}
-          src="/images/about-us/hero.png"
+          src="/images/about-us/hero.avif"
           alt={'family with dog'}
         />
       </section>
@@ -95,14 +95,14 @@ const AboutPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
         <div className={'absolute z-0'}>
           <SafeImage
             className="ml-auto mb-[40px]"
-            src="/images/about-us/1-2.png"
+            src="/images/about-us/1-2.jpg"
             alt="white swiss shepherd dog"
             width={1143}
             height={958}
           />
           <SafeImage
-            className="w-full"
-            src="/images/about-us/2-4.png"
+            className="w-full mb-[40px] md:mb-0"
+            src="/images/about-us/2-4.jpg"
             alt="white swiss shepherd dog"
             width={1440}
             height={1339}
@@ -113,7 +113,7 @@ const AboutPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
           />
           <SafeImage
             className="w-full md:hidden"
-            src="/images/about-us/3-1.png"
+            src="/images/about-us/3-1.jpg"
             alt="mobile img"
             width={1440}
             height={1339}
