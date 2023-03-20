@@ -36,7 +36,7 @@ const OptionSelectItem: React.FC<OptionSelectItemProps> = ({
       'border-body bg-grey-100 text-black border-gray-300': !active,
       'border-disabled bg-grey-100 text-disabled strikethrough-diagonal border-grey-300 cursor-not-allowed':
         disabled,
-      'p-[10px]': !description,
+      'p-[10px] min-w-[43px] text-center': !description,
       'py-[9px] px-[15px]': !!description,
     },
     className,

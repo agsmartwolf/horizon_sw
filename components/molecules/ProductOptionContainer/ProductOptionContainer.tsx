@@ -1,3 +1,4 @@
+import HorizontalScroller from 'components/atoms/HorizontalScroller';
 import InfoTooltip from 'components/atoms/InfoTooltip';
 import React from 'react';
 
@@ -21,9 +22,11 @@ const ProductOptionContainer: React.FC<ProductOptionContainerProps> = ({
         {description && <InfoTooltip text={description} />}
       </div>
       {!!children && (
-        <div className="mt-2 flex items-center justify-start gap-4 scrollbar-hidden">
-          {children}
-        </div>
+        <HorizontalScroller>
+          <div className="mt-2 flex items-center justify-start gap-4 scrollbar-hidden">
+            {children}
+          </div>
+        </HorizontalScroller>
       )}
     </div>
   );
