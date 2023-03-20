@@ -56,7 +56,7 @@ const COLOR_MAP = new Map([
   ['turquoise', 'bg-turquoise'],
   ['rosso', 'bg-rosso'],
   ['carrot', 'bg-carrot'],
-  ['artic', 'bg-artic'],
+  ['artic', 'bg-[#86e7f6]'],
   ['chocolate', 'bg-chocolate'],
   ['gold', 'bg-gold'],
   ['steel', 'bg-steel'],
