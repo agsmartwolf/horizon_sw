@@ -19,6 +19,7 @@ import Divider from '../components/atoms/Divider';
 import { formatRowHtmlFontStyles } from '../lib/utils/format';
 import Button from '../components/atoms/Button';
 import { BUTTON_TYPE } from '../types/shared/button';
+import useI18n, { I18n, LocaleCode } from '../hooks/useI18n';
 
 interface StaticPageProps extends PageProps {
   sections: PageSection[];
@@ -73,10 +74,16 @@ const propsCallback: GetStaticProps<StaticPageProps> = async context => {
 };
 export const getStaticProps = withMainLayout(propsCallback);
 
+const deliveryText = (i18n: I18n<LocaleCode>) => ({
+  explore: i18n('delivery.explore'),
+});
 const DeliveryPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
   title,
   sections,
 }) => {
+  const i18n = useI18n();
+  const text = deliveryText(i18n);
+
   const panelsSection = sections?.find(
     s => s?.type === PAGE_SECTION_COMPONENT.MULTIPLE_PANELS,
   );
@@ -134,7 +141,7 @@ const DeliveryPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
               elType={BUTTON_TYPE.LINK}
               href={'/products'}
               className={'mt-10 col-span-12 lg:col-start-4 lg:col-span-3'}>
-              Explore collections
+              {text.explore}
             </Button>
           </div>
         </div>

@@ -448,6 +448,9 @@
           "caption": "My name is Yuki and we with my friends has opened this store more dogs being happy and in safety. Look around and find Your equipment!",
           "button": "Find out history"
         }
+      },
+      "delivery": {
+        "explore": "Explore catalog"
       }
     },
     "ru": {
@@ -787,6 +790,9 @@
           "see_product": "See product details",
           "prices_separator": "or"
         }
+      },
+      "delivery": {
+        "explore": "Перейти в каталог"
       },
       "home": {
         "home": "Главная",
