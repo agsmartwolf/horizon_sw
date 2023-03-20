@@ -55,6 +55,7 @@ import TextBody from '../../atoms/Text/TextBody';
 import { useViewport } from '../../../hooks/useViewport';
 import useProductsStore from 'stores/products';
 import type { SwellProduct } from '../../../lib/graphql/generated/sdk';
+import useLocaleStore from '../../../stores/locale';
 
 export type ProductsPerRow = 2 | 3 | 4 | 5;
 
@@ -98,6 +99,8 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+
+  const [activeLocale] = useLocaleStore(state => [state.activeLocale]);
 
   const { isMobile } = useViewport();
 
@@ -304,7 +307,9 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
 
     let productResults: SwellProduct[] = [];
 
-    if (!allProducts.length) {
+    if (!allProducts.length || activeLocale?.code !== routerLegacy.locale) {
+      setLoading(true);
+
       const slug = routerLegacy.query.slug?.toString();
       // const curCategory = categories.find(c => c.slug === slug);
       const pLAll = await getProductsList(
@@ -355,6 +360,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
+    activeLocale,
     activeCurrency.code,
     attributeFilters,
     routerLegacy.isReady,
