@@ -306,18 +306,19 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
 
     if (!allProducts.length) {
       const slug = routerLegacy.query.slug?.toString();
-      const curCategory = categories.find(c => c.slug === slug);
-      const pL = await getProductsList(
-        curCategory ?? slug,
+      // const curCategory = categories.find(c => c.slug === slug);
+      const pLAll = await getProductsList(
+        undefined,
         activeCurrency.code,
         routerLegacy.locale,
       );
-      updateProductsStore(pL as SwellProduct[]);
-      productResults = pL;
+      const pLFiltered = filterProductsByCategory(pLAll, slug);
+      updateProductsStore(pLAll as SwellProduct[]);
+      productResults = pLFiltered;
     } else {
       productResults = filterProductsByCategory(
         allProducts,
-        searchParams.get('slug')?.toString(),
+        routerLegacy.query.slug?.toString(),
       );
     }
 
@@ -353,7 +354,12 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
       mounted = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCurrency.code, attributeFilters, routerLegacy.isReady]);
+  }, [
+    activeCurrency.code,
+    attributeFilters,
+    routerLegacy.isReady,
+    routerLegacy.query.slug,
+  ]);
 
   useEffect(() => {
     let mounted = true;

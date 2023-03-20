@@ -222,9 +222,7 @@ export const filterProductsByCategory = (
     // If the category slug is defined, check if the product is in the category
     if (category) {
       if (typeof category === 'string') {
-        return !!product.categories?.some(
-          category => category?.slug === category,
-        );
+        return !!product.categories?.some(c => c?.slug === category);
       } else {
         return !!product.categories?.some(
           c =>
