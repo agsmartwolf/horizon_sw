@@ -7,6 +7,7 @@ import { denullifyArray } from 'lib/utils/denullify';
 import NavLink from 'components/atoms/NavLink';
 import Button from '../../atoms/Button';
 import { BUTTON_STYLE, BUTTON_TYPE } from '../../../types/shared/button';
+import LocaleSelect from '../../atoms/LocaleSelect';
 // import useI18n from 'hooks/useI18n';
 
 export interface MobileMenuProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -72,6 +73,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             buttonStyle={BUTTON_STYLE.PRIMARY}>
             Sign in
           </Button>
+          <LocaleSelect className="w-full" />
         </ul>
         {/*<CurrencySelect className="mt-5" />*/}
       </nav>
