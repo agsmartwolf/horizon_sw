@@ -18,11 +18,21 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
   title,
   descriptionShort,
   tags,
+  subtitle,
 }) => {
   return (
     <div>
       {/*<h5 className="capitalize text-sm font-body text-gray-400">{subtitle}</h5>*/}
-      <Breadcrumb />
+      <Breadcrumb
+        customText={title}
+        extraRoute={{
+          route: {
+            title: subtitle,
+            href: `/categories/${subtitle.trim().toLowerCase()}`,
+          },
+          position: -1,
+        }}
+      />
       <h3 className="mt-2 font-headings text-5xl font-semibold text-black">
         {title}
       </h3>

@@ -453,6 +453,18 @@
       },
       "delivery": {
         "explore": "Explore catalog"
+      },
+      "breadcrumbs": {
+        "home": "Home",
+        "categories": "Categories",
+        "products": "Products",
+        "harnesses": "Harnesses",
+        "collars": "Collars",
+        "toys": "Toys",
+        "leashes": "Leashes",
+        "clothes": "Clothes",
+        "treats": "Treats",
+        "allproducts": "All products"
       }
     },
     "ru": {
@@ -822,6 +834,18 @@
           "caption": "Меня зовут Юки, и мы с друзьями открыли этот магазин, чтобы больше собак могли почувствовать себя счастливыми и в безопасности. Оглянитесь вокруг и найдите то, что вам понравится!",
           "button": "Узнать больше"
         }
+      },
+      "breadcrumbs": {
+        "home": "Главная",
+        "categories": "Категории",
+        "products": "Каталог",
+        "harnesses": "Шлейки",
+        "collars": "Ошейники",
+        "toys": "Игрушки",
+        "leashes": "Поводки",
+        "clothes": "Одежда",
+        "treats": "Лакомства",
+        "allproducts": "Все товары"
       }
     }
   }

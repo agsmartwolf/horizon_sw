@@ -91,7 +91,6 @@ const productsLayoutText = (i18n: I18n<LocaleCode>) => ({
 const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   categories,
   settings,
-  breadcrumbText,
   attributeFilters,
 }) => {
   // TODO remove legacy router
@@ -543,7 +542,13 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
 
       <Breadcrumb
         className="mt-1 mb-6 lg:mt-8 lg:px-0"
-        customText={breadcrumbText}
+        extraRoute={{
+          route: {
+            title: 'All products',
+            href: `/products`,
+          },
+          position: 0,
+        }}
       />
 
       {/* Featured categories */}

@@ -1,11 +1,18 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import useI18n from '../../../hooks/useI18n';
+import useI18n, { I18n, LocaleCode } from '../../../hooks/useI18n';
 
 export interface BreadcumbProps {
   className?: string;
   customText?: string;
+  extraRoute?: {
+    route: {
+      title: string;
+      href: string;
+    };
+    position: number;
+  };
 }
 
 interface BreadcrumbRoute {
@@ -13,13 +20,31 @@ interface BreadcrumbRoute {
   href: string;
 }
 
-const Breadcrumb: React.FC<BreadcumbProps> = ({ className, customText }) => {
+const breadcrumbsText = (i18n: I18n<LocaleCode>) => ({
+  home: i18n('breadcrumbs.home'),
+  categories: i18n('breadcrumbs.categories'),
+  products: i18n('breadcrumbs.products'),
+  harnesses: i18n('breadcrumbs.harnesses'),
+  collars: i18n('breadcrumbs.collars'),
+  toys: i18n('breadcrumbs.toys'),
+  leashes: i18n('breadcrumbs.leashes'),
+  clothes: i18n('breadcrumbs.clothes'),
+  treats: i18n('breadcrumbs.treats'),
+  allproducts: i18n('breadcrumbs.allproducts'),
+});
+
+const Breadcrumb: React.FC<BreadcumbProps> = ({
+  className,
+  customText,
+  extraRoute,
+}) => {
   const [routes, setRoutes] = useState<BreadcrumbRoute[]>([]);
   const router = useRouter();
 
   const i18n = useI18n();
 
-  const homeLabel = i18n('home.home') || 'Home';
+  const text: Record<string, string> = breadcrumbsText(i18n);
+  const homeLabel = text.home;
 
   useEffect(() => {
     if (!router) return;
@@ -46,8 +71,28 @@ const Breadcrumb: React.FC<BreadcumbProps> = ({ className, customText }) => {
       newRoutes[newRoutes.length - 1].title = customText;
     }
 
+    if (extraRoute) {
+      // newRoutes[
+      //   newRoutes.length + extraRoute.position < 0
+      //     ? extraRoute.position
+      //     : -extraRoute.position
+      // ] = extraRoute.route;
+      // insert the extra route at the position specified
+      if (extraRoute.position === 0) {
+        newRoutes.push(extraRoute.route);
+      } else {
+        newRoutes.splice(
+          newRoutes.length + extraRoute.position < 0
+            ? extraRoute.position
+            : -extraRoute.position,
+          0,
+          extraRoute.route,
+        );
+      }
+    }
+
     setRoutes(newRoutes);
-  }, [router, customText]);
+  }, [router, customText, extraRoute]);
 
   return (
     <nav
@@ -62,7 +107,10 @@ const Breadcrumb: React.FC<BreadcumbProps> = ({ className, customText }) => {
         </li>
         {routes.map((route, i) => (
           <li key={i}>
-            <Link href={route.href}>{route.title}</Link>
+            <Link href={route.href}>
+              {text[route.title.trim().replaceAll(' ', '').toLowerCase()] ??
+                route.title}
+            </Link>
             {i !== routes.length - 1 && <span>&nbsp;&gt;&nbsp;</span>}
           </li>
         ))}

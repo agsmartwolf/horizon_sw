@@ -27,7 +27,7 @@ const ProductsPage: NextPage<ProductsLayoutProps> = props => (
       <title>All products - SW</title>
     </Head>
 
-    <ProductsLayout {...props} breadcrumbText="Categories / All products" />
+    <ProductsLayout {...props} />
   </div>
 );
 
