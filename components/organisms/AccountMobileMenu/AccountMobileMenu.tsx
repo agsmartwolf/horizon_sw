@@ -20,7 +20,7 @@ const AccountMobileMenu: React.FC<AccountMobileMenuProps> = ({
   const logout = useLogout();
 
   return (
-    <div className="font-body text-md text-black md:hidden">
+    <div className="font-body text-md text-white md:hidden">
       <Disclosure>
         {({ open }) => (
           <div className="flex flex-col">
@@ -29,7 +29,7 @@ const AccountMobileMenu: React.FC<AccountMobileMenuProps> = ({
               <ChevronDown
                 width={16}
                 height={16}
-                className={`text-black transition-transform duration-400 ${
+                className={`text-white transition-transform duration-400 ${
                   open ? 'rotate-180' : 'rotate-0'
                 }`}
               />

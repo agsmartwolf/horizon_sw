@@ -11,6 +11,9 @@ import AccountDetails, {
 import useI18n from 'hooks/useI18n';
 import type { LogoProps } from 'components/atoms/Logo';
 import Logo from 'components/atoms/Logo';
+import LocaleSelect from 'components/atoms/LocaleSelect';
+
+import styles from './accountHeader.module.css';
 
 export interface AccountHeaderProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -83,16 +86,22 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
       <header className={classNames}>
         <div className="grid grid-cols-3 items-center border-b border-dividers py-[1.125rem]">
           <div className="md:ml-6 lg:ml-14">
-            <Link href="/" className="hidden items-center gap-2 md:flex">
-              <ArrowLeft width={16} height={16} className="text-black" />
-              <span className="text-sm font-semibold text-black">
+            <Link
+              href="/"
+              className="hidden sm:flex col-span-1 items-center gap-2 md:flex">
+              <ArrowLeft
+                width={16}
+                height={16}
+                className={`text-white stroke-white ${styles.arrowBackHeader}`}
+              />
+              <span className="text-sm font-semibold text-white">
                 {backToShopLabel}
               </span>
             </Link>
           </div>
           <Link
             href="/"
-            className="flex items-center justify-center text-center">
+            className="col-span-4 sm:col-span-1 flex items-center justify-center text-center">
             <Logo {...logoSettings} />
             {/*<Image
               src={logo.src}
@@ -101,6 +110,9 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
               alt={logo.alt}
             />*/}
           </Link>
+          <div className="hidden sm:flex sm:col-span-1 items-center justify-end text-center md:mr-6 lg:mr-14">
+            <LocaleSelect />
+          </div>
         </div>
         {accountDetails && (
           <div className="px-6 pt-4 pb-6 md:hidden">
@@ -111,6 +123,9 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
           // TODO: Make MobileMenu visibility be controlled by showMobileMenu state
           <AccountMobileMenu label={pageTitle} links={mobileMenuLinks} />
         )}
+        <div className="sm:hidden w-full bg-black items-start justify-start md:mr-6 lg:mr-14 py-2 px-4">
+          <LocaleSelect />
+        </div>
       </header>
     </>
   );

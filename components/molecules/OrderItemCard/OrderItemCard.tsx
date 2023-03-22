@@ -36,10 +36,10 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
         className="relative w-full max-w-[93px] md:max-w-[123px]">
         <Image
           {...image}
-          width={1}
-          height={1}
+          style={{ width: '100%', height: 'auto' }}
+          sizes={'(max-width: 640px) 93px, (max-width: 1024px) 123px, 123px'}
           alt={image.alt}
-          className="rounded-lg"
+          className=""
         />
       </Link>
       <div className="flex flex-col text-sm">

@@ -68,7 +68,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
   const text = purchaseCardText(i18n);
 
   return (
-    <div className="border-outline rounded-xl border bg-black p-6">
+    <div className="border-outline rounded-xl border bg-white p-6">
       <div className="md:flex md:justify-between">
         <div className="md:flex-1">
           <StatusIndicator status={status} type={props.type} />

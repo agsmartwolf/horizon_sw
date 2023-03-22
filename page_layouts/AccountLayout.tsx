@@ -9,11 +9,14 @@ import type { AccountPageProps } from 'types/shared/pages';
 import useI18n from 'hooks/useI18n';
 import { formatAccountHeaderSettings } from 'utils/settings';
 import type { SwellAccount } from 'lib/graphql/generated/sdk';
+import useLocaleStore from '../stores/locale';
+import type { Locale } from '../types/shared/locale';
 
 export interface AccountLayoutProps extends Pick<AccountPageProps, 'pageType'> {
   settings: Settings;
   accountDetails: Pick<SwellAccount, 'name' | 'email'>;
   children: React.ReactNode;
+  locales: Locale[];
 }
 
 const AccountLayout: React.FC<AccountLayoutProps> = ({
@@ -21,6 +24,7 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
   settings,
   accountDetails,
   pageType,
+  locales,
 }) => {
   const [storeSettings, setSettings] = useSettingsStore(state => [
     state.settings,
@@ -29,6 +33,16 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
   const i18n = useI18n();
   const links = accountLinks(i18n);
   const header = formatAccountHeaderSettings(storeSettings);
+
+  const setLocales = useLocaleStore(state => state.setLocales);
+
+  // Stores settings retrieved server-side on the client-side store.
+  useEffect(() => {
+    if (settings && locales) {
+      setSettings(settings);
+      setLocales(locales);
+    }
+  }, [setSettings, setLocales, settings, locales]);
 
   // Stores settings retrieved server-side on the client-side store.
   useEffect(() => {

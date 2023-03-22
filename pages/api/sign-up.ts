@@ -59,6 +59,13 @@ export default async function handler(
     if ((error as ClientError)?.message?.includes('code: "UNIQUE"')) {
       return res.status(409).end('Email taken');
     }
+    if ((error as ClientError)?.message?.includes('code: "INVALID"')) {
+      return res
+        .status(409)
+        .end(
+          'String cannot represent value: { message: "There was a problem creating your account. Please check your email and password.',
+        );
+    }
     return res.status(500).end('Internal Server Error');
   }
 }

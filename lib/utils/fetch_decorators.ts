@@ -132,6 +132,7 @@ export function withAccountLayout<C extends GetProps<unknown>>(callback: C) {
       props: {
         ...result.props,
         _layout: {
+          locales: settings.locales,
           accountDetails: account,
           settings,
         },
