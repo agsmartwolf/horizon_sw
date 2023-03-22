@@ -4,6 +4,9 @@ import Price from 'components/atoms/Price';
 import Link from 'next/link';
 
 import type { ProductData } from 'types/shared/products';
+import styles from './ProductPreview.module.css';
+import GenericTag, { getTagTypeByName } from '../GenericTag';
+import { useDisplayedTags } from '../../../hooks/useDisplayedTags';
 
 export interface ProductPreviewCardSimpleProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -20,16 +23,26 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
   show_product_description = true,
   ...props
 }) => {
-  const { description, image, price, origPrice, title, href = '#' } = product;
+  const {
+    descriptionShort = '',
+    image,
+    price,
+    origPrice,
+    title,
+    href = '#',
+    tags = [],
+  } = product;
+
+  const displayedTags = useDisplayedTags(tags);
 
   const containerClassNames =
-    'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-white border-[1px] border-gray-100';
+    'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-white  border-[1px] border-gray-100 cursor-pointer';
 
   return (
     <div
       {...props}
       className={[containerClassNames, props.className].join(' ')}>
-      <Link href={href}>
+      <Link href={href} className="cursor-pointer">
         <div className="safe-aspect-square relative overflow-hidden bg-white">
           <Image
             src={image.src}
@@ -46,27 +59,39 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
             }}
           />
         </div>
-        <div className="flex flex-col md:flex-row px-2.5 py-2.5 lg:p-5 bg-gray-200">
-          <div className="flex flex-col lg:pr-2">
-            <h4 className="text-md font-medium md:font-bold lg:text-sm mb-2 block truncate">
-              {/*<h4 className="text-md font-medium md:font-bold line-clamp-2 lg:text-sm mb-2">*/}
+        <div className="md:min-h-[100px] lg:min-h-[116px] bg-gray-200 px-2.5 py-2.5 lg:p-5">
+          <div className={'flex flex-col md:flex-row justify-between'}>
+            <h4
+              className="text-md font-medium md:font-bold lg:text-sm mb-2 block truncate"
+              title={title}>
               {title}
             </h4>
+            {price && show_product_price && (
+              <div className="text-md font-semibold lg:text-sm">
+                {fromPriceLabel ? `${fromPriceLabel} ` : ''}
+                <Price price={price} origPrice={origPrice} />
+              </div>
+            )}
+          </div>
+          <div className="flex flex-col lg:pr-2">
             {show_product_description && (
               <span
-                className="text-sm text-body line-clamp-2"
-                dangerouslySetInnerHTML={{ __html: description }}
+                className={`text-sm text-body line-clamp-2 ${styles.innerContent}`}
+                dangerouslySetInnerHTML={{ __html: descriptionShort }}
               />
             )}
           </div>
-          {price && show_product_price && (
-            <div className="text-md font-semibold lg:text-sm">
-              {fromPriceLabel ? `${fromPriceLabel} ` : ''}
-              <Price price={price} origPrice={origPrice} />
-            </div>
-          )}
         </div>
       </Link>
+      {displayedTags?.map(tag => {
+        if (!tag) return null;
+        const type = getTagTypeByName(tag);
+        return type ? (
+          <GenericTag tag={type} key={tag}>
+            {tag}
+          </GenericTag>
+        ) : null;
+      })}
     </div>
   );
 };

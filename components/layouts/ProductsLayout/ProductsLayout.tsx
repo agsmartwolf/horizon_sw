@@ -56,6 +56,7 @@ import { useViewport } from '../../../hooks/useViewport';
 import useProductsStore from 'stores/products';
 import type { SwellProduct } from '../../../lib/graphql/generated/sdk';
 import useLocaleStore from '../../../stores/locale';
+import HorizontalScroller from '../../atoms/HorizontalScroller';
 
 export type ProductsPerRow = 2 | 3 | 4 | 5;
 
@@ -84,6 +85,7 @@ const productsLayoutText = (i18n: I18n<LocaleCode>) => ({
   allProductsLabel: i18n('categories.filters.all_products'),
   mobileButton: i18n('categories.filters.mobile_button'),
   searchPlaceholder: i18n('search.placeholder'),
+  brand: i18n('products.brand'),
 });
 
 const ProductsLayout: React.FC<ProductsLayoutProps> = ({
@@ -716,12 +718,12 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
 
         {/* Desktop */}
         <aside className="hidden lg:block absolute top-0 left-0 w-full">
-          <ul
+          <div
             className={cn(
-              'flex shrink-0 gap-14 items-center bg-gray-100 h-20',
+              'flex shrink-0 gap-14 items-center bg-gray-100 h-20 overflow-visible',
               SECTION_PADDING_MAP[SPACING.SMALL],
             )}>
-            <li className="shrink-0 flex-grow">
+            <div className="shrink-0 flex-grow">
               <Input
                 value={searchTerm}
                 onChange={onSearchTermChange}
@@ -730,51 +732,61 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                 className="flex-auto"
                 small
               />
-            </li>
-            <li>
-              <Link
-                href="/products"
-                scroll={false}
+            </div>
+            <HorizontalScroller
+              scrollbarHidden
+              showArrow
+              arrowClassname="bg-gray-100">
+              <ul
                 className={cn(
-                  'text-black px-2 border-b-[1.5px] hover:border-black',
-                  {
-                    // If the category is active, show it as bold
-                    'font-semibold': pathname === '/products',
-                    'border-black': pathname === '/products',
-                    'border-transparent': pathname !== '/products',
-                  },
+                  'flex shrink-0 gap-14 items-center overflow-visible scroll-auto',
+                  SECTION_PADDING_MAP[SPACING.SMALL],
                 )}>
-                {/* If the current route is /products, show it as bold */}
-                {text.allProductsLabel}
-              </Link>
-            </li>
-            {categories.map(category => (
-              <li key={category.slug}>
-                <Link
-                  href={`/categories/${category.slug}`}
-                  scroll={false}
-                  onClick={() => {
-                    setLoading(true);
-                    setPriceRangeValue(undefined);
-                  }}
-                  className={cn(
-                    'text-black px-2 border-b-[1.5px] hover:border-black',
-                    {
-                      // If the category is active, show it as bold
-                      'font-semibold':
-                        category.slug === searchParams.get('slug'),
-                      'border-black':
-                        category.slug === searchParams.get('slug'),
-                      'border-transparent':
-                        category.slug !== searchParams.get('slug'),
-                    },
-                  )}>
-                  {category.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-
+                <li>
+                  <Link
+                    href="/products"
+                    scroll={false}
+                    className={cn(
+                      'text-black px-2 border-b-[1.5px] hover:border-black',
+                      {
+                        // If the category is active, show it as bold
+                        'font-semibold': pathname === '/products',
+                        'border-black': pathname === '/products',
+                        'border-transparent': pathname !== '/products',
+                      },
+                    )}>
+                    {/* If the current route is /products, show it as bold */}
+                    {text.allProductsLabel}
+                  </Link>
+                </li>
+                {categories.map(category => (
+                  <li key={category.slug}>
+                    <Link
+                      href={`/categories/${category.slug}`}
+                      scroll={false}
+                      onClick={() => {
+                        setLoading(true);
+                        setPriceRangeValue(undefined);
+                      }}
+                      className={cn(
+                        'text-black px-2 border-b-[1.5px] hover:border-black',
+                        {
+                          // If the category is active, show it as bold
+                          'font-semibold':
+                            category.slug === searchParams.get('slug'),
+                          'border-black':
+                            category.slug === searchParams.get('slug'),
+                          'border-transparent':
+                            category.slug !== searchParams.get('slug'),
+                        },
+                      )}>
+                      {category.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </HorizontalScroller>
+          </div>
           <ul
             className={cn(
               'flex w-full shrink-0 border-dividers bg-transparent z-20 overflow-hidden',
@@ -796,9 +808,11 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                       filterState => filterState.group === filter.id,
                     )
                   }
-                  name={
-                    filter.name.charAt(0).toUpperCase() + filter.name.slice(1)
-                  }
+                  name={(() => {
+                    // @ts-ignore
+                    const n = text[filter.name.toLowerCase()] ?? filter.name;
+                    return n.charAt(0).toUpperCase() + n.slice(1);
+                  })()}
                   className="pl-2"
                   hideArrow>
                   <ul className="flex flex-col gap-2 pb-4 bg-white z-10 relative px-2 -ml-2">
@@ -892,8 +906,8 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                       className="animate-fade-in"
                       product={{
                         ...product,
-                        hasQuickAdd:
-                          product.hasQuickAdd && liveSettings.enableQuickAdd,
+                        // hasQuickAdd: product.hasQuickAdd && liveSettings.enableQuickAdd,
+                        hasQuickAdd: false,
                       }}
                       show_product_price={liveSettings.showProductsPrice}
                       show_product_description={!isMobile}
