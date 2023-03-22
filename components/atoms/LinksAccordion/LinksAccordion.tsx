@@ -8,6 +8,7 @@ import cn from 'classnames';
 export interface LinksAccordionProps
   extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
+  titleLink?: string | null;
   items: {
     href: string;
     title: string;
@@ -20,6 +21,7 @@ export interface LinksAccordionProps
 const LinksAccordion: React.FC<LinksAccordionProps> = ({
   items,
   title,
+  titleLink,
   titleClassName,
   itemClassName,
   panelClassname = '',
@@ -34,7 +36,7 @@ const LinksAccordion: React.FC<LinksAccordionProps> = ({
       <Disclosure defaultOpen>
         {({ open }) => (
           <div className="flex flex-col overflow-hidden text-white">
-            {title}
+            {titleLink ? <Link href={titleLink}>{title}</Link> : title}
             {/*<Disclosure.Button className="flex w-full items-center justify-between">
             <span
               className={`font-headings text-sm font-semibold uppercase text-black ${titleClassName}`}>

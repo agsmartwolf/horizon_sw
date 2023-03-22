@@ -1,13 +1,14 @@
 import React from 'react';
 import { Transition } from '@headlessui/react';
 import LinksAccordion from 'components/atoms/LinksAccordion';
-import type { RootNavItem } from 'types/nav';
+import type { RootNavItem, UrlNavItem } from 'types/nav';
 import { getHref } from 'lib/utils/nav';
 import { denullifyArray } from 'lib/utils/denullify';
 import NavLink from 'components/atoms/NavLink';
 import Button from '../../atoms/Button';
 import { BUTTON_STYLE, BUTTON_TYPE } from '../../../types/shared/button';
 import LocaleSelect from '../../atoms/LocaleSelect';
+import { NAV_ITEM_TYPE } from 'types/nav';
 // import useI18n from 'hooks/useI18n';
 
 export interface MobileMenuProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -45,6 +46,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                 <LinksAccordion
                   key={index}
                   title={item.name}
+                  titleLink={
+                    item.type && item?.type === NAV_ITEM_TYPE.URL
+                      ? (item as UrlNavItem).value
+                      : null
+                  }
                   titleClassName="text-md"
                   items={denullifyArray(
                     item.items.flatMap(column => column?.items),
