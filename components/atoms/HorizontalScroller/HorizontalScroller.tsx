@@ -1,6 +1,12 @@
 import cn from 'classnames';
 import useDraggableScroll from 'hooks/useDraggableScroll';
-import React, { useRef, useEffect, useCallback, useState } from 'react';
+import React, {
+  useRef,
+  useEffect,
+  useCallback,
+  useState,
+  ReactElement,
+} from 'react';
 import { InlineIcon } from '@iconify/react';
 
 export interface HorizontalScrollerProps
@@ -119,12 +125,26 @@ const HorizontalScroller: React.FC<HorizontalScrollerProps> = ({
           },
         )}
         {...handlers}>
-        {children}
+        {children &&
+          React.Children.map(
+            children as ReactElement[],
+            (child: ReactElement) => {
+              return (
+                child &&
+                React.cloneElement(child as ReactElement, {
+                  className: cn((child as ReactElement).props.className ?? '', {
+                    [`px-[${arrowWidth}px]`]: canScroll,
+                    'px-0': !canScroll,
+                  }),
+                })
+              );
+            },
+          )}
       </div>
       {canScroll && showArrow && (
         <>
           <div
-            className={cn('absolute top-0 bottom-0 h-full', {
+            className={cn('absolute top-0 bottom-0 h-full flex items-center', {
               [`left-0`]: showArrow,
               [arrowClassname]: !!arrowClassname,
             })}>
@@ -141,7 +161,7 @@ const HorizontalScroller: React.FC<HorizontalScrollerProps> = ({
             />
           </div>
           <div
-            className={cn('absolute top-0 bottom-0 h-full', {
+            className={cn('absolute top-0 bottom-0 h-full flex items-center', {
               [`right-0`]: showArrow,
               [arrowClassname]: !!arrowClassname,
             })}>

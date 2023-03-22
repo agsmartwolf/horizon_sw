@@ -16,14 +16,14 @@ const ProductOptionContainer: React.FC<ProductOptionContainerProps> = ({
   return (
     <div className="text-black">
       <div className="flex gap-2">
-        <h3 className="font-headings text-sm font-semibold uppercase">
+        <h3 className="font-headings text-sm font-semibold uppercase mb-2">
           {name}
         </h3>
         {description && <InfoTooltip text={description} />}
       </div>
       {!!children && (
-        <HorizontalScroller>
-          <div className="mt-2 flex items-center justify-start gap-4 scrollbar-hidden">
+        <HorizontalScroller showArrow arrowClassname="bg-white">
+          <div className="flex items-center justify-start gap-4 scrollbar-hidden">
             {children}
           </div>
         </HorizontalScroller>
