@@ -35,7 +35,7 @@ export interface ProductOptionsProps {
   priceFormatter?: (price: number) => string;
 }
 
-const calculateOptionVisibility = (
+export const calculateOptionVisibility = (
   option: ProductOption,
   productOptions: ProductOption[],
   selectedOptions: Map<string, string>,

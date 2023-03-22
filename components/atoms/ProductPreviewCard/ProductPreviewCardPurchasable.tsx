@@ -9,6 +9,8 @@ import QuickAdd from './QuickAdd';
 import useI18n from '../../../hooks/useI18n';
 import GenericTag, { getTagTypeByName } from '../GenericTag';
 import { useDisplayedTags } from '../../../hooks/useDisplayedTags';
+import styles from './ProductPreview.module.css';
+import { addStockOptionData } from '../../../lib/utils/products';
 
 export interface ProductPreviewCardPurchasableProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -28,7 +30,7 @@ const ProductPreviewCardPurchasable: React.FC<
   ...props
 }) => {
   const {
-    description,
+    descriptionShort = '',
     image,
     price,
     origPrice,
@@ -72,6 +74,22 @@ const ProductPreviewCardPurchasable: React.FC<
 
   const displayedTags = useDisplayedTags(tags);
 
+  const productOptionsWithStock = useMemo(() => {
+    return addStockOptionData(
+      productOptions,
+      state.selectedProductOptions,
+      purchaseOptions,
+      productVariants,
+      product.stockLevel,
+    );
+  }, [
+    product.stockLevel,
+    productOptions,
+    productVariants,
+    purchaseOptions,
+    state.selectedProductOptions,
+  ]);
+
   return (
     <div
       {...props}
@@ -79,7 +97,7 @@ const ProductPreviewCardPurchasable: React.FC<
       <QuickAdd
         {...product}
         stockLevel={product.stockLevel}
-        productOptions={productOptions}
+        productOptions={productOptionsWithStock}
         state={state}
         dispatch={dispatch}
         addToCart={addToCart}
@@ -126,8 +144,8 @@ const ProductPreviewCardPurchasable: React.FC<
           <div className="flex flex-col lg:pr-2" ref={wrapperRef}>
             {show_product_description && (
               <span
-                className="text-sm text-body line-clamp-2"
-                dangerouslySetInnerHTML={{ __html: description }}
+                className={`text-sm text-body line-clamp-2 ${styles.innerContent}`}
+                dangerouslySetInnerHTML={{ __html: descriptionShort }}
               />
             )}
           </div>

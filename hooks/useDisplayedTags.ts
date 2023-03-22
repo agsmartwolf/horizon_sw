@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import * as ProductConfig from '../config/products.json';
+import ProductConfig from '../config/products';
 
 export function useDisplayedTags(tags?: Array<string | null>) {
   const displayedTags = useMemo(() => {
