@@ -195,7 +195,7 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
         </Swiper>
         <div
           className={
-            'absolute right-0 opacity-0 hover:opacity-100 transition-opacity w-52 z-20 h-full cursor-pointer flex items-center justify-center'
+            'w-20 md:w-52 select-none absolute right-0 opacity-0 hover:opacity-100 transition-opacity z-20 h-full cursor-pointer flex items-center justify-center'
           }
           onClick={handleNextHero}>
           <svg

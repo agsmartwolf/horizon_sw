@@ -38,6 +38,9 @@ const VimeoIcon = dynamic<ReactSVGComponent>(
 const WhatsappIcon = dynamic<ReactSVGComponent>(
   () => import('assets/icons/whatsapp.svg'),
 ) as (props: any) => JSX.Element;
+const TelegramIcon = dynamic<ReactSVGComponent>(
+  () => import('assets/icons/telegram.svg'),
+) as (props: any) => JSX.Element;
 
 export interface FooterLink {
   href: string;
@@ -57,12 +60,13 @@ export interface Column {
 const SOCIAL_ICONS_MAP = {
   twitter: <TwitterIcon height={20} width={20} className="w-8 h-auto" />,
   facebook: <FacebookIcon height={20} width={20} className="w-8 h-auto" />,
-  instagram: <InstagramIcon height={20} width={20} className="w-10 h-auto" />,
+  instagram: <InstagramIcon height={30} width={30} className="w-8 h-auto" />,
   tiktok: <TiktokIcon height={20} width={20} className="w-8 h-auto" />,
   pinterest: <PinterestIcon height={20} width={20} className="w-8 h-auto" />,
   youtube: <YoutubeIcon height={20} width={20} className="w-8 h-auto" />,
   vimeo: <VimeoIcon height={20} width={20} className="w-8 h-auto" />,
-  whatsapp: <WhatsappIcon height={20} width={20} className="w-8 h-auto" />,
+  whatsapp: <WhatsappIcon height={30} width={30} className="w-8 h-auto" />,
+  telegram: <TelegramIcon height={30} width={30} className="w-8 h-auto" />,
 };
 
 export interface FooterProps {
@@ -133,27 +137,10 @@ const Footer: React.FC<FooterProps> = ({
         SECTION_PADDING_MAP[horizontalPadding ?? SPACING.MEDIUM]
       } bg-black-200 pb-24 lg:pb-6 pt-14`}>
       {/* Newsletter */}
-      <div className="flex justify-between items-center lg:hidden">
+      <div className="flex justify-between items-center">
         <Link link="/" className={''}>
           <Logo logo={logo} logoHeight={logoHeight} storeName={storeName} />
         </Link>
-        {/* Social links */}
-        {showSocials && typeof socialLinks === 'object' && (
-          <div className="flex gap-4">
-            {Object.entries(socialLinks).map(
-              ([key, value]) =>
-                value.show &&
-                !!value.url && (
-                  <Link
-                    key={key}
-                    link={value.url || '#'}
-                    className="leading-none text-white">
-                    {SOCIAL_ICONS_MAP[key as SOCIALS]}
-                  </Link>
-                ),
-            )}
-          </div>
-        )}
       </div>
       {showNewsletter && (
         <div className="mt-8 lg:mt-0 lg:max-w-4xl mx-auto lg:mb-16">
@@ -223,6 +210,42 @@ const Footer: React.FC<FooterProps> = ({
                   label={item.label}
                 />
               ))}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-6 flex flex-col">
+          <div className="mb-6 lg:mb-5">
+            <Link link="tel:+995591458118" className="text-gray-400">
+              +995 591 458 118
+            </Link>
+            <Link
+              link="mailto:support@smart-wolf.com"
+              className="text-gray-400">
+              support@smart-wolf.com
+            </Link>
+          </div>
+
+          {/* Social links */}
+          {showSocials && typeof socialLinks === 'object' && (
+            <div className="flex gap-4">
+              {Object.entries(socialLinks).map(
+                ([key, value]) =>
+                  value.show &&
+                  !!value.url && (
+                    <Link
+                      key={key}
+                      link={value.url || '#'}
+                      className="leading-none text-white">
+                      {SOCIAL_ICONS_MAP[key as SOCIALS]}
+                    </Link>
+                  ),
+              )}
+              <Link
+                link="https://t.me/smart_wolf_ag"
+                className="leading-none text-white">
+                <TelegramIcon height={20} width={20} className="w-8 h-auto" />
+              </Link>
             </div>
           )}
         </div>

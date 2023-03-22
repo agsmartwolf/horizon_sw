@@ -9,6 +9,8 @@ import Button from '../../atoms/Button';
 import { BUTTON_STYLE, BUTTON_TYPE } from '../../../types/shared/button';
 import LocaleSelect from '../../atoms/LocaleSelect';
 import { NAV_ITEM_TYPE } from 'types/nav';
+import useI18n from '../../../hooks/useI18n';
+import AccountIcon from '../../../assets/icons/account.svg';
 // import useI18n from 'hooks/useI18n';
 
 export interface MobileMenuProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -22,8 +24,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   show,
   openDelay,
 }) => {
-  // const i18n = useI18n();
-  // const accountLinkLabel = i18n('navigation.account');
+  const i18n = useI18n();
+  const accountLinkLabel = i18n('navigation.account');
 
   return (
     <Transition
@@ -75,9 +77,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
           {/*<NavLink label={accountLinkLabel} link="/account/orders" />*/}
           <Button
             elType={BUTTON_TYPE.LINK}
-            href="/account/login"
-            buttonStyle={BUTTON_STYLE.PRIMARY}>
-            Sign in
+            href="/account/orders"
+            buttonStyle={BUTTON_STYLE.SECONDARY}>
+            <div className="flex items-center justify-center">
+              <AccountIcon className="w-5 mr-4" />
+              {accountLinkLabel}
+            </div>
           </Button>
           <LocaleSelect className="w-full" />
         </ul>
