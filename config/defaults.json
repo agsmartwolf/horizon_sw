@@ -325,6 +325,8 @@
         }
       },
       "products": {
+        "details": "Product details",
+        "brand": "Brand",
         "add_to_cart": "Add to bag",
         "trial_message": "{n} days free trial, then {price}",
         "stock": {
@@ -692,7 +694,9 @@
         }
       },
       "products": {
-        "add_to_cart": "Add to bag",
+        "details": "Подробнее о товаре",
+        "brand": "Бренд",
+        "add_to_cart": "Добавить в корзину",
         "trial_message": "{n} days free trial, then {price}",
         "stock": {
           "not_enough": "Not enough stock remaining to increase quantity in cart by {quantity}."

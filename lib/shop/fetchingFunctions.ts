@@ -2,7 +2,6 @@ import { generateId } from 'lib/utils/shared_functions';
 import type {
   SwellProductImage,
   SwellProductOption,
-  SwellProductsVariants,
 } from 'lib/graphql/generated/sdk';
 import { denullifyArray } from 'lib/utils/denullify';
 import { filterProductsByCategory, getFilters } from './filters';
@@ -21,7 +20,13 @@ import type { ProductHeaderProps } from 'components/molecules/ProductHeader';
 import { LAYOUT_ALIGNMENT, ProductsPageProps } from 'pages/products/[slug]';
 import type { CurrencyPrice } from 'types/shared/currency';
 import type { QuizResultsProducts } from 'components/molecules/QuizResults';
-import { hasQuickAdd, mapCategories, mapProducts } from 'lib/utils/products';
+import {
+  filterMapProductOptionValuesByStockAndVariantAvailability,
+  filterProductVariants,
+  hasQuickAdd,
+  mapCategories,
+  mapProducts,
+} from 'lib/utils/products';
 import {
   formatCurrencies,
   formatLocales,
@@ -35,6 +40,7 @@ import {
 } from 'types/shared/products';
 import type { SwellProduct } from 'lib/graphql/generated/sdk';
 import { getDefaultLangJsonByLocale, LocaleCode } from '../../hooks/useI18n';
+import { deepMerge } from '../../utils/helpers';
 
 const client = getGQLClient();
 
@@ -238,26 +244,39 @@ export async function getProductBySlug(
     title: product?.name ?? '',
     subtitle: subtitle ?? '',
     description: product?.description ?? '',
+    descriptionShort: product?.descriptionShort ?? '',
   };
 
+  const productsUpsells = (
+    await Promise.all(
+      denullifyArray(product?.upSells?.map(u => u?.product))?.map(p =>
+        client.getProduct({
+          slug: p?.slug,
+          currency,
+          locale,
+        }),
+      ),
+    )
+  ).map(response => response.data.productBySlug);
+
   const upSells: (PurchasableProductData | null)[] =
-    product?.upSells?.map(upSell =>
-      upSell?.product
+    productsUpsells?.map(upSellProduct => {
+      return upSellProduct
         ? {
-            id: upSell?.product?.id ?? '',
-            title: upSell?.product?.name ?? '',
-            description: upSell?.product?.description ?? '',
-            price: upSell?.product?.price ?? 0,
-            tags: upSell?.product?.tags ?? [],
-            origPrice: upSell?.product?.origPrice ?? null,
-            href: `/products/${upSell?.product?.slug ?? ''}`,
+            id: upSellProduct?.id ?? '',
+            title: upSellProduct?.name ?? '',
+            description: upSellProduct?.description ?? '',
+            price: upSellProduct?.price ?? 0,
+            tags: upSellProduct?.tags ?? [],
+            origPrice: upSellProduct?.origPrice ?? null,
+            href: `/products/${upSellProduct?.slug ?? ''}`,
             image: {
-              alt: upSell?.product?.images?.[0]?.caption ?? '',
-              src: upSell?.product?.images?.[0]?.file?.url ?? '',
-              width: upSell?.product?.images?.[0]?.file?.width ?? 0,
-              height: upSell?.product?.images?.[0]?.file?.height ?? 0,
+              alt: upSellProduct?.images?.[0]?.caption ?? '',
+              src: upSellProduct?.images?.[0]?.file?.url ?? '',
+              width: upSellProduct?.images?.[0]?.file?.width ?? 0,
+              height: upSellProduct?.images?.[0]?.file?.height ?? 0,
             },
-            productOptions: denullifyArray(upSell?.product?.options)?.map(
+            productOptions: denullifyArray(upSellProduct?.options)?.map(
               (option: SwellProductOption) => {
                 return {
                   id: option.id ?? '',
@@ -266,49 +285,30 @@ export async function getProductBySlug(
                   inputType: option.inputType ?? '',
                   active: option.active ?? true,
                   required: option.required ?? false,
-                  values: denullifyArray(option.values)?.map(value => {
-                    return {
-                      id: value.id ?? '',
-                      name: value.name ?? '',
-                      price: value.price ?? 0,
-                    };
-                  }),
+                  values:
+                    filterMapProductOptionValuesByStockAndVariantAvailability(
+                      option,
+                      upSellProduct,
+                    ),
                 };
               },
             ),
-            purchaseOptions: upSell?.product?.purchaseOptions ?? {},
-            productVariants: denullifyArray(upSell?.product?.variants?.results),
-            hasQuickAdd: hasQuickAdd(upSell.product),
-            stockLevel: upSell.product.stockLevel ?? 0,
+            purchaseOptions: upSellProduct?.purchaseOptions ?? {},
+            productVariants: denullifyArray(upSellProduct.variants?.results),
+            hasQuickAdd: hasQuickAdd(upSellProduct),
+            stockLevel: upSellProduct.stockLevel ?? 0,
           }
-        : null,
-    ) ?? [];
+        : null;
+    }) ?? [];
 
   const colorOption = product?.options?.find(option =>
     [option?.name?.toLowerCase(), option?.attributeId].includes('color'),
   );
 
   // filter product.variants with not repeated color
-  const filteredVariants = product?.variants?.results?.reduce(
-    (acc: SwellProductsVariants['results'], variant) => {
-      if (!acc) {
-        return variant?.active ? [variant] : [];
-      }
-      if (
-        !variant?.active ||
-        acc.some(q =>
-          q?.optionValueIds?.includes(
-            variant?.optionValueIds?.find(v =>
-              colorOption?.values?.find(t => t?.id === v),
-            ) ?? null,
-          ),
-        )
-      ) {
-        return acc;
-      }
-      return [...acc, variant];
-    },
-    [],
+  const filteredVariants = filterProductVariants(
+    product as SwellProduct,
+    colorOption as SwellProductOption,
   );
 
   const images = formatProductImages(
@@ -379,20 +379,10 @@ export async function getProductBySlug(
           parentId: option.parentId ?? null,
           parentValueIds: denullifyArray(option.parentValueIds),
           placeholder: option.inputHint ?? '',
-          values: denullifyArray(option.values)
-            ?.filter(opt =>
-              product?.variants?.results?.some(
-                v => opt?.id && v?.optionValueIds?.includes(opt?.id),
-              ),
-            )
-            .map(value => {
-              return {
-                id: value.id ?? '',
-                name: value.name ?? '',
-                price: value.price ?? 0,
-                description: value.description ?? '',
-              };
-            }),
+          values: filterMapProductOptionValuesByStockAndVariantAvailability(
+            option,
+            product as SwellProduct,
+          ),
         };
       },
     ),
@@ -447,6 +437,7 @@ export async function getQuizProducts(
   const selection = denullifyArray(productsData).map(product => ({
     productId: product.id ?? '',
     description: product.description ?? '',
+    descriptionShort: product.descriptionShort ?? '',
     currency: product.currency ?? 'USD',
     href: `/products/${product.slug}`,
     image: {
@@ -498,10 +489,10 @@ export const getStoreSettings = async (locale?: string) => {
 
   const settingsWithMergedLocale = {
     ...formattedSettings,
-    lang: {
-      ...getDefaultLangJsonByLocale(locale as LocaleCode | undefined),
-      ...formattedSettings.lang,
-    },
+    lang: deepMerge(
+      getDefaultLangJsonByLocale(locale as LocaleCode | undefined),
+      formattedSettings.lang,
+    ),
   };
 
   return {

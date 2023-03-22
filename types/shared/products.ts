@@ -32,6 +32,7 @@ export interface ProductData {
   image: MandatoryImageProps;
   title: string;
   description: string;
+  descriptionShort?: string;
   price?: number;
   origPrice?: number;
   currency?: string;
@@ -39,6 +40,7 @@ export interface ProductData {
   href: string;
   currencyPrices?: CurrencyPrice[];
   purchaseOptions?: SwellProductPurchaseOptions;
+  tags?: Array<string | null>;
 }
 
 export interface CategoryData {

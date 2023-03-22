@@ -10,7 +10,7 @@ export interface UpSellProps extends React.HTMLAttributes<HTMLDivElement> {
 const UpSell: React.FC<UpSellProps> = ({ items, className }) => {
   return (
     <HorizontalScroller
-      className={`flex gap-6 px-6 lg:pl-0 ${className ?? ''}`}>
+      className={`flex gap-6 px-6 py-[35px] py-10 lg:pl-14 ${className ?? ''}`}>
       {items.map(item => (
         <ProductPreviewCard
           key={item.id}

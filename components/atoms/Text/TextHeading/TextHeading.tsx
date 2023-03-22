@@ -5,7 +5,7 @@ import useClassNames from 'hooks/useClassNames';
 
 export interface TextHeadingProps {
   content: string;
-  size?: 1 | 2;
+  size?: 1 | 2 | 3;
   rootEl?: RootElement;
   className?: string;
 }
@@ -13,6 +13,7 @@ export interface TextHeadingProps {
 const SIZE_CLASS_MAPPINGS = {
   1: 'text-5xl lg:text-7xl',
   2: 'text-5xl',
+  3: 'text-2xl',
 };
 
 const TextHeading: React.FC<TextHeadingProps> = ({

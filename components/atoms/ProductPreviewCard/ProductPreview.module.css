@@ -1,3 +1,7 @@
 .productWrapper a > span {
-        @apply m-6 !important;
+  @apply m-6 !important;
+}
+
+.innerContent > * {
+  margin-bottom: 0 !important;
 }

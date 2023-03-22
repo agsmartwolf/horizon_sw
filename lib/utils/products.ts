@@ -24,6 +24,7 @@ import type { SwellProductPurchaseOptionsStandard } from 'lib/graphql/generated/
 import { denullifyArray, NotNullish } from './denullify';
 import type { MandatoryImageProps } from 'types/global';
 import type { CartItemInputOption } from '../../types/shared/cart';
+import type { SwellProductsVariants } from 'lib/graphql/generated/sdk';
 
 export const getCrossSellPrice = (crossSell: SwellProductCrossSell) => {
   if (
@@ -203,6 +204,7 @@ export const mapProducts = (
     >,
     | 'id'
     | 'description'
+    | 'descriptionShort'
     | 'slug'
     | 'images'
     | 'options'
@@ -215,44 +217,44 @@ export const mapProducts = (
     | 'tags'
   >[],
 ) =>
-  products.map(product => ({
-    id: product.id ?? '',
-    description: product.description ?? '',
-    tags: product.tags ?? [],
-    href: `/products/${product.slug}`,
-    image: {
-      alt: product.images?.[0]?.caption ?? '',
-      height: product.images?.[0]?.file?.height ?? 0,
-      width: product.images?.[0]?.file?.width ?? 0,
-      src: product.images?.[0]?.file?.url ?? '',
-    },
-    price: product.price ?? 0,
-    origPrice: product.origPrice ?? null,
-    title: product.name ?? '',
-    productOptions: denullifyArray(product?.options).map(
-      (option: SwellProductOption) => {
-        return {
-          id: option.id ?? '',
-          attributeId: option.attributeId ?? '',
-          name: option.name ?? '',
-          inputType: option.inputType ?? '',
-          active: option.active ?? true,
-          required: option.required ?? false,
-          values: denullifyArray(option.values).map(value => {
-            return {
-              id: value.id ?? '',
-              name: value.name ?? '',
-              price: value.price ?? 0,
-            };
-          }),
-        };
+  products.map(product => {
+    return {
+      id: product.id ?? '',
+      description: product.description ?? '',
+      descriptionShort: product.descriptionShort ?? '',
+      tags: product.tags ?? [],
+      href: `/products/${product.slug}`,
+      image: {
+        alt: product.images?.[0]?.caption ?? '',
+        height: product.images?.[0]?.file?.height ?? 0,
+        width: product.images?.[0]?.file?.width ?? 0,
+        src: product.images?.[0]?.file?.url ?? '',
       },
-    ),
-    productVariants: denullifyArray(product?.variants?.results),
-    purchaseOptions: product.purchaseOptions ?? {},
-    hasQuickAdd: hasQuickAdd(product),
-    stockLevel: product?.stockLevel ?? 0,
-  }));
+      price: product.price ?? 0,
+      origPrice: product.origPrice ?? null,
+      title: product.name ?? '',
+      productOptions: denullifyArray(product?.options).map(
+        (option: SwellProductOption) => {
+          return {
+            id: option.id ?? '',
+            attributeId: option.attributeId ?? '',
+            name: option.name ?? '',
+            inputType: option.inputType ?? '',
+            active: option.active ?? true,
+            required: option.required ?? false,
+            values: filterMapProductOptionValuesByStockAndVariantAvailability(
+              option,
+              product,
+            ),
+          };
+        },
+      ),
+      productVariants: denullifyArray(product.variants?.results),
+      purchaseOptions: product.purchaseOptions ?? {},
+      hasQuickAdd: hasQuickAdd(product),
+      stockLevel: product?.stockLevel ?? 0,
+    };
+  });
 
 // A product has quick add if:
 // - Product doesn't have subscription
@@ -364,7 +366,9 @@ export const isOptionValueInStock = (
     productData.productVariants,
     productData.stockLevel,
   );
-  return curVariant?.stockLevel && curVariant.stockLevel > 0;
+  return (
+    curVariant?.active && curVariant?.stockLevel && curVariant.stockLevel > 0
+  );
 };
 
 export const addStockOptionData = (
@@ -419,6 +423,52 @@ export const addStockOptionData = (
   }
   return updatedProductOptions;
 };
+
+// filter product.variants with not repeated color
+export const filterProductVariants = (
+  product: SwellProduct,
+  colorOption: SwellProductOption,
+) =>
+  product?.variants?.results?.reduce(
+    (acc: SwellProductsVariants['results'], variant) => {
+      if (!acc) {
+        return variant?.active ? [variant] : [];
+      }
+      if (
+        !variant?.active ||
+        acc.some(q =>
+          q?.optionValueIds?.includes(
+            variant?.optionValueIds?.find(v =>
+              colorOption?.values?.find(t => t?.id === v),
+            ) ?? null,
+          ),
+        )
+      ) {
+        return acc;
+      }
+      return [...acc, variant];
+    },
+    [],
+  );
+
+export const filterMapProductOptionValuesByStockAndVariantAvailability = (
+  option: SwellProductOption,
+  product: SwellProduct,
+) =>
+  denullifyArray(option.values)
+    ?.filter(opt =>
+      product?.variants?.results?.some(
+        v => opt?.id && v?.optionValueIds?.includes(opt?.id),
+      ),
+    )
+    .map(value => {
+      return {
+        id: value.id ?? '',
+        name: value.name ?? '',
+        price: value.price ?? 0,
+        description: value.description ?? '',
+      };
+    });
 
 export const getColorOptionArrayIds = (productOption: ProductOption) => [
   productOption.name.toLowerCase(),

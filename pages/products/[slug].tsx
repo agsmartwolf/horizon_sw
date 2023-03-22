@@ -51,6 +51,8 @@ import GenericTag, {
 } from '../../components/atoms/GenericTag';
 import { useDisplayedTags } from '../../hooks/useDisplayedTags';
 import styles from 'styles/products.module.css';
+import CollapsableText from '../../components/atoms/CollapsableText';
+import TextHeading from '../../components/atoms/Text/TextHeading';
 
 export enum LAYOUT_ALIGNMENT {
   STANDARD = 'standard',
@@ -175,6 +177,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
   const { locale } = useRouter();
   const i18n = useI18n();
 
+  const detailsLabel = i18n('products.details');
   const addLabel = i18n('products.add_to_cart');
   const upsellsTitle = i18n('products.upsells.title');
 
@@ -412,12 +415,23 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                 ))}
               </div>
             )}
+
+            {detailsLabel && (
+              <>
+                <TextHeading
+                  content={detailsLabel}
+                  className="mt-10 mb-4"
+                  size={3}
+                />
+                <CollapsableText text={details.description} />
+              </>
+            )}
           </div>
         </aside>
       </article>
       {!!upSells?.length && (
-        <div className="py-10 lg:pl-14">
-          <h4 className="py-6 pl-6 font-headings text-2xl font-semibold text-black lg:pl-0">
+        <div className="">
+          <h4 className="pt-6 pl-6 font-headings text-2xl font-semibold text-black lg:py-10 lg:pl-14">
             {upsellsTitle}
           </h4>
 
