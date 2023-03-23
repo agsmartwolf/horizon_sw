@@ -9,7 +9,7 @@ import type { PageSection } from '../lib/editor/sections';
 import { denullifyArray } from '../lib/utils/denullify';
 import { mapSectionProps } from '../lib/editor/sections';
 import SafeImage from '../components/atoms/SafeImage';
-import RichText from '../components/atoms/RichText';
+// import RichText from '../components/atoms/RichText';
 import React from 'react';
 import Figure from '../components/atoms/Figure';
 
@@ -77,16 +77,16 @@ const AboutPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
       </Head>
 
       <section className="h-full text-green-100 bg-black-100 relative lg:min-h-[calc(100vh-90px)] mb-[40px]">
-        <RichText
-          content="FRiENDS"
-          className="text-[228px] font-bold -ml-7 -top-[calc(50%-74px)] font-graphity lg:text-[800px] lg:-ml-14 absolute lg:-top-[150px] z-0"
-          rootEl="p"
-        />
+        {/*<RichText*/}
+        {/*  content="FRiENDS"*/}
+        {/*  className="text-[228px] font-bold -ml-7 -top-[calc(50%-74px)] font-graphity lg:text-[800px] lg:-ml-14 absolute lg:-top-[150px] z-0"*/}
+        {/*  rootEl="p"*/}
+        {/*/>*/}
         <SafeImage
-          className="z-10 m-auto pt-14 block relative"
-          width={1440}
-          height={810}
-          src="/images/about-us/hero.avif"
+          className="z-10 m-auto block relative"
+          width={1920}
+          height={1080}
+          src="/images/about-us/hero.jpg"
           alt={'family with dog'}
         />
       </section>
