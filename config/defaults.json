@@ -464,7 +464,8 @@
         "leashes": "Leashes",
         "clothes": "Clothes",
         "treats": "Treats",
-        "allproducts": "All products"
+        "allproducts": "All products",
+        "accessories": "Accessories"
       }
     },
     "ru": {
@@ -845,7 +846,8 @@
         "leashes": "Поводки",
         "clothes": "Одежда",
         "treats": "Лакомства",
-        "allproducts": "Все товары"
+        "allproducts": "Все товары",
+        "accessories": "Аксессуары"
       }
     }
   }

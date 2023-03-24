@@ -101,7 +101,7 @@ const Breadcrumb: React.FC<BreadcumbProps> = ({
         'text-sm font-light capitalize tracking-wide text-gray-400',
         className,
       ].join(' ')}>
-      <ol className="flex">
+      <ol className="flex flex-wrap">
         <li>
           <Link href="/">{homeLabel}&nbsp;&gt;&nbsp;</Link>
         </li>
