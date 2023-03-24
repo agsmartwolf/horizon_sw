@@ -133,7 +133,7 @@ const HorizontalScroller: React.FC<HorizontalScrollerProps> = ({
                 child &&
                 React.cloneElement(child as ReactElement, {
                   className: cn((child as ReactElement).props.className ?? '', {
-                    [`px-[${arrowWidth}px]`]: canScroll,
+                    [`px-[${arrowWidth}px]`]: canScroll && showArrow,
                     'px-0': !canScroll,
                   }),
                 })
