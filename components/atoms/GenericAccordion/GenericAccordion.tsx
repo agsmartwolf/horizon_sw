@@ -45,18 +45,10 @@ const GenericAccordion: React.FC<GenericAccordionProps> = ({
             <Transition className="duration-400" unmount={false}>
               <Disclosure.Panel unmount={false}>
                 <div
-                  className="transition-[max-height] duration-400"
-                  ref={ref => {
-                    if (!ref) return;
-
-                    setTimeout(() => {
-                      if (open) {
-                        ref.style.maxHeight = `${ref.scrollHeight}px`;
-                      } else {
-                        ref.style.maxHeight = `0px`;
-                      }
-                    }, 0);
-                  }}>
+                  className={cn('transition-[max-height] duration-400', {
+                    'transition-[max-height] max-h-0': !open,
+                    'transition-[max-height] max-h-[1000px]': open,
+                  })}>
                   {children}
                 </div>
               </Disclosure.Panel>
