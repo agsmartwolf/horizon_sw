@@ -37,7 +37,7 @@ const GenericTag = React.forwardRef<HTMLSpanElement, TagProps>(
     switch (tag.toLowerCase()) {
       case GenericTagType.ComingSoon: {
         const classes = cn(
-          'text-white bg-green-100 text-black',
+          'text-white bg-green-100 text-black h-fit',
           {
             'py-2 lg:py-1.5': !paddingYClasses,
           },
@@ -53,7 +53,7 @@ const GenericTag = React.forwardRef<HTMLSpanElement, TagProps>(
       }
       case GenericTagType.Premium: {
         const classes = cn(
-          'bg-black text-white',
+          'bg-black text-white h-fit',
           {
             'py-2 lg:py-1.5': !paddingYClasses,
           },
