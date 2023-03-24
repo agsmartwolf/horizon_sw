@@ -266,6 +266,7 @@ export async function getProductBySlug(
             id: upSellProduct?.id ?? '',
             title: upSellProduct?.name ?? '',
             description: upSellProduct?.description ?? '',
+            descriptionShort: upSellProduct?.descriptionShort ?? '',
             price: upSellProduct?.price ?? 0,
             tags: upSellProduct?.tags ?? [],
             origPrice: upSellProduct?.origPrice ?? null,
