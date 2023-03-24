@@ -45,7 +45,10 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({
           ))}
         </div>
       )}
-      <div className={`text-sm text-body ${tags ? 'lg:mt-2' : 'mt-2 lg:mt-3'}`}>
+      <div
+        className={`text-sm text-body ${
+          tags ? 'lg:mt-2' : 'mt-2 lg:mt-3'
+        } text-justify`}>
         <RichText
           content={formatRowHtmlFontStyles(descriptionShort) ?? ''}
           className={cn(styles.content)}
