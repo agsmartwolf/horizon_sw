@@ -40,8 +40,8 @@ const CollapsableText: React.FC<CollapsableTextProps> = ({
           'transition-[max-height] duration-400 cursor-pointer select-none',
           {
             'max-h-[5000px]': open,
-            [`line-clamp-${linesDisplayed} max-h-[${MIN_DESCRIPTION_HEIGHT}px]`]:
-              !open && descriptionHeight !== 0,
+            [`line-clamp-${linesDisplayed}`]: !open && descriptionHeight !== 0,
+            [`max-h-[130px]`]: !open && descriptionHeight !== 0,
           },
         )}
       />

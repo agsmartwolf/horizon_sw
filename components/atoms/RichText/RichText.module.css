@@ -18,3 +18,8 @@
 .rich-text a {
   text-decoration: underline;
 }
+
+.rich-text iframe {
+  width: 100%;
+  height: auto;
+}
