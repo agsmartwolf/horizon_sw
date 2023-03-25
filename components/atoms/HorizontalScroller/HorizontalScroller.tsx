@@ -21,7 +21,7 @@ export interface HorizontalScrollerProps
   applyRightPaddingOnScroll?: boolean;
   scrollbarHidden?: boolean;
   showArrow?: boolean;
-  arrowWidth?: number;
+  arrowWidth?: 40 | 30 | 20 | 10 | 50;
   arrowClassname?: string;
 }
 
@@ -45,6 +45,42 @@ function sideScroll(
     }
   }, speed);
 }
+
+const getClassNamesOnArrowWidth = (arrowWidth: number) => {
+  const classNames = {
+    px: 'px-[40px]',
+    pr: 'pr-[40px]',
+  };
+  switch (arrowWidth) {
+    case 10: {
+      classNames.px = 'px-[10px]';
+      classNames.pr = 'pr-[10px]';
+      break;
+    }
+    case 20: {
+      classNames.px = 'px-[20px]';
+      classNames.pr = 'pr-[20px]';
+      break;
+    }
+    case 30: {
+      classNames.px = 'px-[30px]';
+      classNames.pr = 'pr-[30px]';
+
+      break;
+    }
+    case 40: {
+      classNames.px = 'px-[40px]';
+      classNames.pr = 'pr-[40px]';
+      break;
+    }
+    case 50: {
+      classNames.px = 'px-[50px]';
+      classNames.pr = 'pr-[50px]';
+      break;
+    }
+  }
+  return classNames;
+};
 
 const HorizontalScroller: React.FC<HorizontalScrollerProps> = ({
   children,
@@ -104,12 +140,14 @@ const HorizontalScroller: React.FC<HorizontalScrollerProps> = ({
     return () => window.removeEventListener('resize', handler);
   }, [children]);
 
+  const classNames = getClassNamesOnArrowWidth(arrowWidth);
+
   return (
     <div
       className={cn(
         'relative snap-mandatory overflow-hidden scroll-px-6 touch:snap-x flex items-center',
         {
-          [`pr-[${arrowWidth}px]`]: showArrow,
+          [classNames.pr]: showArrow,
         },
       )}>
       <div
@@ -133,7 +171,7 @@ const HorizontalScroller: React.FC<HorizontalScrollerProps> = ({
                 child &&
                 React.cloneElement(child as ReactElement, {
                   className: cn((child as ReactElement).props.className ?? '', {
-                    [`px-[${arrowWidth}px]`]: canScroll && showArrow,
+                    [classNames.px]: canScroll && showArrow,
                     'px-0': !canScroll,
                   }),
                 })

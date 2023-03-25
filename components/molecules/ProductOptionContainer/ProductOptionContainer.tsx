@@ -22,7 +22,10 @@ const ProductOptionContainer: React.FC<ProductOptionContainerProps> = ({
         {description && <InfoTooltip text={description} />}
       </div>
       {!!children && (
-        <HorizontalScroller showArrow arrowClassname="bg-white">
+        <HorizontalScroller
+          showArrow
+          arrowClassname="bg-white"
+          className="py-2.5 pr-2.5">
           <div className="flex items-center justify-start gap-4 scrollbar-hidden">
             {children}
           </div>
