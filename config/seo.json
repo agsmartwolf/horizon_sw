@@ -1,0 +1,20 @@
+{
+  "openGraph": {
+    "type": "website",
+    "url": "https://www.smart-wolf.com/",
+    "site_name": "Smart Wolf",
+    "images": [
+      {
+        "url": "/images/og-logo.jpg",
+        "width": "1500",
+        "height": "1500",
+        "alt": "Smart Wolf"
+      }
+    ]
+  },
+  "twitter": {
+    "handle": "@smart_wolf",
+    "site": "@smart_wolf",
+    "cardType": "summary_large_image"
+  }
+}

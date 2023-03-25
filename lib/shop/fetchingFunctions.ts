@@ -397,7 +397,7 @@ export async function getProductBySlug(
     tags: product?.tags ?? [],
     meta: {
       title: product?.metaTitle ?? '',
-      description: product?.metaDescription ?? '',
+      description: product?.metaDescription ?? product?.descriptionShort ?? '',
     },
     settings: {
       layoutOptions: (product?.content?.layoutOptions ??

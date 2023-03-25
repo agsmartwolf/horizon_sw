@@ -1,6 +1,5 @@
 import { withMainLayout } from 'lib/utils/fetch_decorators';
 import type { GetStaticProps, NextPage } from 'next';
-import Head from 'next/head';
 import getGQLClient from '../lib/graphql/client';
 import { fetchPageData } from '../lib/rest/fetchStoreData';
 import type { EditorPageOutput } from '../types/editor';
@@ -20,6 +19,8 @@ import { formatRowHtmlFontStyles } from '../lib/utils/format';
 import Button from '../components/atoms/Button';
 import { BUTTON_TYPE } from '../types/shared/button';
 import useI18n, { I18n, LocaleCode } from '../hooks/useI18n';
+import SEO from '../components/atoms/SEO';
+import useLocaleStore from '../stores/locale';
 
 interface StaticPageProps extends PageProps {
   sections: PageSection[];
@@ -80,6 +81,8 @@ const deliveryText = (i18n: I18n<LocaleCode>) => ({
 const DeliveryPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
   title,
   sections,
+  metaTitle,
+  metaDescription,
 }) => {
   const i18n = useI18n();
   const text = deliveryText(i18n);
@@ -92,11 +95,14 @@ const DeliveryPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
     s => s?.type === PAGE_SECTION_COMPONENT.HEADING_WITH_TEXT,
   );
   const headingSections = usePageSections(headingSectionsData as PageSection[]);
+  const activeLocale = useLocaleStore(state => state.activeLocale);
   return (
     <article className="">
-      <Head>
-        <title>{title}</title>
-      </Head>
+      <SEO
+        title={metaTitle ?? title}
+        description={metaDescription}
+        locale={activeLocale?.code}
+      />
 
       <section className={`container mx-auto pt-10 px-4 lg:px-0`}>
         {React.cloneElement(headingSections[0] as ReactElement, {

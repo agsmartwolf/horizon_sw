@@ -7,7 +7,6 @@ import {
 import { getBestsellers, getBundles } from 'lib/shop/fetchingFunctions';
 import { withMainLayout } from 'lib/utils/fetch_decorators';
 import type { GetStaticProps, NextPage } from 'next';
-import Head from 'next/head';
 import { BUTTON_STYLE, BUTTON_TYPE } from 'types/shared/button';
 import FullWidthMedia from '../components/molecules/FullWidthMedia';
 import {
@@ -24,7 +23,7 @@ import TextHeading from '../components/atoms/Text/TextHeading';
 import Figure from '../components/atoms/Figure';
 import ArrowLeft from 'assets/icons/arrow-left.svg';
 import ArrowRight from 'assets/icons/arrow-right.svg';
-import { useCallback, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import type { SwiperRef } from 'swiper/react';
 import cn from 'classnames';
 import Button from '../components/atoms/Button';
@@ -32,17 +31,54 @@ import useI18n, { I18n, LocaleCode } from '../hooks/useI18n';
 // import {isNextPublicSwellEditor} from 'utils/editor';
 import 'swiper/css/autoplay';
 import styles from 'styles/home.module.css';
+import { fetchPageData } from '../lib/rest/fetchStoreData';
+import type { EditorPageOutput } from '../types/editor';
+import getGQLClient from '../lib/graphql/client';
+import type { PageProps } from '../types/shared/pages';
+import SEO from '../components/atoms/SEO';
+import useLocaleStore from '../stores/locale';
 
-const propsCallback: GetStaticProps<Record<string, unknown>> = async () => {
+const propsCallback: GetStaticProps<
+  PageProps & Record<string, unknown>
+> = async context => {
   const [bundles, bestsellers] = await Promise.all([
     getBundles(),
     getBestsellers(),
   ]);
 
+  const { locale } = context;
+  const client = getGQLClient();
+  const {
+    data: { contentPages },
+  } = await client.getContentPages();
+
+  const {
+    data: { storeSettings },
+  } = await client.getStoreSettings();
+
+  const defaultLocale = storeSettings?.store?.locale;
+  const homePage = contentPages?.results?.find(page => {
+    if (page && page.slug === 'home') {
+      return page;
+    }
+  });
+
+  const editorData = (await fetchPageData(
+    homePage?.slug as string,
+    locale ?? defaultLocale ?? '',
+  )) as EditorPageOutput;
+
+  const props: PageProps = {
+    title: editorData?.name ?? '',
+    metaTitle: editorData?.meta_title ?? '',
+    metaDescription: editorData?.meta_description ?? '',
+  };
+
   return {
     props: {
       bundles,
       bestsellers: bestsellers as SwellProduct[],
+      ...props,
     },
   };
 };
@@ -146,6 +182,9 @@ const HERO_IMAGES = [
 
 const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
   bestsellers,
+  metaDescription,
+  metaTitle,
+  title,
 }) => {
   const i18n = useI18n();
   const text = homeText(i18n);
@@ -166,11 +205,15 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
     if (!swiperHeroRef.current) return;
     swiperHeroRef.current.swiper.slideNext();
   }, []);
+  const activeLocale = useLocaleStore(state => state.activeLocale);
+
   return (
     <article>
-      <Head>
-        <title>Home - SW</title>
-      </Head>
+      <SEO
+        title={metaTitle ?? title}
+        description={metaDescription}
+        locale={activeLocale?.code}
+      />
       <div
         className={cn(
           'bg-[#000000] overflow-hidden relative',

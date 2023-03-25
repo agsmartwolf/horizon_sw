@@ -34,7 +34,6 @@ import type {
 } from 'lib/graphql/generated/sdk';
 import type { ProductBenefitProps } from 'components/atoms/ProductBenefit';
 import useCurrencySubscription from 'hooks/useCurrencySubscription';
-import Head from 'next/head';
 import ProductOptions from 'components/organisms/ProductOptions';
 import useCurrency from 'stores/currency';
 import { withMainLayout } from 'lib/utils/fetch_decorators';
@@ -53,6 +52,7 @@ import { useDisplayedTags } from '../../hooks/useDisplayedTags';
 import styles from 'styles/products.module.css';
 import CollapsableText from '../../components/atoms/CollapsableText';
 import TextHeading from '../../components/atoms/Text/TextHeading';
+import SEO from '../../components/atoms/SEO';
 
 export enum LAYOUT_ALIGNMENT {
   STANDARD = 'standard',
@@ -251,10 +251,12 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
 
   return (
     <div>
-      <Head>
-        <title>{meta.title} - SW</title>
-        <meta name="description" content={meta.description} />
-      </Head>
+      <SEO
+        title={meta.title}
+        description={meta.description}
+        locale={locale}
+        image={images[0]}
+      />
       <article className="flex flex-col lg:grid lg:grid-cols-2 mb-4">
         <section className={imageSectionClasses}>
           <ImageGallery

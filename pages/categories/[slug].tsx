@@ -9,6 +9,8 @@ import { denullifyArray } from 'lib/utils/denullify';
 import { withMainLayout } from 'lib/utils/fetch_decorators';
 import { mapCategory } from '../../lib/utils/products';
 import type { SwellCategoryWithChildren } from '../../types/shared/products';
+import SEO from 'components/atoms/SEO';
+import { useRouter } from 'next/router';
 
 interface CategoryPageProps extends ProductsLayoutProps {
   title: string;
@@ -86,16 +88,17 @@ const CategoryPage: NextPage<CategoryPageProps> = ({
   keywords,
   title,
   ...props
-}) => (
-  <div>
-    <Head>
-      <meta name="description" content={description} />
-      <meta name="keywords" content={keywords} />
-      <title>{title} - Smart Wolf</title>
-    </Head>
+}) => {
+  const { locale } = useRouter();
+  return (
+    <div>
+      <Head>
+        <meta name="keywords" content={keywords} />
+        <SEO title={title} description={description} locale={locale} />
+      </Head>
 
-    <ProductsLayout {...props} />
-  </div>
-);
-
+      <ProductsLayout {...props} />
+    </div>
+  );
+};
 export default CategoryPage;

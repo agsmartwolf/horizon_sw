@@ -1,6 +1,5 @@
 import { withMainLayout } from 'lib/utils/fetch_decorators';
 import type { GetStaticProps, NextPage } from 'next';
-import Head from 'next/head';
 import getGQLClient from '../lib/graphql/client';
 import { fetchPageData } from '../lib/rest/fetchStoreData';
 import type { EditorImage, EditorPageOutput } from '../types/editor';
@@ -17,6 +16,8 @@ import HeroImg from 'public/images/about-us/hero.jpeg';
 import Img12 from 'public/images/about-us/1-2.jpg';
 import Img24 from 'public/images/about-us/2-4.jpg';
 import Img31 from 'public/images/about-us/3-1.jpg';
+import SEO from '../components/atoms/SEO';
+import useLocaleStore from '../stores/locale';
 
 interface StaticPageProps extends PageProps {
   sections: PageSection[];
@@ -74,12 +75,18 @@ export const getStaticProps = withMainLayout(propsCallback);
 const AboutPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
   title,
   sections,
+  metaDescription,
+  metaTitle,
 }) => {
+  const activeLocale = useLocaleStore(state => state.activeLocale);
+
   return (
     <article className="min-h-screen">
-      <Head>
-        <title>{title}</title>
-      </Head>
+      <SEO
+        title={metaTitle ?? title}
+        description={metaDescription}
+        locale={activeLocale?.code}
+      />
 
       <section className="h-full text-green-100 bg-black-100 relative lg:min-h-[calc(100vh-90px)] mb-[40px]">
         {/*<RichText*/}
