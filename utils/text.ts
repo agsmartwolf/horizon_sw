@@ -26,3 +26,7 @@ export const fallbackString = (
 
   return text;
 };
+
+export const capitalizeFirstLetter = (text: string) => {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+};

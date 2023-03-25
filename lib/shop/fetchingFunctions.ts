@@ -41,6 +41,7 @@ import {
 import type { SwellProduct } from 'lib/graphql/generated/sdk';
 import { getDefaultLangJsonByLocale, LocaleCode } from '../../hooks/useI18n';
 import { deepMerge } from '../../utils/helpers';
+import { capitalizeFirstLetter } from '../../utils/text';
 
 const client = getGQLClient();
 
@@ -520,7 +521,12 @@ export const getBestsellers = async () => {
   const { products } = await client
     .getFilteredProducts({
       filter: {
-        tags: { $in: [ProductTag.bestseller] },
+        tags: {
+          $in: [
+            ProductTag.bestseller,
+            capitalizeFirstLetter(ProductTag.bestseller),
+          ],
+        },
       },
     })
     .then(response => response.data);
