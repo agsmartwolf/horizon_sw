@@ -404,7 +404,8 @@
       },
       "navigation": {
         "account": "Account",
-        "account_return_home": "Back to shop"
+        "account_return_home": "Back to shop",
+        "location": "We're located in Tbilisi"
       },
       "search": {
         "placeholder": "Search by product name or SKU"
@@ -786,7 +787,8 @@
       },
       "navigation": {
         "account": "Account",
-        "account_return_home": "Back to shop"
+        "account_return_home": "Back to shop",
+        "location": "Мы расположены в Тбилиси"
       },
       "search": {
         "placeholder": "Search by product name or SKU"
