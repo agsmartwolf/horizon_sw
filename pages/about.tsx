@@ -6,12 +6,17 @@ import { fetchPageData } from '../lib/rest/fetchStoreData';
 import type { EditorImage, EditorPageOutput } from '../types/editor';
 import type { PageProps, ServerSideProps } from '../types/shared/pages';
 import type { PageSection } from '../lib/editor/sections';
-import { denullifyArray } from '../lib/utils/denullify';
+import { denullifyArray } from 'lib/utils/denullify';
 import { mapSectionProps } from '../lib/editor/sections';
 import SafeImage from '../components/atoms/SafeImage';
 // import RichText from '../components/atoms/RichText';
 import React from 'react';
 import Figure from '../components/atoms/Figure';
+
+import HeroImg from 'public/images/about-us/hero.jpeg';
+import Img12 from 'public/images/about-us/1-2.jpg';
+import Img24 from 'public/images/about-us/2-4.jpg';
+import Img31 from 'public/images/about-us/3-1.jpg';
 
 interface StaticPageProps extends PageProps {
   sections: PageSection[];
@@ -86,8 +91,10 @@ const AboutPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
           className="z-10 m-auto block relative"
           width={1920}
           height={1080}
-          src="/images/about-us/hero.jpg"
+          src={HeroImg}
           alt={'family with dog'}
+          placeholder={'blur'}
+          quality={100}
         />
       </section>
 
@@ -95,28 +102,34 @@ const AboutPage: NextPage<ServerSideProps<typeof getStaticProps>> = ({
         <div className={'absolute z-0'}>
           <SafeImage
             className="ml-auto mb-[40px]"
-            src="/images/about-us/1-2.jpg"
+            src={Img12}
             alt="white swiss shepherd dog"
             width={1143}
             height={958}
+            placeholder={'blur'}
+            quality={100}
           />
           <SafeImage
+            placeholder={'blur'}
             className="w-full mb-[40px] md:mb-0"
-            src="/images/about-us/2-4.jpg"
+            src={Img24}
             alt="white swiss shepherd dog"
             width={1440}
             height={1339}
+            quality={100}
             style={{
               width: '100vw',
               height: 'auto',
             }}
           />
           <SafeImage
+            placeholder={'blur'}
             className="w-full md:hidden"
-            src="/images/about-us/3-1.jpg"
+            src={Img31}
             alt="mobile img"
             width={1440}
             height={1339}
+            quality={100}
             style={{
               width: '100vw',
               height: 'auto',

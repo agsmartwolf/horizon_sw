@@ -11,6 +11,7 @@ import { Link } from '../../atoms/NavLink';
 import Logo from '../../atoms/Logo';
 import TextBody from '../../atoms/Text/TextBody';
 import { useRouter } from 'next/navigation';
+import useI18n from '../../../hooks/useI18n';
 
 type ReactSVGComponent = ComponentType<React.SVGProps<SVGSVGElement>>;
 
@@ -111,6 +112,9 @@ const Footer: React.FC<FooterProps> = ({
 
   const [newsLetterError, setNewsLetterError] = useState('');
 
+  const i18n = useI18n();
+  const footerLocationText = i18n('navigation.location');
+
   const onChange = useCallback(() => setNewsLetterError(''), []);
   const onAction = useCallback(
     (value: string) => {
@@ -135,7 +139,7 @@ const Footer: React.FC<FooterProps> = ({
     <footer
       className={`${
         SECTION_PADDING_MAP[horizontalPadding ?? SPACING.MEDIUM]
-      } bg-black-200 pb-24 lg:pb-6 pt-14`}>
+      } bg-black-200 pb-24 lg:pb-6 pt-14 z-20 relative`}>
       {/* Newsletter */}
       <div className="flex justify-between items-center">
         <Link link="/" className={''}>
@@ -215,17 +219,21 @@ const Footer: React.FC<FooterProps> = ({
         </div>
 
         <div className="mt-6 flex flex-col">
-          <div className="mb-6 lg:mb-5">
+          <div className="mb-6 lg:mb-4">
             <Link link="tel:+995591458118" className="text-gray-400">
               +995 591 458 118
             </Link>
             <Link
+              capitalize={false}
               link="mailto:support@smart-wolf.com"
               className="text-gray-400">
               support@smart-wolf.com
             </Link>
           </div>
-
+          <TextBody
+            content={footerLocationText}
+            className="text-white mb-6 lg:mb-5"
+          />
           {/* Social links */}
           {showSocials && typeof socialLinks === 'object' && (
             <div className="flex gap-4">

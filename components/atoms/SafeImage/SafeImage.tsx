@@ -3,8 +3,8 @@ import React from 'react';
 import { useViewport } from '../../../hooks/useViewport';
 
 export type SafeResponsiveSsrImage = {
-  mobile: ImageProps;
-  desktop: ImageProps;
+  mobile?: ImageProps;
+  desktop?: ImageProps;
   className?: string;
 };
 
@@ -19,12 +19,16 @@ const SafeImage: React.FC<SafeImageProps> = props => {
         <Image
           {...(props as SafeResponsiveSsrImage).desktop}
           className={props.className}
+          src={(props as SafeResponsiveSsrImage).desktop?.src as string}
+          alt={(props as SafeResponsiveSsrImage).desktop?.alt as string}
         />
       )}
       {(isMobile || isMobile === undefined) && (
         <Image
           {...(props as SafeResponsiveSsrImage).mobile}
           className={props.className}
+          src={(props as SafeResponsiveSsrImage).mobile?.src as string}
+          alt={(props as SafeResponsiveSsrImage).mobile?.alt as string}
         />
       )}
     </>
