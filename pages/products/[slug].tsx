@@ -416,7 +416,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
               </div>
             )}
 
-            {detailsLabel && (
+            {detailsLabel && details.description && (
               <>
                 <TextHeading
                   content={detailsLabel}
