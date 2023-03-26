@@ -7,7 +7,7 @@ import cn from 'classnames';
 import ProductBenefits from 'components/molecules/ProductBenefits';
 import PurchaseOptionsRadio from 'components/atoms/PurchaseOptionsRadio';
 import SubscriptionOptions from 'components/molecules/SubscriptionOptions';
-import CounterInput from 'components/atoms/CounterInput/CounterInput';
+// import CounterInput from 'components/atoms/CounterInput/CounterInput';
 import Button from 'components/atoms/Button';
 import Price from 'components/atoms/Price';
 import UpSell from 'components/molecules/UpSell';
@@ -91,6 +91,7 @@ export interface ProductsPageProps {
     description: string;
   };
   colorOptionId?: string;
+  sizeChart?: string[][];
 }
 
 export const getStaticPaths: GetStaticPaths = async ({
@@ -173,11 +174,13 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
   meta,
   tags,
   colorOptionId,
+  sizeChart,
 }) => {
   const { locale } = useRouter();
   const i18n = useI18n();
 
   const detailsLabel = i18n('products.details');
+  const sizeChartLabel = i18n('products.sizeChart');
   const addLabel = i18n('products.add_to_cart');
   const upsellsTitle = i18n('products.upsells.title');
 
@@ -220,7 +223,8 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
     ? activeVariation?.subscriptionPrice?.origPrice * state.quantity
     : undefined;
 
-  const [stockStatus, maxQuantity] = useProductStock({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [stockStatus, _maxQuantity] = useProductStock({
     stockTracking,
     stockLevel: activeVariation?.stockLevel,
     stockPurchasable,
@@ -288,28 +292,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
             {!!productBenefits.length && (
               <ProductBenefits benefits={productBenefits} className="mt-10" />
             )}
-            {liveSettings.calloutTitle || liveSettings.calloutDescription ? (
-              <div className="mt-10">
-                <div className="rounded-md bg-secondary py-4 px-8 text-center text-black">
-                  {liveSettings.calloutTitle ? (
-                    <p
-                      className="text-lg font-semibold"
-                      dangerouslySetInnerHTML={{
-                        __html: liveSettings.calloutTitle,
-                      }}
-                    />
-                  ) : null}
-                  {liveSettings.calloutDescription ? (
-                    <p
-                      className="mt-2 text-2xs"
-                      dangerouslySetInnerHTML={{
-                        __html: liveSettings.calloutDescription,
-                      }}
-                    />
-                  ) : null}
-                </div>
-              </div>
-            ) : null}
             <form onSubmit={handleSubmit} className="flex flex-col mb-5">
               {!!productOptions.length && (
                 <ProductOptions
@@ -327,7 +309,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                 />
               )}
               {liveSettings.showStockLevels && !!stockStatus ? (
-                <div className="mt-8 self-start">
+                <div className="self-start">
                   <StatusIndicator
                     status={stockStatus}
                     type="stock"
@@ -366,6 +348,15 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                   className="mt-4"
                 />
               )}
+              {sizeChartLabel && sizeChart?.length && (
+                <>
+                  <TextHeading
+                    content={sizeChartLabel}
+                    className="mt-10 mb-4"
+                    size={3}
+                  />
+                </>
+              )}
               <div className="mt-4 inline-grid grid-cols-3 gap-2">
                 <Button
                   className={'col-span-2'}
@@ -388,7 +379,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                     />
                   )}
                 </Button>
-                {liveSettings.enableProductCounter && (
+                {/*{liveSettings.enableProductCounter && (
                   <CounterInput
                     className="col-span-1 justify-between"
                     value={state.quantity}
@@ -401,7 +392,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                     min={1}
                     max={maxQuantity}
                   />
-                )}
+                )}*/}
               </div>
             </form>
             {!!expandableDetails.length && (

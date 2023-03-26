@@ -268,6 +268,7 @@ export async function getProductBySlug(
             title: upSellProduct?.name ?? '',
             description: upSellProduct?.description ?? '',
             descriptionShort: upSellProduct?.descriptionShort ?? '',
+            sizeChart: product?.sizeChart ? JSON.parse(product?.sizeChart) : [],
             price: upSellProduct?.price ?? 0,
             tags: upSellProduct?.tags ?? [],
             origPrice: upSellProduct?.origPrice ?? null,
@@ -408,6 +409,7 @@ export async function getProductBySlug(
       enableProductCounter: product?.content?.enableProductCounter ?? true,
       lowStockIndicator: product?.content?.lowStockIndicator ?? null,
     },
+    sizeChart: product?.sizeChart ? JSON.parse(product.sizeChart) : [],
   };
 }
 

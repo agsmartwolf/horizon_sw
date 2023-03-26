@@ -175,6 +175,7 @@ query getFilteredProducts($filter: JSON) {
       name
       description
       descriptionShort
+      sizeChart
       slug
       price
       currency

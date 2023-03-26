@@ -6,6 +6,7 @@ query getAllProducts($currency: String, $limit: Int, $locale: String) {
       name
       description
       descriptionShort
+      sizeChart
       slug
       price
       sale
@@ -119,6 +120,7 @@ query getProduct($slug: String, $currency: String, $locale: String) {
     name
     description
     descriptionShort
+    sizeChart
     currency
     metaTitle
     metaDescription
@@ -189,6 +191,7 @@ query getProduct($slug: String, $currency: String, $locale: String) {
         name
         description
         descriptionShort
+        sizeChart
         slug
         price
         tags
@@ -520,6 +523,7 @@ query searchProducts($searchTerm: String, $currency: String, $locale: String) {
       currency
       description
       descriptionShort
+      sizeChart
       slug
       price
       sale
