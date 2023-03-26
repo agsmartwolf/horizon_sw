@@ -19,6 +19,7 @@ import { SettingsProvider, useCreateSettingsStore } from '../stores/settings';
 import Script from 'next/script';
 import * as gtag from 'lib/analytics/google';
 import { GA_MEASUREMENT_ID } from 'lib/analytics/google';
+import Head from 'next/head';
 // import PawPrintAnimation from 'components/atoms/PawILoader';
 
 type AppPropsWithLayout = AppProps & {
@@ -94,7 +95,12 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <>
-      <link rel="manifest" href="/site.webmanifest" />
+      <Head>
+        <link rel="icon" href="/favicon.png" sizes="any" />
+        <meta name="thumbnail" content="thumb-150x150.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+      </Head>
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
