@@ -1,6 +1,7 @@
 import HorizontalScroller from 'components/atoms/HorizontalScroller';
 import InfoTooltip from 'components/atoms/InfoTooltip';
 import React from 'react';
+import cn from 'classnames';
 
 export interface ProductOptionContainerProps {
   name: string;
@@ -25,7 +26,7 @@ const ProductOptionContainer: React.FC<ProductOptionContainerProps> = ({
         <HorizontalScroller
           showArrow
           arrowClassname="bg-white"
-          className="py-2.5 pr-2.5">
+          className={cn('py-2.5 pr-2.5')}>
           <div className="flex items-center justify-start gap-4 scrollbar-hidden">
             {children}
           </div>

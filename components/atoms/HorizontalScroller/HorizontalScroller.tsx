@@ -147,7 +147,7 @@ const HorizontalScroller: React.FC<HorizontalScrollerProps> = ({
       className={cn(
         'relative snap-mandatory overflow-hidden scroll-px-6 touch:snap-x flex items-center',
         {
-          [classNames.pr]: showArrow,
+          [classNames.pr]: showArrow && canScroll,
         },
       )}>
       <div

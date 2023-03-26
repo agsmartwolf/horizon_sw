@@ -49,7 +49,7 @@ const OptionSelectItem: React.FC<OptionSelectItemProps> = ({
     'fill-black': !disabled,
   });
   const r = (
-    <div className={'flex relative overflow-visible'}>
+    <div className={cn('flex relative overflow-visible')}>
       <input
         id={value}
         name={name}

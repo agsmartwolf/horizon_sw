@@ -47,14 +47,19 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
             <svg
               viewBox="0 0 11 11"
               xmlns="http://www.w3.org/2000/svg"
-              onPointerEnter={() =>
+              onMouseEnter={() =>
                 startTransition(() => {
                   setOpen(true);
                 })
               }
-              onPointerLeave={() =>
+              onMouseLeave={() =>
                 startTransition(() => {
                   setOpen(false);
+                })
+              }
+              onClick={() =>
+                startTransition(() => {
+                  setOpen(!open);
                 })
               }
               className={`${iconClass}`}
