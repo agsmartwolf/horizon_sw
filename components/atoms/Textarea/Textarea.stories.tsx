@@ -4,7 +4,7 @@ import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import Textarea from './Textarea';
 
 export default {
-  title: 'Atoms/Textarea',
+  title: 'Atoms/Table',
   component: Textarea,
   argTypes: {
     value: { control: 'text' },

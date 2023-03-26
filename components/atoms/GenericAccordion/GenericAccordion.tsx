@@ -9,6 +9,7 @@ export interface GenericAccordionProps {
   children: ReactNode;
   hideArrow?: boolean;
   className?: string;
+  arrowClassName?: string;
 }
 
 const GenericAccordion: React.FC<GenericAccordionProps> = ({
@@ -17,32 +18,42 @@ const GenericAccordion: React.FC<GenericAccordionProps> = ({
   children,
   hideArrow = false,
   className = '',
+  arrowClassName = '',
 }) => {
   return (
     <div>
       <Disclosure defaultOpen={defaultOpen}>
         {({ open }) => (
-          <div className={cn('flex flex-col overflow-hidden', className)}>
+          <div
+            className={cn(
+              'flex flex-col overflow-hidden transition-[max-height]',
+              className,
+            )}>
             <Disclosure.Button className="flex w-full items-center justify-between py-4">
-              <span
-                className={cn('border-b border-transparent', {
-                  'border-gray-400': !open,
-                })}>
-                {name}
-              </span>
-              <ChevronDown
-                width={16}
-                height={16}
-                className={cn(
-                  `text-black transition-transform duration-400 ${
-                    open ? 'rotate-180' : 'rotate-0'
-                  }`,
-                  hideArrow ? 'hidden' : '',
-                )}
-              />
+              <div className={'relative flex items-center justify-between'}>
+                <span
+                  className={cn('border-b border-transparent', {
+                    'border-gray-400': !open,
+                  })}>
+                  {name}
+                </span>
+                <ChevronDown
+                  width={16}
+                  height={16}
+                  className={cn(
+                    `text-black transition-transform duration-400 ${
+                      open ? 'rotate-180' : 'rotate-0'
+                    }`,
+                    hideArrow ? 'hidden' : '',
+                    arrowClassName,
+                  )}
+                />
+              </div>
             </Disclosure.Button>
 
-            <Transition className="duration-400" unmount={false}>
+            <Transition
+              className="duration-400 transition-[max-height]"
+              unmount={false}>
               <Disclosure.Panel unmount={false}>
                 <div
                   className={cn('transition-[max-height] duration-400', {

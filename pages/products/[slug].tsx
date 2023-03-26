@@ -53,6 +53,8 @@ import styles from 'styles/products.module.css';
 import CollapsableText from '../../components/atoms/CollapsableText';
 import TextHeading from '../../components/atoms/Text/TextHeading';
 import SEO from '../../components/atoms/SEO';
+import Table from '../../components/atoms/Table';
+import GenericAccordion from '../../components/atoms/GenericAccordion';
 
 export enum LAYOUT_ALIGNMENT {
   STANDARD = 'standard',
@@ -348,15 +350,23 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                   className="mt-4"
                 />
               )}
-              {sizeChartLabel && sizeChart?.length && (
+              {sizeChartLabel && sizeChart?.length ? (
                 <>
-                  <TextHeading
-                    content={sizeChartLabel}
-                    className="mt-10 mb-4"
-                    size={3}
-                  />
+                  <GenericAccordion
+                    name={sizeChartLabel}
+                    defaultOpen={false}
+                    className={'relative'}
+                    arrowClassName={'absolute right-[-20px]'}>
+                    <TextHeading
+                      content={sizeChartLabel}
+                      className="mb-4"
+                      size={3}
+                    />
+                    <Table data={sizeChart} className={'w-full'} />
+                  </GenericAccordion>
                 </>
-              )}
+              ) : null}
+
               <div className="mt-4 inline-grid grid-cols-3 gap-2">
                 <Button
                   className={'col-span-2'}

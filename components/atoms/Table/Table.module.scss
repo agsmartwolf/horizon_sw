@@ -1,0 +1,97 @@
+/* Need a transposed table:  Headings on left, data horizontally to the right.  However, if the table has a caption, we need it to remain above the entire table.  Do this by creating a grid for the caption, head, and body.  Then within the head and body, use flex-box to orientate the cells.
+*/
+
+/* Visual styling */
+.table {
+  @apply text-center;
+  border-collapse: collapse;
+  td {
+    @apply border-[0.5px] border-gray-400 text-center py-2;
+  }
+  th {
+    @apply bg-black text-white py-2;
+    @apply border-[0.5px] border-gray-400;
+  }
+
+  tr {
+    @apply odd:bg-gray-200;
+  }
+}
+
+/* IE-10/11 Grid */
+.table.vertical {
+  display: -ms-grid;
+  -ms-grid-rows: auto auto;
+  -ms-grid-columns: auto auto;
+}
+
+.table.vertical thead {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+}
+
+.table.vertical tbody {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+}
+
+.table.vertical caption {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+}
+
+/* Everyone Else's Grid */
+@supports (display: grid) {
+  .table {
+    &.vertical {
+      display: grid;
+      grid-template-columns: min-content min-content;
+      grid-template-rows: auto auto;
+      grid-template-areas:
+       "caption caption"
+       "head body";
+    }
+
+    &.vertical thead {
+      grid-area: head;
+    }
+
+    &.vertical tbody {
+      grid-area: body;
+    }
+
+    &.vertical caption {
+      grid-area: caption;
+    }
+  }
+}
+
+/* Flex - Cross Browser CSS */
+.table {
+  &.vertical thead {
+    display: flex;
+    flex-shrink: 0;
+    min-width: min-content;
+  }
+
+  &.vertical tbody {
+    display: flex;
+  }
+
+  &.vertical tr {
+    display: flex;
+    flex-direction: column;
+    min-width: min-content;
+    flex-shrink: 0;
+  }
+
+  &.vertical td,
+  &.vertical th {
+    display: block;
+  }
+
+  &.vertical caption {
+    display: block;
+  }
+}
