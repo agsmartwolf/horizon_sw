@@ -77,6 +77,7 @@ specifiers:
   lodash.set: ^4.3.2
   msw: ^0.46.0
   next: ^13.1.2
+  next-sitemap: ^4.0.6
   node-mocks-http: ^1.11.0
   postcss: ^8.4.7
   postcss-loader: ^7.0.2
@@ -118,6 +119,7 @@ dependencies:
   graphql: 16.6.0
   graphql-request: 4.3.0_graphql@16.6.0
   next: 13.1.2_tvpc7ke4xuvmyd6m6j6jqpe55m
+  next-sitemap: 4.0.6_next@13.1.2
   node-mocks-http: 1.12.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -1757,7 +1759,7 @@ packages:
     hasBin: true
     dependencies:
       exec-sh: 0.3.6
-      minimist: 1.2.7
+      minimist: 1.2.8
     dev: true
 
   /@colors/colors/1.5.0:
@@ -1766,6 +1768,10 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@corex/deepmerge/4.0.37:
+    resolution: {integrity: sha512-PX90bEnrLdxd5e6rSFWsghExMuSw0Uov3fWJuuaoFuUQIS/446diu/4seExK5b+43L+SOBbd2uBGwYUkG1JfCw==}
+    dev: false
 
   /@design-systems/utils/2.12.0_ib3m5ricvtkl2cll7qpr2f6lvq:
     resolution: {integrity: sha512-Y/d2Zzr+JJfN6u1gbuBUb1ufBuLMJJRZQk+dRmw8GaTpqKx5uf7cGUYGTwN02dIb3I+Tf+cW8jcGBTRiFxdYFg==}
@@ -13368,7 +13374,7 @@ packages:
       decamelize: 1.2.0
       loud-rejection: 1.6.0
       map-obj: 1.0.1
-      minimist: 1.2.7
+      minimist: 1.2.8
       normalize-package-data: 2.5.0
       object-assign: 4.1.1
       read-pkg-up: 1.0.1
@@ -13518,6 +13524,9 @@ packages:
 
   /minimist/1.2.7:
     resolution: {integrity: sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==}
+
+  /minimist/1.2.8:
+    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
   /minipass-collect/1.0.2:
     resolution: {integrity: sha512-6T6lH0H8OG9kITm/Jm6tdooIbogG9e0tLgpY6mphXSm/A9u8Nq1ryBG+Qspiub9LjWlBPsPS3tWQ/Botq4FdxA==}
@@ -13710,6 +13719,19 @@ packages:
   /nested-error-stacks/2.1.1:
     resolution: {integrity: sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==}
     dev: true
+
+  /next-sitemap/4.0.6_next@13.1.2:
+    resolution: {integrity: sha512-pZ9tynYe6mRR189qZqcOlWVgM1Gxo07BJQW0AjerKmLwQOt+6FQMdaDgifgCt6jDT3Y3EG/+NUDDZRcd0gbPkA==}
+    engines: {node: '>=14.18'}
+    hasBin: true
+    peerDependencies:
+      '@next/env': '*'
+      next: '*'
+    dependencies:
+      '@corex/deepmerge': 4.0.37
+      minimist: 1.2.8
+      next: 13.1.2_tvpc7ke4xuvmyd6m6j6jqpe55m
+    dev: false
 
   /next/13.1.2_tvpc7ke4xuvmyd6m6j6jqpe55m:
     resolution: {integrity: sha512-Rdnnb2YH///w78FEOR/IQ6TXga+qpth4OqFSem48ng1PYYKr6XBsIk1XVaRcIGM3o6iiHnun0nJvkJHDf+ICyQ==}
@@ -15701,7 +15723,7 @@ packages:
       execa: 1.0.0
       fb-watchman: 2.0.2
       micromatch: 3.1.10
-      minimist: 1.2.7
+      minimist: 1.2.8
       walker: 1.0.8
     transitivePeerDependencies:
       - supports-color

@@ -17,10 +17,6 @@ let nextConfig = {
       use: ['@svgr/webpack'],
     });
 
-    if (isServer) {
-      require('./scripts/generate-sitemap');
-    }
-
     return config;
   },
   rewrites() {
