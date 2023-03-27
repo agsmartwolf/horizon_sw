@@ -132,14 +132,14 @@ const homeText = (i18n: I18n<LocaleCode>) => ({
 const HERO_IMAGES = [
   {
     mobile: {
-      src: '/images/landing/mobile/hero/1.jpeg',
+      src: '/images/landing/mobile/hero/1.jpg',
       alt: '',
       width: 390,
       height: 723,
       style: { width: '100vw', height: 'auto' },
     },
     desktop: {
-      src: '/images/landing/desktop/hero/1.jpeg',
+      src: '/images/landing/desktop/hero/1.jpg',
       alt: '',
       width: 1439,
       height: 937,
@@ -148,14 +148,14 @@ const HERO_IMAGES = [
   },
   {
     mobile: {
-      src: '/images/landing/mobile/hero/2.jpeg',
+      src: '/images/landing/mobile/hero/2.jpg',
       alt: '',
       width: 390,
       height: 723,
       style: { width: '100vw', height: 'auto' },
     },
     desktop: {
-      src: '/images/landing/desktop/hero/2.jpeg',
+      src: '/images/landing/desktop/hero/2.jpg',
       alt: '',
       width: 1439,
       height: 937,
@@ -164,14 +164,14 @@ const HERO_IMAGES = [
   },
   {
     mobile: {
-      src: '/images/landing/mobile/hero/3.jpeg',
+      src: '/images/landing/mobile/hero/3.jpg',
       alt: '',
       width: 390,
       height: 723,
       style: { width: '100vw', height: 'auto' },
     },
     desktop: {
-      src: '/images/landing/desktop/hero/3.jpeg',
+      src: '/images/landing/desktop/hero/3.jpg',
       alt: '',
       width: 1439,
       height: 937,
@@ -231,6 +231,7 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
           centeredSlides
           grabCursor
           effect="fade"
+          showPreviewSlide
           fadeEffect={{
             crossFade: true,
           }}>
@@ -317,6 +318,10 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
 
       <article className={cn('bg-black-100 select-none')}>
         <div className="relative">
+          <TextHeading
+            content={'YUKI'}
+            className="absolute text-[320px] top-[280px] text-green-100 font-graphity font-extrabold lg:text-[480px] md:top-0 left-0"
+          />
           <Figure
             className={'flex-col-reverse relative'}
             captionClassName={cn(
@@ -327,16 +332,16 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
             image={
               isMobile
                 ? {
-                    src: '/images/landing/mobile/graffiti.png',
-                    width: 390,
-                    height: 637,
+                    src: '/images/landing/mobile/graffiti.webp',
+                    width: 720,
+                    height: 1358,
                     alt: 'Yuki dog telling about store',
                     className: 'w-full aspect-[390/657]',
                   }
                 : {
-                    src: '/images/landing/desktop/graffiti.png',
-                    width: 1440,
-                    height: 766,
+                    src: '/images/landing/desktop/graffiti.webp',
+                    width: 3024,
+                    height: 2012,
                     alt: 'Yuki dog telling about store',
                   }
             }>

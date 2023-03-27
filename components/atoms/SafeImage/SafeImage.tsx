@@ -11,11 +11,30 @@ export type SafeResponsiveSsrImage = {
 export type SafeImageProps = ImageProps | SafeResponsiveSsrImage;
 
 const SafeImage: React.FC<SafeImageProps> = props => {
-  const { isMobile } = useViewport();
+  const { mobileWidth } = useViewport();
   return (props as SafeResponsiveSsrImage).mobile &&
     (props as SafeResponsiveSsrImage).desktop ? (
     <>
-      {(!isMobile || isMobile === undefined) && (
+      <picture>
+        <source
+          className={props.className}
+          media={`(min-width: ${mobileWidth + 1}px)`}
+          srcSet={(props as SafeResponsiveSsrImage).desktop?.src as string}
+        />
+        <source
+          className={props.className}
+          media={`(max-width: ${mobileWidth}px)`}
+          srcSet={(props as SafeResponsiveSsrImage).mobile?.src as string}
+        />
+        <img
+          {...(props as SafeResponsiveSsrImage).mobile}
+          className={props.className}
+          src={(props as SafeResponsiveSsrImage).mobile?.src as string}
+          alt={(props as SafeResponsiveSsrImage).mobile?.alt as string}
+        />
+      </picture>
+
+      {/*{(!isMobile || isMobile === undefined) && (
         <Image
           {...(props as SafeResponsiveSsrImage).desktop}
           className={props.className}
@@ -30,7 +49,7 @@ const SafeImage: React.FC<SafeImageProps> = props => {
           src={(props as SafeResponsiveSsrImage).mobile?.src as string}
           alt={(props as SafeResponsiveSsrImage).mobile?.alt as string}
         />
-      )}
+      )}*/}
     </>
   ) : (
     <Image

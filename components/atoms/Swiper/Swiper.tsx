@@ -21,10 +21,19 @@ interface SwiperProps extends CarouselProps {
   children: React.ReactNode[];
   verticalPadding?: SPACING;
   effectsEnabled?: boolean;
+
+  // rendering first slide child while swiper is not loaded
+  showPreviewSlide?: boolean;
 }
 
 const Swiper = forwardRef<SwiperRef, SwiperProps>((props: SwiperProps, ref) => {
-  const { verticalPadding, effectsEnabled = false, className = '' } = props;
+  const {
+    verticalPadding,
+    effectsEnabled = false,
+    className = '',
+    showPreviewSlide = false,
+  } = props;
+  const [isInited, setIsInited] = React.useState(false);
   const cns = cn(
     'w-full select-none',
     styles.Swiper,
@@ -33,9 +42,27 @@ const Swiper = forwardRef<SwiperRef, SwiperProps>((props: SwiperProps, ref) => {
     SECTION_VERTICAL_PADDING_MAP[verticalPadding ?? SPACING.SMALL],
     className,
   );
+
   return (
     <div className={cns} data-testid="Swiper">
-      <Carousel {...props} ref={ref} modules={[EffectFade, Autoplay]}>
+      {showPreviewSlide ? (
+        <SwiperSlide
+          className={cn('pointer-events-none', {
+            'opacity-0': isInited,
+          })}>
+          {props.children[0]}
+        </SwiperSlide>
+      ) : null}
+      <Carousel
+        {...props}
+        className={cn(props.className, {
+          'opacity-0': !isInited,
+        })}
+        ref={ref}
+        modules={[EffectFade, Autoplay]}
+        onAfterInit={() => {
+          setIsInited(true);
+        }}>
         {Children.map(props.children, (child, index) => (
           <SwiperSlide key={(child as any)?.id || (child as any)?.key || index}>
             {child}

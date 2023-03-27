@@ -1,6 +1,8 @@
 // import { useMediaQuery } from '@react-hook/media-query';
 import { useEffect, useLayoutEffect, useState } from 'react';
 
+const MOBILE_WIDTH = 639;
+
 const getMatches = (query: string): boolean => {
   // Prevents SSR issues
   if (typeof window !== 'undefined') {
@@ -44,10 +46,15 @@ export function useMediaQuery(query: string): boolean | undefined {
 }
 
 export function useViewport() {
-  const isMobile = useMediaQuery('(min-width: 1px) and (max-width: 639px)');
-  const isTablet = useMediaQuery('(min-width: 640px) and (max-width: 1025px)');
+  const isMobile = useMediaQuery(
+    `(min-width: 1px) and (max-width: ${MOBILE_WIDTH}px)`,
+  );
+  const isTablet = useMediaQuery(
+    `(min-width: ${MOBILE_WIDTH + 1}px) and (max-width: 1025px)`,
+  );
 
   return {
+    mobileWidth: MOBILE_WIDTH,
     isMobile,
     isTablet,
     isDesktop: !isMobile && !isTablet,
