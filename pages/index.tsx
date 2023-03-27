@@ -319,6 +319,7 @@ const Home: NextPage<ServerSideProps<typeof getStaticProps>> = ({
       <article className={cn('bg-black-100 select-none')}>
         <div className="relative">
           <TextHeading
+            customSize
             content={'YUKI'}
             className="absolute text-[320px] top-[280px] text-green-100 font-graphity font-extrabold lg:text-[480px] md:top-0 left-0"
           />

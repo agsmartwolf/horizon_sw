@@ -8,6 +8,7 @@ export interface TextHeadingProps {
   size?: 1 | 2 | 3;
   rootEl?: RootElement;
   className?: string;
+  customSize?: boolean;
 }
 
 const SIZE_CLASS_MAPPINGS = {
@@ -21,8 +22,9 @@ const TextHeading: React.FC<TextHeadingProps> = ({
   size = 1,
   rootEl,
   className = '',
+  customSize = false,
 }) => {
-  const classNames = SIZE_CLASS_MAPPINGS[size];
+  const classNames = !customSize ? SIZE_CLASS_MAPPINGS[size] : '';
   const cn = useClassNames(classNames, className);
   return <RichText content={content} className={cn} rootEl={rootEl} />;
 };
