@@ -244,7 +244,7 @@ const Footer: React.FC<FooterProps> = ({
                     <Link
                       key={key}
                       link={value.url || '#'}
-                      className="leading-none text-white">
+                      className="leading-none text-white hover:opacity-80">
                       {SOCIAL_ICONS_MAP[key as SOCIALS]}
                     </Link>
                   ),
@@ -252,7 +252,11 @@ const Footer: React.FC<FooterProps> = ({
               <Link
                 link="https://t.me/smart_wolf_ag"
                 className="leading-none text-white">
-                <TelegramIcon height={20} width={20} className="w-8 h-auto" />
+                <TelegramIcon
+                  height={20}
+                  width={20}
+                  className="w-8 h-auto hover:opacity-80"
+                />
               </Link>
             </div>
           )}
