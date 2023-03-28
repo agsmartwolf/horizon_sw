@@ -1,12 +1,13 @@
 export enum SOCIALS {
-  TWITTER = 'twitter',
-  FACEBOOK = 'facebook',
+  // TWITTER = 'twitter',
+  // FACEBOOK = 'facebook',
   INSTAGRAM = 'instagram',
-  TIKTOK = 'tiktok',
-  PINTEREST = 'pinterest',
-  YOUTUBE = 'youtube',
-  VIMEO = 'vimeo',
+  // TIKTOK = 'tiktok',
+  // PINTEREST = 'pinterest',
+  // YOUTUBE = 'youtube',
+  // VIMEO = 'vimeo',
   WHATSAPP = 'whatsapp',
+  TELEGRAM = 'telegram',
 }
 
 export interface SocialLink {

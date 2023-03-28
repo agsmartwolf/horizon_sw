@@ -74,19 +74,19 @@ Default.args = {
   showPayments: true,
   showSocials: true,
   socialLinks: {
-    facebook: {
+    /*    facebook: {
       show: true,
       url: 'https://www.facebook.com/swell',
     },
     twitter: {
       show: true,
       url: 'https://twitter.com/swell',
-    },
+    },*/
     instagram: {
       show: true,
       url: 'https://www.instagram.com/swell',
     },
-    tiktok: {
+    /*    tiktok: {
       show: true,
       url: 'https://www.tiktok.com/swell',
     },
@@ -101,10 +101,14 @@ Default.args = {
     vimeo: {
       show: true,
       url: 'https://vimeo.com/swell',
-    },
+    },*/
     whatsapp: {
       show: true,
-      url: 'https://wa.me/917-898-89898',
+      url: 'https://wa.me/111--111-1-111',
+    },
+    telegram: {
+      show: true,
+      url: 'https://t.me/sw',
     },
   },
 };

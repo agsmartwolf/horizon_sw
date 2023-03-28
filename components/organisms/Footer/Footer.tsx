@@ -1,5 +1,4 @@
-import React, { useState, useCallback, ComponentType } from 'react';
-import dynamic from 'next/dynamic';
+import React, { useState, useCallback } from 'react';
 import ActionInput from 'components/molecules/ActionInput';
 import LinksAccordion from 'components/atoms/LinksAccordion';
 import { SECTION_PADDING_MAP, SPACING } from 'lib/globals/sizings';
@@ -13,35 +12,9 @@ import TextBody from '../../atoms/Text/TextBody';
 import { useRouter } from 'next/navigation';
 import useI18n from '../../../hooks/useI18n';
 
-type ReactSVGComponent = ComponentType<React.SVGProps<SVGSVGElement>>;
-
-const TwitterIcon = dynamic<ReactSVGComponent>(
-  () => import('assets/icons/twitter.svg'),
-) as (props: any) => JSX.Element;
-const FacebookIcon = dynamic<ReactSVGComponent>(
-  () => import('assets/icons/facebook.svg'),
-) as (props: any) => JSX.Element;
-const InstagramIcon = dynamic<ReactSVGComponent>(
-  () => import('assets/icons/instagram.svg'),
-) as (props: any) => JSX.Element;
-const TiktokIcon = dynamic<ReactSVGComponent>(
-  () => import('assets/icons/tiktok.svg'),
-) as (props: any) => JSX.Element;
-const PinterestIcon = dynamic<ReactSVGComponent>(
-  () => import('assets/icons/pinterest.svg'),
-) as (props: any) => JSX.Element;
-const YoutubeIcon = dynamic<ReactSVGComponent>(
-  () => import('assets/icons/youtube.svg'),
-) as (props: any) => JSX.Element;
-const VimeoIcon = dynamic<ReactSVGComponent>(
-  () => import('assets/icons/vimeo.svg'),
-) as (props: any) => JSX.Element;
-const WhatsappIcon = dynamic<ReactSVGComponent>(
-  () => import('assets/icons/whatsapp.svg'),
-) as (props: any) => JSX.Element;
-const TelegramIcon = dynamic<ReactSVGComponent>(
-  () => import('assets/icons/telegram.svg'),
-) as (props: any) => JSX.Element;
+import InstagramIcon from 'assets/icons/instagram.svg';
+import WhatsappIcon from 'assets/icons/whatsapp.svg';
+import TelegramIcon from 'assets/icons/telegram.svg';
 
 export interface FooterLink {
   href: string;
@@ -59,13 +32,7 @@ export interface Column {
 }
 
 const SOCIAL_ICONS_MAP = {
-  twitter: <TwitterIcon height={20} width={20} className="w-8 h-auto" />,
-  facebook: <FacebookIcon height={20} width={20} className="w-8 h-auto" />,
   instagram: <InstagramIcon height={30} width={30} className="w-8 h-auto" />,
-  tiktok: <TiktokIcon height={20} width={20} className="w-8 h-auto" />,
-  pinterest: <PinterestIcon height={20} width={20} className="w-8 h-auto" />,
-  youtube: <YoutubeIcon height={20} width={20} className="w-8 h-auto" />,
-  vimeo: <VimeoIcon height={20} width={20} className="w-8 h-auto" />,
   whatsapp: <WhatsappIcon height={30} width={30} className="w-8 h-auto" />,
   telegram: <TelegramIcon height={30} width={30} className="w-8 h-auto" />,
 };
