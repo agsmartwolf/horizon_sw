@@ -20,7 +20,8 @@ import Script from 'next/script';
 import * as gtag from 'lib/analytics/google';
 import { GA_MEASUREMENT_ID } from 'lib/analytics/google';
 import Head from 'next/head';
-// import PawPrintAnimation from 'components/atoms/PawILoader';
+import PawPrintAnimation from 'components/atoms/PawILoader';
+import ErrorBoundary from 'components/atoms/ErrorBoundary';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -94,7 +95,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const comp = <C {...pageProps} />;
 
   return (
-    <>
+    <ErrorBoundary>
       <Head>
         <link rel="icon" href="/favicon.png" sizes="any" />
         <meta name="thumbnail" content="thumb-150x150.png" />
@@ -133,8 +134,8 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         ))}
         <ToastViewport className="fixed top-0 right-0 z-modal m-4 flex max-w-[500px] flex-col gap-2" />
       </ToastProvider>
-      {/*<PawPrintAnimation />*/}
-    </>
+      <PawPrintAnimation />
+    </ErrorBoundary>
   );
 }
 
