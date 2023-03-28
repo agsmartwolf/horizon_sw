@@ -14,7 +14,7 @@
 }
 
 .swiperContainer section {
-  @apply mb-0 pt-0 pb-0 sm:pt-20 relative h-full;
+  @apply mb-0 pt-0 pb-0 2xl:pt-20 relative h-full;
 }
 
 .swiperContainer section a {
