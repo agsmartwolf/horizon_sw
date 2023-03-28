@@ -167,8 +167,8 @@ query getFeaturedCategory($slug: String) {
   }
 }
 
-query getFilteredProducts($filter: JSON) {
-  products(limit: 20, where: $filter) {
+query getFilteredProducts($filter: JSON, $locale: String) {
+  products(limit: 20, where: $filter, _locale: $locale) {
     count
     results {
       id

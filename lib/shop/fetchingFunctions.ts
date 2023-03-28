@@ -519,7 +519,7 @@ export const getBundles = async () => {
 
   return productResults;
 };
-export const getBestsellers = async () => {
+export const getBestsellers = async (locale?: string) => {
   const { products } = await client
     .getFilteredProducts({
       filter: {
@@ -530,6 +530,7 @@ export const getBestsellers = async () => {
           ],
         },
       },
+      locale,
     })
     .then(response => response.data);
 

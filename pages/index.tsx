@@ -41,12 +41,11 @@ import useLocaleStore from '../stores/locale';
 const propsCallback: GetStaticProps<
   PageProps & Record<string, unknown>
 > = async context => {
+  const { locale } = context;
   const [bundles, bestsellers] = await Promise.all([
     getBundles(),
-    getBestsellers(),
+    getBestsellers(locale),
   ]);
-
-  const { locale } = context;
   const client = getGQLClient();
   const {
     data: { contentPages },
