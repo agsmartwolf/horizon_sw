@@ -1,0 +1,137 @@
+[
+  {
+    "name": "Footer",
+    "id": "footer",
+    "theme_menu_id": "footer",
+    "theme_id": "origin",
+    "items": [
+      {
+        "type": "column",
+        "items": [
+          {
+            "name": "All Products",
+            "type": "product"
+          },
+          {
+            "name": "Collars",
+            "type": "category",
+            "value": "collars"
+          },
+          {
+            "name": "Leashes",
+            "type": "category",
+            "value": "leashes"
+          },
+          {
+            "name": "Harnesses",
+            "type": "category",
+            "value": "harnesses"
+          }
+        ]
+      },
+      {
+        "type": "column",
+        "items": [
+          {
+            "name": "About",
+            "options": {
+              "target": ""
+            },
+            "type": "url",
+            "value": "/about"
+          },
+          {
+            "name": "Delivery",
+            "options": {
+              "target": ""
+            },
+            "type": "url",
+            "value": "/delivery"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Footer secondary",
+    "id": "footer-secondary",
+    "theme_menu_id": "footer-secondary",
+    "theme_id": "origin",
+    "items": [
+      {
+        "name": "Privacy policy",
+        "type": "content",
+        "model": "pages",
+        "value": "privacy-policy"
+      },
+      {
+        "name": "Terms & Conditions",
+        "type": "content",
+        "model": "pages",
+        "value": "terms-conditions"
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "id": "header",
+    "theme_menu_id": "header",
+    "theme_id": "origin",
+    "items": [
+      {
+        "name": "Catalog",
+        "options": {
+          "target": ""
+        },
+        "type": "url",
+        "value": "/products",
+        "items": [
+          {
+            "type": "column",
+            "items": [
+              {
+                "name": "Collars",
+                "type": "category",
+                "value": "collars"
+              }
+            ]
+          },
+          {
+            "type": "column",
+            "items": [
+              {
+                "name": "Leashes",
+                "type": "category",
+                "value": "leashes"
+              }
+            ]
+          },
+          {
+            "type": "column",
+            "items": [
+              {
+                "name": "Harnesses",
+                "type": "category",
+                "value": "harnesses"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "About Us",
+        "type": "content",
+        "model": "pages",
+        "value": "about"
+      },
+      {
+        "name": "Delivery",
+        "options": {
+          "target": ""
+        },
+        "type": "url",
+        "value": "/delivery"
+      }
+    ]
+  }
+]
