@@ -1,8 +1,13 @@
+$size: 5px;
+
+.pawContainer {
+  rotate: -90deg;
+}
+
 .pad {
-  width: 25px;
-  height: 27px;
-  background-color: #654321;
-  -webkit-border-radius: 63px 63px 63px 63px / 108px     108px 72px 72px;
+  width: $size * 1;
+  height: $size * 1.08;
+  //-webkit-border-radius: 63px 63px 63px 63px / 108px     108px 72px 72px;
   border-radius: 50%  50%  50%  50%  / 60%   60%         40%  40%;
   display: block;
   position: absolute;
@@ -10,31 +15,31 @@
 
 
 .large {
-  width: 70px;
-  height: 80px;
+  width: $size * 2.8;
+  height: $size * 3.2;
   transform: rotate(80deg);
-  left: 100px;
-  top: 50px;
+  left: $size * 4;
+  top: $size * 2;
 }
 .small-1 {
   transform: rotate(50deg);
-  left: 145px;
-  top: 28px;
+  left: $size * 5.8;
+  top: $size * 1.12;
 }
 .small-2 {
   transform: rotate(65deg);
-  left: 174px;
-  top: 50px;
+  left: $size * 6.96;
+  top: $size * 2;
 }
 .small-3 {
   transform: rotate(98deg);
   position: absolute;
-  left: 178px;
-  top: 87px;
+  left: $size * 7.12;
+  top: $size * 3.48;
 }
 .small-4 {
   transform: rotate(140deg);
   position: absolute;
-  left: 158px;
-  top: 117px;
+  left: $size * 6.32;
+  top: $size * 4.68;
 }

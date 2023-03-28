@@ -1,10 +1,37 @@
 .container {
-
+  @apply fixed w-20 h-40 z-50 opacity-100;
+  transition: opacity 0.5s linear;
+  &.hidden {
+    @apply opacity-0;
+    transition: opacity 0.5s linear;
+  }
 }
 
-@keyframes walk {
-  /* appear */
-  25%  {opacity: 1;}
-  /* disappear */
-  100% {opacity: 0;}
+/* position and animate */
+
+.animating {
+  animation-name: walk;
+  animation-timing-function: linear;
+}
+
+.paw-print {
+  opacity: 0;
+  position: absolute;
+  //animation: /*keyframe*/walk /*duration*/3s /*transition*/linear /*repeat*/infinite;
+}
+
+/* walking effect animation keyframes */
+
+:global {
+  @keyframes walk {
+    0%{
+      opacity: 1;
+    }
+    50%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 0;
+    }
+  }
 }
