@@ -1,4 +1,4 @@
-import React, { Children, forwardRef } from 'react';
+import React, { Children, forwardRef, useMemo } from 'react';
 import {
   Swiper as Carousel,
   SwiperSlide,
@@ -43,6 +43,16 @@ const Swiper = forwardRef<SwiperRef, SwiperProps>((props: SwiperProps, ref) => {
     className,
   );
 
+  const carousalProps = useMemo(() => {
+    const cp = {
+      ...props,
+    };
+    delete cp.effectsEnabled;
+    delete cp.showPreviewSlide;
+    delete cp.verticalPadding;
+    return cp;
+  }, [props]);
+
   return (
     <div className={cns} data-testid="Swiper">
       {showPreviewSlide ? (
@@ -54,7 +64,7 @@ const Swiper = forwardRef<SwiperRef, SwiperProps>((props: SwiperProps, ref) => {
         </SwiperSlide>
       ) : null}
       <Carousel
-        {...props}
+        {...carousalProps}
         className={cn(props.className, {
           'opacity-0': !isInited,
         })}
