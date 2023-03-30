@@ -14,12 +14,14 @@ export interface StatusIndicatorProps {
   status: Status;
   type: 'order' | 'subscription' | 'stock';
   payload?: string;
+  showDetails?: boolean;
 }
 
 const StatusIndicator: React.FC<StatusIndicatorProps> = ({
   status,
   type,
   payload,
+  showDetails = false,
 }) => {
   const i18n = useI18n();
   const statusKey =
@@ -40,7 +42,7 @@ const StatusIndicator: React.FC<StatusIndicatorProps> = ({
         style={{ backgroundColor: template?.color }}></div>
       <span className="text-2xs font-medium text-black">
         {template?.label}
-        {!!template?.details && (
+        {showDetails && !!template?.details && (
           <>
             <span className="mx-1">•</span>
             <span className="text-3xs font-normal">
