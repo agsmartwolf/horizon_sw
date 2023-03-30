@@ -1,5 +1,5 @@
 .container {
-  @apply fixed w-20 h-40 z-50 opacity-100;
+  @apply fixed w-20 h-40 z-50 opacity-100 pointer-events-none;
   transition: opacity 0.5s linear;
   &.hidden {
     @apply opacity-0;
