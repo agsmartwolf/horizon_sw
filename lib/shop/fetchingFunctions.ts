@@ -223,6 +223,14 @@ export const getAllProducts = async (): Promise<{
   };
 };
 
+const parseSizeChart = (content: string) => {
+  try {
+    return JSON.parse(content);
+  } catch (e) {
+    return [];
+  }
+};
+
 export async function getProductBySlug(
   slug: string,
   options?: { currency?: string; locale?: string },
@@ -268,7 +276,9 @@ export async function getProductBySlug(
             title: upSellProduct?.name ?? '',
             description: upSellProduct?.description ?? '',
             descriptionShort: upSellProduct?.descriptionShort ?? '',
-            sizeChart: product?.sizeChart ? JSON.parse(product?.sizeChart) : [],
+            sizeChart: product?.sizeChart
+              ? parseSizeChart(product?.sizeChart)
+              : [],
             price: upSellProduct?.price ?? 0,
             tags: upSellProduct?.tags ?? [],
             origPrice: upSellProduct?.origPrice ?? null,
@@ -409,7 +419,7 @@ export async function getProductBySlug(
       enableProductCounter: product?.content?.enableProductCounter ?? true,
       lowStockIndicator: product?.content?.lowStockIndicator ?? null,
     },
-    sizeChart: product?.sizeChart ? JSON.parse(product.sizeChart) : [],
+    sizeChart: product?.sizeChart ? parseSizeChart(product.sizeChart) : [],
   };
 }
 
