@@ -55,6 +55,7 @@ import TextHeading from '../../components/atoms/Text/TextHeading';
 import SEO from '../../components/atoms/SEO';
 import Table from '../../components/atoms/Table';
 import GenericAccordion from '../../components/atoms/GenericAccordion';
+import { useProductSizeOptionUpdating } from '../../hooks/useProductSizeOptionUpdating';
 
 export enum LAYOUT_ALIGNMENT {
   STANDARD = 'standard',
@@ -254,6 +255,16 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
   };
 
   const displayedTags = useDisplayedTags(tags);
+
+  useProductSizeOptionUpdating({
+    colorOptionId,
+    productOptions,
+    productVariants,
+    purchaseOptions,
+    stockLevel,
+    state,
+    dispatch,
+  });
 
   return (
     <div>
