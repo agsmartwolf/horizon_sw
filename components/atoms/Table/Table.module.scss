@@ -3,9 +3,10 @@
 
 /* Visual styling */
 .table {
-  @apply text-center;
+  @apply text-center overflow-x-auto block overflow-x-auto whitespace-pre-line ;
   border-collapse: collapse;
   td {
+    min-width: 50px;
     @apply border-[0.5px] border-gray-400 text-center py-2;
   }
   th {
@@ -15,6 +16,9 @@
 
   tr {
     @apply odd:bg-gray-200;
+  }
+  td, th, tr {
+    @apply min-w-[100px] px-2;
   }
 }
 
