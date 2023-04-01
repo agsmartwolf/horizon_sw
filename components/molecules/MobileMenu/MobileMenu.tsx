@@ -84,7 +84,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
               {accountLinkLabel}
             </div>
           </Button>
-          <LocaleSelect className="w-full" />
+          <LocaleSelect className="w-full" bordered />
         </ul>
         {/*<CurrencySelect className="mt-5" />*/}
       </nav>

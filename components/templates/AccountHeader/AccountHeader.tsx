@@ -111,7 +111,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
             />*/}
           </Link>
           <div className="hidden sm:flex sm:col-span-1 items-center justify-end text-center md:mr-6 lg:mr-14">
-            <LocaleSelect />
+            <LocaleSelect bordered />
           </div>
         </div>
         {accountDetails && (
@@ -124,7 +124,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
           <AccountMobileMenu label={pageTitle} links={mobileMenuLinks} />
         )}
         <div className="sm:hidden w-full bg-black items-start justify-start md:mr-6 lg:mr-14 py-2 px-4">
-          <LocaleSelect />
+          <LocaleSelect bordered />
         </div>
       </header>
     </>
