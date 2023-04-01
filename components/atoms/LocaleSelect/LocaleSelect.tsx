@@ -4,21 +4,30 @@ import { Listbox } from '@headlessui/react';
 import ChevronSmallIcon from 'assets/icons/chevron-down-sm.svg';
 import useLocaleStore from 'stores/locale';
 import type { Locale } from 'types/shared/locale';
+import cn from 'classnames';
+import useGlobalUI from '../../../stores/global-ui';
 
 export interface LocaleSelectProps {
   className?: string;
+  bordered?: boolean;
 }
 
-const LocaleSelect: React.FC<LocaleSelectProps> = ({ className }) => {
+const LocaleSelect: React.FC<LocaleSelectProps> = ({
+  className,
+  bordered = false,
+}) => {
   const [activeLocale, locales] = useLocaleStore(state => [
     state.activeLocale,
     state.locales,
   ]);
 
+  const setLoading = useGlobalUI(state => state.setLoading);
+
   const router = useRouter();
   const { pathname, asPath, query } = router;
 
   function changeLocale(nextLocale: Locale) {
+    setLoading(true);
     router.push({ pathname, query }, asPath, { locale: nextLocale.code });
   }
 
@@ -32,9 +41,13 @@ const LocaleSelect: React.FC<LocaleSelectProps> = ({ className }) => {
         {({ open }) => (
           <div className="relative inline-block text-white">
             <Listbox.Button
-              className={`inline-flex items-center gap-2 rounded-lg border border-dividers px-4 py-2 text-md font-semibold capitalize focus:outline-none focus-visible:ring-2 focus-visible:ring-accent lg:border-transparent lg:font-medium ${
-                open ? 'rounded-b-[0] bg-black lg:border-dividers' : ''
-              }`}>
+              className={cn(
+                `inline-flex items-center gap-2 px-4 py-2 text-md font-semibold capitalize focus:outline-none focus-visible:ring-2 focus-visible:ring-accent lg:border-transparent lg:font-medium`,
+                {
+                  'rounded-b-[0] bg-black lg:border-dividers': open,
+                  'border border-dividers': bordered,
+                },
+              )}>
               {activeLocale?.name}
               <ChevronSmallIcon
                 className={`w-3 transform transition ${
@@ -42,7 +55,11 @@ const LocaleSelect: React.FC<LocaleSelectProps> = ({ className }) => {
                 }`}
               />
             </Listbox.Button>
-            <Listbox.Options className="absolute z-50 flex w-full flex-col gap-2 rounded-b-lg border-x border-b border-dividers bg-black px-2 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+            <Listbox.Options
+              className={cn(
+                'absolute z-50 flex w-full flex-col gap-2 bg-black px-2 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent',
+                { 'border-x border-b border-dividers': bordered },
+              )}>
               {locales?.map(locale => (
                 <Listbox.Option key={locale.code} value={locale}>
                   {({ active }) => (

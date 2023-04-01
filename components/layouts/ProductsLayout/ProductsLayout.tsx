@@ -57,6 +57,7 @@ import useProductsStore from 'stores/products';
 import type { SwellProduct } from '../../../lib/graphql/generated/sdk';
 import useLocaleStore from '../../../stores/locale';
 import HorizontalScroller from '../../atoms/HorizontalScroller';
+import GenericPopover from '../../atoms/GenericPopover';
 
 export type ProductsPerRow = 2 | 3 | 4 | 5;
 
@@ -113,6 +114,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   ]);
 
   const [loading, setLoading] = useState(true);
+
   const [products, setProducts] = useState<PurchasableProductData[]>([]);
   const [activeFilters, setActiveFilters] = useState<FilterState[]>();
 
@@ -299,7 +301,10 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     setActiveFilters(getActiveFilters(searchParams));
   }, [activeFilters, getActiveFilters, searchParams]);
 
-  const allProducts = useProductsStore(state => state.products);
+  const [allProducts, updateProductLoading] = useProductsStore(state => [
+    state.products,
+    state.updateLoading,
+  ]);
   const updateProductsStore = useProductsStore(state => state.updateProducts);
 
   const fetchProps = async (mounted: boolean) => {
@@ -310,6 +315,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
 
     if (!allProducts.length || activeLocale?.code !== routerLegacy.locale) {
       setLoading(true);
+      updateProductLoading(true);
 
       const slug = routerLegacy.query.slug?.toString();
       // const curCategory = categories.find(c => c.slug === slug);
@@ -343,6 +349,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     setPriceRangeLimits(getPriceRangeFromProducts(productResults));
     setProducts(productData);
     setLoading(false);
+    updateProductLoading(false);
   };
 
   // Update the products list when the query string changes
@@ -607,12 +614,18 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                           )
                         }
                         className={'text-white'}
-                        name={filter.name}>
+                        name={(() => {
+                          const n =
+                            // @ts-ignore
+                            text[filter.name?.toLowerCase()] ?? filter.name;
+                          return n.charAt(0).toUpperCase() + n.slice(1);
+                        })()}>
                         <ul className="flex flex-col gap-2 pb-4">
                           {filter.values.map(option => (
                             <li key={option.label}>
                               <div className="flex items-center gap-2">
                                 <Checkbox
+                                  checkColor="white"
                                   onChange={e =>
                                     onCheckboxChange(e, option, filter)
                                   }
@@ -623,7 +636,6 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                                   )}
                                   label={option.label}
                                 />
-                                <span>{option.label}</span>
                               </div>
                             </li>
                           ))}
@@ -794,7 +806,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
           </div>
           <ul
             className={cn(
-              'flex w-full shrink-0 border-dividers bg-transparent z-20 overflow-hidden',
+              'flex w-full shrink-0 border-dividers bg-transparent z-20',
               SECTION_PADDING_MAP[SPACING.SMALL],
             )}>
             <li className={cn('flex pt-4 pr-10', filterCns)}>
@@ -805,7 +817,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
             </li>
             {attributeFilters.map(filter => (
               <li className={filterCns} key={filter.name}>
-                <GenericAccordion
+                <GenericPopover
                   // Force re-render of the component client-side to have the defaultOpen state match the query parameters
                   key={typeof activeFilters === 'undefined' ? 1 : 2}
                   defaultOpen={
@@ -818,9 +830,8 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                     const n = text[filter.name.toLowerCase()] ?? filter.name;
                     return n.charAt(0).toUpperCase() + n.slice(1);
                   })()}
-                  className="pl-2"
-                  hideArrow>
-                  <ul className="flex flex-col gap-2 pb-4 bg-white z-10 relative px-2 -ml-2">
+                  className="pl-2 pt-4">
+                  <ul className="flex flex-col gap-2 py-4 bg-white z-10 relative px-2 -ml-2">
                     {filter.values.map(option => (
                       <li key={option.label}>
                         <div className="flex items-center gap-2">
@@ -834,25 +845,24 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                             )}
                             label={option.label}
                           />
-                          <span>{option.label}</span>
                         </div>
                       </li>
                     ))}
                   </ul>
-                </GenericAccordion>
+                </GenericPopover>
               </li>
             ))}
             <li className={filterCns}>
-              <GenericAccordion
+              <GenericPopover
                 // Force re-render of the component client-side to have the defaultOpen state match the query parameters
                 key={typeof activeFilters === 'undefined' ? 1 : 2}
                 defaultOpen={new URLSearchParams(
                   typeof window !== 'undefined' ? window.location.search : '',
                 ).has('price')}
                 name={text.priceLabel}
-                hideArrow>
-                <div>
-                  <div className="flex w-full justify-between text-black">
+                className="pt-4">
+                <div className="px-2">
+                  <div className="flex w-full justify-between text-black gap-4">
                     <span>
                       {formatPrice(
                         Math.max(
@@ -879,7 +889,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                     thumbClassName={'bg-black'}
                   />
                 </div>
-              </GenericAccordion>
+              </GenericPopover>
             </li>
           </ul>
         </aside>

@@ -42,6 +42,7 @@ import type { SwellProduct } from 'lib/graphql/generated/sdk';
 import { getDefaultLangJsonByLocale, LocaleCode } from '../../hooks/useI18n';
 import { deepMerge } from '../../utils/helpers';
 import { capitalizeFirstLetter } from '../../utils/text';
+import useGlobalUI from '../../stores/global-ui';
 
 const client = getGQLClient();
 
@@ -52,6 +53,8 @@ export const getCategories = async ({
   currentSlug?: string;
   locale?: string;
 }) => {
+  const { setLoading } = useGlobalUI.getState();
+  setLoading(true);
   const { categories: categoriesResponse } = await client
     .getCategories({ locale })
     .then(response => response.data);
@@ -120,6 +123,7 @@ export const getCategories = async ({
     showProductsPrice: categoriesList[0]?.content?.showProductsPrice ?? false,
   };
 
+  setLoading(false);
   return {
     categories: categoriesData,
     settings,
@@ -131,6 +135,8 @@ export const getProductsList = async (
   currency?: string,
   locale?: string,
 ) => {
+  const { setLoading } = useGlobalUI.getState();
+  setLoading(true);
   // Get the products list
   const { products } = await client
     .getAllProducts({ limit: 100, currency, locale })
@@ -141,6 +147,8 @@ export const getProductsList = async (
     categorySlug,
   );
 
+  setLoading(false);
+
   return productResults;
 };
 
@@ -148,6 +156,8 @@ export const getProductListingData = async (
   categorySlug?: string | CategoryData,
   locale?: string,
 ): Promise<ProductsLayoutProps> => {
+  const { setLoading } = useGlobalUI.getState();
+  setLoading(true);
   // Get the products list
   const productsPromise = getProductsList(categorySlug, undefined, locale);
 
@@ -165,6 +175,7 @@ export const getProductListingData = async (
 
   const attributeFilters = getFilters(productResults);
 
+  setLoading(false);
   return {
     categories,
     settings,
@@ -183,6 +194,8 @@ export const getAllProducts = async (): Promise<{
   products: PurchasableProductData[];
   count: number;
 }> => {
+  const { setLoading } = useGlobalUI.getState();
+  setLoading(true);
   const { data: storeData } = await client.getStoreSettings();
   const currencies = storeData.storeSettings?.store?.currencies;
 
@@ -217,6 +230,8 @@ export const getAllProducts = async (): Promise<{
   const productsList = productsResult?.results ?? [];
 
   const products = mapProducts(denullifyArray(productsList));
+
+  setLoading(false);
   return {
     products: denullifyArray(products),
     count: productsResult?.count ?? 0,
@@ -235,6 +250,8 @@ export async function getProductBySlug(
   slug: string,
   options?: { currency?: string; locale?: string },
 ): Promise<ProductsPageProps> {
+  const { setLoading } = useGlobalUI.getState();
+  setLoading(true);
   const { currency, locale } = options ?? {};
   const response = await client.getProduct({
     slug,
@@ -349,7 +366,7 @@ export async function getProductBySlug(
   });
 
   // reduce product.variants to array of images[i].file prop by variant color prop
-
+  setLoading(false);
   return {
     slug,
     productId: product?.id ?? '',
@@ -508,6 +525,9 @@ export const getStoreSettings = async (locale?: string) => {
       formattedSettings.lang,
     ),
   };
+
+  const { setLoading } = useGlobalUI.getState();
+  setLoading(false);
 
   return {
     ...settingsWithMergedLocale,

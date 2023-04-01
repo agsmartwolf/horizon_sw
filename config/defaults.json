@@ -468,6 +468,9 @@
         "treats": "Treats",
         "allproducts": "All products",
         "accessories": "Accessories"
+      },
+      "common": {
+        "loading": "Loading..."
       }
     },
     "ru": {
@@ -852,6 +855,9 @@
         "treats": "Лакомства",
         "allproducts": "Все товары",
         "accessories": "Аксессуары"
+      },
+      "common": {
+        "loading": "Загрузка..."
       }
     }
   }

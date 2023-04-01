@@ -22,6 +22,9 @@ import { GA_MEASUREMENT_ID } from 'lib/analytics/google';
 import Head from 'next/head';
 import PawPrintAnimation from 'components/atoms/PawILoader';
 import ErrorBoundary from 'components/atoms/ErrorBoundary';
+import LoaderSVG from '../components/atoms/LoaderSVG';
+import useGlobalUI from '../stores/global-ui';
+import useProductsStore from '../stores/products';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -29,6 +32,10 @@ type AppPropsWithLayout = AppProps & {
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const notifications = useNotificationStore(state => state.notifications);
+  const [isLoading, setLoading] = useGlobalUI(state => [
+    state.isLoading,
+    state.setLoading,
+  ]);
   const [locales, setActiveLocale] = useLocaleStore(state => [
     state.locales,
     state.setActiveLocale,
@@ -37,6 +44,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     store.getCart,
     store.hideCart,
   ]);
+  const isProductsLoading = useProductsStore(state => state.isLoading);
 
   const router = useRouter();
   const { locale } = router;
@@ -45,7 +53,13 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
     if (locale) {
       const newLocale = locales.find(myLocale => myLocale.code === locale);
-      if (newLocale) setActiveLocale(newLocale);
+      if (newLocale) {
+        setActiveLocale(newLocale);
+      }
+
+      if (!isProductsLoading) {
+        setLoading(false);
+      }
 
       sendMessage({
         type: 'locale.changed',
@@ -54,7 +68,8 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         },
       });
     }
-  }, [locale, locales, setActiveLocale]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locale, locales, setActiveLocale, isProductsLoading]);
 
   // Hide cart on route change
   useEffect(() => {
@@ -122,6 +137,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <ToastProvider>
         <SettingsProvider createStore={createSettingsStore}>
           {getLayout(comp)}
+          {isLoading ? (
+            <div className="fixed top-0 left-0 w-full h-full z-modal bg-[rgb(0,0,0,0.5)] flex justify-center items-center">
+              <LoaderSVG />
+            </div>
+          ) : null}
         </SettingsProvider>
         {notifications.map(notification => (
           <Notification
