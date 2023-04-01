@@ -3,6 +3,7 @@ import Link from 'next/link';
 import cn from 'classnames';
 import { joinClasses } from 'utils/className';
 import { BUTTON_STYLE, BUTTON_TYPE } from 'types/shared/button';
+import Bone from './bone.svg';
 
 interface BaseProps {
   /**
@@ -25,6 +26,7 @@ interface BaseProps {
    * Is the button disabled?
    */
   disabled?: boolean;
+  loading?: boolean;
 
   /**
    * Does the button function as a link?
@@ -61,6 +63,7 @@ const Button = React.forwardRef<
       children,
       hasBorder = true,
       hasShadow = false,
+      loading = false,
       small = false,
       fullWidth = false,
       disabled = false,
@@ -118,8 +121,11 @@ const Button = React.forwardRef<
         {...(props as ButtonTypeProps)}
         className={classNames}
         ref={ref as React.ForwardedRef<HTMLButtonElement>}
-        disabled={disabled}>
-        {children}
+        disabled={disabled || loading}>
+        <div className="flex items-center justify-center">
+          {loading ? <Bone className="mr-2 animate-spin w-4" /> : null}
+          {children}
+        </div>
       </button>
     );
   },

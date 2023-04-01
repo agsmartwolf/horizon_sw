@@ -301,10 +301,12 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     setActiveFilters(getActiveFilters(searchParams));
   }, [activeFilters, getActiveFilters, searchParams]);
 
-  const [allProducts, updateProductLoading] = useProductsStore(state => [
-    state.products,
-    state.updateLoading,
-  ]);
+  const [allProducts, updateProductLoading, isProductsLoading] =
+    useProductsStore(state => [
+      state.products,
+      state.updateLoading,
+      state.isLoading,
+    ]);
   const updateProductsStore = useProductsStore(state => state.updateProducts);
 
   const fetchProps = async (mounted: boolean) => {
@@ -312,10 +314,9 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     // Right now we are getting all products FOR THE FIRST TIME and filter them by client side
 
     let productResults: SwellProduct[] = [];
-
+    updateProductLoading(true);
     if (!allProducts.length || activeLocale?.code !== routerLegacy.locale) {
       setLoading(true);
-      updateProductLoading(true);
 
       const slug = routerLegacy.query.slug?.toString();
       // const curCategory = categories.find(c => c.slug === slug);
@@ -722,6 +723,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                 </ul>
 
                 <Button
+                  loading={isProductsLoading || loading}
                   elType={BUTTON_TYPE.BUTTON}
                   className="text-center uppercase"
                   onClick={closeFilters}
