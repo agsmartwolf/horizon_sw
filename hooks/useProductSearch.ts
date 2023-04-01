@@ -5,6 +5,7 @@ import { denullifyArray } from 'lib/utils/denullify';
 import useCurrencyStore from 'stores/currency';
 import type { ProductData } from 'types/shared/products';
 import getGQLClient from 'lib/graphql/client';
+import { fbEvent } from 'lib/analytics/fb/conversion-api-wrapper/src';
 
 const DEBOUNCE_INTERVAL = 500;
 
@@ -17,6 +18,12 @@ export default function useProductSearch() {
 
   async function fetchProducts(search: string) {
     if (search) {
+      fbEvent({
+        eventName: 'Search', // ViewContent, AddToCart, InitiateCheckout or Purchase
+        enableStandardPixel: false,
+        products: [],
+        search_string: search,
+      });
       setIsSearching(true);
       client
         .searchProducts({ searchTerm: search, currency: activeCurrency.code })

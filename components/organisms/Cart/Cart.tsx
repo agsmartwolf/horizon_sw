@@ -7,6 +7,7 @@ import AddMoreProductsCard from 'components/molecules/AddMoreProductsCard';
 import SadFaceIcon from 'assets/icons/sad-face.svg';
 import type { CartItemProps } from 'components/molecules/CartItem';
 import useI18n from 'hooks/useI18n';
+import { initialCurrencies } from '../../../stores/currency';
 
 export interface CartProps {
   visible: boolean;
@@ -81,6 +82,16 @@ const Cart: React.FC<CartProps> = ({
             total={total}
             checkoutUrl={checkoutUrl ?? '#'}
             disabled={items.length === 0}
+            eventData={{
+              eventName: 'InitiateCheckout', // ViewContent, AddToCart, InitiateCheckout or Purchase
+              products: items.map(i => ({
+                sku: i.productId,
+                quantity: i.quantity,
+              })),
+              value: total,
+              currency: initialCurrencies[0].code,
+              enableStandardPixel: false,
+            }}
           />
         </Transition.Child>
       </Dialog>

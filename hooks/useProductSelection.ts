@@ -15,6 +15,7 @@ import type {
   SwellProductVariant,
 } from 'lib/graphql/generated/sdk';
 import type { CartItemInput } from 'types/shared/cart';
+import { fbEvent } from '../lib/analytics/fb/conversion-api-wrapper/src';
 
 export enum ACTIONS {
   SET_SELECTED_PURCHASE_OPTION,
@@ -291,6 +292,16 @@ const useProductSelection = ({
           },
         };
       }
+      fbEvent({
+        eventName: 'AddToCart',
+        enableStandardPixel: false,
+        products: [
+          {
+            sku: cartItemInput.productId,
+            quantity: cartItemInput.quantity,
+          },
+        ],
+      });
       try {
         await _addToCart(cartItemInput, config);
         // TODO: Standardize error data type to handle errors consistently.
