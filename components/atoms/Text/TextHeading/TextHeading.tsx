@@ -8,6 +8,7 @@ export interface TextHeadingProps {
   size?: 1 | 2 | 3;
   rootEl?: RootElement;
   className?: string;
+  // If true, size will be ignored and className will be used instead
   customSize?: boolean;
 }
 

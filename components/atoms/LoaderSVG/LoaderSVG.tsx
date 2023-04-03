@@ -3,8 +3,6 @@ import { useAnimation, motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 import React, { useEffect } from 'react';
-import useI18n from '../../../hooks/useI18n';
-import TextHeading from '../Text/TextHeading';
 
 const SPEED_FACTOR = 0.5;
 const pulseDuration = 1.5;
@@ -14,9 +12,6 @@ const LoaderSVG: React.FC = () => {
   const controlsDog = useAnimation();
   const controlsPulse = useAnimation();
   const [ref, inView] = useInView();
-
-  const i18n = useI18n();
-  const loadingLabel = i18n('common.loading');
 
   async function sequence() {
     await controlsCircle.start({
@@ -113,9 +108,7 @@ const LoaderSVG: React.FC = () => {
             repeat: 0,
             delay: 3.8 * SPEED_FACTOR,
           },
-        }}>
-        <TextHeading content={loadingLabel} className={'text-green-100'} />
-      </motion.div>
+        }}></motion.div>
     </div>
   );
 };
