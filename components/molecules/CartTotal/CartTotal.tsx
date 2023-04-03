@@ -3,12 +3,16 @@ import useCurrencyStore from 'stores/currency';
 import Button from 'components/atoms/Button';
 import { BUTTON_TYPE } from 'types/shared/button';
 import useI18n from 'hooks/useI18n';
+import { useRouter } from 'next/navigation';
+import type FBEventType from 'lib/analytics/fb/conversion-api-wrapper/types';
+import { fbEvent } from 'lib/analytics/fb/conversion-api-wrapper/src';
 
 export interface CartTotalProps {
   total: number;
   disabled?: boolean;
   className?: string;
   checkoutUrl: string;
+  eventData: FBEventType;
 }
 
 const CartTotal: React.FC<CartTotalProps> = ({
@@ -16,7 +20,9 @@ const CartTotal: React.FC<CartTotalProps> = ({
   disabled = false,
   className,
   checkoutUrl,
+  eventData,
 }) => {
+  const router = useRouter();
   const formatPrice = useCurrencyStore(state => state.formatPrice);
   const i18n = useI18n();
 
@@ -38,7 +44,14 @@ const CartTotal: React.FC<CartTotalProps> = ({
         className="text-center uppercase"
         href={checkoutUrl}
         disabled={disabled}
-        fullWidth>
+        fullWidth
+        onClick={e => {
+          e.preventDefault();
+          fbEvent(eventData);
+          setTimeout(() => {
+            router.push(checkoutUrl);
+          }, 150);
+        }}>
         {checkoutLabel}
       </Button>
     </div>
