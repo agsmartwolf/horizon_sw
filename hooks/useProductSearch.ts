@@ -22,7 +22,7 @@ export default function useProductSearch() {
         eventName: 'Search', // ViewContent, AddToCart, InitiateCheckout or Purchase
         enableStandardPixel: false,
         products: [],
-        search_string: search,
+        searchString: search,
       });
       setIsSearching(true);
       client

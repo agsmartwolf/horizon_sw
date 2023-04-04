@@ -14,13 +14,17 @@ export default function useCurrencySubscription<T, K extends T>({
   currencyGetter,
 }: CurrencySubscriptionData<T, K>): T {
   const [returnData, setReturnData] = useState<T>();
+  const [isFirstlyFetched, setIsFirstlyFetched] = useState(false);
   const [currency, setCurrency] = useState(currencyGetter(defaultData));
   const activeCurrency = useCurrencyStore(state => state.currency);
 
   useEffect(() => {
     let mounted = true;
+    // needed for initial fetch for sync data with SWELL store
+
     async function fetchData() {
-      if (currency !== activeCurrency.code) {
+      if (currency !== activeCurrency.code || !isFirstlyFetched) {
+        setIsFirstlyFetched(true);
         const newReturnData = await callback(activeCurrency.code);
         if (mounted) {
           setCurrency(currencyGetter(newReturnData));
@@ -34,7 +38,13 @@ export default function useCurrencySubscription<T, K extends T>({
     return () => {
       mounted = false;
     };
-  }, [activeCurrency.code, callback, currency, currencyGetter]);
+  }, [
+    isFirstlyFetched,
+    activeCurrency.code,
+    callback,
+    currency,
+    currencyGetter,
+  ]);
 
   return {
     ...defaultData,
