@@ -50,7 +50,7 @@ const CollapsableText: React.FC<CollapsableTextProps> = ({
         width={24}
         icon={`system-uicons:pull-${open ? 'up' : 'down'}`}
         className={cn('text-black cursor-pointer mx-auto', {
-          'mt-4': !open,
+          'mt-4': true,
           'animate-bounce': !open && !stateChangedOnce,
           hidden: descriptionHeight < MIN_DESCRIPTION_HEIGHT,
         })}
