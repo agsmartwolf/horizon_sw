@@ -7,7 +7,7 @@ import Cookies from 'universal-cookie';
  * @param req
  */
 const getClientIpAddress = (req: NextApiRequest): string => {
-  const ipAddress = req.headers['x-real-ip'] || req.connection.remoteAddress;
+  const ipAddress = req.headers['x-real-ip'] || req.socket.remoteAddress;
 
   if (ipAddress) {
     return String(ipAddress);

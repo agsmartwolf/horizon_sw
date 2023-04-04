@@ -9,6 +9,7 @@ export type Arguments = {
   }[];
   value?: number;
   currency?: string;
+  searchString?: string;
   userAgent: string;
   sourceUrl: string;
   testEventCode?: string;

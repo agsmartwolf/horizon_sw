@@ -55,7 +55,7 @@ const fbEvent = (event: FBEventType): void => {
       emails: event.emails,
       phones: event.phones,
       products: event.products,
-      search_string: event.search_string,
+      searchString: event.searchString,
       value: event.value,
       currency: event.currency,
       userAgent: navigator.userAgent,

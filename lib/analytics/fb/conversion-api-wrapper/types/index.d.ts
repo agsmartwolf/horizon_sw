@@ -9,7 +9,7 @@ type FBEventType = {
   }[];
   value?: number;
   currency?: string;
-  search_string?: string;
+  searchString?: string;
   enableStandardPixel?: boolean;
   testEventCode?: string;
 };

@@ -9,6 +9,7 @@ export type Arguments = {
   }[];
   value?: number;
   currency?: string;
+  searchString: string;
   fbp: string;
   fbc: string;
   ipAddress: string;

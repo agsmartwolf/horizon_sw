@@ -13,6 +13,7 @@ import { sha256Hash } from '../../utils/hash';
  * @param products
  * @param value
  * @param currency
+ * @param searchString
  * @param fbc
  * @param fbp
  * @param ipAddress
@@ -35,6 +36,7 @@ const sendServerSideEvent = async ({
   userAgent,
   sourceUrl,
   testEventCode,
+  searchString,
 }: Arguments): Promise<Response> => {
   const formData = new FormData();
 
@@ -66,8 +68,9 @@ const sendServerSideEvent = async ({
         quantity: product.quantity,
       })),
       custom_data: {
-        ...(value && { value }),
-        ...(currency && { currency }),
+        ...(value ? { value } : {}),
+        ...(searchString ? { search_string: searchString } : {}),
+        ...(currency ? { currency } : {}),
       },
     },
   ];
