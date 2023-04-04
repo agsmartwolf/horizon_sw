@@ -1,3 +1,4 @@
+import fetch, { Request } from 'node-fetch';
 import type { Arguments } from './graph-api.types';
 
 /**
@@ -14,7 +15,7 @@ const graphApi = async <T>({
   const pixelId = process.env.NEXT_PUBLIC_FB_PIXEL_ID ?? '';
 
   const request = new Request(
-    `https://graph.facebook.com/v13.0/${pixelId}/${endpoint}`,
+    `https://graph.facebook.com/v16.0/${pixelId}/${endpoint}`,
     {
       method: 'POST',
       ...(body && { body }),
