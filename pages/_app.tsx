@@ -25,6 +25,10 @@ import ErrorBoundary from 'components/atoms/ErrorBoundary';
 import LoaderSVG from '../components/atoms/LoaderSVG';
 import useGlobalUI from '../stores/global-ui';
 import useProductsStore from '../stores/products';
+import {
+  FBPixelProvider,
+  FBPixelScript,
+} from 'lib/analytics/fb/conversion-api-wrapper/src/components';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -135,14 +139,17 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       />
 
       <ToastProvider>
-        <SettingsProvider createStore={createSettingsStore}>
-          {getLayout(comp)}
-          {isLoading ? (
-            <div className="fixed top-0 left-0 w-full h-full z-modal bg-[rgb(0,0,0,0.5)] flex justify-center items-center">
-              <LoaderSVG />
-            </div>
-          ) : null}
-        </SettingsProvider>
+        <FBPixelScript />
+        <FBPixelProvider>
+          <SettingsProvider createStore={createSettingsStore}>
+            {getLayout(comp)}
+            {isLoading ? (
+              <div className="fixed top-0 left-0 w-full h-full z-modal bg-[rgb(0,0,0,0.5)] flex justify-center items-center">
+                <LoaderSVG />
+              </div>
+            ) : null}
+          </SettingsProvider>
+        </FBPixelProvider>
         {notifications.map(notification => (
           <Notification
             id={notification.id}
