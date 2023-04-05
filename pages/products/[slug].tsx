@@ -199,7 +199,11 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
         upSells: upSellsProp,
       },
       callback: newCurrency =>
-        getProductBySlug(slug, { currency: newCurrency, locale }),
+        getProductBySlug(slug, {
+          currency: newCurrency,
+          locale,
+          skipTriggeringGlobalLoading: true,
+        }),
       currencyGetter: data => data.currency,
     });
   const formatPrice = useCurrency(store => store.formatPrice);
@@ -380,25 +384,27 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
 
               <div className="mt-4 inline-grid grid-cols-3 gap-2">
                 <Button
-                  className={'col-span-2'}
+                  className={'col-span-3 md:col-span-2'}
                   buttonStyle={BUTTON_STYLE.SECONDARY}
                   elType={BUTTON_TYPE.BUTTON}
                   fullWidth
                   type="submit"
                   disabled={stockStatus === STOCK_STATUS.OUT_OF_STOCK}>
-                  {addLabel} -{' '}
-                  {state.selectedPurchaseOption ===
-                  PURCHASE_OPTION_TYPE.SUBSCRIPTION ? (
-                    <Price
-                      price={subscriptionPriceTotal}
-                      origPrice={origSubscriptionPriceTotal}
-                    />
-                  ) : (
-                    <Price
-                      price={standardPriceTotal}
-                      origPrice={origStandardPriceTotal}
-                    />
-                  )}
+                  <p>
+                    {`${addLabel} - `}
+                    {state.selectedPurchaseOption ===
+                    PURCHASE_OPTION_TYPE.SUBSCRIPTION ? (
+                      <Price
+                        price={subscriptionPriceTotal}
+                        origPrice={origSubscriptionPriceTotal}
+                      />
+                    ) : (
+                      <Price
+                        price={standardPriceTotal}
+                        origPrice={origStandardPriceTotal}
+                      />
+                    )}
+                  </p>
                 </Button>
                 {/*{liveSettings.enableProductCounter && (
                   <CounterInput

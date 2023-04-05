@@ -58,7 +58,7 @@ const LoaderSVG: React.FC = () => {
   }, [controlsCircle, controlsDog, inView, controlsPulse]);
 
   return (
-    <div className="w-1/12 h-auto flex flex-col items-center">
+    <div className="w-1/6 lg:w-1/12 h-auto flex flex-col items-center">
       <motion.svg
         ref={ref}
         width="100%"

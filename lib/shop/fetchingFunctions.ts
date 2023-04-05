@@ -248,10 +248,16 @@ const parseSizeChart = (content: string) => {
 
 export async function getProductBySlug(
   slug: string,
-  options?: { currency?: string; locale?: string },
+  options?: {
+    currency?: string;
+    locale?: string;
+    skipTriggeringGlobalLoading?: boolean;
+  },
 ): Promise<ProductsPageProps> {
   const { setLoading } = useGlobalUI.getState();
-  setLoading(true);
+  if (!options?.skipTriggeringGlobalLoading) {
+    setLoading(true);
+  }
   const { currency, locale } = options ?? {};
   const response = await client.getProduct({
     slug,
@@ -366,7 +372,9 @@ export async function getProductBySlug(
   });
 
   // reduce product.variants to array of images[i].file prop by variant color prop
-  setLoading(false);
+  if (!options?.skipTriggeringGlobalLoading) {
+    setLoading(false);
+  }
   return {
     slug,
     productId: product?.id ?? '',
