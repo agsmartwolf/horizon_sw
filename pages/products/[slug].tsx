@@ -188,7 +188,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
   const upsellsTitle = i18n('products.upsells.title');
 
   const [liveSettings] = useState(settings);
-
+  const [isProductLoading, setIsProductLoading] = useState(false);
   const { productOptions, purchaseOptions, productVariants, upSells } =
     useCurrencySubscription({
       defaultData: {
@@ -198,12 +198,16 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
         productVariants: productVariantsProp,
         upSells: upSellsProp,
       },
-      callback: newCurrency =>
-        getProductBySlug(slug, {
+      callback: async newCurrency => {
+        setIsProductLoading(true);
+        const r = await getProductBySlug(slug, {
           currency: newCurrency,
           locale,
           skipTriggeringGlobalLoading: true,
-        }),
+        });
+        setIsProductLoading(false);
+        return r;
+      },
       currencyGetter: data => data.currency,
     });
   const formatPrice = useCurrency(store => store.formatPrice);
@@ -312,6 +316,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
             <form onSubmit={handleSubmit} className="flex flex-col mb-5">
               {!!productOptions.length && (
                 <ProductOptions
+                  updating={isProductLoading}
                   options={addStockOptionData(
                     productOptions,
                     state.selectedProductOptions,

@@ -6,6 +6,7 @@ import ProductOptionContainer from 'components/molecules/ProductOptionContainer'
 import ProductColorSelect from '../../atoms/ProductColorSelect';
 import dynamic from 'next/dynamic';
 import { getColorOptionId } from '../../../lib/utils/products';
+import Skeleton from '../../atoms/Skeleton';
 
 // TODO replace with dynamic import
 // import OptionSelectItem from 'components/atoms/OptionSelect/OptionSelectItem';
@@ -31,6 +32,8 @@ export interface ProductOptionsProps {
   options: ProductOption[];
   selectedOptions: Map<string, string>;
   isGiftCard?: boolean;
+  // is loading effect
+  updating?: boolean;
   onChange?: (payload: Action) => void;
   priceFormatter?: (price: number) => string;
 }
@@ -84,6 +87,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
   isGiftCard,
   onChange,
   priceFormatter,
+  updating,
 }) => {
   const filteredOptions = useMemo(
     () =>
@@ -95,24 +99,33 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
 
   const selectOption = useCallback(
     (productOption: ProductOption) =>
-      productOption.values?.map(({ id, name, disabled, description }) => (
-        <OptionSelectItem
-          key={id}
-          name={productOption.name || productOption.attributeId}
-          value={id}
-          label={name}
-          description={description}
-          onChange={(valueId: string) =>
-            onChange?.({
-              type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,
-              payload: { optionId: productOption.id, valueId },
-            })
-          }
-          active={selectedOptions.get(productOption.id) === id}
-          disabled={disabled}
-        />
-      )),
-    [onChange, selectedOptions],
+      updating
+        ? productOption.values?.map((_, ind) => (
+            <div
+              key={'skeleton_select_option' + _.id + ind}
+              className="relative">
+              <Skeleton className="w-10 h-10 min-w-10 animate-pulse" />
+              <Skeleton className="absolute w-4 h-6 top-2 left-[calc(50%-8px)] animate-pulse bg-gray-300" />
+            </div>
+          ))
+        : productOption.values?.map(({ id, name, disabled, description }) => (
+            <OptionSelectItem
+              key={id}
+              name={productOption.name || productOption.attributeId}
+              value={id}
+              label={name}
+              description={description}
+              onChange={(valueId: string) =>
+                onChange?.({
+                  type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,
+                  payload: { optionId: productOption.id, valueId },
+                })
+              }
+              active={selectedOptions.get(productOption.id) === id}
+              disabled={disabled}
+            />
+          )),
+    [onChange, selectedOptions, updating],
   );
 
   const renderOption = useCallback(
@@ -125,22 +138,31 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
       //  (in graphql response it's null too)
       switch (getColorOptionId(productOption)) {
         case 'color': {
-          return productOption.values?.map(({ id, name, disabled }) => (
-            <ProductColorSelect
-              key={id}
-              name={productOption.name || productOption.attributeId}
-              value={id}
-              label={name}
-              onChange={(valueId: string) =>
-                onChange?.({
-                  type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,
-                  payload: { optionId: productOption.id, valueId },
-                })
-              }
-              active={selectedOptions.get(productOption.id) === id}
-              disabled={disabled}
-            />
-          ));
+          return updating
+            ? productOption.values?.map((_, ind) => (
+                <div
+                  key={'skeleton_color_option' + _.id + _.name + ind}
+                  className="relative">
+                  <Skeleton className="w-10 h-10 min-w-10 animate-pulse" />
+                  <Skeleton className="absolute w-8 h-8 top-1 left-1 animate-pulse bg-gray-400" />
+                </div>
+              ))
+            : productOption.values?.map(({ id, name, disabled }) => (
+                <ProductColorSelect
+                  key={id}
+                  name={productOption.name || productOption.attributeId}
+                  value={id}
+                  label={name}
+                  onChange={(valueId: string) =>
+                    onChange?.({
+                      type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,
+                      payload: { optionId: productOption.id, valueId },
+                    })
+                  }
+                  active={selectedOptions.get(productOption.id) === id}
+                  disabled={disabled}
+                />
+              ));
         }
         default: {
         }
@@ -210,7 +232,14 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
         }
       }
     },
-    [isGiftCard, onChange, priceFormatter, selectOption, selectedOptions],
+    [
+      updating,
+      isGiftCard,
+      onChange,
+      priceFormatter,
+      selectOption,
+      selectedOptions,
+    ],
   );
 
   // = useRef<SwiperRef | null>(null);
