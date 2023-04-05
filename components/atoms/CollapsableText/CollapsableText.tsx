@@ -27,21 +27,32 @@ const CollapsableText: React.FC<CollapsableTextProps> = ({
     }
   }, []);
   return (
-    <div className={`text-sm text-body`} ref={descriptionBlockRef}>
+    <div className={`text-sm text-body relative`} ref={descriptionBlockRef}>
       <RichText
         onClick={() => {
           setOpen(!open);
           setStateChangedOnce(true);
         }}
         content={formatRowHtmlFontStyles(text) ?? ''}
+        style={open ? { maxHeight: `${descriptionHeight}px` } : {}}
         className={cn(
           styles.content,
           'text-ellipsis overflow-hidden text-justify',
           'transition-[max-height] duration-400 cursor-pointer select-none',
           {
-            'max-h-[5000px]': open,
             [`line-clamp-${linesDisplayed}`]: !open && descriptionHeight !== 0,
             [`max-h-[130px]`]: !open && descriptionHeight !== 0,
+          },
+        )}
+      />
+      <div
+        className={cn(
+          'absolute w-full h-30 pointer-events-none bg-gradient-to-b from-transparent to-white transition-opacity',
+          !(descriptionHeight < MIN_DESCRIPTION_HEIGHT)
+            ? 'bottom-[40px]'
+            : 'bottom-0',
+          {
+            'opacity-0 transition-opacity': !(!open && descriptionHeight !== 0),
           },
         )}
       />
