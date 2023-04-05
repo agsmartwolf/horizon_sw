@@ -5,6 +5,7 @@ import styles from './styles.module.scss';
 export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
   tag: GenericTagType;
   secondary?: boolean;
+  customPositioning?: boolean;
   paddingYClasses?: string;
 }
 
@@ -27,12 +28,24 @@ export const getTagTypeByName = (tagName: string) => {
 };
 
 const GenericTag = React.forwardRef<HTMLSpanElement, TagProps>(
-  ({ paddingYClasses = '', secondary, tag, ...props }, ref) => {
+  (
+    {
+      paddingYClasses = '',
+      secondary,
+      tag,
+      customPositioning = false,
+      ...props
+    },
+    ref,
+  ) => {
     const commonClass = cn(
       'font-tag uppercase absolute',
       'font-semibold inline-block text-xs px-1.5 whitespace-wrap text-center',
-      'bottom-[77px] right-[0] sm:right-[10px] sm:top-[10px] sm:bottom-[unset]',
       'max-w-[120px]',
+      {
+        'bottom-[77px] right-[0] sm:right-[10px] sm:top-[10px] sm:bottom-[unset]':
+          !customPositioning,
+      },
     );
     switch (tag.toLowerCase()) {
       case GenericTagType.ComingSoon: {

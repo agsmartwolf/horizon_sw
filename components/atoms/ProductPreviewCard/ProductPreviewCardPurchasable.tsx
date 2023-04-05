@@ -11,6 +11,7 @@ import GenericTag, { getTagTypeByName } from '../GenericTag';
 import { useDisplayedTags } from '../../../hooks/useDisplayedTags';
 import styles from './ProductPreview.module.css';
 import { addStockOptionData } from '../../../lib/utils/products';
+import { useViewport } from '../../../hooks/useViewport';
 
 export interface ProductPreviewCardPurchasableProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -42,6 +43,8 @@ const ProductPreviewCardPurchasable: React.FC<
     id: productId,
     tags = [],
   } = product;
+
+  const { isMobile } = useViewport();
 
   const wrapperRef = useRef(null);
   const { state, dispatch, addToCart, activeVariation } = useProductSelection({
@@ -155,7 +158,15 @@ const ProductPreviewCardPurchasable: React.FC<
         if (!tag) return null;
         const type = getTagTypeByName(tag);
         return type ? (
-          <GenericTag tag={type} key={tag}>
+          <GenericTag
+            tag={type}
+            key={tag}
+            customPositioning={isMobile && show_product_description}
+            className={
+              show_product_description && isMobile
+                ? 'bottom-[120px] right-[0] sm:right-[10px] sm:top-[10px] sm:bottom-[unset]'
+                : ''
+            }>
             {tag}
           </GenericTag>
         ) : null;

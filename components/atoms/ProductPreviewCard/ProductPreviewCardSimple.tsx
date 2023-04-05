@@ -7,6 +7,7 @@ import type { ProductData } from 'types/shared/products';
 import styles from './ProductPreview.module.css';
 import GenericTag, { getTagTypeByName } from '../GenericTag';
 import { useDisplayedTags } from '../../../hooks/useDisplayedTags';
+import { useViewport } from '../../../hooks/useViewport';
 
 export interface ProductPreviewCardSimpleProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -33,6 +34,7 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
     tags = [],
   } = product;
 
+  const { isMobile } = useViewport();
   const displayedTags = useDisplayedTags(tags);
 
   const containerClassNames =
@@ -87,7 +89,15 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
         if (!tag) return null;
         const type = getTagTypeByName(tag);
         return type ? (
-          <GenericTag tag={type} key={tag}>
+          <GenericTag
+            tag={type}
+            key={tag}
+            customPositioning={isMobile && show_product_description}
+            className={
+              show_product_description && isMobile
+                ? 'bottom-[120px] right-[0] sm:right-[10px] sm:top-[10px] sm:bottom-[unset]'
+                : ''
+            }>
             {tag}
           </GenericTag>
         ) : null;
