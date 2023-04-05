@@ -93,7 +93,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
         <ArrowLeft
           width={16}
           height={20}
-          className="text-black absolute top-1/2 left-0 z-20 md:hidden"
+          className="text-black absolute top-1/2 left-[-10px] z-20 md:hidden"
           onClick={setPrevSlide}
         />
         <div
@@ -132,7 +132,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
         <ArrowRight
           width={16}
           height={20}
-          className="text-black absolute right-0 top-1/2 z-20 md:hidden"
+          className="text-black absolute right-[-10px] top-1/2 z-20 md:hidden"
           onClick={setNextSlide}
         />
 
