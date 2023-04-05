@@ -20,7 +20,7 @@ export default function useProductSearch() {
     if (search) {
       fbEvent({
         eventName: 'Search', // ViewContent, AddToCart, InitiateCheckout or Purchase
-        enableStandardPixel: false,
+        enableStandardPixel: true,
         products: [],
         searchString: search,
       });

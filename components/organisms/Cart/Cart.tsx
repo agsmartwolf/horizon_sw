@@ -90,7 +90,7 @@ const Cart: React.FC<CartProps> = ({
               })),
               value: total,
               currency: initialCurrencies[0].code,
-              enableStandardPixel: false,
+              enableStandardPixel: true,
             }}
           />
         </Transition.Child>

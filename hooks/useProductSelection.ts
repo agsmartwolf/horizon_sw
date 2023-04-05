@@ -294,7 +294,7 @@ const useProductSelection = ({
       }
       fbEvent({
         eventName: 'AddToCart',
-        enableStandardPixel: false,
+        enableStandardPixel: true,
         products: [
           {
             sku: cartItemInput.productId,
