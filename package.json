@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' node ./node_modules/next/dist/bin/next",
     "generate": "pnpm run build",
-    "build": "pnpm run setup && next build",
+    "build": "next build",
     "postbuild": "next-sitemap",
     "start": "NODE_ENV=production next start",
     "test": "jest",
