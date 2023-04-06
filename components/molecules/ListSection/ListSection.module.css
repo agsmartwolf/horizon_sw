@@ -1,5 +1,0 @@
-.list > li::before {
-  margin-left: 0.625rem;
-  margin-right: 0.625rem;
-  content: '•';
-}
