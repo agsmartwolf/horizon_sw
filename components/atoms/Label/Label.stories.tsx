@@ -4,7 +4,7 @@ import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import Label from './Label';
 
 export default {
-  title: 'Atoms/Label',
+  title: 'Atoms/MaintenanceWork',
   component: Label,
   argTypes: {
     text: { control: 'text' },
