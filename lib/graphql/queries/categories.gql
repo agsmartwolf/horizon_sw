@@ -3,6 +3,7 @@ query getCategories($locale: String) {
     results {
       name
       id
+      displayOnTheSite
       slug
       parentId
       topId
@@ -58,6 +59,7 @@ query getCategoryPaths {
 query getCategory($slug: String, $locale: String) {
   categoryBySlug(slug: $slug, _locale: $locale) {
     id
+    displayOnTheSite
     name
     slug
     description

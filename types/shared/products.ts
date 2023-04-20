@@ -152,3 +152,7 @@ export enum ProductType {
 export enum ProductTag {
   bestseller = 'bestseller',
 }
+export enum ProductCategories {
+  bestseller = 'bestsellers',
+  allProducts = 'all-products',
+}
