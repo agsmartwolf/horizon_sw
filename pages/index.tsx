@@ -365,7 +365,10 @@ function getHeroImages(
   return items.map((item, index) => (
     <FullWidthMedia
       key={item.title}
-      title={`<p class="max-w-[300px] sm:max-w-[unset] text-green-100 text-7xl md:text-[80px] uppercase font-extrabold sm:font-semibold mb-12 sm:whitespace-pre-line">${item.title}</p>`}
+      title={`
+<p class="max-w-[300px] sm:max-w-[unset] text-green-100 text-7xl md:text-[80px] uppercase font-extrabold sm:font-semibold mb-12 sm:whitespace-pre-line z-10">${item.title}</p>
+<div class="bg-[#00000040] absolute top-0 left-0 w-full h-full pointer-events-none z-0"/>
+`}
       links={[
         {
           id: '1',
