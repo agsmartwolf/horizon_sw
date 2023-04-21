@@ -74,6 +74,7 @@ query getCategory($slug: String, $locale: String) {
       id
       name
       description
+      descriptionShort
       slug
       price
       currency

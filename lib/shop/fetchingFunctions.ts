@@ -1,11 +1,11 @@
-import { generateId } from 'lib/utils/shared_functions';
+import { generateId, ObjectTransform } from 'lib/utils/shared_functions';
 import type {
   SwellProductImage,
   SwellProductOption,
 } from 'lib/graphql/generated/sdk';
 import { denullifyArray } from 'lib/utils/denullify';
 import { filterProductsByCategory, getFilters } from './filters';
-import getGQLClient from 'lib/graphql/client';
+import getGQLClient, { getSwellRESTClient } from 'lib/graphql/client';
 import type { CategoryPreviewCardProps } from 'components/atoms/CategoryPreviewCard';
 import type {
   ProductsLayoutProps,
@@ -42,8 +42,10 @@ import type { SwellProduct } from 'lib/graphql/generated/sdk';
 import { getDefaultLangJsonByLocale, LocaleCode } from '../../hooks/useI18n';
 import { deepMerge } from '../../utils/helpers';
 import useGlobalUI from '../../stores/global-ui';
+import type { ResultsResponse } from 'swell-js';
 
 const client = getGQLClient();
+const clientRest = getSwellRESTClient();
 
 export const getCategories = async ({
   currentSlug,
@@ -581,34 +583,50 @@ export const getBestsellers = async (locale?: string) => {
 
 // products are sorted on the swell dashboard
 // we use a one category for all of the products trick
-// export const getProductListingDataSorted = async (locale?: string) => {
-//   const { setLoading } = useGlobalUI.getState();
-//   setLoading(true);
-//   const productsPromise = client
-//     .getCategory({
-//       slug: ProductCategories.allProducts,
-//       locale,
-//     })
-//     .then(response => response.data);
-//
-//   // Get featured categories
-//   const categoriesPromise = getCategories({
-//     locale,
-//   });
-//
-//   const [{ categories, settings }, productResults] = await Promise.all([
-//     categoriesPromise,
-//     productsPromise,
-//   ]);
-//
-//   const attributeFilters = getFilters(productResults.categoryBySlug.products);
-//
-//   setLoading(false);
-//   return {
-//     categories,
-//     settings,
-//     attributeFilters,
-//   };
-//
-//   return productResults;
-// };
+export const getProductListingDataSorted = async (
+  categorySlug?: string | CategoryData,
+  currency?: string,
+  locale?: string,
+) => {
+  const { setLoading } = useGlobalUI.getState();
+  setLoading(true);
+  // Get the products list
+
+  // const productsPromise = client
+  //   .getCategory({
+  //     slug: ProductCategories.allProducts,
+  //     locale,
+  //   })
+  //   .then(response => response.data);
+
+  // const products = await clientRest
+  //   .get(`/categories/{id}`, {
+  //     id: ProductCategories.allProductsID,
+  //     expand: ['products:100'],
+  //     $currency: currency,
+  //     $locale: locale,
+  //   })
+  //   .then(response => (response as CategorySnake).products);
+
+  const products = await clientRest
+    .get(`/categories/{id}`, {
+      id: ProductCategories.allProductsID,
+      expand: ['products:100'],
+      $currency: currency,
+      $locale: locale,
+    })
+    .then(response =>
+      (
+        response as { products: ResultsResponse<SwellProduct> }
+      ).products.results.map(p => ObjectTransform.snakeToCamel(p)),
+    );
+
+  const productResults = filterProductsByCategory(
+    (products as SwellProduct[]) ?? [],
+    categorySlug,
+  );
+
+  setLoading(false);
+
+  return productResults;
+};

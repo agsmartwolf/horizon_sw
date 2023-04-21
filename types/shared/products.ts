@@ -155,4 +155,5 @@ export enum ProductTag {
 export enum ProductCategories {
   bestseller = 'bestsellers',
   allProducts = 'all-products',
+  allProductsID = '6440f96adb4b390012c8165a',
 }

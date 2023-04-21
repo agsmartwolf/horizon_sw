@@ -1,5 +1,7 @@
 import { GraphQLClient } from 'graphql-request';
-import { getSdk } from 'lib/graphql/generated/sdk'; // THIS FILE IS THE GENERATED FILE
+import swellRESTClient from 'swell-js';
+import { getSdk } from 'lib/graphql/generated/sdk';
+import * as process from 'process'; // THIS FILE IS THE GENERATED FILE
 
 const storeUrl = process.env.NEXT_PUBLIC_SWELL_STORE_URL;
 const graphqlEndpoint = `${storeUrl}/graphql`;
@@ -42,5 +44,21 @@ export const getClientWithSessionToken = (
 
 const getGQLClient = (rawClient?: GraphQLClient) =>
   getSdk(rawClient ?? getRawClient());
+
+export const getSwellRESTClient = () => {
+  if (
+    typeof process.env.NEXT_PUBLIC_SWELL_STORE_ID === 'undefined' ||
+    typeof process.env.NEXT_PUBLIC_SWELL_PUBLIC_KEY === 'undefined'
+  ) {
+    throw new Error(
+      'NEXT_PUBLIC_SWELL_PUBLIC_KEY or NEXT_PUBLIC_STORE_URL are not set',
+    );
+  }
+  swellRESTClient.init(
+    process.env.NEXT_PUBLIC_SWELL_STORE_ID,
+    process.env.NEXT_PUBLIC_SWELL_PUBLIC_KEY,
+  );
+  return swellRESTClient;
+};
 
 export default getGQLClient;

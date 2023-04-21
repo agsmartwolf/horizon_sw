@@ -1,7 +1,6 @@
 import Breadcrumb from 'components/atoms/Breadcrumb';
 import ProductCount from 'components/atoms/ProductCount';
 import ProductPreviewCard from 'components/atoms/ProductPreviewCard';
-import CategoriesPreview from 'components/molecules/CategoriesPreview';
 import type { CategoryPreviewCardProps } from 'components/atoms/CategoryPreviewCard';
 import type {
   CategoryData,
@@ -34,7 +33,7 @@ import {
   SearchParams,
 } from 'lib/shop/filters';
 import { mapProducts } from 'lib/utils/products';
-import { getProductsList } from 'lib/shop/fetchingFunctions';
+import { getProductListingDataSorted } from 'lib/shop/fetchingFunctions';
 import { Dialog, Transition } from '@headlessui/react';
 import Button from 'components/atoms/Button';
 import { BUTTON_STYLE, BUTTON_TYPE } from 'types/shared/button';
@@ -320,7 +319,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
 
       const slug = routerLegacy.query.slug?.toString();
       // const curCategory = categories.find(c => c.slug === slug);
-      const pLAll = await getProductsList(
+      const pLAll = await getProductListingDataSorted(
         undefined,
         activeCurrency.code,
         routerLegacy.locale,
@@ -558,19 +557,6 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
           position: 0,
         }}
       />
-
-      {/* Featured categories */}
-      {liveSettings.showFeaturedCategories &&
-      !!liveSettings.featuredCategories?.length ? (
-        <>
-          <CategoriesPreview
-            className="pl-6 lg:max-w-none lg:pl-0 xl:mx-0"
-            columns={3}
-            items={liveSettings.featuredCategories}
-          />
-          <hr className="mt-4 hidden w-full bg-dividers lg:block" />
-        </>
-      ) : null}
 
       <div className="mt-4 flex flex-col">
         {/* Filters list: */}

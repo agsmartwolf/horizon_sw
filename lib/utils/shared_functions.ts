@@ -76,3 +76,44 @@ export function generateId() {
       .toLowerCase()
   );
 }
+
+module CaseTransform {
+  export type Snake = Lowercase<`${string}_${string}`>;
+  export type Camel =
+    | Capitalize<string>
+    | `${Capitalize<string>}${Capitalize<string>}`;
+
+  export type SnakeToCamel<S extends string> =
+    S extends `${infer Start}_${infer Rest}`
+      ? `${Start}${Capitalize<SnakeToCamel<Rest>>}`
+      : S;
+
+  export function capitalize<S extends string>(string: S): Capitalize<S> {
+    if (string.length === 0) return '' as never;
+
+    return (string[0].toUpperCase() + string.slice(1)) as never;
+  }
+  export function snakeToCamel<S extends string>(string: S): SnakeToCamel<S> {
+    const [start, ...rest] = string.split('_');
+
+    return (start + rest.map(capitalize)) as never;
+  }
+}
+
+export module ObjectTransform {
+  export function snakeToCamel<O extends object, K extends keyof O>(
+    object: O,
+  ): {
+    [P in K as P extends CaseTransform.Snake
+      ? CaseTransform.SnakeToCamel<P>
+      : P]: O[P];
+  } {
+    return Object.entries(object).reduce(
+      (result, [key, value]) => ({
+        ...result,
+        [CaseTransform.snakeToCamel(key)]: value,
+      }),
+      {},
+    ) as never;
+  }
+}
