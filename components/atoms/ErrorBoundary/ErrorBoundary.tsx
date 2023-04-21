@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import useGlobalUI from 'stores/global-ui';
 
 class ErrorBoundary extends Component<
   any,
@@ -23,6 +24,8 @@ class ErrorBoundary extends Component<
   componentDidCatch(error: any, errorInfo: any) {
     // You can use your own error logging service here
     console.log({ error, errorInfo });
+    const { setLoading } = useGlobalUI.getState();
+    setLoading(false);
   }
 
   render() {
