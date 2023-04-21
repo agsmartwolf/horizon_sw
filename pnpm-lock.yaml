@@ -43,6 +43,7 @@ specifiers:
   '@types/uuid': ^9.0.1
   '@typescript-eslint/eslint-plugin': ^5.47.0
   '@typescript-eslint/parser': ^5.47.0
+  '@vercel/analytics': ^1.0.0
   autoprefixer: ^10.4.2
   babel-loader: ^8.2.3
   chromatic: ^6.5.1
@@ -116,6 +117,7 @@ dependencies:
   '@radix-ui/react-toast': 0.1.1_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-tooltip': 1.0.5_ib3m5ricvtkl2cll7qpr2f6lvq
   '@react-hook/media-query': 1.1.1_react@18.2.0
+  '@vercel/analytics': 1.0.0_react@18.2.0
   classnames: 2.3.2
   click-to-react-component: 1.0.8_ib3m5ricvtkl2cll7qpr2f6lvq
   cookie: 0.4.2
@@ -6343,6 +6345,14 @@ packages:
       '@typescript-eslint/types': 5.48.0
       eslint-visitor-keys: 3.3.0
     dev: true
+
+  /@vercel/analytics/1.0.0_react@18.2.0:
+    resolution: {integrity: sha512-RQmj7pv82JwGDHrnKeRc6TtSw2U7rWNubc2IH0ernTzWTj02yr9zvIYiYJeztsBzrJtWv7m8Nz6vxxb+cdEtJw==}
+    peerDependencies:
+      react: ^16.8||^17||^18
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@webassemblyjs/ast/1.11.1:
     resolution: {integrity: sha512-ukBh14qFLjxTQNTXocdyksN5QdM28S1CxHt2rdskFyL+xFV7VremuBLVbmCePj+URalXBENx/9Lm7lnhihtCSw==}
