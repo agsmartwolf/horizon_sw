@@ -51,7 +51,7 @@ export const getSwellRESTClient = () => {
     typeof process.env.NEXT_PUBLIC_SWELL_PUBLIC_KEY === 'undefined'
   ) {
     throw new Error(
-      'NEXT_PUBLIC_SWELL_PUBLIC_KEY or NEXT_PUBLIC_STORE_URL are not set',
+      'NEXT_PUBLIC_SWELL_PUBLIC_KEY or NEXT_PUBLIC_SWELL_STORE_ID are not set',
     );
   }
   swellRESTClient.init(
