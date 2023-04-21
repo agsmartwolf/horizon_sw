@@ -374,6 +374,10 @@
             "next": "Next",
             "quick_add": "Quick add"
           }
+        },
+        "meta": {
+          "title": "Catalog",
+          "description": "All products and categories"
         }
       },
       "categories": {
@@ -761,6 +765,10 @@
             "next": "Next",
             "quick_add": "Quick add"
           }
+        },
+        "meta": {
+          "title": "Каталог",
+          "description": "Все продукты и категории"
         }
       },
       "categories": {

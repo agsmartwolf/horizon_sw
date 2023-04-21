@@ -6,6 +6,7 @@ import { withMainLayout } from 'lib/utils/fetch_decorators';
 import SEO from '../../components/atoms/SEO';
 import React from 'react';
 import useLocaleStore from '../../stores/locale';
+import useI18n from '../../hooks/useI18n';
 
 const propsCallback: GetStaticProps<
   Omit<ProductsLayoutProps, 'products' | 'productCount'>
@@ -25,12 +26,13 @@ export const getStaticProps = withMainLayout(propsCallback);
 
 const ProductsPage: NextPage<ProductsLayoutProps> = props => {
   const activeLocale = useLocaleStore(state => state.activeLocale);
+  const i18n = useI18n();
 
   return (
     <div>
       <SEO
-        title={'Catalog'}
-        description={'All products and categories'}
+        title={i18n('products.meta.title')}
+        description={i18n('products.meta.description')}
         locale={activeLocale?.code}
       />
 
