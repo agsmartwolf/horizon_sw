@@ -301,7 +301,10 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
         Object.keys(routerLegacy.query).length > 0)
     ) {
       const af = getActiveFilters(routerLegacy.query);
-      if (af && af.length && !activeFilters?.length) {
+      if (
+        (af && af.length && (!activeFilters || !activeFilters?.length)) ||
+        !activeFilters
+      ) {
         setActiveFilters(af);
       }
     }
