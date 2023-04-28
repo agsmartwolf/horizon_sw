@@ -159,9 +159,10 @@ export const applyFilters = (
       // Check if the product has attributes
       if (!product.attributes) return false;
 
-      const key = Object.keys(product.attributes).find(
-        key =>
-          (product.attributes[key] as ProductAttribute).id === filter.label,
+      const key = Object.keys(product.attributes).find(key =>
+        [(product.attributes[key] as ProductAttribute)?.id, key].includes(
+          filter.label,
+        ),
       );
 
       // If the product doesn't have the attribute, return false
@@ -171,14 +172,15 @@ export const applyFilters = (
 
       const attribute: ProductAttribute = product.attributes[key];
 
-      if (!attribute.value) return false;
+      if (typeof attribute === 'object' && !attribute.value) return false;
 
       // If the attribute has an array of values, check if the product has one of them
       if (Array.isArray(attribute.value)) {
         if (values.some(value => attribute.value?.includes(value))) continue;
       }
       // If the attribute has a single value, check if it's part of the filter values
-      else if (values.includes(attribute.value)) continue;
+      else if (values.includes((attribute?.value ?? attribute) as string))
+        continue;
 
       return false;
     }

@@ -135,8 +135,7 @@ export const getCategories = async ({
   };
 };
 
-// products are sorted on the swell dashboard
-// we use a one category for all of the products trick
+// TODO take all products from category "all-products"
 export const getProductsList = async (
   categorySlug?: string | CategoryData,
   currency?: string,
@@ -146,15 +145,12 @@ export const getProductsList = async (
   setLoading(true);
   // Get the products list
 
-  const { categoryBySlug } = await client
-    .getCategory({
-      slug: ProductCategories.allProducts,
-      locale,
-    })
+  const { products } = await client
+    .getAllProducts({ limit: 100, currency, locale })
     .then(response => response.data);
 
   const productResults = filterProductsByCategory(
-    (categoryBySlug?.products as SwellProduct[]) ?? [],
+    (products?.results as SwellProduct[]) ?? [],
     categorySlug,
   );
 
@@ -592,25 +588,18 @@ export const getProductListingDataSorted = async (
   setLoading(true);
   // Get the products list
 
-  // const productsPromise = client
+  // const productsRes = await client
   //   .getCategory({
   //     slug: ProductCategories.allProducts,
   //     locale,
   //   })
   //   .then(response => response.data);
-
-  // const products = await clientRest
-  //   .get(`/categories/{id}`, {
-  //     id: ProductCategories.allProductsID,
-  //     expand: ['products:100'],
-  //     $currency: currency,
-  //     $locale: locale,
-  //   })
-  //   .then(response => (response as CategorySnake).products);
+  // const products = productsRes?.categoryBySlug?.products;
 
   const products = await clientRest
     .get(`/categories/{id}`, {
-      id: ProductCategories.allProductsID,
+      // remove then when categories filed will be persisted in response
+      id: categorySlug ?? ProductCategories.allProductsID,
       expand: ['products:100'],
       $currency: currency,
       $locale: locale,
@@ -621,12 +610,15 @@ export const getProductListingDataSorted = async (
       ).products.results.map(p => ObjectTransform.snakeToCamel(p)),
     );
 
-  const productResults = filterProductsByCategory(
-    (products as SwellProduct[]) ?? [],
-    categorySlug,
-  );
+  // TODO uncomment when the bug for products.categories for fetching category for REST client will be fixed
+  // or GRAPHQL client inherited queries will be fixed
+  //  and filtering will be returned to the frontend
+  // const productResults = filterProductsByCategory(
+  //   (products as SwellProduct[]) ?? [],
+  //   categorySlug,
+  // );
 
   setLoading(false);
 
-  return productResults;
+  return products;
 };

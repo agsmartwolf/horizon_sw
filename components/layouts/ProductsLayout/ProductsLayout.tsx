@@ -15,6 +15,7 @@ import React, {
   Fragment,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -27,10 +28,8 @@ import Range from 'components/atoms/Range';
 import useCurrency from 'stores/currency';
 import {
   applyFilters,
-  filterProductsByCategory,
   getPriceRangeFromProducts,
   getPriceRangeFromQuery,
-  SearchParams,
 } from 'lib/shop/filters';
 import { mapProducts } from 'lib/utils/products';
 import { getProductListingDataSorted } from 'lib/shop/fetchingFunctions';
@@ -57,6 +56,7 @@ import type { SwellProduct } from '../../../lib/graphql/generated/sdk';
 import useLocaleStore from '../../../stores/locale';
 import HorizontalScroller from '../../atoms/HorizontalScroller';
 import GenericPopover from '../../atoms/GenericPopover';
+import type { ParsedUrlQuery } from 'querystring';
 
 export type ProductsPerRow = 2 | 3 | 4 | 5;
 
@@ -151,9 +151,9 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   } = useProductSearch();
 
   const getActiveFilters = useCallback(
-    (query: SearchParams) =>
+    (query: ParsedUrlQuery) =>
       Object.keys(query).reduce<FilterState[]>((result, key) => {
-        const queryValue = query.get(key);
+        const queryValue = query[key];
 
         if (!queryValue) return result;
 
@@ -295,18 +295,27 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   // Initialize the active filters from the query string
   useEffect(() => {
     // If the active filters have been initialized, return
-    if (activeFilters !== undefined) return;
+    if (
+      !activeFilters ||
+      (activeFilters?.length === 0 &&
+        Object.keys(routerLegacy.query).length > 0)
+    ) {
+      const af = getActiveFilters(routerLegacy.query);
+      if (af && af.length && !activeFilters?.length) {
+        setActiveFilters(af);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeFilters, routerLegacy.query]);
 
-    setActiveFilters(getActiveFilters(searchParams));
-  }, [activeFilters, getActiveFilters, searchParams]);
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [allProducts, updateProductLoading, isProductsLoading] =
     useProductsStore(state => [
       state.products,
       state.updateLoading,
       state.isLoading,
     ]);
-  const updateProductsStore = useProductsStore(state => state.updateProducts);
+  // const updateProductsStore = useProductsStore(state => state.updateProducts);
 
   const fetchProps = async (mounted: boolean) => {
     // When it will be a LARGE amount of products, we will need to get them from server for certain filters
@@ -314,25 +323,37 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
 
     let productResults: SwellProduct[] = [];
     updateProductLoading(true);
-    if (!allProducts.length || activeLocale?.code !== routerLegacy.locale) {
-      setLoading(true);
 
-      const slug = routerLegacy.query.slug?.toString();
-      // const curCategory = categories.find(c => c.slug === slug);
-      const pLAll = await getProductListingDataSorted(
-        undefined,
-        activeCurrency.code,
-        routerLegacy.locale,
-      );
-      const pLFiltered = filterProductsByCategory(pLAll, slug);
-      updateProductsStore(pLAll as SwellProduct[]);
-      productResults = pLFiltered;
-    } else {
-      productResults = filterProductsByCategory(
-        allProducts,
-        routerLegacy.query.slug?.toString(),
-      );
-    }
+    // TODO uncomment when the bug for products.categories for fetching category for REST client will be fixed
+    // or GRAPHQL client inherited queries will be fixed
+    //  and filtering will be returned to the frontend
+    // if (!allProducts.length || activeLocale?.code !== routerLegacy.locale) {
+    //   setLoading(true);
+    //
+    //   const slug = routerLegacy.query.slug?.toString();
+    //   // const curCategory = categories.find(c => c.slug === slug);
+    //   const pLAll = await getProductListingDataSorted(
+    //     slug,
+    //     activeCurrency.code,
+    //     routerLegacy.locale,
+    //   );
+    //   const pLFiltered = filterProductsByCategory(pLAll, slug);
+    //   updateProductsStore(pLAll as SwellProduct[]);
+    //   productResults = pLFiltered;
+    // } else {
+    //   productResults = filterProductsByCategory(
+    //     allProducts,
+    //     routerLegacy.query.slug?.toString(),
+    //   );
+    // }
+
+    // TODO remove
+    const slug = routerLegacy.query.slug?.toString();
+    productResults = await getProductListingDataSorted(
+      slug,
+      activeCurrency.code,
+      routerLegacy.locale,
+    );
 
     if (!mounted) return;
 
@@ -524,6 +545,34 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     };
   }, []);
 
+  const categoryList = useMemo(
+    () =>
+      categories.map(category => (
+        <li key={category.slug}>
+          <Link
+            href={`/categories/${category.slug}`}
+            scroll={false}
+            onClick={() => {
+              setLoading(true);
+              setPriceRangeValue(undefined);
+            }}
+            className={cn(
+              'text-black px-2 border-b-[1.5px] hover:border-black',
+              {
+                // If the category is active, show it as bold
+                'font-semibold': category.slug === searchParams.get('slug'),
+                'border-black': category.slug === searchParams.get('slug'),
+                'border-transparent':
+                  category.slug !== searchParams.get('slug'),
+              },
+            )}>
+            {category.name}
+          </Link>
+        </li>
+      )),
+    [categories, searchParams],
+  );
+
   const filterCns = cn('border-dividers min-w-[160px] text-sm md:text-lg');
 
   return (
@@ -549,13 +598,13 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
 
       <Breadcrumb
         className="mt-1 mb-6 lg:mt-8 lg:px-0"
-        extraRoute={{
-          route: {
-            title: 'All products',
-            href: `/products`,
-          },
-          position: 0,
-        }}
+        // extraRoute={{
+        //   route: {
+        //     title: 'All products',
+        //     href: `/products`,
+        //   },
+        //   position: 0,
+        // }}
       />
 
       <div className="mt-4 flex flex-col">
@@ -764,31 +813,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                     {text.allProductsLabel}
                   </Link>
                 </li>
-                {categories.map(category => (
-                  <li key={category.slug}>
-                    <Link
-                      href={`/categories/${category.slug}`}
-                      scroll={false}
-                      onClick={() => {
-                        setLoading(true);
-                        setPriceRangeValue(undefined);
-                      }}
-                      className={cn(
-                        'text-black px-2 border-b-[1.5px] hover:border-black',
-                        {
-                          // If the category is active, show it as bold
-                          'font-semibold':
-                            category.slug === searchParams.get('slug'),
-                          'border-black':
-                            category.slug === searchParams.get('slug'),
-                          'border-transparent':
-                            category.slug !== searchParams.get('slug'),
-                        },
-                      )}>
-                      {category.name}
-                    </Link>
-                  </li>
-                ))}
+                {categoryList}
               </ul>
             </HorizontalScroller>
           </div>
