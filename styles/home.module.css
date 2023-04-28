@@ -2,7 +2,7 @@
   @apply absolute h-full w-full top-0 left-0 z-0;
 }
 .swiperContainer p {
-  @apply mb-[150px] absolute top-[30px] sm:static;
+  @apply mb-[150px] absolute top-[30px] sm:relative sm:top-[unset];
 }
 
 .swiperContainer a {
@@ -18,7 +18,7 @@
 }
 
 .swiperContainer section a {
-  @apply absolute bottom-[80px] sm:static;
+  @apply absolute bottom-[80px] sm:relative z-20;
 }
 
 .swiperContainer :global(.swiper) {

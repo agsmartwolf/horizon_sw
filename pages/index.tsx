@@ -366,8 +366,8 @@ function getHeroImages(
     <FullWidthMedia
       key={item.title}
       title={`
-<p class="max-w-[300px] sm:max-w-[unset] text-green-100 text-7xl md:text-[80px] uppercase font-extrabold sm:font-semibold mb-12 sm:whitespace-pre-line z-10">${item.title}</p>
-<div class="bg-[#00000040] absolute top-0 left-0 w-full h-full pointer-events-none z-0"/>
+<p class="max-w-[300px] sm:max-w-[unset] text-green-100 text-7xl md:text-[80px] uppercase font-extrabold sm:font-semibold mb-12 sm:whitespace-pre-line relative z-10">${item.title}</p>
+<div class="bg-[#00000040] absolute top-0 left-0 w-full h-full pointer-events-none z-0 m-0 mt-0" style="margin: 0"/>
 `}
       links={[
         {
@@ -375,7 +375,7 @@ function getHeroImages(
           style: BUTTON_STYLE.SECONDARY,
           label: item.explore,
           link: '/products',
-          className: 'absolute bottom-[80px] sm:static',
+          className: 'absolute bottom-[80px] sm:relative z-20',
         },
       ]}
       horizontal_background_alignment={HORIZONTAL_ALIGNMENT.RIGHT}
