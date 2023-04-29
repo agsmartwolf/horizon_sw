@@ -40,7 +40,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
       leave="delay-300 duration-[500ms] ease-in"
       leaveFrom="translate-y-0"
       leaveTo="-translate-y-full">
-      <nav className="min-h-[calc(100vh-24px)] pt-20">
+      <nav className="min-h-[calc(100vh-24px)] pt-20 relative">
+        <LocaleSelect className="absolute right-0" bordered />
         <ul className="flex list-none flex-col gap-7">
           {Array.isArray(items) &&
             items.map((item, index) =>
@@ -84,7 +85,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
               {accountLinkLabel}
             </div>
           </Button>
-          <LocaleSelect className="w-full" bordered />
         </ul>
         {/*<CurrencySelect className="mt-5" />*/}
       </nav>
