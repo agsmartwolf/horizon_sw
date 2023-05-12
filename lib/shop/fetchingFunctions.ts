@@ -274,10 +274,14 @@ export async function getProductBySlug(
   const { productBySlug: product } = response.data;
 
   // reduce categories to one string by name prop
-  const subtitle = product?.categories?.reduce(
-    (acc, category) => `${acc ? `${acc} >` : ''} ${category?.name} `,
-    '',
-  );
+  const subtitle = product?.categories
+    // we filter with NON ProductCategories.allProducts category to hide it from the breadcrumbs
+    // now all of the products are in the "all-products" category to have an sorting feature
+    ?.filter(q => q?.slug !== ProductCategories.allProducts)
+    .reduce(
+      (acc, category) => `${acc ? `${acc} >` : ''} ${category?.name} `,
+      '',
+    );
 
   const details: ProductHeaderProps = {
     title: product?.name ?? '',
