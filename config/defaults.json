@@ -725,9 +725,9 @@
           "not_enough": "Not enough stock remaining to increase quantity in cart by {quantity}."
         },
         "stock_status": {
-          "in_stock": "In Stock",
-          "low_stock": "Low Stock",
-          "out_of_stock": "Out of Stock"
+          "in_stock": "В наличии",
+          "low_stock": "Мало в наличии",
+          "out_of_stock": "Нет в наличии"
         },
         "subscription": {
           "options": "Subscription options",
@@ -755,7 +755,7 @@
           }
         },
         "upsells": {
-          "title": "You may also like"
+          "title": "Вам может понравиться"
         },
         "preview": {
           "from": "From",
@@ -773,15 +773,15 @@
       },
       "categories": {
         "filters": {
-          "title": "Filters",
-          "remove_all": "Remove all",
-          "price": "Price",
-          "see_results": "See results ({count})",
-          "all_products": "All products",
-          "mobile_button": "Filter",
-          "search_placeholder": "Search your product"
+          "title": "Фильтры",
+          "remove_all": "Удалить все",
+          "price": "Цена",
+          "see_results": "Результаты ({count})",
+          "all_products": "Каталог",
+          "mobile_button": "Фильтры",
+          "search_placeholder": "Поиск"
         },
-        "product_count": "All products ({count})"
+        "product_count": "Все товары ({count})"
       },
       "errors": {
         "error_code": "Error {code}",
