@@ -28,7 +28,7 @@ const OptionSelectItem: React.FC<OptionSelectItemProps> = ({
   }
 
   const labelClassNames = cn(
-    'border text-sm transition duration-[250ms] cursor-pointer min-w-10',
+    'border text-sm transition duration-[250ms] cursor-pointer min-w-10 whitespace-nowrap',
     'peer-focus-visible:ring-2 peer-focus-visible:ring-accent peer-focus-visible:ring-offset-1 hover:border-black-100',
     {
       'border-black-100': !disabled,
