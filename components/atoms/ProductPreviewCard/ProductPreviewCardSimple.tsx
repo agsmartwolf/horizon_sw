@@ -15,6 +15,7 @@ export interface ProductPreviewCardSimpleProps
   fromPriceLabel?: string;
   show_product_price?: boolean;
   show_product_description?: boolean;
+  stockLevel?: number;
 }
 
 const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
@@ -22,6 +23,7 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
   fromPriceLabel = '',
   show_product_price = true,
   show_product_description = true,
+  stockLevel,
   ...props
 }) => {
   const {
@@ -35,7 +37,7 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
   } = product;
 
   const { isMobile } = useViewport();
-  const displayedTags = useDisplayedTags(tags);
+  const displayedTags = useDisplayedTags(tags, stockLevel);
 
   const containerClassNames =
     'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-white  border-[1px] border-gray-100 cursor-pointer';
@@ -44,7 +46,7 @@ const ProductPreviewCardSimple: React.FC<ProductPreviewCardSimpleProps> = ({
     <div
       {...props}
       className={[containerClassNames, props.className].join(' ')}>
-      <Link href={href} className="cursor-pointer">
+      <Link href={href} className="cursor-pointer" prefetch={false}>
         <div className="safe-aspect-square relative overflow-hidden bg-white">
           <Image
             src={image.src}

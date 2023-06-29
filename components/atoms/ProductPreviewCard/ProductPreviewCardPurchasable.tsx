@@ -19,6 +19,7 @@ export interface ProductPreviewCardPurchasableProps
   fromPriceLabel?: string;
   show_product_price?: boolean;
   show_product_description?: boolean;
+  prefetch?: boolean;
 }
 
 const ProductPreviewCardPurchasable: React.FC<
@@ -75,7 +76,7 @@ const ProductPreviewCardPurchasable: React.FC<
   const containerClassNames =
     'relative flex flex-col gap-4 overflow-visible text-black lg:min-w-0 bg-white  border-[1px] border-gray-100 cursor-pointer';
 
-  const displayedTags = useDisplayedTags(tags);
+  const displayedTags = useDisplayedTags(tags, product.stockLevel);
 
   const productOptionsWithStock = useMemo(() => {
     return addStockOptionData(
@@ -107,7 +108,7 @@ const ProductPreviewCardPurchasable: React.FC<
         focusOnRef={wrapperRef}
         className="safe-aspect-square relative overflow-hidden bg-white"
         hoverableElement={p => (
-          <Link {...p} href={href}>
+          <Link {...p} href={href} prefetch={false}>
             <Image
               src={image.src}
               alt={image?.alt}
@@ -129,7 +130,7 @@ const ProductPreviewCardPurchasable: React.FC<
         nextLabel={nextLabel}
         quickAddLabel={quickAddLabel}
       />
-      <Link href={href} className="cursor-pointer">
+      <Link href={href} className="cursor-pointer" prefetch={false}>
         <div className="md:min-h-[100px] lg:min-h-[116px] bg-gray-200 px-2.5 py-2.5 lg:p-5">
           <div className={'flex flex-col md:flex-row justify-between'}>
             <h4

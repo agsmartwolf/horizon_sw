@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import useProductSelection, { ACTIONS } from 'hooks/useProductSelection';
@@ -22,7 +22,6 @@ import type { MandatoryImageProps } from 'types/global';
 import { BUTTON_STYLE, BUTTON_TYPE } from 'types/shared/button';
 import {
   ProductOption,
-  PurchasableProductData,
   PURCHASE_OPTION_TYPE,
   STOCK_STATUS,
 } from 'types/shared/products';
@@ -30,6 +29,7 @@ import type {
   SwellProduct,
   SwellProductContentExpandableDetail,
   SwellProductPurchaseOptions,
+  SwellProductUpSell,
   SwellProductVariant,
 } from 'lib/graphql/generated/sdk';
 import type { ProductBenefitProps } from 'components/atoms/ProductBenefit';
@@ -56,6 +56,7 @@ import SEO from '../../components/atoms/SEO';
 import Table from '../../components/atoms/Table';
 import GenericAccordion from '../../components/atoms/GenericAccordion';
 import { useProductSizeOptionUpdating } from '../../hooks/useProductSizeOptionUpdating';
+import { useProductUpsell } from '../../hooks/useProductUpsell';
 
 export enum LAYOUT_ALIGNMENT {
   STANDARD = 'standard',
@@ -83,7 +84,8 @@ export interface ProductsPageProps {
   expandableDetails: SwellProductContentExpandableDetail[];
   purchaseOptions: SwellProductPurchaseOptions;
   productVariants: SwellProductVariant[];
-  upSells: PurchasableProductData[];
+  upSells: SwellProductUpSell[];
+  // upSells: PurchasableProductData[];
   stockLevel: SwellProduct['stockLevel'];
   stockPurchasable: SwellProduct['stockPurchasable'];
   stockTracking: SwellProduct['stockTracking'];
@@ -189,28 +191,60 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
 
   const [liveSettings] = useState(settings);
   const [isProductLoading, setIsProductLoading] = useState(false);
-  const { productOptions, purchaseOptions, productVariants, upSells } =
-    useCurrencySubscription({
-      defaultData: {
-        currency: currencyProp,
-        productOptions: productOptionsProp,
-        purchaseOptions: purchaseOptionsProp,
-        productVariants: productVariantsProp,
-        upSells: upSellsProp,
-      },
-      callback: async newCurrency => {
-        setIsProductLoading(true);
-        const r = await getProductBySlug(slug, {
-          currency: newCurrency,
-          locale,
-          skipTriggeringGlobalLoading: true,
-        });
-        setIsProductLoading(false);
-        return r;
-      },
-      currencyGetter: data => data.currency,
-    });
+  const defaultCurrencySubscriptionData = useMemo(
+    () => ({
+      currency: currencyProp,
+      productOptions: productOptionsProp,
+      purchaseOptions: purchaseOptionsProp,
+      productVariants: productVariantsProp,
+      upSells: upSellsProp,
+    }),
+    [
+      currencyProp,
+      productOptionsProp,
+      purchaseOptionsProp,
+      productVariantsProp,
+      upSellsProp,
+    ],
+  );
+
+  const currencySubscriptionCallback = useCallback(
+    async (newCurrency: string) => {
+      setIsProductLoading(true);
+      const r = await getProductBySlug(slug, {
+        currency: newCurrency,
+        locale,
+        skipTriggeringGlobalLoading: true,
+      });
+      setIsProductLoading(false);
+      return r;
+    },
+    [locale, slug],
+  );
+
+  const currencyGetter = useCallback(
+    (data: typeof defaultCurrencySubscriptionData) => data.currency,
+    [],
+  );
+
+  const {
+    currencySubscriptionDataFetched,
+    productOptions,
+    purchaseOptions,
+    productVariants,
+  } = useCurrencySubscription({
+    defaultData: defaultCurrencySubscriptionData,
+    callback: currencySubscriptionCallback,
+    currencyGetter,
+  });
   const formatPrice = useCurrency(store => store.formatPrice);
+
+  const upSells = useProductUpsell({
+    productUpSell: upSellsProp,
+    currency: defaultCurrencySubscriptionData.currency,
+    locale,
+    isFetchAllowed: currencySubscriptionDataFetched,
+  });
 
   const { state, dispatch, activeVariation, addToCart } = useProductSelection({
     productId,
@@ -262,7 +296,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
     }
   };
 
-  const displayedTags = useDisplayedTags(tags);
+  const displayedTags = useDisplayedTags(tags, stockLevel);
 
   useProductSizeOptionUpdating({
     colorOptionId,

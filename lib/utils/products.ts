@@ -1,6 +1,7 @@
 import type {
   GetAllProductsQuery,
   SwellCartItemInput,
+  SwellCategory,
   SwellProduct,
   SwellProductCrossSell,
   SwellProductImage,
@@ -11,6 +12,7 @@ import {
   CategoryData,
   OPTION_INPUT_TYPE,
   ProductOption,
+  PurchasableProductData,
   STOCK_STATUS,
   SwellCategoryWithChildren,
 } from 'types/shared/products';
@@ -25,6 +27,8 @@ import { denullifyArray, NotNullish } from './denullify';
 import type { MandatoryImageProps } from 'types/global';
 import type { CartItemInputOption } from '../../types/shared/cart';
 import type { SwellProductsVariants } from 'lib/graphql/generated/sdk';
+import type { ResultsResponse } from 'swell-js';
+import { ObjectTransform } from './shared_functions';
 
 export const getCrossSellPrice = (crossSell: SwellProductCrossSell) => {
   if (
@@ -480,3 +484,67 @@ export const getColorOptionId = (productOption: ProductOption) =>
   productOption.attributeId ||
   productOption.attributeIdCustomId ||
   productOption.name.toLowerCase();
+
+export const mapProductsResponse = (
+  products: ResultsResponse<SwellProduct>,
+) => {
+  return products.results?.map(p => ({
+    ...ObjectTransform.snakeToCamel(p),
+    categories: (
+      p?.categories as unknown as ResultsResponse<SwellCategory>
+    ).results.map(c => ({ ...c, slug: c.parent?.slug })),
+  }));
+};
+
+export const parseSizeChart = (content: string) => {
+  try {
+    return JSON.parse(content);
+  } catch (e) {
+    return [];
+  }
+};
+
+export const mapProductUpsell = (
+  productsUpsells?: SwellProduct[],
+): Array<PurchasableProductData | null> =>
+  productsUpsells?.map(upSellProduct => {
+    return upSellProduct
+      ? {
+          id: upSellProduct?.id ?? '',
+          title: upSellProduct?.name ?? '',
+          description: upSellProduct?.description ?? '',
+          descriptionShort: upSellProduct?.descriptionShort ?? '',
+          price: upSellProduct?.price ?? 0,
+          tags: upSellProduct?.tags ?? [],
+          origPrice: upSellProduct?.origPrice ?? null,
+          href: `/products/${upSellProduct?.slug ?? ''}`,
+          image: {
+            alt: upSellProduct?.images?.[0]?.caption ?? '',
+            src: upSellProduct?.images?.[0]?.file?.url ?? '',
+            width: upSellProduct?.images?.[0]?.file?.width ?? 0,
+            height: upSellProduct?.images?.[0]?.file?.height ?? 0,
+          },
+          productOptions: denullifyArray(upSellProduct?.options)?.map(
+            (option: SwellProductOption) => {
+              return {
+                id: option.id ?? '',
+                attributeId: option.attributeId ?? '',
+                name: option.name ?? '',
+                inputType: option.inputType ?? '',
+                active: option.active ?? true,
+                required: option.required ?? false,
+                values:
+                  filterMapProductOptionValuesByStockAndVariantAvailability(
+                    option,
+                    upSellProduct,
+                  ),
+              };
+            },
+          ),
+          purchaseOptions: upSellProduct?.purchaseOptions ?? {},
+          productVariants: denullifyArray(upSellProduct.variants?.results),
+          hasQuickAdd: hasQuickAdd(upSellProduct),
+          stockLevel: upSellProduct.stockLevel ?? 0,
+        }
+      : null;
+  }) ?? [];

@@ -12,7 +12,9 @@ export default function useCurrencySubscription<T, K extends T>({
   defaultData,
   callback,
   currencyGetter,
-}: CurrencySubscriptionData<T, K>): T {
+}: CurrencySubscriptionData<T, K>): T & {
+  currencySubscriptionDataFetched: boolean;
+} {
   const [returnData, setReturnData] = useState<T>();
   const [isFirstlyFetched, setIsFirstlyFetched] = useState(false);
   const [currency, setCurrency] = useState(currencyGetter(defaultData));
@@ -24,8 +26,9 @@ export default function useCurrencySubscription<T, K extends T>({
 
     async function fetchData() {
       if (currency !== activeCurrency.code || !isFirstlyFetched) {
-        setIsFirstlyFetched(true);
+        // setIsFirstlyFetched(true);
         const newReturnData = await callback(activeCurrency.code);
+        setIsFirstlyFetched(true);
         if (mounted) {
           setCurrency(currencyGetter(newReturnData));
           setReturnData(newReturnData);
@@ -49,5 +52,6 @@ export default function useCurrencySubscription<T, K extends T>({
   return {
     ...defaultData,
     ...(typeof returnData === 'object' ? returnData : {}),
+    currencySubscriptionDataFetched: isFirstlyFetched,
   };
 }

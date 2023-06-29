@@ -15,6 +15,7 @@ const UpSell: React.FC<UpSellProps> = ({ items, className }) => {
       className={`flex gap-6 px-6 py-[35px] py-10 lg:pl-14 ${className ?? ''}`}>
       {items.map(item => (
         <ProductPreviewCard
+          prefetch={false}
           key={item.id}
           className="w-1/2 min-w-[54vw] shrink-0 snap-start lg:w-[322px]"
           show_product_description={!isMobile}

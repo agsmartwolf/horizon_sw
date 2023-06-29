@@ -152,7 +152,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
                   key={id}
                   name={productOption.name || productOption.attributeId}
                   value={id}
-                  label={name}
+                  label={name || productOption.name}
                   onChange={(valueId: string) =>
                     onChange?.({
                       type: ACTIONS.SET_SELECTED_PRODUCT_OPTIONS,

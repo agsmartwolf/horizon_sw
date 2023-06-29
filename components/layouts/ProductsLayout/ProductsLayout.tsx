@@ -28,6 +28,7 @@ import Range from 'components/atoms/Range';
 import useCurrency from 'stores/currency';
 import {
   applyFilters,
+  filterProductsByCategory,
   getPriceRangeFromProducts,
   getPriceRangeFromQuery,
 } from 'lib/shop/filters';
@@ -318,7 +319,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
       state.updateLoading,
       state.isLoading,
     ]);
-  // const updateProductsStore = useProductsStore(state => state.updateProducts);
+  const updateProductsStore = useProductsStore(state => state.updateProducts);
 
   const fetchProps = async (mounted: boolean) => {
     // When it will be a LARGE amount of products, we will need to get them from server for certain filters
@@ -327,36 +328,23 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     let productResults: SwellProduct[] = [];
     updateProductLoading(true);
 
-    // TODO uncomment when the bug for products.categories for fetching category for REST client will be fixed
-    // or GRAPHQL client inherited queries will be fixed
-    //  and filtering will be returned to the frontend
-    // if (!allProducts.length || activeLocale?.code !== routerLegacy.locale) {
-    //   setLoading(true);
-    //
-    //   const slug = routerLegacy.query.slug?.toString();
-    //   // const curCategory = categories.find(c => c.slug === slug);
-    //   const pLAll = await getProductListingDataSorted(
-    //     slug,
-    //     activeCurrency.code,
-    //     routerLegacy.locale,
-    //   );
-    //   const pLFiltered = filterProductsByCategory(pLAll, slug);
-    //   updateProductsStore(pLAll as SwellProduct[]);
-    //   productResults = pLFiltered;
-    // } else {
-    //   productResults = filterProductsByCategory(
-    //     allProducts,
-    //     routerLegacy.query.slug?.toString(),
-    //   );
-    // }
-
-    // TODO remove
     const slug = routerLegacy.query.slug?.toString();
-    productResults = await getProductListingDataSorted(
-      slug,
-      activeCurrency.code,
-      routerLegacy.locale,
-    );
+    const curCategory = categories.find(c => c.slug === slug);
+    if (!allProducts.length || activeLocale?.code !== routerLegacy.locale) {
+      setLoading(true);
+
+      // const curCategory = categories.find(c => c.slug === slug);
+      const pLAll = await getProductListingDataSorted(
+        curCategory?.slug,
+        activeCurrency.code,
+        routerLegacy.locale,
+      );
+      const pLFiltered = filterProductsByCategory(pLAll, curCategory?.slug);
+      updateProductsStore(pLAll as SwellProduct[]);
+      productResults = pLFiltered;
+    } else {
+      productResults = filterProductsByCategory(allProducts, curCategory?.slug);
+    }
 
     if (!mounted) return;
 

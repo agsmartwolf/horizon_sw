@@ -6,6 +6,9 @@ import useLocaleStore from 'stores/locale';
 import type { Locale } from 'types/shared/locale';
 import cn from 'classnames';
 import useGlobalUI from '../../../stores/global-ui';
+import { getSwellRESTClient } from 'lib/graphql/client';
+
+const clientRest = getSwellRESTClient();
 
 export interface LocaleSelectProps {
   className?: string;
@@ -26,7 +29,8 @@ const LocaleSelect: React.FC<LocaleSelectProps> = ({
   const router = useRouter();
   const { pathname, asPath, query } = router;
 
-  function changeLocale(nextLocale: Locale) {
+  async function changeLocale(nextLocale: Locale) {
+    await clientRest.locale.select(nextLocale.code);
     setLoading(true);
     router.push({ pathname, query }, asPath, { locale: nextLocale.code });
   }

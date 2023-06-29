@@ -12,6 +12,8 @@ export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
 export enum GenericTagType {
   ComingSoon = 'coming_soon',
   Premium = 'premium',
+  NotInStock = 'not_in_stock',
+  Partners = 'partners',
 }
 export const getTagTypeByName = (tagName: string) => {
   switch (tagName.toLowerCase()) {
@@ -22,6 +24,10 @@ export const getTagTypeByName = (tagName: string) => {
     case 'premium':
     case 'премиум':
       return GenericTagType.Premium;
+    case 'not_in_stock':
+      return GenericTagType.NotInStock;
+    case 'partners':
+      return GenericTagType.Partners;
     default:
       return null;
   }

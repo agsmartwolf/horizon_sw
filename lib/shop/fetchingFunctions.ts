@@ -1,5 +1,6 @@
-import { generateId, ObjectTransform } from 'lib/utils/shared_functions';
+import { generateId } from 'lib/utils/shared_functions';
 import type {
+  SwellCategory,
   SwellProductImage,
   SwellProductOption,
 } from 'lib/graphql/generated/sdk';
@@ -23,9 +24,10 @@ import type { QuizResultsProducts } from 'components/molecules/QuizResults';
 import {
   filterMapProductOptionValuesByStockAndVariantAvailability,
   filterProductVariants,
-  hasQuickAdd,
   mapCategories,
   mapProducts,
+  mapProductsResponse,
+  parseSizeChart,
 } from 'lib/utils/products';
 import {
   formatCurrencies,
@@ -245,14 +247,6 @@ export const getAllProducts = async (): Promise<{
   };
 };
 
-const parseSizeChart = (content: string) => {
-  try {
-    return JSON.parse(content);
-  } catch (e) {
-    return [];
-  }
-};
-
 export async function getProductBySlug(
   slug: string,
   options?: {
@@ -289,64 +283,6 @@ export async function getProductBySlug(
     description: product?.description ?? '',
     descriptionShort: product?.descriptionShort ?? '',
   };
-
-  const productsUpsells = (
-    await Promise.all(
-      denullifyArray(product?.upSells?.map(u => u?.product))?.map(p =>
-        client.getProduct({
-          slug: p?.slug,
-          currency,
-          locale,
-        }),
-      ),
-    )
-  ).map(response => response.data.productBySlug);
-
-  const upSells: (PurchasableProductData | null)[] =
-    productsUpsells?.map(upSellProduct => {
-      return upSellProduct
-        ? {
-            id: upSellProduct?.id ?? '',
-            title: upSellProduct?.name ?? '',
-            description: upSellProduct?.description ?? '',
-            descriptionShort: upSellProduct?.descriptionShort ?? '',
-            sizeChart: product?.sizeChart
-              ? parseSizeChart(product?.sizeChart)
-              : [],
-            price: upSellProduct?.price ?? 0,
-            tags: upSellProduct?.tags ?? [],
-            origPrice: upSellProduct?.origPrice ?? null,
-            href: `/products/${upSellProduct?.slug ?? ''}`,
-            image: {
-              alt: upSellProduct?.images?.[0]?.caption ?? '',
-              src: upSellProduct?.images?.[0]?.file?.url ?? '',
-              width: upSellProduct?.images?.[0]?.file?.width ?? 0,
-              height: upSellProduct?.images?.[0]?.file?.height ?? 0,
-            },
-            productOptions: denullifyArray(upSellProduct?.options)?.map(
-              (option: SwellProductOption) => {
-                return {
-                  id: option.id ?? '',
-                  attributeId: option.attributeId ?? '',
-                  name: option.name ?? '',
-                  inputType: option.inputType ?? '',
-                  active: option.active ?? true,
-                  required: option.required ?? false,
-                  values:
-                    filterMapProductOptionValuesByStockAndVariantAvailability(
-                      option,
-                      upSellProduct,
-                    ),
-                };
-              },
-            ),
-            purchaseOptions: upSellProduct?.purchaseOptions ?? {},
-            productVariants: denullifyArray(upSellProduct.variants?.results),
-            hasQuickAdd: hasQuickAdd(upSellProduct),
-            stockLevel: upSellProduct.stockLevel ?? 0,
-          }
-        : null;
-    }) ?? [];
 
   const colorOption = product?.options?.find(option =>
     [option?.name?.toLowerCase(), option?.attributeId].includes('color'),
@@ -437,7 +373,7 @@ export async function getProductBySlug(
     ),
     purchaseOptions: product?.purchaseOptions ?? {},
     productVariants: denullifyArray(product?.variants?.results),
-    upSells: denullifyArray(upSells),
+    upSells: denullifyArray(product?.upSells),
     stockLevel: product?.stockLevel,
     stockPurchasable: product?.stockPurchasable,
     stockTracking: product?.stockTracking,
@@ -600,29 +536,25 @@ export const getProductListingDataSorted = async (
   //   .then(response => response.data);
   // const products = productsRes?.categoryBySlug?.products;
 
-  const products = await clientRest
-    .get(`/categories/{id}`, {
-      // remove then when categories filed will be persisted in response
-      id: categorySlug ?? ProductCategories.allProductsID,
+  let categoryDetails = (await clientRest.categories.get(
+    ProductCategories.allProductsID,
+    // @ts-ignore
+    {
       expand: ['products:100'],
-      $currency: currency,
-      $locale: locale,
-    })
-    .then(response =>
-      (
-        response as { products: ResultsResponse<SwellProduct> }
-      ).products.results.map(p => ObjectTransform.snakeToCamel(p)),
-    );
+      locale,
+    },
+  )) as unknown as SwellCategory;
 
-  // TODO uncomment when the bug for products.categories for fetching category for REST client will be fixed
-  // or GRAPHQL client inherited queries will be fixed
-  //  and filtering will be returned to the frontend
-  // const productResults = filterProductsByCategory(
-  //   (products as SwellProduct[]) ?? [],
-  //   categorySlug,
-  // );
+  const products = mapProductsResponse(
+    categoryDetails.products as unknown as ResultsResponse<SwellProduct>,
+  );
+
+  const productResults = filterProductsByCategory(
+    (products as SwellProduct[]) ?? [],
+    categorySlug,
+  );
 
   setLoading(false);
 
-  return products;
+  return productResults;
 };

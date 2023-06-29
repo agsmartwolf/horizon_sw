@@ -14,6 +14,7 @@ export interface ProductPreviewCardProps
   loading?: boolean;
   show_product_price?: boolean;
   show_product_description?: boolean;
+  prefetch?: boolean;
 }
 
 const ProductPreviewCard: React.FC<ProductPreviewCardProps> = ({
@@ -52,6 +53,7 @@ const ProductPreviewCard: React.FC<ProductPreviewCardProps> = ({
         show_product_price={show_product_price}
         show_product_description={show_product_description}
         product={product}
+        stockLevel={product.stockLevel}
         fromPriceLabel={fromPriceLabel}
       />
     );
