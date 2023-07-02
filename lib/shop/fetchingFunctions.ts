@@ -535,13 +535,14 @@ export const getProductListingDataSorted = async (
   //   })
   //   .then(response => response.data);
   // const products = productsRes?.categoryBySlug?.products;
-
+  if (locale) {
+    await clientRest.locale.select(locale);
+  }
   let categoryDetails = (await clientRest.categories.get(
     ProductCategories.allProductsID,
     // @ts-ignore
     {
       expand: ['products:100'],
-      locale,
     },
   )) as unknown as SwellCategory;
 
