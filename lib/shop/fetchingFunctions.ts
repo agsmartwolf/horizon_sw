@@ -542,7 +542,7 @@ export const getProductListingDataSorted = async (
     ProductCategories.allProductsID,
     // @ts-ignore
     {
-      expand: ['products:100'],
+      expand: ['products:100', 'products.categories:100'],
     },
   )) as unknown as SwellCategory;
 

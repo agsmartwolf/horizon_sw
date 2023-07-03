@@ -492,7 +492,7 @@ export const mapProductsResponse = (
     ...ObjectTransform.snakeToCamel(p),
     categories: (
       p?.categories as unknown as ResultsResponse<SwellCategory>
-    ).results.map(c => ({ ...c, slug: c.parent?.slug })),
+    )?.results?.map(c => ({ ...c, slug: c.parent?.slug })),
   }));
 };
 
