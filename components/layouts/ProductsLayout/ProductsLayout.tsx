@@ -335,7 +335,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
 
       // const curCategory = categories.find(c => c.slug === slug);
       const pLAll = await getProductListingDataSorted(
-        curCategory?.slug,
+        undefined,
         activeCurrency.code,
         routerLegacy.locale,
       );
